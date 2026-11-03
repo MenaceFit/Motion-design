@@ -11,9 +11,11 @@ import * as THREE from 'three';
 import {FontLoader} from 'three/examples/jsm/loaders/FontLoader.js';
 import {TextGeometry} from 'three/examples/jsm/geometries/TextGeometry.js';
 import montserratUp from './fonts3d/montserrat-900.json';
+import * as CANNON from 'cannon-es';
 
 export type SceneSpec = {
-  type: 'icon' | 'crowd' | 'chart' | 'counter' | 'stairs' | 'versus' | 'emoji';
+  type: 'icon' | 'crowd' | 'chart' | 'counter' | 'stairs' | 'versus' | 'emoji' | 'physics';
+  shape?: 'coin' | 'cube' | 'ball'; // pour 'physics'
   start: number; end: number;
   icon?: string; icon2?: string; // icône (et 2e icône pour versus)
   emoji?: string;
@@ -24,7 +26,7 @@ export type SceneSpec = {
   from?: number; to?: number; suffix?: string; prefix?: string;
   label?: string; // micro-label en capitales espacées (style « Minimal Line »)
 };
-export type Palette = {face: string; side: string; accentFace: string; accentSide: string; light: string; glow?: string};
+export type Palette = {face: string; side: string; accentFace: string; accentSide: string; light: string; glow?: string; iconColor?: string};
 
 const GOLD = '#ffc94a';
 const font = new FontLoader().parse(montserratUp as never);
@@ -321,8 +323,8 @@ export const Chart: React.FC<{s: SceneSpec; t: number; p: Palette}> = ({s, t, p}
       <mesh position={[1.5, -0.03, 0]}><boxGeometry args={[3.4, 0.05, 0.5]} /><M c="#f4f0ff" e={0.3} /></mesh>
       {Array.from({length: n}).map((_, i) => {
         const g = spring({frame: Math.max(0, (t - 0.15 - i * 0.12) * 30), fps: 30, config: {damping: 13, stiffness: 120}});
-        const h = Math.max(0.02, val(i) * 2.3 * g);
-        return <mesh key={i} position={[0.25 + i * 0.55, h / 2, 0]}><boxGeometry args={[0.38, h, 0.38]} /><M c={i === n - 1 ? p.accentFace : p.face} e={i === n - 1 ? 0.35 : 0.1} /></mesh>;
+        const h = Math.max(0.02, val(i) * 1.8 * g);
+        return <mesh key={i} position={[0.25 + i * 0.55, h / 2, 0]}><boxGeometry args={[0.38, h, 0.38]} /><M c={i === n - 1 ? p.iconColor ?? p.accentFace : p.face} e={i === n - 1 ? 0.35 : 0.1} /></mesh>;
       })}
     </group>
   );
@@ -364,6 +366,69 @@ const shadowTex = () => {
   return (_shadow = new THREE.CanvasTexture(c));
 };
 
+// ---------- physique (cannon-es) : chute, rebonds, empilement réalistes ----------
+// Simulation précalculée UNE fois (pas fixe 1/120 s, enregistrée à 60 Hz) puis rejouée par frame :
+// déterministe et identique quel que soit l'ordre de rendu des images.
+type Sim = {pos: Float32Array; quat: Float32Array; n: number; frames: number};
+const simCache = new Map<string, Sim>();
+const simulate = (shape: string, n: number, seed: string, seconds = 4): Sim => {
+  const key = `${shape}|${n}|${seed}`;
+  if (simCache.has(key)) return simCache.get(key)!;
+  const world = new CANNON.World({gravity: new CANNON.Vec3(0, -14, 0)});
+  world.defaultContactMaterial.restitution = shape === 'ball' ? 0.55 : 0.28;
+  world.defaultContactMaterial.friction = 0.35;
+  const ground = new CANNON.Body({mass: 0, shape: new CANNON.Plane()});
+  ground.quaternion.setFromEuler(-Math.PI / 2, 0, 0); ground.position.set(0, -1.3, 0); world.addBody(ground);
+  for (const [x, rz] of [[-1.9, 0], [1.9, 0]]) { // murs invisibles : la pile reste dans le cadre
+    const wall = new CANNON.Body({mass: 0, shape: new CANNON.Plane()});
+    wall.quaternion.setFromEuler(0, x < 0 ? Math.PI / 2 : -Math.PI / 2, rz); wall.position.set(x, 0, 0); world.addBody(wall);
+  }
+  const back = new CANNON.Body({mass: 0, shape: new CANNON.Plane()}); back.position.set(0, 0, -0.9); world.addBody(back);
+  const front = new CANNON.Body({mass: 0, shape: new CANNON.Plane()}); front.quaternion.setFromEuler(0, Math.PI, 0); front.position.set(0, 0, 0.9); world.addBody(front);
+  const bodies: CANNON.Body[] = [];
+  for (let i = 0; i < n; i++) {
+    const sh = shape === 'cube' ? new CANNON.Box(new CANNON.Vec3(0.22, 0.22, 0.22)) : shape === 'ball' ? new CANNON.Sphere(0.24) : new CANNON.Cylinder(0.4, 0.4, 0.1, 18);
+    const b = new CANNON.Body({mass: 1, shape: sh});
+    b.position.set((random(`${seed}x${i}`) - 0.5) * 2.4, 2.4 + i * 0.32, (random(`${seed}z${i}`) - 0.5) * 0.8);
+    b.quaternion.setFromEuler(random(`${seed}a${i}`) * 3, random(`${seed}b${i}`) * 3, random(`${seed}c${i}`) * 3);
+    b.angularVelocity.set((random(`${seed}w${i}`) - 0.5) * 8, 0, (random(`${seed}v${i}`) - 0.5) * 8);
+    world.addBody(b); bodies.push(b);
+  }
+  const frames = Math.round(seconds * 60);
+  const pos = new Float32Array(frames * n * 3), quat = new Float32Array(frames * n * 4);
+  for (let f = 0; f < frames; f++) {
+    world.step(1 / 120); world.step(1 / 120);
+    bodies.forEach((b, i) => {
+      pos.set([b.position.x, b.position.y, b.position.z], (f * n + i) * 3);
+      quat.set([b.quaternion.x, b.quaternion.y, b.quaternion.z, b.quaternion.w], (f * n + i) * 4);
+    });
+  }
+  const sim = {pos, quat, n, frames};
+  simCache.set(key, sim);
+  return sim;
+};
+
+export const PhysicsPile: React.FC<{s: SceneSpec; t: number; p: Palette}> = ({s, t, p}) => {
+  const shape = s.shape ?? 'coin', n = s.count ?? 18;
+  const sim = simulate(shape, n, `${s.start}`);
+  const f = Math.min(sim.frames - 1, Math.max(0, Math.round(t * 60)));
+  const c = s.color ?? (shape === 'coin' ? GOLD : p.accentFace);
+  return (
+    <group>
+      {Array.from({length: n}).map((_, i) => {
+        const o = (f * n + i);
+        return (
+          <mesh key={i} position={[sim.pos[o * 3], sim.pos[o * 3 + 1], sim.pos[o * 3 + 2]]}
+            quaternion={[sim.quat[o * 4], sim.quat[o * 4 + 1], sim.quat[o * 4 + 2], sim.quat[o * 4 + 3]] as unknown as THREE.Quaternion}>
+            {shape === 'cube' ? <boxGeometry args={[0.44, 0.44, 0.44]} /> : shape === 'ball' ? <sphereGeometry args={[0.24, 24, 16]} /> : <cylinderGeometry args={[0.4, 0.4, 0.1, 36]} />}
+            <M c={i % 5 === 0 && shape !== 'coin' ? p.face : c} m={shape === 'coin' ? 0.9 : 0.3} r={shape === 'coin' ? 0.22 : 0.35} />
+          </mesh>
+        );
+      })}
+    </group>
+  );
+};
+
 // ---------- conteneur : entrée, vie, sortie ----------
 export const SceneLayer: React.FC<{s: SceneSpec; p: Palette; idx: number}> = ({s, p, idx}) => {
   const f = useCurrentFrame();
@@ -373,10 +438,11 @@ export const SceneLayer: React.FC<{s: SceneSpec; p: Palette; idx: number}> = ({s
   const inS = spring({frame: f, fps, config: {damping: 12, stiffness: 140, mass: 0.8}});
   const out = interpolate(t, [life - 0.04, life + 0.12], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.in(Easing.cubic)});
   const side = idx % 2 ? 1 : -1;
-  const scale = 1.3 * (0.15 + 0.85 * inS) * (1 - out); // la métaphore occupe ~60 % de la largeur
-  const rotY = interpolate(inS, [0, 1], [side * 1.4, 0]) + Math.sin(t * 1.3) * 0.18 + out * side * 1.2;
-  const y = 1.75 + Math.sin(t * 2) * 0.06 + out * 1.5;
-  const c = s.color ?? (s.type === 'icon' && ['coin', 'coins', 'trophy', 'crown', 'star'].includes(s.icon ?? '') ? GOLD : p.accentFace);
+  const scale = (s.type === 'physics' ? 1.1 : 1.15 * (0.15 + 0.85 * inS)) * (1 - out); // la métaphore occupe ~60 % de la largeur
+  const still = s.type === 'physics';
+  const rotY = still ? 0.25 * side : interpolate(inS, [0, 1], [side * 1.4, 0]) + Math.sin(t * 1.3) * 0.18 + out * side * 1.2;
+  const y = (still ? 1.45 : 1.6 + Math.sin(t * 2) * 0.06) + out * 1.5; // marge haute : rien ne doit être coupé
+  const c = s.color ?? (s.type === 'icon' && ['coin', 'coins', 'trophy', 'crown', 'star'].includes(s.icon ?? '') ? GOLD : p.iconColor ?? p.accentFace);
   const c2 = s.color2 ?? p.face;
   let body: React.ReactNode = null;
   if (s.type === 'icon') body = <Thing name={s.icon ?? '?'} t={t} c={c} c2={c2} />;
@@ -385,6 +451,7 @@ export const SceneLayer: React.FC<{s: SceneSpec; p: Palette; idx: number}> = ({s
   if (s.type === 'chart') body = <Chart s={s} t={t} p={p} />;
   if (s.type === 'counter') body = <Counter s={s} t={t} p={p} />;
   if (s.type === 'stairs') body = <Stairs s={s} t={t} p={p} />;
+  if (s.type === 'physics') body = <PhysicsPile s={s} t={t} p={p} />;
   if (s.type === 'versus') body = (
     <group>
       <group position={[-1.15, 0, 0]} scale={0.62}><Thing name={s.icon ?? '?'} t={t} c={c} c2={c2} /></group>
@@ -395,7 +462,7 @@ export const SceneLayer: React.FC<{s: SceneSpec; p: Palette; idx: number}> = ({s
   return (
     <group position={[0, y, -0.5]} scale={scale}>
       {/* ombre douce de contact (texture radiale noire) : ancre l'objet dans l'espace */}
-      {s.type === 'crowd' || s.type === 'chart' || s.type === 'stairs' ? null : (
+      {s.type === 'crowd' || s.type === 'chart' || s.type === 'stairs' || s.type === 'physics' ? null : (
         <mesh position={[0, -1.35, -0.3]} rotation={[-Math.PI / 2.4, 0, 0]} scale={[2.6, 1.1, 1]}>
           <planeGeometry args={[1, 1]} />
           <meshBasicMaterial map={shadowTex()} transparent opacity={0.55} depthWrite={false} />

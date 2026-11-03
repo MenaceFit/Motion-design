@@ -9,6 +9,8 @@ import {FontLoader} from 'three/examples/jsm/loaders/FontLoader.js';
 import {TextGeometry} from 'three/examples/jsm/geometries/TextGeometry.js';
 import {RoomEnvironment} from 'three/examples/jsm/environments/RoomEnvironment.js';
 import {Captions, CaptionWord} from './Captions';
+import gsap from 'gsap';
+import {LottieOverlay, LottieSpec} from './LottieOverlay';
 import montserrat from './fonts3d/montserrat-900-italic.json';
 import montserratUp from './fonts3d/montserrat-900.json';
 import anton from './fonts3d/anton.json';
@@ -28,7 +30,9 @@ export type Text3DProps = {
   theme: {bgTop: string; bgBottom: string; face: string; side: string; accentFace: string; accentSide: string; light: string; particles: string; glow?: string;
     accent2Face?: string; accent2Side?: string; // 2e couleur du split bicolore des mots-clés (ref01)
     captionAccent?: string}; // couleur du mot actif dans les sous-titres (ref03 : vert-jaune)
-  entrance: 'flip' | 'slam' | 'twist';
+  entrance: 'flip' | 'slam' | 'twist' | 'cascade'; // cascade = lettre par lettre (courbes GSAP)
+  burst?: boolean; // éclat (rayons + onde) derrière chaque mot-clé, façon mo.js
+  lotties?: LottieSpec[]; // animations Lottie (After Effects → JSON) en surimpression
   voice?: string;
   music?: string;
   musicVolume?: number;
@@ -67,9 +71,6 @@ const FOV = 40;
 
 // Géométrie extrudée + biseautée. Qualité : courbes fines (12 segments), biseau arrondi (4),
 // dégradé vertical sur la face (vertex colors : haut clair → bas plus sombre, look « titre 3D »).
-type Part = {g: THREE.BufferGeometry; y: number; part: 0 | 1};
-type WordGeo = {lines: Part[]; w: number; h: number};
-const geoCache = new Map<string, WordGeo>();
 const GEO = {size: 1, depth: 0.55, curveSegments: 12, bevelEnabled: true, bevelThickness: 0.07, bevelSize: 0.04, bevelSegments: 4};
 const textGeo = (txt: string, fontKey: string) => new TextGeometry(txt, {font: getFont(fontKey), ...GEO});
 const advance = (txt: string, fontKey: string) => {
@@ -104,32 +105,106 @@ const lineParts = (txt: string, fontKey: string, split: boolean): {gs: {g: THREE
   for (const pc of pieces) { pc.g.translate(-cx, -cy, -cz); shade(pc.g, bb.min.y - cy, bb.max.y - cy); }
   return {gs: pieces, w: bb.max.x - bb.min.x, h: bb.max.y - bb.min.y};
 };
-// bloc long multi-mots → 2 lignes CENTRÉES individuellement
+// Lettres individuelles (pour l'animation lettre par lettre). Chaque glyphe est une géométrie
+// mise en cache et centrée sur elle-même (pivot au centre de la lettre) ; le dégradé de face
+// utilise une plage verticale fixe (cohérente entre toutes les lettres).
+type Glyph = {g: THREE.BufferGeometry; x: number; y: number; part: 0 | 1};
+type LettersGeo = {glyphs: Glyph[]; w: number; h: number};
+const charCache = new Map<string, {g: THREE.BufferGeometry; cx: number; cy: number}>();
+const charGeo = (c: string, fontKey: string) => {
+  const key = fontKey + '|' + c;
+  let r = charCache.get(key);
+  if (!r) {
+    const g = textGeo(c, fontKey);
+    shade(g, -0.12, 0.78);
+    g.computeBoundingBox();
+    const b = g.boundingBox!;
+    const cx = (b.min.x + b.max.x) / 2, cy = (b.min.y + b.max.y) / 2, cz = (b.min.z + b.max.z) / 2;
+    g.translate(-cx, -cy, -cz);
+    r = {g, cx, cy};
+    charCache.set(key, r);
+  }
+  return r;
+};
+const lettersCache = new Map<string, LettersGeo>();
+const CAP_MID = 0.36; // milieu vertical approximatif des capitales (taille 1)
+const buildLetters = (text: string, fontKey: string, split: boolean): LettersGeo => {
+  const key = `${fontKey}|${text}|${split}`;
+  const hit = lettersCache.get(key);
+  if (hit) return hit;
+  const words = text.split(' ');
+  let rows = [text];
+  if (words.length > 1 && text.length > 8) {
+    let best = 1, bestDiff = 1e9;
+    for (let k = 1; k < words.length; k++) {
+      const d = Math.abs(words.slice(0, k).join(' ').length - words.slice(k).join(' ').length);
+      if (d < bestDiff) { bestDiff = d; best = k; }
+    }
+    rows = [words.slice(0, best).join(' '), words.slice(best).join(' ')];
+  }
+  const lh = 1.18;
+  const glyphs: Glyph[] = [];
+  let w = 0;
+  rows.forEach((row, ri) => {
+    const rowY = ((rows.length - 1) / 2 - ri) * lh;
+    const k = Math.ceil(row.length * 0.55);
+    const start = glyphs.length;
+    let pen = 0;
+    [...row].forEach((c, ci) => {
+      if (c !== ' ') {
+        const cg = charGeo(c, fontKey);
+        glyphs.push({g: cg.g, x: pen + cg.cx, y: rowY + cg.cy - CAP_MID, part: split && rows.length === 1 && ci >= k ? 1 : 0});
+      }
+      pen += advance(c, fontKey);
+    });
+    for (let i = start; i < glyphs.length; i++) glyphs[i].x -= pen / 2;
+    w = Math.max(w, pen);
+  });
+  const res = {glyphs, w, h: (rows.length - 1) * lh + 0.78};
+  lettersCache.set(key, res);
+  return res;
+};
 const useWordGeometry = (text: string, fontKey: string, maxWidth: number, split: boolean) =>
   useMemo(() => {
-    const key = `${fontKey}|${text}|${split}`;
-    let wg = geoCache.get(key);
-    if (!wg) {
-      const words = text.split(' ');
-      let rows = [text];
-      if (words.length > 1 && text.length > 8) {
-        let best = 1, bestDiff = 1e9;
-        for (let k = 1; k < words.length; k++) {
-          const d = Math.abs(words.slice(0, k).join(' ').length - words.slice(k).join(' ').length);
-          if (d < bestDiff) { bestDiff = d; best = k; }
-        }
-        rows = [words.slice(0, best).join(' '), words.slice(best).join(' ')];
-      }
-      const lh = 1.18;
-      const built = rows.map((r) => lineParts(r, fontKey, split && rows.length === 1));
-      const lines: Part[] = built.flatMap((b, i) => b.gs.map((x) => ({g: x.g, part: x.part, y: ((rows.length - 1) / 2 - i) * lh})));
-      const w = Math.max(...built.map((b) => b.w));
-      const h = (rows.length - 1) * lh + built[0].h;
-      wg = {lines, w, h};
-      geoCache.set(key, wg);
-    }
+    const wg = buildLetters(text, fontKey, split);
     return {wg, fit: Math.min(maxWidth / wg.w, 3.6 / wg.h)};
   }, [text, fontKey, maxWidth, split]);
+
+// Courbes d'accélération GSAP (moteur d'easing de référence, déterministe : fonction pure de t)
+const EASE = {
+  back: gsap.parseEase('back.out(2.2)'),
+  expo: gsap.parseEase('expo.out'),
+  elastic: gsap.parseEase('elastic.out(1, 0.45)'),
+  inCubic: gsap.parseEase('power3.in'),
+};
+const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
+
+// Éclat derrière un mot-clé (inspiré de mo.js « burst ») : rayons qui jaillissent + onde de choc
+const Burst: React.FC<{color: string; t: number; radius: number}> = ({color, t, radius}) => {
+  const k = clamp01(t / 0.55);
+  if (k >= 1) return null;
+  const e = EASE.expo(k);
+  const rays = 14;
+  return (
+    <group position={[0, 0, -0.7]}>
+      {Array.from({length: rays}).map((_, i) => {
+        const a = (i / rays) * Math.PI * 2 + (i % 2) * 0.12;
+        const r = radius * (0.55 + 0.75 * e) * (i % 2 ? 0.85 : 1);
+        const len = radius * 0.32 * (1 - k) + 0.02;
+        return (
+          <mesh key={i} position={[Math.cos(a) * r, Math.sin(a) * r * 0.62, 0]} rotation={[0, 0, a]}>
+            <planeGeometry args={[len, 0.07]} />
+            <meshBasicMaterial color={color} transparent opacity={(1 - k) * 0.95} blending={THREE.AdditiveBlending} depthWrite={false} />
+          </mesh>
+        );
+      })}
+      <mesh scale={[radius * (0.4 + 1.1 * e), radius * (0.4 + 1.1 * e) * 0.62, 1]}>
+        <ringGeometry args={[0.95, 1, 72]} />
+        <meshBasicMaterial color={color} transparent opacity={(1 - k) * 0.7} blending={THREE.AdditiveBlending} depthWrite={false} />
+      </mesh>
+    </group>
+  );
+};
 
 // Texture radiale partagée (halo, ombre, particules) — générée une fois, coût GPU négligeable
 let _radial: THREE.CanvasTexture | null = null;
@@ -168,6 +243,7 @@ const Word: React.FC<{w: Word3D; p: Text3DProps; dur: number; maxWidth: number; 
   let rotX = 0.16, rotY = 0.3 * side, z = 0, sc = 1;
   if (p.entrance === 'flip') { rotX += interpolate(s, [0, 1], [-0.95, 0]); z = interpolate(s, [0, 1], [-2.5, 0]); }
   if (p.entrance === 'slam') { z = interpolate(s, [0, 1], [6, 0]); sc = interpolate(s, [0, 1], [1.6, 1]); }
+  const cascade = p.entrance === 'cascade';
   if (p.entrance === 'twist') { rotY += interpolate(s, [0, 1], [1.2 * -side, 0]); rotX += interpolate(s, [0, 1], [0.5, 0]); z = interpolate(s, [0, 1], [-3, 0]); }
   // Vie du mot : léger dolly + rotation lente (le mot n'est jamais figé)
   const life = f / fps;
@@ -191,8 +267,19 @@ const Word: React.FC<{w: Word3D; p: Text3DProps; dur: number; maxWidth: number; 
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial map={radialTex()} color={p.theme.glow ?? face} transparent opacity={0.55 * opacity * s} blending={THREE.AdditiveBlending} depthWrite={false} />
       </mesh>
+      {p.burst !== false && w.accent ? <Burst color={p.theme.captionAccent ?? face} t={life} radius={Math.max(1.2, ww * 0.62)} /> : null}
       <group scale={fit * sc} rotation={[rotX, rotY, 0]}>
-        {wg.lines.map((ln, i) => <mesh key={i} geometry={ln.g} material={ln.part ? mats2 : mats} position={[0, ln.y, 0]} />)}
+        {wg.glyphs.map((gl, j) => {
+          // cascade : chaque lettre monte, bascule et grossit avec 28 ms de décalage (back.out GSAP)
+          const pj = cascade ? clamp01((life - j * 0.028) / 0.38) : 1;
+          const eb = EASE.back(pj), ex = EASE.expo(pj);
+          return (
+            <mesh key={j} geometry={gl.g} material={gl.part ? mats2 : mats}
+              position={[gl.x, gl.y - (1 - ex) * 0.9, (1 - ex) * 0.8]}
+              rotation={[(1 - ex) * -1.25, 0, (1 - ex) * 0.25 * (j % 2 ? 1 : -1)]}
+              scale={Math.max(0.001, eb)} />
+          );
+        })}
       </group>
     </group>
   );
@@ -334,6 +421,11 @@ export const Text3D: React.FC<Text3DProps> = (p) => {
           <EmojiPop emoji={w.emoji} />
         </Sequence>
       ) : null)}
+      {(p.lotties ?? []).map((l, i) => (
+        <Sequence key={`lt${i}`} from={Math.round(l.start * fps)} durationInFrames={Math.max(2, Math.round((l.end - l.start) * fps))} layout="none">
+          <LottieOverlay spec={l} />
+        </Sequence>
+      ))}
       {p.captions?.length ? <Captions words={p.captions} accent={p.theme.captionAccent ?? '#d7ff3a'} /> : null}
       {/* light sweep : barre lumineuse diagonale qui balaie l'écran à chaque nouvelle scène (ref02) */}
       {(p.scenes ?? []).map((sc, i) => {

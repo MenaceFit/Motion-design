@@ -36,6 +36,10 @@ Chaque ligne reçoit une `scene`. Choisir l'objet qui **résume l'idée en 1 s, 
 | `counter` | `from`, `to`, `prefix`, `suffix` | chiffres choc : `0 → 702 " jours"`, `4000 → 1000000 " €"` |
 | `stairs` | — | étapes, progression pas à pas |
 | `versus` | `icon`, `icon2` | choix/opposition (ex. phone vs bulb) |
+| `physics` | `shape` coin/cube/ball, `count` | pluie de pièces (argent), blocs qui s'empilent (construction), balles (énergie) — physique cannon-es réelle |
+
+Ligne sans scène mais avec `"lottie": {"name": "check", "y": 0.3, "size": 0.46}` → animation Lottie
+(After Effects JSON) en surimpression. Registre : `src/LottieOverlay.tsx` (+ fichiers `src/lottie/`).
 
 Icônes (originales, procédurales) : `heart` amour/envie · `bolt` énergie/choc · `up` `down` hausse/baisse ·
 `check` `cross` vrai/faux · `star` excellence/favori · `crown` statut · `gear` système/process ·
@@ -58,6 +62,10 @@ Planche de contrôle de toutes les icônes : composition `Gallery3D`.
 Voix : `{"engine":"pico"}` (synthèse hors ligne, label IA requis), `{"file":"voix.wav"}` (voix de
 l'utilisateur, recommandé pour la monétisation), ou `null` (texte + musique, mots calés sur les
 temps — **risqué pour la monétisation YouTube**, voir virality.md).
+
+Sons : chaque scène déclenche automatiquement un son sémantique (bibliothèque uisfx CC0 / jsfxr /
+ZzFX, voir `documentation/libraries.md`). Entrée par défaut des mots-clés : `cascade` (lettre par
+lettre, courbes GSAP) + éclat (rayons + onde) derrière chaque mot-clé.
 
 ## 4. Produire
 ```bash

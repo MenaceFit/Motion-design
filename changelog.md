@@ -116,3 +116,16 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
 ### Erreurs corrigées (QC visuel)
 - Espaces entre mots des sous-titres « mangés » par le contour épais → marge 17 px.
 - Mot-clé 3D collé aux sous-titres → remonté ; personnage qui tombe sur son voisin → chute vers la caméra.
+
+## 2026-11-03 (5) — Intégration des librairies d'animation et des banques SFX (v4)
+
+- Évaluation de ~60 librairies/sources fournies par l'utilisateur → `documentation/libraries.md`
+  (critère : déterminisme image par image + licence commerciale).
+- Intégré : **GSAP** (courbes d'easing : cascade de lettres 3D, éclats, pop des sous-titres),
+  **cannon-es** (scène `physics` : pièces/blocs/balles avec vraie gravité, simulation précalculée),
+  **Lottie** (@remotion/lottie + animation originale `check.json`), **uisfx** (CC0), **jsfxr**,
+  **ZzFX** → bibliothèque de 344 SFX + son sémantique par scène.
+- Installé, en réserve : Anime.js, Matter.js, Zdog. Bloqués par le réseau : toutes les banques
+  sonores web, LottieFiles, remotion.media.
+- QC visuel v4 : icônes blanches en thème gold (→ `iconColor`), haut des objets coupé (→ y 1,6,
+  échelle 1,15), graphique trop haut (→ ×1,8), dernière barre blanche.

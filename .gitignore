@@ -5,3 +5,4 @@ __pycache__/
 .remotion/
 renders/
 templates/remotion-kinetic/public/projects/
+templates/remotion-kinetic/public/sfxlib/

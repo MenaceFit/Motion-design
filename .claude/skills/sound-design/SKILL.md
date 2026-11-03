@@ -45,6 +45,12 @@ ex. `whoosh_in_02 · 00:07.53 · 0,55 s · 0,5 · transition chapitre 2 · pic s
 - [ ] -14 LUFS ±1, TP ≤ -1 dBTP
 - [ ] Licences de musique documentées dans le dossier projet
 
+## Bibliothèque SFX unifiée (344 sons, usage commercial OK)
+`cd templates/remotion-kinetic && node scripts/build_sfx_library.mjs` → `public/sfxlib/`
+(uisfx CC0 : 78 sons d'interface × 4 styles ; jsfxr et ZzFX : générateurs à graine fixe ; −6 dB).
+Catalogue : `public/sfxlib/catalog.json`. Correspondance scène → son : `SCENE_SFX` dans
+`tools/make_video.py`. Sources et licences détaillées : `documentation/libraries.md`.
+
 ## Voix de synthèse (hors ligne)
 `python3 tools/tts_voice.py script.json out/ --engine pico --speed 1.08` → voice.wav traitée
 (EQ présence, compression) + words.json (blocs de mots lisibles, accents, emojis).

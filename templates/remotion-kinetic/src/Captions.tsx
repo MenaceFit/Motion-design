@@ -3,8 +3,10 @@
 // Rendu DOM (texte vectoriel net), contour sombre épais pour la lisibilité sur n'importe quel fond.
 // Placement : bas de l'image mais AU-DESSUS de la zone d'interface TikTok/Reels (~25 % du bas).
 import React from 'react';
-import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
 import '@fontsource/montserrat/800.css';
+import gsap from 'gsap';
+const ELASTIC = gsap.parseEase('elastic.out(1.1, 0.5)');
 
 export type CaptionWord = {text: string; start: number; end: number; line?: number; accent?: boolean};
 
@@ -39,8 +41,8 @@ export const Captions: React.FC<{words: CaptionWord[]; accent: string}> = ({word
         {page.map((w, i) => {
           const active = t >= w.start && (i + 1 < page.length ? t < page[i + 1].start : t < w.end + 0.3);
           const past = !active && t >= w.start;
-          const pop = active ? spring({frame: Math.round((t - w.start) * fps), fps, config: {damping: 12, stiffness: 300, mass: 0.5}}) : 1;
-          const sc = active ? interpolate(pop, [0, 1], [1.18, 1.06]) : 1;
+          const k = Math.min(1, Math.max(0, (t - w.start) / 0.35));
+          const sc = active ? 1.2 - 0.14 * ELASTIC(k) : 1; // pop élastique GSAP : 1,20 → 1,06
           return (
             <span key={i} style={{display: 'inline-block', margin: '0 17px', transform: `scale(${sc})`,
               color: active ? accent : '#ffffff', opacity: active || past ? 1 : 0.42,

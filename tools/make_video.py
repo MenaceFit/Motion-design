@@ -29,7 +29,7 @@ CHROME = "/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-li
 THEMES = {
     "neon":  {"bgTop": "#2a0b2e", "bgBottom": "#07020a", "face": "#f6f0ff", "side": "#5b2a86", "accentFace": "#ff2e55", "accentSide": "#2b0614", "light": "#ffd9a8", "particles": "#ffffff",
               "accent2Face": "#3d8bff", "accent2Side": "#0b1c4a", "captionAccent": "#d7ff3a"},
-    "gold":  {"bgTop": "#14100a", "bgBottom": "#000000", "face": "#ffd27a", "side": "#6b4410", "accentFace": "#ffffff", "accentSide": "#8a5a12", "light": "#ffe2b0", "particles": "#ffcf70", "glow": "#ffb347", "captionAccent": "#ffd27a"},
+    "gold":  {"bgTop": "#14100a", "bgBottom": "#000000", "face": "#ffd27a", "side": "#6b4410", "accentFace": "#ffffff", "accentSide": "#8a5a12", "light": "#ffe2b0", "particles": "#ffcf70", "glow": "#ffb347", "iconColor": "#ffc94a", "captionAccent": "#ffd27a"},
     "ice":   {"bgTop": "#06213a", "bgBottom": "#01060d", "face": "#eaf8ff", "side": "#1d5f8c", "accentFace": "#39e6ff", "accentSide": "#063a52", "light": "#d6f3ff", "particles": "#9fe8ff", "captionAccent": "#39e6ff"},
     "mono":  {"bgTop": "#151515", "bgBottom": "#000000", "face": "#ffffff", "side": "#3a3a3a", "accentFace": "#ffffff", "accentSide": "#7a7a7a", "light": "#ffffff", "particles": "#ffffff", "glow": "#ffffff", "captionAccent": "#ffe14d"},
     "fire":  {"bgTop": "#2b0700", "bgBottom": "#070100", "face": "#fff1e0", "side": "#8a2a00", "accentFace": "#ff7a00", "accentSide": "#4a1200", "light": "#ffc58a", "particles": "#ffb070", "captionAccent": "#ffb000"},
@@ -37,6 +37,28 @@ THEMES = {
 }
 
 VOWELS = r"[aeiouyàâäéèêëîïôöùûüœæ]+"
+
+# Son « sémantique » de chaque scène (bibliothèque public/sfxlib : uisfx CC0, jsfxr, zzfx).
+# {ui} = style uisfx choisi selon l'ambiance. Volume relatif, décalage en s par rapport au pop de scène.
+SCENE_SFX = {
+    "phone": [("uisfx/{ui}/notification", 0.45, 0.35)], "bubble": [("uisfx/{ui}/mention", 0.45, 0.25)],
+    "check": [("uisfx/{ui}/success", 0.5, 0.1)], "cross": [("uisfx/{ui}/error", 0.5, 0.1)],
+    "lock": [("uisfx/{ui}/unlock", 0.5, 0.8)], "coin": [("jsfxr/pickupCoin_1", 0.22, 0.1)],
+    "coins": [("jsfxr/pickupCoin_1", 0.18, 0.12), ("jsfxr/pickupCoin_2", 0.18, 0.36), ("jsfxr/pickupCoin_3", 0.18, 0.6)],
+    "trophy": [("uisfx/{ui}/achievement", 0.5, 0.1)], "star": [("uisfx/{ui}/reward", 0.5, 0.1)],
+    "crown": [("uisfx/{ui}/level-up", 0.5, 0.1)], "rocket": [("zzfx/rise", 0.35, 0.3), ("jsfxr/powerUp_2", 0.18, 0.6)],
+    "clock": [("uisfx/{ui}/loading", 0.35, 0.1)], "hourglass": [("uisfx/{ui}/processing", 0.35, 0.1)],
+    "battery": [("uisfx/{ui}/wake", 0.45, 0.1)], "bulb": [("zzfx/sparkle", 0.4, 0.1)],
+    "target": [("zzfx/impact", 0.45, 0.62)], "magnifier": [("uisfx/{ui}/scanning", 0.35, 0.1)],
+    "heart": [("uisfx/{ui}/reaction", 0.45, 0.1)], "bolt": [("jsfxr/laserShoot_1", 0.18, 0.05)],
+    "gear": [("uisfx/{ui}/processing", 0.3, 0.1)], "mountain": [("uisfx/{ui}/checkpoint", 0.45, 0.5)],
+    "up": [("uisfx/{ui}/level-up", 0.45, 0.1)], "down": [("uisfx/{ui}/error", 0.4, 0.1)],
+    "_crowd_leave": [("uisfx/{ui}/swipe", 0.4, 0.3)], "_crowd_jump": [("jsfxr/jump_1", 0.15, 0.25)],
+    "_crowd_fall": [("uisfx/{ui}/drop", 0.45, 0.35)], "_chart": [("uisfx/{ui}/progress-step", 0.35, 0.15 + 0.12 * k) for k in range(6)],
+    "_counter": [("zzfx/tick", 0.25, 0.1 + 0.09 * k) for k in range(12)], "_stairs": [("uisfx/{ui}/progress-step", 0.35, 0.3 + 0.45 * k) for k in range(5)],
+    "_physics": [("jsfxr/pickupCoin_%d" % (1 + k % 3), 0.12, 0.45 + 0.07 * k) for k in range(8)],
+}
+UI_STYLE = {"hype": "cinematic", "tension": "cinematic", "inspire": "soft", "dark": "studio"}
 
 
 def run(cmd, **kw):
@@ -165,6 +187,16 @@ def main():
     sfx_dir = work / "sfx"
     run([py, TOOLS / "sfx_synth.py", sfx_dir, "--variants", 3, "--seed", music_cfg.get("seed", 1), "--only", "swish", "sub_hit", "pop", "whoosh_in"])
     plan_sfx = sfx_plan(words3d, sfx_dir, fps)
+    lib = TPL / "public" / "sfxlib"
+    if not (lib / "catalog.json").exists():
+        run(["node", "scripts/build_sfx_library.mjs"], cwd=TPL)
+    ui = plan.get("ui_sfx_style") or ("glass" if plan.get("theme") == "ice" else UI_STYLE.get(music_cfg.get("mood", "hype"), "cinematic"))
+    for sc in scenes:
+        key = sc.get("icon") if sc["type"] == "icon" else f"_{sc['type']}" + (f"_{sc.get('action')}" if sc["type"] == "crowd" else "")
+        for sid, vol, off in SCENE_SFX.get(key, []):
+            f = lib / (sid.format(ui=ui) + ".wav")
+            if f.exists():
+                plan_sfx.append({"src": str(f), "at": round(sc["start"] + off, 3), "volume": vol})
     for i, sc in enumerate(scenes):  # whoosh d'entrée de scène (pic au moment du pop) + pop léger
         plan_sfx.append({"src": f"{sfx_dir}/whoosh_in_0{1 + i % 3}.wav", "at": max(0, sc["start"] - 0.25), "volume": 0.22})
         plan_sfx.append({"src": f"{sfx_dir}/pop_0{1 + i % 2}.wav", "at": sc["start"] + 0.04, "volume": 0.3})
@@ -178,7 +210,15 @@ def main():
     pub = TPL / "public" / "projects" / slug; pub.mkdir(parents=True, exist_ok=True)
     shutil.copy(work / "master.wav", pub / "master.wav")
     theme = plan.get("theme", "neon")
-    props = {"words": words3d, **({"captions": captions} if captions else {}), "font": plan.get("font", "montserrat"), "entrance": plan.get("entrance", "flip"),
+    lotties = []
+    for k, li in enumerate(order):
+        ln = lines[li] if li < len(lines) else {}
+        if ln.get("lottie"):
+            end = firsts[order[k + 1]] if k + 1 < len(order) else words[-1]["end"] + 0.5
+            lt = ln["lottie"] if isinstance(ln["lottie"], dict) else {"name": ln["lottie"]}
+            lotties.append({"y": 0.3, **lt, "start": round(firsts[li] + 0.1, 3), "end": round(end, 3)})
+    props = {"words": words3d, **({"captions": captions} if captions else {}), **({"lotties": lotties} if lotties else {}),
+             "font": plan.get("font", "montserrat"), "entrance": plan.get("entrance", "cascade" if mode == "keywords" else "flip"),
              "theme": THEMES[theme] if isinstance(theme, str) else theme, "voice": f"projects/{slug}/master.wav",
              "progressBar": plan.get("progressBar", True), "scenes": scenes,
              **({"climaxAt": round(firsts[plan["climax_line"]] - 0.06, 3)} if plan.get("climax_line") is not None and plan["climax_line"] in firsts else {}), "shake": plan.get("shake", 1),

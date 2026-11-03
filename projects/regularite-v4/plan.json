@@ -1,0 +1,17 @@
+{
+  "slug": "regularite-v4",
+  "prompt": "vidéo virale courte : la régularité bat la motivation (démo v4 : GSAP, physique, Lottie, SFX sémantiques)",
+  "theme": "gold",
+  "font": "montserrat",
+  "fps": 60,
+  "climax_line": 2,
+  "voice": {"engine": "pico", "speed": 1.06},
+  "music": {"mood": "hype", "bpm": 118, "seed": 11},
+  "lines": [
+    {"text": "Tout le monde veut devenir riche.", "accents": ["riche"], "scene": {"type": "physics", "shape": "coin", "count": 18}},
+    {"text": "Mais personne ne veut attendre.", "accents": ["attendre"], "scene": {"type": "icon", "icon": "hourglass"}},
+    {"text": "Le secret ? La régularité.", "accents": ["secret", "régularité"], "scene": {"type": "icon", "icon": "lock"}},
+    {"text": "Un petit effort. Chaque jour.", "accents": ["jour"], "scene": {"type": "chart", "trend": "exp"}},
+    {"text": "Commence aujourd'hui.", "accents": ["aujourd'hui"], "lottie": {"name": "check", "y": 0.3, "size": 0.46}}
+  ]
+}
