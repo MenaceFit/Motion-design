@@ -74,3 +74,27 @@ _, l, c = cv2.kmeans(img[m].astype(np.float32), 4, None, (3, 20, 1), 3, cv2.KMEA
 - Monétisation : TikTok Creator Rewards ne paierait que les vidéos > 1 min (sources tierces) ;
   YouTube « contenu inauthentique » vise templates répétitifs et textes sans narration ;
   voix de synthèse → label IA TikTok.
+
+## 2026-11-03 (3) — Vers le niveau pro : narration visuelle 3D
+
+### Constat
+Les 5 références racontent par l'image (une métaphore par idée : balance, serrure, montagne,
+foule qui part, compteurs). La v1 « texte 3D seul » n'avait pas cette dimension.
+
+### Créé
+- `src/Scenes3D.tsx` : 24 objets-métaphores 3D originaux, personnages capsule + 6 actions, foule
+  avec héros, graphique (4 tendances), compteur 3D, escalier, versus, emoji 3D.
+- Moteur de scènes : une scène par phrase calée sur la voix, texte en bas quand une scène est
+  présente, poussée caméra + light sweep (ref02) au changement, bascule chaude au climax (ref01),
+  whoosh + pop sonores à chaque scène.
+- `tools/compare_to_refs.py` + `references/refs_profile.json` : benchmark mesuré contre les refs.
+- Composition `Gallery3D` (planche de contrôle de tous les objets).
+
+### Profil mesuré des références (contenu seul, 30 fps)
+Changements de plan 16–51/min ; plus longue image figée 0,2–2,1 s ; 0,9–2,3 événements visuels/s ;
+mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
+
+### Erreurs corrigées (QC visuel)
+- Lunette d'horloge sur le mauvais axe ; scènes trop petites (×1,3) ; « chute » de foule illisible
+  (seul le héros tombe) ; texte 2 lignes aligné à gauche (lignes centrées une à une) ;
+  chevauchement de sortie de scène trop long (0,25 → 0,12 s).

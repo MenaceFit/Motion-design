@@ -18,6 +18,7 @@ voice = null → format « texte + musique » : les mots sont calés sur les tem
 Usage : python3 tools/make_video.py plan.json [--out renders/] [--preview] [--concurrency 4]
 """
 import argparse, json, os, re, shutil, subprocess, sys
+import numpy as np
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -50,12 +51,12 @@ def words_on_beats(lines, bpm, lead_beats=1):
     """Format sans voix : 1 mot par demi-temps (+ selon syllabes), pause d'un temps entre phrases."""
     beat = 60 / bpm; half = beat / 2
     t = lead_beats * beat; out = []
-    for ln in lines:
+    for li, ln in enumerate(lines):
         acc = {norm(x) for x in ln.get("accents", [])}; emo = {norm(k): v for k, v in ln.get("emoji", {}).items()}
         for w in ln["text"].split():
             n = norm(w); syl = max(1, len(re.findall(VOWELS, w.lower())))
             d = half * (2 if syl >= 3 or n in acc else 1)
-            out.append({"text": n, "start": round(t, 3), "end": round(t + d, 3), "accent": n in acc, **({"emoji": emo[n]} if n in emo else {})})
+            out.append({"text": n, "start": round(t, 3), "end": round(t + d, 3), "accent": n in acc, "line": li, **({"emoji": emo[n]} if n in emo else {})})
             t += d
         t += beat
     return out
@@ -78,6 +79,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("plan"); ap.add_argument("--out", default=str(ROOT / "renders"))
     ap.add_argument("--preview", action="store_true", help="30 fps, qualité brouillon (rapide)")
+    ap.add_argument("--no-render", action="store_true", help="prépare audio + props sans rendre la vidéo")
     ap.add_argument("--concurrency", type=int, default=1)  # mesuré : 1 tab = 1,5 s/frame, 4 tabs = 3,4 s/frame (SwiftShader sature les CPU)
     a = ap.parse_args()
     plan = json.load(open(a.plan, encoding="utf-8"))
@@ -101,6 +103,9 @@ def main():
         words = json.load(open(work / "words.json", encoding="utf-8"))
         acc = {norm(x) for l in lines for x in l.get("accents", [])}
         emo = {norm(k): v for l in lines for k, v in l.get("emoji", {}).items()}
+        bounds = np.cumsum([len([x for x in l["text"].split() if norm(x)]) for l in lines])
+        for i, w in enumerate(words):
+            w["line"] = int(np.searchsorted(bounds, i, side="right"))
         for w in words:
             w["text"] = norm(w["text"]); w["accent"] = w["text"] in acc
             if w["text"] in emo: w["emoji"] = emo[w["text"]]
@@ -115,6 +120,24 @@ def main():
     json.dump(words, open(work / "words.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     duration = words[-1]["end"] + 0.6
 
+    # 1b. Scènes : une métaphore 3D par phrase (plan["lines"][i]["scene"]) ; à défaut, l'emoji de la
+    # phrase devient une scène « emoji » en 3D. Bornes = premier mot de la phrase → premier mot de la suivante.
+    scenes = []
+    firsts = {}
+    for w in words: firsts.setdefault(w.get("line", 0), w["start"])
+    order = sorted(firsts)
+    for k, li in enumerate(order):
+        ln = lines[li] if li < len(lines) else {}
+        sc = ln.get("scene")
+        if not sc and ln.get("emoji"):
+            sc = {"type": "emoji", "emoji": list(ln["emoji"].values())[0]}
+        if not sc: continue
+        start = max(0, firsts[li] - 0.06)
+        end = firsts[order[k + 1]] - 0.06 if k + 1 < len(order) else words[-1]["end"] + 0.4
+        scenes.append({**sc, "start": round(start, 3), "end": round(end, 3)})
+    if scenes:  # les emojis passent dans la scène 3D : on les retire des mots (pas de doublon)
+        for w in words: w.pop("emoji", None)
+
     # 2. Musique (drop calé sur le premier mot accentué = premier impact)
     first_acc = next((w["start"] for w in words if w.get("accent")), words[0]["start"])
     run([py, TOOLS / "music_gen.py", work / "music.wav", "--mood", music_cfg.get("mood", "hype"), "--bpm", music_cfg.get("bpm", 120),
@@ -123,7 +146,11 @@ def main():
     # 3. SFX + mix
     sfx_dir = work / "sfx"
     run([py, TOOLS / "sfx_synth.py", sfx_dir, "--variants", 3, "--seed", music_cfg.get("seed", 1), "--only", "swish", "sub_hit", "pop", "whoosh_in"])
-    json.dump(sfx_plan(words, sfx_dir, fps), open(work / "sfx.json", "w"), indent=1)
+    plan_sfx = sfx_plan(words, sfx_dir, fps)
+    for i, sc in enumerate(scenes):  # whoosh d'entrée de scène (pic au moment du pop) + pop léger
+        plan_sfx.append({"src": f"{sfx_dir}/whoosh_in_0{1 + i % 3}.wav", "at": max(0, sc["start"] - 0.25), "volume": 0.22})
+        plan_sfx.append({"src": f"{sfx_dir}/pop_0{1 + i % 2}.wav", "at": sc["start"] + 0.04, "volume": 0.3})
+    json.dump(plan_sfx, open(work / "sfx.json", "w"), indent=1)
     mix = [py, TOOLS / "mix_audio.py", work / "master.wav", "--music", work / "music.wav", "--sfx", work / "sfx.json", "--duration", round(duration, 2)]
     if voice: mix += ["--voice", work / "voice.wav"]
     else: mix += ["--music-db", "-8"]
@@ -135,9 +162,12 @@ def main():
     theme = plan.get("theme", "neon")
     props = {"words": words, "font": plan.get("font", "montserrat"), "entrance": plan.get("entrance", "flip"),
              "theme": THEMES[theme] if isinstance(theme, str) else theme, "voice": f"projects/{slug}/master.wav",
-             "progressBar": plan.get("progressBar", True), "shake": plan.get("shake", 1),
+             "progressBar": plan.get("progressBar", True), "scenes": scenes,
+             **({"climaxAt": round(firsts[plan["climax_line"]] - 0.06, 3)} if plan.get("climax_line") is not None and plan["climax_line"] in firsts else {}), "shake": plan.get("shake", 1),
              "quality": "draft" if a.preview else "final"}
     json.dump(props, open(work / "props.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    if a.no_render:
+        print("props prêtes :", work / "props.json"); return
     raw = work / "raw.mp4"
     env = dict(os.environ, CHROMIUM_PATH=CHROME)
     comp = "Text3D" if fps == 60 else "Text3D30"

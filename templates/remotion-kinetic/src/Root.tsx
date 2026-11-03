@@ -3,6 +3,7 @@ import {Composition} from 'remotion';
 import {KineticWords, kineticSchemaDefaults, durationFromWords} from './KineticWords';
 import {LineStory, lineStoryDefaults} from './LineStory';
 import {Text3D, text3DDefaults, durationFrom3DWords} from './Text3D';
+import {Gallery3D} from './Gallery3D';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -49,5 +50,6 @@ export const RemotionRoot: React.FC = () => (
       defaultProps={text3DDefaults}
       calculateMetadata={({props}) => ({durationInFrames: durationFrom3DWords(props.words, 30)})}
     />
+    <Composition id="Gallery3D" component={Gallery3D} width={1080} height={1920} fps={30} durationInFrames={60} />
   </>
 );

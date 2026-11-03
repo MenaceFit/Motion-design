@@ -14,8 +14,9 @@ description: Contrôle qualité d'un export vidéo — format, FPS, pix_fmt, fra
    `ffmpeg -i final.mp4 -vf "select='eq(n\,9)+eq(n\,24)',scale=360:-1,tile=4x1" -frames:v 1 qc.png`
    puis les lire. Chercher : débordement, texte illisible à l'entrée, banding, éléments coupés,
    collisions texte/illustration, zone UI.
-3. **Rythme** : `tools/analyze_reference.py` sur notre propre export → comparer durée moyenne de
-   plan et mouvement à la fiche de style visée.
+3. **Benchmark vs références** : `python3 tools/compare_to_refs.py final.mp4 [--style minimal-line]`
+   → 6 métriques mesurées dans les mêmes conditions que les 5 références (profil
+   `references/refs_profile.json`), score et conseils. Cible : 6/6.
 4. **Corriger, re-rendre, re-QC.** Documenter les erreurs nouvelles dans la skill concernée.
 
 ## Seuils

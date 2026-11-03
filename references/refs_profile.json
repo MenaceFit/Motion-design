@@ -1,0 +1,78 @@
+{
+ "ref01": {
+  "duration_s": 45.03,
+  "motion_mean": 2.73,
+  "static_ratio": 0.333,
+  "max_static_s": 0.93,
+  "events_per_s": 2.26,
+  "cuts_per_min": 34.6,
+  "luma_mean": 43.1,
+  "style": "neon-explainer"
+ },
+ "ref02": {
+  "duration_s": 29.53,
+  "motion_mean": 9.45,
+  "static_ratio": 0.011,
+  "max_static_s": 0.2,
+  "events_per_s": 1.05,
+  "cuts_per_min": 50.8,
+  "luma_mean": 36.0,
+  "style": "golden-neuro"
+ },
+ "ref03": {
+  "duration_s": 62.33,
+  "motion_mean": 1.25,
+  "static_ratio": 0.701,
+  "max_static_s": 1.83,
+  "events_per_s": 1.27,
+  "cuts_per_min": 16.4,
+  "luma_mean": 47.4,
+  "style": "night-chat-story"
+ },
+ "ref04": {
+  "duration_s": 36.53,
+  "motion_mean": 0.56,
+  "static_ratio": 0.67,
+  "max_static_s": 2.1,
+  "events_per_s": 0.88,
+  "cuts_per_min": 24.6,
+  "luma_mean": 7.1,
+  "style": "minimal-line"
+ },
+ "ref05": {
+  "duration_s": 25.33,
+  "motion_mean": 0.87,
+  "static_ratio": 0.447,
+  "max_static_s": 1.6,
+  "events_per_s": 0.99,
+  "cuts_per_min": 28.4,
+  "luma_mean": 7.8,
+  "style": "minimal-line"
+ },
+ "_range": {
+  "motion_mean": [
+   0.56,
+   9.45
+  ],
+  "static_ratio": [
+   0.011,
+   0.701
+  ],
+  "max_static_s": [
+   0.2,
+   2.1
+  ],
+  "events_per_s": [
+   0.88,
+   2.26
+  ],
+  "cuts_per_min": [
+   16.4,
+   50.8
+  ],
+  "luma_mean": [
+   7.1,
+   47.4
+  ]
+ }
+}

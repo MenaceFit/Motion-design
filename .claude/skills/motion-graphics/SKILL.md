@@ -33,6 +33,12 @@ en < 2 s.
 - `random('seed')` (déterministe) pour particules et foules — jamais `Math.random()`.
 - `<Sequence from durationInFrames>` pour découper les scènes.
 
+## Scènes 3D prêtes à l'emploi (`src/Scenes3D.tsx`)
+24 objets procéduraux originaux (formes extrudées, tours, primitives), personnages capsule animés
+(idle, jump, walk, leave, rise, fall), foule avec héros, graphique, compteur 3D, escalier, versus,
+emoji en 3D. Entrée élastique, vie (flottement + animation propre), sortie en relais, light sweep
+et poussée caméra au changement. Vérifier toute nouvelle icône sur la planche `Gallery3D`.
+
 ## Erreurs fréquentes
 - Trop d'éléments animés simultanément → l'œil ne sait pas où regarder.
 - `Math.random()` → rendu non déterministe (scintillement entre frames rendues en parallèle).
@@ -45,5 +51,5 @@ en < 2 s.
 - [ ] Assets 100 % originaux
 
 ## Limites
-- Pas encore de bibliothèque de personnages articulés (à construire — voir changelog).
+- Personnages volontairement simples (capsule + tête) : pas de bras/visage articulés.
 - Pas d'accès Figma/Illustrator dans ce conteneur : tout est dessiné en SVG code.

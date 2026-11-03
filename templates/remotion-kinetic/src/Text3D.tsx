@@ -12,6 +12,7 @@ import montserratUp from './fonts3d/montserrat-900.json';
 import anton from './fonts3d/anton.json';
 import archivo from './fonts3d/archivo-black.json';
 import {Grain} from './KineticWords';
+import {SceneLayer, SceneSpec} from './Scenes3D';
 
 const FONTS: Record<string, unknown> = {montserrat, montserratUp, anton, archivo};
 const loader = new FontLoader();
@@ -31,6 +32,9 @@ export type Text3DProps = {
   quality?: 'draft' | 'final'; // draft : sans post-traitement (rapide)
   bloom?: boolean;
   grain?: boolean;
+  scenes?: SceneSpec[];
+  climaxAt?: number; // s : bascule chaude du fond (payoff / solution), comme le climax de ref01
+  climax?: {bgTop: string; bgBottom: string}; // une métaphore 3D par phrase (voir Scenes3D.tsx)
   progressBar?: boolean; // barre de progression (incite à regarder jusqu'au bout)
   shake?: number; // intensité de l'impact caméra sur les mots accentués (0 = off)
   dpr?: number; // résolution interne WebGL (0.75 = 2x plus rapide, quasi invisible après compression plateforme)
@@ -57,35 +61,42 @@ const CAM_Z = 10;
 const FOV = 40;
 
 // Géométrie extrudée + biseautée, centrée, mise à l'échelle pour tenir dans le cadre
-const geoCache = new Map<string, {g: THREE.BufferGeometry; w: number; h: number}>();
+type WordGeo = {lines: {g: THREE.BufferGeometry; y: number}[]; w: number; h: number};
+const geoCache = new Map<string, WordGeo>();
+const lineGeo = (txt: string, fontKey: string) => {
+  const g = new TextGeometry(txt, {
+    font: getFont(fontKey), size: 1, depth: 0.55, curveSegments: 7,
+    bevelEnabled: true, bevelThickness: 0.07, bevelSize: 0.04, bevelSegments: 3,
+  });
+  g.computeBoundingBox();
+  g.center();
+  return g;
+};
+// Géométrie extrudée + biseautée ; bloc long multi-mots → 2 lignes CENTRÉES individuellement
 const useWordGeometry = (text: string, fontKey: string, maxWidth: number) =>
   useMemo(() => {
     const key = `${fontKey}|${text}`;
-    const hit = geoCache.get(key);
-    if (hit) return {g: hit.g, fit: Math.min(maxWidth / hit.w, 3.6 / hit.h)};
-    // bloc multi-mots long → 2 lignes centrées (plus gros, plus lisible en 9:16)
-    const parts = text.split(' ');
-    let label = text;
-    if (parts.length > 1 && text.length > 8) {
-      let best = 1, bestDiff = 1e9;
-      for (let k = 1; k < parts.length; k++) {
-        const d = Math.abs(parts.slice(0, k).join(' ').length - parts.slice(k).join(' ').length);
-        if (d < bestDiff) { bestDiff = d; best = k; }
+    let wg = geoCache.get(key);
+    if (!wg) {
+      const parts = text.split(' ');
+      let rows = [text];
+      if (parts.length > 1 && text.length > 8) {
+        let best = 1, bestDiff = 1e9;
+        for (let k = 1; k < parts.length; k++) {
+          const d = Math.abs(parts.slice(0, k).join(' ').length - parts.slice(k).join(' ').length);
+          if (d < bestDiff) { bestDiff = d; best = k; }
+        }
+        rows = [parts.slice(0, best).join(' '), parts.slice(best).join(' ')];
       }
-      label = parts.slice(0, best).join(' ') + '\n' + parts.slice(best).join(' ');
+      const gs = rows.map((r) => lineGeo(r, fontKey));
+      const lh = 1.18;
+      const lines = gs.map((g, i) => ({g, y: ((rows.length - 1) / 2 - i) * lh}));
+      const w = Math.max(...gs.map((g) => g.boundingBox!.max.x - g.boundingBox!.min.x));
+      const h = (rows.length - 1) * lh + (gs[0].boundingBox!.max.y - gs[0].boundingBox!.min.y);
+      wg = {lines, w, h};
+      geoCache.set(key, wg);
     }
-    const g = new TextGeometry(label, {
-      font: getFont(fontKey), size: 1, depth: 0.55, curveSegments: 7,
-      bevelEnabled: true, bevelThickness: 0.07, bevelSize: 0.04, bevelSegments: 3,
-    });
-    g.computeBoundingBox();
-    g.center();
-    const bb = g.boundingBox!;
-    const w = bb.max.x - bb.min.x;
-    const h = bb.max.y - bb.min.y;
-    geoCache.set(key, {g, w, h});
-    const fit = Math.min(maxWidth / w, 3.6 / h);
-    return {g, fit};
+    return {wg, fit: Math.min(maxWidth / wg.w, 3.6 / wg.h)};
   }, [text, fontKey, maxWidth]);
 
 // Texture radiale partagée (halo, ombre, particules) — générée une fois, coût GPU négligeable
@@ -109,10 +120,12 @@ const getMats = (face: string, side: string) => {
   return matCache.get(k)!;
 };
 
-const Word: React.FC<{w: Word3D; p: Text3DProps; dur: number; maxWidth: number; idx: number; isLast?: boolean}> = ({w, p, dur, maxWidth, idx, isLast}) => {
+const Word: React.FC<{w: Word3D; p: Text3DProps; dur: number; maxWidth: number; idx: number; isLast?: boolean; low?: boolean}> = ({w, p, dur, maxWidth, idx, isLast, low}) => {
   const f = useCurrentFrame();
   const {fps} = useVideoConfig();
-  const {g, fit} = useWordGeometry(w.text, p.font, maxWidth);
+  const {wg, fit: fit0} = useWordGeometry(w.text, p.font, maxWidth);
+  // avec une scène : texte en bas, un peu plus petit (la métaphore occupe le haut)
+  const fit = low ? fit0 * 0.78 : fit0;
   const s = spring({frame: f, fps, config: {damping: 14, stiffness: 170, mass: 0.7}});
   const out = isLast ? 0 : interpolate(f, [dur - Math.round(fps * 0.14), dur], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.in(Easing.cubic)});
   // Entrées 3D (toutes continues, aucune propriété ne « saute »)
@@ -134,16 +147,17 @@ const Word: React.FC<{w: Word3D; p: Text3DProps; dur: number; maxWidth: number; 
   const sideCol = w.accent ? p.theme.accentSide : p.theme.side;
   const mats = getMats(face, sideCol);
   mats.forEach((m) => (m.opacity = opacity));
-  const bb = g.boundingBox!;
-  const ww = (bb.max.x - bb.min.x) * fit * sc;
+  const ww = wg.w * fit * sc;
   return (
-    <group position={[0, 0.2, z]}>
+    <group position={[0, low ? -1.75 : 0.2, z]}>
       {/* halo additif derrière le mot (« bloom » bon marché) */}
       <mesh position={[0, 0, -0.9]} scale={[ww * 1.25, ww * 0.55, 1]}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial map={radialTex()} color={p.theme.glow ?? face} transparent opacity={0.55 * opacity * s} blending={THREE.AdditiveBlending} depthWrite={false} />
       </mesh>
-      <mesh geometry={g} material={mats} scale={fit * sc} rotation={[rotX, rotY, 0]} />
+      <group scale={fit * sc} rotation={[rotX, rotY, 0]}>
+        {wg.lines.map((ln, i) => <mesh key={i} geometry={ln.g} material={mats} position={[0, ln.y, 0]} />)}
+      </group>
     </group>
   );
 };
@@ -188,6 +202,11 @@ const Rig: React.FC<{p: Text3DProps}> = ({p}) => {
       roll += a * Math.sin(dt * 27 + 1) * 0.025;
     }
   }
+  // changement de scène : petite poussée de caméra (sensation de « coupe » sans frame noire)
+  for (const sc of p.scenes ?? []) {
+    const dt = t - sc.start;
+    if (dt >= 0 && dt < 0.6) kick += Math.exp(-dt * 6) * Math.sin(dt * 18 + 0.3) * 0.5;
+  }
   const {camera} = useThree();
   camera.position.set(cx, -0.5 + cy, CAM_Z - kick);
   camera.lookAt(0, 0.1, 0);
@@ -200,6 +219,11 @@ const Rig: React.FC<{p: Text3DProps}> = ({p}) => {
       <directionalLight position={[-4, -2, -3]} intensity={1.6} color={p.theme.accentFace} />
       <pointLight position={[0, 0, 4]} intensity={18} distance={12} color="#ffffff" />
       <Particles color={p.theme.particles} />
+      {(p.scenes ?? []).map((sc, i) => (
+        <Sequence key={`sc${i}`} from={Math.round(sc.start * fps)} durationInFrames={Math.max(2, Math.round((sc.end - sc.start + 0.15) * fps))} layout="none">
+          <SceneLayer s={sc} p={p.theme} idx={i} />
+        </Sequence>
+      ))}
       {p.bloom !== true ? null : <EffectComposer multisampling={0}>
         <Bloom intensity={0.55} luminanceThreshold={0.62} luminanceSmoothing={0.2} mipmapBlur />
         <Vignette eskil={false} offset={0.25} darkness={0.55} />
@@ -210,7 +234,8 @@ const Rig: React.FC<{p: Text3DProps}> = ({p}) => {
         const dur = Math.max(Math.round(fps * 0.18), Math.round(w.end * fps) - from) + overlap;
         return (
           <Sequence key={i} from={from} durationInFrames={dur} layout="none">
-            <Word w={w} p={p} dur={i === p.words.length - 1 ? dur + Math.round(fps * 0.6) : dur} maxWidth={visibleW * 0.74} idx={i} isLast={i === p.words.length - 1} />
+            <Word w={w} p={p} dur={i === p.words.length - 1 ? dur + Math.round(fps * 0.6) : dur} maxWidth={visibleW * 0.74} idx={i} isLast={i === p.words.length - 1}
+              low={(p.scenes ?? []).some((sc) => w.start >= sc.start - 0.01 && w.start < sc.end)} />
           </Sequence>
         );
       })}
@@ -240,6 +265,10 @@ export const Text3D: React.FC<Text3DProps> = (p) => {
   const f = useCurrentFrame();
   return (
     <AbsoluteFill style={{background: `linear-gradient(180deg, ${p.theme.bgTop} 0%, ${p.theme.bgBottom} 100%)`}}>
+      {p.climaxAt !== undefined ? (
+        <AbsoluteFill style={{opacity: interpolate(f / fps, [p.climaxAt - 0.1, p.climaxAt + 0.6], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}),
+          background: `linear-gradient(180deg, ${p.climax?.bgTop ?? '#3a1a05'} 0%, ${p.climax?.bgBottom ?? '#0a0402'} 100%)`}} />
+      ) : null}
       <AbsoluteFill style={{background: 'radial-gradient(circle at 50% 45%, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0) 55%)'}} />
       <AbsoluteFill>
       <ThreeCanvas width={width} height={height} camera={{fov: FOV, position: [0, 0, CAM_Z]}} gl={{antialias: p.quality !== 'draft', alpha: true}} dpr={p.dpr ?? 1}>
@@ -251,6 +280,14 @@ export const Text3D: React.FC<Text3DProps> = (p) => {
           <EmojiPop emoji={w.emoji} />
         </Sequence>
       ) : null)}
+      {/* light sweep : barre lumineuse diagonale qui balaie l'écran à chaque nouvelle scène (ref02) */}
+      {(p.scenes ?? []).map((sc, i) => {
+        const k = (f / fps - sc.start + 0.05) / 0.32;
+        if (i === 0 || k < 0 || k > 1) return null;
+        const x = interpolate(k, [0, 1], [-60, 160], {easing: Easing.inOut(Easing.quad)});
+        return <AbsoluteFill key={`ls${i}`} style={{mixBlendMode: 'screen', pointerEvents: 'none',
+          background: `linear-gradient(105deg, transparent ${x - 18}%, rgba(255,255,255,0.0) ${x - 10}%, rgba(255,245,235,0.32) ${x}%, rgba(255,255,255,0.0) ${x + 10}%, transparent ${x + 18}%)`}} />;
+      })}
       {p.progressBar ? <AbsoluteFill><div style={{position: 'absolute', top: 0, left: 0, height: 10, width: `${(f / Math.max(1, durationFrom3DWords(p.words, fps) - 1)) * 100}%`, background: p.theme.accentFace, boxShadow: `0 0 18px ${p.theme.accentFace}`}} /></AbsoluteFill> : null}
       {p.grain === false ? null : <Grain seed={f % 4} opacity={0.08} />}
       {p.voice ? <Audio src={staticFile(p.voice)} /> : null}

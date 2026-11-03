@@ -155,7 +155,7 @@ def main():
             d = dict(w); d["_short"] = (nxt - w["start"]) < 0.17 or len(w["text"]) <= 3
             merged.append(d)
     for m in merged:
-        for k in ("_short", "line", "stop"): m.pop(k, None)
+        for k in ("_short", "stop"): m.pop(k, None)  # « line » conservé : sert au calage des scènes
     for i in range(len(merged) - 1):  # le mot reste affiché jusqu'au suivant (pas d'écran vide)
         merged[i]["end"] = merged[i + 1]["start"]
     json.dump(merged, open(os.path.join(a.out, "words.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)

@@ -24,11 +24,36 @@ punchline + CTA « Enregistre… ». Phrases ≤ 8 mots. 1–2 `accents` par phr
 sens), ≤ 1 `emoji` par phrase sur un mot concret. Faits : uniquement vérifiables/prudents ;
 pas de promesse santé/argent trompeuse.
 
+## 2b. Une métaphore visuelle 3D par phrase (ce qui fait le niveau « pro » des références)
+Chaque ligne reçoit une `scene`. Choisir l'objet qui **résume l'idée en 1 s, sans le son**.
+
+| Type | Paramètres | Exemples d'idées |
+|---|---|---|
+| `icon` | `icon`, `color`, `color2` | voir tableau ci-dessous |
+| `emoji` | `emoji` | concept sans icône (🧠 cerveau, 😨 peur, 📌 enregistrer) — rendu 2D dans l'espace 3D |
+| `crowd` | `action` idle/jump/walk/leave/rise/fall, `count` | « tout le monde », « les autres partent » (leave), « toi tu montes » (rise), « tu échoues » (fall : seul le héros tombe), « ensemble » (jump) |
+| `chart` | `trend` up/down/exp/flat-then-up | progression, effet composé (exp), patience (flat-then-up), déclin |
+| `counter` | `from`, `to`, `prefix`, `suffix` | chiffres choc : `0 → 702 " jours"`, `4000 → 1000000 " €"` |
+| `stairs` | — | étapes, progression pas à pas |
+| `versus` | `icon`, `icon2` | choix/opposition (ex. phone vs bulb) |
+
+Icônes (originales, procédurales) : `heart` amour/envie · `bolt` énergie/choc · `up` `down` hausse/baisse ·
+`check` `cross` vrai/faux · `star` excellence/favori · `crown` statut · `gear` système/process ·
+`bubble` message/conversation · `phone` réseaux/dopamine · `clock` temps qui file · `hourglass`
+patience/délai · `coin` `coins` argent · `lock` secret/bloqué (s'ouvre) · `trophy` réussite ·
+`bulb` idée · `target` objectif (flèche qui touche) · `rocket` démarrage/croissance · `battery`
+énergie/fatigue · `magnifier` détail/analyse · `mountain` défi/sommet · tout caractère (`€`, `?`, `!`, `%`, `VS`, chiffres).
+
+Règles : varier les types (pas 3 icônes d'affilée si une foule/un graphique raconte mieux) ;
+`climax_line` = index de la ligne « solution / retournement » → bascule chaude du fond.
+Planche de contrôle de toutes les icônes : composition `Gallery3D`.
+
 ## 3. Écrire `projects/<slug>/plan.json`
 ```json
 {"slug":"...","prompt":"<prompt original>","theme":"neon","font":"montserrat","entrance":"flip","fps":60,
  "voice":{"engine":"pico","speed":1.08},"music":{"mood":"hype","bpm":120,"seed":7},
- "lines":[{"text":"...","accents":["..."],"emoji":{"mot":"🧠"}}]}
+ "climax_line":5,
+ "lines":[{"text":"...","accents":["..."],"scene":{"type":"icon","icon":"hourglass"}}]}
 ```
 Voix : `{"engine":"pico"}` (synthèse hors ligne, label IA requis), `{"file":"voix.wav"}` (voix de
 l'utilisateur, recommandé pour la monétisation), ou `null` (texte + musique, mots calés sur les
@@ -42,6 +67,8 @@ python3 tools/make_video.py projects/<slug>/plan.json --out renders/            
 Lancer le final en arrière-plan (≈ 1,3 s/frame sans GPU : 25 s de vidéo à 60 fps ≈ 30 min).
 
 ## 5. Contrôler avant livraison
+- `python3 tools/compare_to_refs.py renders/<slug>/<slug>.mp4` : mouvement, images figées,
+  événements/s, changements de plan vs les 5 références → corriger ce qui sort de la plage.
 - Lire `renders/<slug>/qc.txt` (format, loudness, noir, figé). Les avertissements de synchro
   sur un mix voix+musique+SFX sont souvent des faux positifs (onsets de batterie) : vérifier à l'œil.
 - Planche d'images : un frame au milieu de 6–8 blocs + le dernier frame →

@@ -1,0 +1,22 @@
+{
+  "slug": "procrastination-v2",
+  "prompt": "une vidéo virale sur pourquoi on procrastine (v2 : une métaphore 3D par phrase)",
+  "theme": "neon",
+  "font": "montserrat",
+  "entrance": "flip",
+  "fps": 60,
+  "climax_line": 5,
+  "voice": {"engine": "pico", "speed": 1.08, "pitch": 0},
+  "music": {"mood": "hype", "bpm": 120, "seed": 7},
+  "lines": [
+    {"text": "Tu ne procrastines pas par paresse.", "accents": ["procrastines", "paresse"], "scene": {"type": "icon", "icon": "battery", "color": "#3dff8a", "color2": "#ff2e55"}},
+    {"text": "Ton cerveau fuit une émotion.", "accents": ["émotion"], "scene": {"type": "emoji", "emoji": "🧠"}},
+    {"text": "La peur d'échouer. L'ennui. Le doute.", "accents": ["peur", "doute"], "scene": {"type": "crowd", "action": "fall", "count": 5}},
+    {"text": "Alors il choisit la dopamine facile.", "accents": ["dopamine"], "scene": {"type": "icon", "icon": "phone"}},
+    {"text": "Un scroll. Une vidéo. Puis une autre.", "accents": ["autre"], "scene": {"type": "icon", "icon": "clock"}},
+    {"text": "La solution ? Rends la tâche ridiculement petite.", "accents": ["solution", "petite"], "scene": {"type": "icon", "icon": "magnifier"}},
+    {"text": "Deux minutes. Pas plus.", "accents": ["minutes"], "scene": {"type": "icon", "icon": "hourglass"}},
+    {"text": "Ton cerveau n'a plus peur. Et tu commences.", "accents": ["commences"], "scene": {"type": "icon", "icon": "rocket", "color2": "#ffb347"}},
+    {"text": "Enregistre cette vidéo pour demain.", "accents": ["enregistre"], "scene": {"type": "icon", "icon": "star"}}
+  ]
+}
