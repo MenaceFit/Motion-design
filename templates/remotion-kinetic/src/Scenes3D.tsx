@@ -280,10 +280,11 @@ export const Person: React.FC<{color: string; x: number; z?: number; t: number; 
     const k = interpolate(tt, [0, 0.9], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.in(Easing.quad)});
     px = x + Math.sign(x || 1) * k * 4; py = Math.abs(Math.sin(tt * 9)) * 0.08 * (k > 0 ? 1 : 0); op = 1 - k * 0.6;
   }
-  if (action === 'fall') { rot = interpolate(tt, [0, 0.4], [0, Math.PI / 2], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.in(Easing.quad)}); py = -0.25 * rot / (Math.PI / 2); }
+  let rotX = 0;
+  if (action === 'fall') { rotX = interpolate(tt, [0, 0.4], [0, 1.35], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.in(Easing.quad)}); } // tombe vers la caméra : aucune collision avec les voisins
   if (action === 'rise') { py = interpolate(tt, [0, 0.6], [0, 0.7], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.back(2))}); }
   return (
-    <group position={[px, py + bob, z]} rotation={[0, 0, rot]} scale={[scale, scale * sq, scale]}>
+    <group position={[px, py + bob, z]} rotation={[rotX, 0, rot]} scale={[scale, scale * sq, scale]}>
       <mesh position={[0, 0.32, 0]}><capsuleGeometry args={[0.2, 0.32, 6, 16]} /><M c={color} o={op} r={0.45} /></mesh>
       <mesh position={[0, 0.85, 0]}><sphereGeometry args={[0.17, 24, 16]} /><M c={color} o={op} r={0.45} /></mesh>
     </group>
@@ -353,6 +354,16 @@ export const Stairs: React.FC<{s: SceneSpec; t: number; p: Palette}> = ({t, p}) 
   );
 };
 
+let _shadow: THREE.CanvasTexture | null = null;
+const shadowTex = () => {
+  if (_shadow) return _shadow;
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const x = c.getContext('2d')!; const g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+  g.addColorStop(0, 'rgba(0,0,0,0.9)'); g.addColorStop(0.5, 'rgba(0,0,0,0.35)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+  x.fillStyle = g; x.fillRect(0, 0, 128, 128);
+  return (_shadow = new THREE.CanvasTexture(c));
+};
+
 // ---------- conteneur : entrée, vie, sortie ----------
 export const SceneLayer: React.FC<{s: SceneSpec; p: Palette; idx: number}> = ({s, p, idx}) => {
   const f = useCurrentFrame();
@@ -364,7 +375,7 @@ export const SceneLayer: React.FC<{s: SceneSpec; p: Palette; idx: number}> = ({s
   const side = idx % 2 ? 1 : -1;
   const scale = 1.3 * (0.15 + 0.85 * inS) * (1 - out); // la métaphore occupe ~60 % de la largeur
   const rotY = interpolate(inS, [0, 1], [side * 1.4, 0]) + Math.sin(t * 1.3) * 0.18 + out * side * 1.2;
-  const y = 1.45 + Math.sin(t * 2) * 0.06 + out * 1.5;
+  const y = 1.75 + Math.sin(t * 2) * 0.06 + out * 1.5;
   const c = s.color ?? (s.type === 'icon' && ['coin', 'coins', 'trophy', 'crown', 'star'].includes(s.icon ?? '') ? GOLD : p.accentFace);
   const c2 = s.color2 ?? p.face;
   let body: React.ReactNode = null;
@@ -382,8 +393,15 @@ export const SceneLayer: React.FC<{s: SceneSpec; p: Palette; idx: number}> = ({s
     </group>
   );
   return (
-    <group position={[0, y, -0.5]} rotation={[0.08, rotY, 0]} scale={scale}>
-      {body}
+    <group position={[0, y, -0.5]} scale={scale}>
+      {/* ombre douce de contact (texture radiale noire) : ancre l'objet dans l'espace */}
+      {s.type === 'crowd' || s.type === 'chart' || s.type === 'stairs' ? null : (
+        <mesh position={[0, -1.35, -0.3]} rotation={[-Math.PI / 2.4, 0, 0]} scale={[2.6, 1.1, 1]}>
+          <planeGeometry args={[1, 1]} />
+          <meshBasicMaterial map={shadowTex()} transparent opacity={0.55} depthWrite={false} />
+        </mesh>
+      )}
+      <group rotation={[0.08, rotY, 0]}>{body}</group>
     </group>
   );
 };

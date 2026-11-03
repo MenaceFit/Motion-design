@@ -27,12 +27,13 @@ TOOLS = ROOT / "tools"
 CHROME = "/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell"
 
 THEMES = {
-    "neon":  {"bgTop": "#2a0b2e", "bgBottom": "#07020a", "face": "#f6f0ff", "side": "#5b2a86", "accentFace": "#ff2e55", "accentSide": "#2b0614", "light": "#ffd9a8", "particles": "#ffffff"},
-    "gold":  {"bgTop": "#14100a", "bgBottom": "#000000", "face": "#ffd27a", "side": "#6b4410", "accentFace": "#ffffff", "accentSide": "#8a5a12", "light": "#ffe2b0", "particles": "#ffcf70", "glow": "#ffb347"},
-    "ice":   {"bgTop": "#06213a", "bgBottom": "#01060d", "face": "#eaf8ff", "side": "#1d5f8c", "accentFace": "#39e6ff", "accentSide": "#063a52", "light": "#d6f3ff", "particles": "#9fe8ff"},
-    "mono":  {"bgTop": "#151515", "bgBottom": "#000000", "face": "#ffffff", "side": "#3a3a3a", "accentFace": "#ffffff", "accentSide": "#7a7a7a", "light": "#ffffff", "particles": "#ffffff", "glow": "#ffffff"},
-    "fire":  {"bgTop": "#2b0700", "bgBottom": "#070100", "face": "#fff1e0", "side": "#8a2a00", "accentFace": "#ff7a00", "accentSide": "#4a1200", "light": "#ffc58a", "particles": "#ffb070"},
-    "toxic": {"bgTop": "#0c1f08", "bgBottom": "#020601", "face": "#f2ffe9", "side": "#2c5a12", "accentFace": "#b6ff3b", "accentSide": "#2a4a06", "light": "#eaffd0", "particles": "#c8ff7a"},
+    "neon":  {"bgTop": "#2a0b2e", "bgBottom": "#07020a", "face": "#f6f0ff", "side": "#5b2a86", "accentFace": "#ff2e55", "accentSide": "#2b0614", "light": "#ffd9a8", "particles": "#ffffff",
+              "accent2Face": "#3d8bff", "accent2Side": "#0b1c4a", "captionAccent": "#d7ff3a"},
+    "gold":  {"bgTop": "#14100a", "bgBottom": "#000000", "face": "#ffd27a", "side": "#6b4410", "accentFace": "#ffffff", "accentSide": "#8a5a12", "light": "#ffe2b0", "particles": "#ffcf70", "glow": "#ffb347", "captionAccent": "#ffd27a"},
+    "ice":   {"bgTop": "#06213a", "bgBottom": "#01060d", "face": "#eaf8ff", "side": "#1d5f8c", "accentFace": "#39e6ff", "accentSide": "#063a52", "light": "#d6f3ff", "particles": "#9fe8ff", "captionAccent": "#39e6ff"},
+    "mono":  {"bgTop": "#151515", "bgBottom": "#000000", "face": "#ffffff", "side": "#3a3a3a", "accentFace": "#ffffff", "accentSide": "#7a7a7a", "light": "#ffffff", "particles": "#ffffff", "glow": "#ffffff", "captionAccent": "#ffe14d"},
+    "fire":  {"bgTop": "#2b0700", "bgBottom": "#070100", "face": "#fff1e0", "side": "#8a2a00", "accentFace": "#ff7a00", "accentSide": "#4a1200", "light": "#ffc58a", "particles": "#ffb070", "captionAccent": "#ffb000"},
+    "toxic": {"bgTop": "#0c1f08", "bgBottom": "#020601", "face": "#f2ffe9", "side": "#2c5a12", "accentFace": "#b6ff3b", "accentSide": "#2a4a06", "light": "#eaffd0", "particles": "#c8ff7a", "captionAccent": "#b6ff3b"},
 }
 
 VOWELS = r"[aeiouyàâäéèêëîïôöùûüœæ]+"
@@ -138,6 +139,23 @@ def main():
     if scenes:  # les emojis passent dans la scène 3D : on les retire des mots (pas de doublon)
         for w in words: w.pop("emoji", None)
 
+    # 1c. Mode de texte. « keywords » (défaut avec voix) : seuls les mots-clés (accents) sont en 3D,
+    # tenus jusqu'au mot-clé suivant ; la phrase complète est en sous-titres karaoké (précision).
+    # « words » : chaque bloc de mots en 3D (style ref01 pur, sans sous-titres).
+    captions = None
+    mode = plan.get("text_mode", "keywords" if voice else "words")
+    if mode == "keywords":
+        captions = [{k: w[k] for k in ("text", "start", "end", "line", "accent") if k in w} for w in words]
+        nxt_line = {li: (firsts[order[k + 1]] if k + 1 < len(order) else words[-1]["end"] + 0.5) for k, li in enumerate(order)}
+        kws = [dict(w) for w in words if w.get("accent")]
+        for i, w in enumerate(kws):
+            lim = nxt_line.get(w.get("line", 0), w["end"])
+            nxt = kws[i + 1]["start"] if i + 1 < len(kws) else lim
+            w["end"] = round(max(min(nxt, lim) - 0.04, w["start"] + 0.6), 3)
+        words3d = kws
+    else:
+        words3d = words
+
     # 2. Musique (drop calé sur le premier mot accentué = premier impact)
     first_acc = next((w["start"] for w in words if w.get("accent")), words[0]["start"])
     run([py, TOOLS / "music_gen.py", work / "music.wav", "--mood", music_cfg.get("mood", "hype"), "--bpm", music_cfg.get("bpm", 120),
@@ -146,7 +164,7 @@ def main():
     # 3. SFX + mix
     sfx_dir = work / "sfx"
     run([py, TOOLS / "sfx_synth.py", sfx_dir, "--variants", 3, "--seed", music_cfg.get("seed", 1), "--only", "swish", "sub_hit", "pop", "whoosh_in"])
-    plan_sfx = sfx_plan(words, sfx_dir, fps)
+    plan_sfx = sfx_plan(words3d, sfx_dir, fps)
     for i, sc in enumerate(scenes):  # whoosh d'entrée de scène (pic au moment du pop) + pop léger
         plan_sfx.append({"src": f"{sfx_dir}/whoosh_in_0{1 + i % 3}.wav", "at": max(0, sc["start"] - 0.25), "volume": 0.22})
         plan_sfx.append({"src": f"{sfx_dir}/pop_0{1 + i % 2}.wav", "at": sc["start"] + 0.04, "volume": 0.3})
@@ -160,7 +178,7 @@ def main():
     pub = TPL / "public" / "projects" / slug; pub.mkdir(parents=True, exist_ok=True)
     shutil.copy(work / "master.wav", pub / "master.wav")
     theme = plan.get("theme", "neon")
-    props = {"words": words, "font": plan.get("font", "montserrat"), "entrance": plan.get("entrance", "flip"),
+    props = {"words": words3d, **({"captions": captions} if captions else {}), "font": plan.get("font", "montserrat"), "entrance": plan.get("entrance", "flip"),
              "theme": THEMES[theme] if isinstance(theme, str) else theme, "voice": f"projects/{slug}/master.wav",
              "progressBar": plan.get("progressBar", True), "scenes": scenes,
              **({"climaxAt": round(firsts[plan["climax_line"]] - 0.06, 3)} if plan.get("climax_line") is not None and plan["climax_line"] in firsts else {}), "shake": plan.get("shake", 1),

@@ -98,3 +98,21 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
 - Lunette d'horloge sur le mauvais axe ; scènes trop petites (×1,3) ; « chute » de foule illisible
   (seul le héros tombe) ; texte 2 lignes aligné à gauche (lignes centrées une à une) ;
   chevauchement de sortie de scène trop long (0,25 → 0,12 s).
+
+## 2026-11-03 (4) — Qualité de rendu et précision des textes (v3)
+
+### Recherche (sources dans la réponse à l'utilisateur)
+- Sous-titres mot à mot surlignés = style le plus utilisé en short-form (sources vendeurs, consensus) ;
+  gras 700+, contour/ombre, 3–7 mots par ligne, hors zone d'interface basse.
+- Retenue : mettre en avant les mots-clés au bon moment plutôt que tout animer.
+- Étude 2024 (symposium GRID) : l'interpolation des keyframes influe sur la lisibilité.
+- RoomEnvironment + PMREMGenerator (doc three.js) : éclairage par image sans HDRI externe.
+
+### Appliqué
+- Mode `keywords` + `Captions.tsx` (karaoké), split bicolore ref01, rendu studio (PMREM,
+  clearcoat, dégradé de face, rim light, ombres de contact), entrée plus lisible, timings par
+  durée réelle des mots, mise en page à 3 étages (objet / mot-clé / sous-titres).
+
+### Erreurs corrigées (QC visuel)
+- Espaces entre mots des sous-titres « mangés » par le contour épais → marge 17 px.
+- Mot-clé 3D collé aux sous-titres → remonté ; personnage qui tombe sur son voisin → chute vers la caméra.

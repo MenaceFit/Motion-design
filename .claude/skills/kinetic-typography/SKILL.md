@@ -37,6 +37,21 @@ sur mobile et un rythme short-form.
 - 60 fps (`Text3D`) ou 30 fps aperçu (`Text3D30`). Polices 3D : `src/fonts3d/*.json`
   (conversion : `node scripts/font_to_typeface.mjs police.woff sortie.json`).
 
+## Qualité « pro » (v3) — appliquée par défaut
+- **Mode `keywords`** (défaut avec voix) : seuls les mots-clés (`accents`) passent en 3D géant ;
+  la phrase complète est en **sous-titres karaoké** (`Captions.tsx`) : pages ≤ 6 mots / 26 car.,
+  Montserrat 800 majuscules 60 px, contour 11 px + ombre dure, mot prononcé en couleur d'accent
+  (vert-jaune `#d7ff3a` façon ref03) avec pop, mots à venir atténués 42 %. Placés à 24,5 % du bas
+  (au-dessus de l'interface TikTok/Reels). `text_mode: "words"` = ancien mode, 3D seul.
+- **Split bicolore** des mots-clés (ref01) si le thème définit `accent2Face` (neon : rouge/bleu).
+- **Rendu studio** : environnement procédural `RoomEnvironment` → PMREM (reflets réels, aucun
+  HDRI à télécharger), face vernie (clearcoat) avec dégradé vertical (vertex colors), flancs
+  métallisés, rim light arrière, courbes 12 segments, biseau 4 segments, ombre douce sous les objets.
+- **Lisibilité à l'entrée** : ressort raide (stiffness 240, damping 16), angle d'entrée réduit
+  (−0,95 rad) → mot lisible en ~4 frames.
+- **Timings** : poids de chaque mot = durée du mot synthétisé seul (plus précis que les syllabes).
+- Mise en page avec scène : objet en haut (~25 %), mot-clé 3D au centre-bas, sous-titres en bas.
+
 ## Règles de design
 - Zone sûre 9:16 : garder le texte entre 15 % et 75 % de la hauteur (UI TikTok en bas/droite).
 - Taille : mot unique ≈ 70–78 % de la largeur max ; auto-fit selon la longueur (déjà codé).

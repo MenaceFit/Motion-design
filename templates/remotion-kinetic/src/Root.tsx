@@ -37,7 +37,7 @@ export const RemotionRoot: React.FC = () => (
       fps={60}
       durationInFrames={durationFrom3DWords(text3DDefaults.words, 60)}
       defaultProps={text3DDefaults}
-      calculateMetadata={({props}) => ({durationInFrames: durationFrom3DWords(props.words, 60)})}
+      calculateMetadata={({props}) => ({durationInFrames: durationFrom3DWords(props.words, 60, props.captions)})}
     />
     {/* Même composition en 30 fps : aperçus rapides (rendu ~2x plus court) */}
     <Composition
@@ -48,7 +48,7 @@ export const RemotionRoot: React.FC = () => (
       fps={30}
       durationInFrames={durationFrom3DWords(text3DDefaults.words, 30)}
       defaultProps={text3DDefaults}
-      calculateMetadata={({props}) => ({durationInFrames: durationFrom3DWords(props.words, 30)})}
+      calculateMetadata={({props}) => ({durationInFrames: durationFrom3DWords(props.words, 30, props.captions)})}
     />
     <Composition id="Gallery3D" component={Gallery3D} width={1080} height={1920} fps={30} durationInFrames={60} />
   </>

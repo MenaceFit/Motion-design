@@ -73,14 +73,31 @@ def voiced_spans(x, thr_db=-30):
     return t, v
 
 
-def place_words(words, x, offset):
-    """Répartit les mots d'une phrase sur sa zone voisée, au prorata des syllabes."""
+_WCACHE = {}
+
+
+def word_weight(word, synth, speed, pitch, tmp):
+    """Durée du mot prononcé seul (s) — bien plus fidèle que le nombre de syllabes
+    (« strengths » vs « a » : même nombre de syllabes, durées très différentes)."""
+    key = word.lower()
+    if key not in _WCACHE:
+        p = os.path.join(tmp, f"w{len(_WCACHE)}.wav")
+        try:
+            synth(word, p)
+            _WCACHE[key] = max(0.05, len(trim(load_resampled(p, speed, pitch), -36)) / SR)
+        except Exception:
+            _WCACHE[key] = 0.08 * syll(word)
+    return _WCACHE[key]
+
+
+def place_words(words, x, offset, weights=None):
+    """Répartit les mots d'une phrase sur sa zone voisée, au prorata de leur durée propre."""
     t, v = voiced_spans(x)
     vt = t[v]
     if not len(vt):
         vt = np.linspace(0, len(x) / SR, 10)
     # timeline voisée cumulée (on saute les pauses internes > 60 ms)
-    w = np.array([syll(wd) for wd in words], float)
+    w = np.array(weights if weights is not None else [syll(wd) for wd in words], float)
     cum = np.concatenate([[0], np.cumsum(w)]) / w.sum()
     idx = (cum * (len(vt) - 1)).round().astype(int)
     res = []
@@ -113,7 +130,9 @@ def main():
         (synth_pico if a.engine == "pico" else lambda tx, pa: synth_piper(tx, pa, a.piper_model))(line["text"], p)
         x = trim(load_resampled(p, a.speed, a.pitch))
         toks = [w for w in line["text"].split() if norm_word(w)]  # « ? », « — » seuls : pas de bloc vide
-        ws = place_words(toks, x, t)
+        synth = synth_pico if a.engine == "pico" else (lambda tx, pa: synth_piper(tx, pa, a.piper_model))
+        wts = [word_weight(tk, synth, a.speed, a.pitch, tmp) for tk in toks]
+        ws = place_words(toks, x, t, wts)
         for w, tk in zip(ws, toks):
             w["line"] = li; w["stop"] = tk[-1] in ".!?…,;:"  # ponctuation = frontière de bloc
         acc = {norm_word(m) for m in line.get("accents", [])}
