@@ -3,3 +3,5 @@ out/
 *.pyc
 __pycache__/
 .remotion/
+renders/
+templates/remotion-kinetic/public/projects/

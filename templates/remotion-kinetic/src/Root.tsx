@@ -2,6 +2,7 @@ import React from 'react';
 import {Composition} from 'remotion';
 import {KineticWords, kineticSchemaDefaults, durationFromWords} from './KineticWords';
 import {LineStory, lineStoryDefaults} from './LineStory';
+import {Text3D, text3DDefaults, durationFrom3DWords} from './Text3D';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -25,6 +26,28 @@ export const RemotionRoot: React.FC = () => (
       fps={30}
       durationInFrames={150}
       defaultProps={lineStoryDefaults}
+    />
+    {/* Texte 3D extrudé (Three.js) — 60 fps pour la fluidité */}
+    <Composition
+      id="Text3D"
+      component={Text3D}
+      width={1080}
+      height={1920}
+      fps={60}
+      durationInFrames={durationFrom3DWords(text3DDefaults.words, 60)}
+      defaultProps={text3DDefaults}
+      calculateMetadata={({props}) => ({durationInFrames: durationFrom3DWords(props.words, 60)})}
+    />
+    {/* Même composition en 30 fps : aperçus rapides (rendu ~2x plus court) */}
+    <Composition
+      id="Text3D30"
+      component={Text3D}
+      width={1080}
+      height={1920}
+      fps={30}
+      durationInFrames={durationFrom3DWords(text3DDefaults.words, 30)}
+      defaultProps={text3DDefaults}
+      calculateMetadata={({props}) => ({durationInFrames: durationFrom3DWords(props.words, 30)})}
     />
   </>
 );

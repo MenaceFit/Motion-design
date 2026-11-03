@@ -28,9 +28,15 @@ Langue de travail : **français**.
 | `documentation/` | Capacités réelles de l'environnement, limites, sources |
 | `changelog.md` | Journal des apprentissages et mises à jour de la bibliothèque |
 
+## Prompt → vidéo (cas le plus fréquent)
+Skill `prompt-to-video` : écrire `projects/<slug>/plan.json` puis
+`python3 tools/make_video.py projects/<slug>/plan.json --out renders/` (texte 3D 60 fps, voix,
+musique, SFX, mix, QC). Règles virales et contraintes de monétisation : `documentation/virality.md`.
+
 ## Démarrage rapide (conteneur cloud)
 ```bash
-pip install opencv-python-headless scenedetect librosa soundfile matplotlib faster-whisper bpy==5.2.3
+apt-get update && apt-get install -y libttspico-utils espeak-ng sox libsox-fmt-all fonts-noto-color-emoji
+pip install opencv-python-headless scenedetect librosa soundfile matplotlib faster-whisper bpy==5.2.3 pedalboard pyloudnorm
 cd templates/remotion-kinetic && npm install
 export CHROMIUM_PATH=/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell
 ```

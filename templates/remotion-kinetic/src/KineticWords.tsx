@@ -39,14 +39,13 @@ export const kineticSchemaDefaults: KineticProps = {
   autoSfx: true,
 };
 
-// Grain animé (feTurbulence) : casse le banding des dégradés après compression H.264
+// Grain animé : 4 tuiles de bruit pré-calculées (public/grain), alternées + décalées à chaque frame.
+// Casse le banding des dégradés après compression H.264. (L'ancien filtre SVG feTurbulence coûtait
+// ~0,65 s/frame en rendu logiciel ; une image répétée ne coûte presque rien.)
 export const Grain: React.FC<{seed: number; opacity?: number}> = ({seed, opacity = 0.09}) => (
-  <AbsoluteFill style={{opacity, mixBlendMode: 'overlay', pointerEvents: 'none'}}>
-    <svg width="100%" height="100%">
-      <filter id={`g${seed}`}><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed={seed} stitchTiles="stitch" /></filter>
-      <rect width="100%" height="100%" filter={`url(#g${seed})`} />
-    </svg>
-  </AbsoluteFill>
+  <AbsoluteFill style={{opacity, mixBlendMode: 'overlay', pointerEvents: 'none',
+    backgroundImage: `url(${staticFile(`grain/g${seed % 4}.png`)})`, backgroundRepeat: 'repeat',
+    backgroundPosition: `${(seed * 37) % 256}px ${(seed * 91) % 256}px`}} />
 );
 
 // Fond : dégradé radial + particules lentes (parallaxe légère)
@@ -63,7 +62,7 @@ const Background: React.FC<{p: KineticProps['palette']}> = ({p}) => {
   return (
     <AbsoluteFill style={{background: `radial-gradient(circle at 50% 42%, ${p.bgInner} 0%, ${p.bgOuter} 75%)`}}>
       {dots}
-      <Grain seed={f % 3} />
+      <Grain seed={f % 4} />
     </AbsoluteFill>
   );
 };

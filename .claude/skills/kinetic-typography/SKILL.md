@@ -26,6 +26,17 @@ sur mobile et un rythme short-form.
 5. **Contrôler** : extraire 4–6 images au début de mots (frame start+1, +3) → vérifier taille,
    débordement, lisibilité. Puis `tools/finish.sh` et `tools/qc_check.py --events words.json`.
 
+## Mode 3D (`Text3D`, Three.js) — par défaut pour les vidéos virales
+- Texte **réellement extrudé** (profondeur 0,55 em, biseau), 2 matériaux (face claire / flancs
+  colorés), pose de repos inclinée alternée G/D pour toujours voir le volume.
+- Entrées `flip` / `slam` / `twist` (spring), sortie vers la caméra en relais pendant l'entrée du
+  mot suivant (chevauchement 0,1 s → aucune frame vide).
+- Caméra continue (bruit de Perlin) + **impact amorti** sur les mots accentués (`shake`).
+- Halo additif derrière le mot, particules en profondeur, grain, emoji pop, barre de progression.
+- Blocs multi-mots > 8 caractères → 2 lignes automatiques.
+- 60 fps (`Text3D`) ou 30 fps aperçu (`Text3D30`). Polices 3D : `src/fonts3d/*.json`
+  (conversion : `node scripts/font_to_typeface.mjs police.woff sortie.json`).
+
 ## Règles de design
 - Zone sûre 9:16 : garder le texte entre 15 % et 75 % de la hauteur (UI TikTok en bas/droite).
 - Taille : mot unique ≈ 70–78 % de la largeur max ; auto-fit selon la longueur (déjà codé).
@@ -42,6 +53,11 @@ sur mobile et un rythme short-form.
 (fichiers audio dans `public/`).
 
 ## Erreurs fréquentes (vécues lors des tests)
+- 3D vue de face = extrusion invisible → toujours une pose de repos inclinée (rotY ±0,3, rotX 0,16).
+- Bloom (postprocessing) = 7 s/frame sans GPU → halo additif (plan + texture radiale) quasi gratuit.
+- Filtre SVG feTurbulence (grain) = 0,65 s/frame → tuiles PNG pré-calculées.
+- `noise2D` sur des coordonnées entières vaut 0 → particules alignées ; utiliser `random(seed)`.
+- Le dernier mot ne doit pas sortir (écran vide final) → tenu jusqu'à la fin.
 - Scale d'entrée trop basse (0,35) → mot illisible pendant les 3 premières frames. Utiliser ≥ 0,7.
 - Multiplier deux échelles dont l'une part de 0 (bug « drift » corrigé) → toujours vérifier les
   valeurs initiales de chaque interpolate.
@@ -56,6 +72,7 @@ sur mobile et un rythme short-form.
 - [ ] Zone sûre respectée
 
 ## Limites
+- Rendu 3D sans GPU : ~1,3–3 s/frame selon la charge (25 s à 60 fps ≈ 30–75 min). Avec GPU local : 10–20× plus rapide.
 - L'auto-fit est une estimation (0,74 em/glyphe pour Montserrat 900 italic) : à recalibrer si on
   change de police.
 - Transcription automatique indisponible tant que huggingface.co est bloqué (mode `--script` sinon).

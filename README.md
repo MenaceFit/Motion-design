@@ -11,6 +11,7 @@ testés et templates pour produire des vidéos courtes **originales** (TikTok, R
 ## Skills (`.claude/skills/`)
 | Skill | Usage |
 |---|---|
+| **prompt-to-video** | **Un prompt → vidéo virale finie (texte 3D 60 fps, voix, musique, SFX, QC)** |
 | video-reference-analysis | Décomposer une référence (plans, palette, typo, animations, son) |
 | kinetic-typography | Texte synchronisé voix (1 mot géant / sous-titres mot à mot) |
 | motion-graphics | Métaphores visuelles 2D, pictos, compteurs, HUD en Remotion/SVG |
@@ -23,6 +24,10 @@ testés et templates pour produire des vidéos courtes **originales** (TikTok, R
 
 ## Outils
 ```bash
+python3 tools/make_video.py projects/<slug>/plan.json     # prompt → vidéo complète
+python3 tools/tts_voice.py script.json out/               # voix hors ligne + timings
+python3 tools/music_gen.py music.wav --mood hype --drop 2 # musique originale
+python3 tools/mix_audio.py master.wav --voice v.wav --music m.wav --sfx sfx.json
 python3 tools/analyze_reference.py ref.mp4 out/          # analyse de référence
 python3 tools/sfx_synth.py sfx/ --variants 3              # SFX originaux
 python3 tools/transcribe_words.py voix.wav words.json --model small   # timings mot à mot

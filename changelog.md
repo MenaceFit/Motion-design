@@ -48,3 +48,29 @@
 hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV); m = (hsv[...,1] > 110) & (hsv[...,2] > 120)
 _, l, c = cv2.kmeans(img[m].astype(np.float32), 4, None, (3, 20, 1), 3, cv2.KMEANS_PP_CENTERS)
 ```
+
+## 2026-11-03 (2) — Texte 3D, prompt → vidéo, musique, viralité
+
+### Installé
+- npm : @remotion/three, three 0.171, @react-three/fiber 8, drei 9, postprocessing 6.37,
+  @remotion/{transitions, motion-blur, noise, paths, shapes, layout-utils, media-utils},
+  polices Anton, Archivo Black, Bebas Neue.
+- pip : pedalboard (EQ/compression/reverb/limiteur), pyloudnorm, edge-tts/gTTS (inutilisables : hôtes bloqués).
+- apt : libttspico-utils (voix fr hors ligne), espeak-ng, sox, fonts-noto-color-emoji.
+
+### Créé
+- `Text3D` / `Text3D30` (Remotion + Three.js) : texte extrudé biseauté, entrées flip/slam/twist,
+  relais de sortie, caméra Perlin + impact sur accents, halo, particules, emojis, barre de progression.
+- `tools/tts_voice.py`, `tools/music_gen.py`, `tools/mix_audio.py`, `tools/make_video.py`.
+- Skill `prompt-to-video` ; `documentation/virality.md` (recherche sourcée, limites des données).
+
+### Apprentissages (mesurés)
+- Bloom = 7 s/frame sans GPU → halo additif ; SVG feTurbulence = 0,65 s/frame → tuiles PNG.
+- Rendu WebGL logiciel : coût fixe ~0,7 s/frame même scène vide ; la résolution interne (dpr) ne
+  change presque rien → le goulot n'est pas le remplissage de pixels.
+- Concurrence 4 sur 4 CPU sature SwiftShader (≈3 s/frame effectif) — à comparer avec concurrence 1–2.
+- Blocs de mots : coller les mots-outils (≤ 3 lettres) au mot suivant, couper sur la ponctuation,
+  2 lignes au-delà de 8 caractères ; le dernier mot reste à l'écran.
+- Monétisation : TikTok Creator Rewards ne paierait que les vidéos > 1 min (sources tierces) ;
+  YouTube « contenu inauthentique » vise templates répétitifs et textes sans narration ;
+  voix de synthèse → label IA TikTok.

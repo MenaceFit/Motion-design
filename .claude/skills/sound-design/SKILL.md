@@ -19,10 +19,13 @@ loudness conforme aux plateformes, zéro problème de droits.
    `references/sound-patterns/catalog.md` (événement → son, volume, offset).
    Dans Remotion : `autoSfx: true` (pop par mot, sub_hit sur accents) + liste `sfx` manuelle
    pour whooshes/risers.
-3. **Musique** : uniquement une piste dont la licence autorise l'usage commercial sur la plateforme
+3. **Musique originale** : `python3 tools/music_gen.py music.wav --mood hype|dark|inspire|tension --bpm 120 --duration 30 --drop <s> --seed N`
+   → intro filtrée, riser, **drop calé sur le premier mot-clé**, + `music.json` (temps, mesures)
+   pour caler des coupes sur la musique. Sinon, uniquement une piste dont la licence autorise l'usage commercial sur la plateforme
    (bibliothèque audio de la plateforme, musique composée, ou licence achetée). La placer à
    -20/-24 dB sous la voix.
-4. **Mix** : voix prioritaire ; SFX discrets (on doit les sentir plus que les entendre).
+4. **Mix** : `python3 tools/mix_audio.py master.wav --voice voice.wav --music music.wav --sfx sfx.json`
+   (ducking automatique de la musique sous la voix, bus master compressé/limité). Voix prioritaire ; SFX discrets (on doit les sentir plus que les entendre).
 5. **Finition** : `tools/finish.sh` (loudnorm 2 passes, -14 LUFS, TP -1,5 dBTP).
 6. **Vérifier** : `python3 tools/qc_check.py final.mp4 --events words.json` → décalage médian < 50 ms.
 
@@ -42,8 +45,16 @@ ex. `whoosh_in_02 · 00:07.53 · 0,55 s · 0,5 · transition chapitre 2 · pic s
 - [ ] -14 LUFS ±1, TP ≤ -1 dBTP
 - [ ] Licences de musique documentées dans le dossier projet
 
+## Voix de synthèse (hors ligne)
+`python3 tools/tts_voice.py script.json out/ --engine pico --speed 1.08` → voice.wav traitée
+(EQ présence, compression) + words.json (blocs de mots lisibles, accents, emojis).
+Pico = qualité correcte mais synthétique ; label « IA » obligatoire sur TikTok.
+
 ## Limites
 - Banques en ligne (Freesound, Pixabay) et modèles audio génératifs non joignables depuis ce
   conteneur → synthèse procédurale. Les sons synthétiques sont plus « propres/UI » que des
   enregistrements foley ; pour des textures organiques, fournir des sons sous licence.
-- Pas de TTS : la voix off est fournie par l'utilisateur (meilleur aussi pour l'originalité).
+- TTS hors ligne limité à Pico (synthétique). Voix neuronales Piper dès que huggingface.co est autorisé ;
+  la voix de l'utilisateur reste la meilleure option (originalité, pas de label IA).
+- Musique procédurale : fonctionnelle et libre de droits mais moins riche qu'une production humaine.
+  Je ne peux pas l'écouter : elle est validée par spectrogramme, bandes de fréquences et loudness.
