@@ -78,7 +78,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("plan"); ap.add_argument("--out", default=str(ROOT / "renders"))
     ap.add_argument("--preview", action="store_true", help="30 fps, qualité brouillon (rapide)")
-    ap.add_argument("--concurrency", type=int, default=4)
+    ap.add_argument("--concurrency", type=int, default=1)  # mesuré : 1 tab = 1,5 s/frame, 4 tabs = 3,4 s/frame (SwiftShader sature les CPU)
     a = ap.parse_args()
     plan = json.load(open(a.plan, encoding="utf-8"))
     slug = plan["slug"]

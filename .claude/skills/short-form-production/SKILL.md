@@ -5,7 +5,10 @@ description: Workflow de bout en bout pour produire une vidéo courte verticale 
 
 # Production de vidéo courte (9:16)
 
-Détail complet : `workflows/short-form-production.md`. Résumé opérationnel :
+Détail complet : `workflows/short-form-production.md`.
+**Raccourci** : si l'utilisateur donne juste un sujet/prompt → skill `prompt-to-video`
+(`tools/make_video.py`, texte 3D 60 fps). Ce workflow-ci sert aux projets sur mesure
+(scènes illustrées, styles de référence, voix enregistrée). Résumé opérationnel :
 
 ## 1. Brief (une question à la fois si info manquante)
 Objectif · plateforme · durée (25–60 s) · public · style de référence · voix off (fournie ?) ·
@@ -33,7 +36,7 @@ Google Fonts via @fontsource), personnages/pictos originaux, règle de rythme.
 `npx remotion render … --crf=16` → `tools/finish.sh` → `tools/qc_check.py`.
 Livrable : 1080×1920, 30 fps, H.264 High yuv420p, AAC 48 kHz, -14 LUFS.
 
-## 7. Monétisation & conformité (sans garantie)
+## 7. Monétisation & conformité (sans garantie) — détails sourcés : `documentation/virality.md`
 - Contenu original : script, voix, visuels, SFX créés pour le projet ; pas de reupload ni de
   « mash-up » de contenus tiers.
 - Valeur ajoutée substantielle (information, analyse, narration) — éviter les séries produites en
