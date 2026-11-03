@@ -1,0 +1,21 @@
+{
+  "duration_s": 29.333,
+  "fps": 30.0,
+  "width": 1024,
+  "height": 576,
+  "aspect": "16:9",
+  "orientation": "horizontal",
+  "video_codec": "h264",
+  "audio": {
+    "codec": "aac",
+    "sr": 44100,
+    "channels": 2
+  },
+  "motion": {
+    "mean": 0.84,
+    "p95": 2.63,
+    "static_ratio": 0.506
+  },
+  "n_scenes": 13,
+  "avg_shot_s": 2.26
+}

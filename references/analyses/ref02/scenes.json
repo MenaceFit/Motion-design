@@ -1,0 +1,152 @@
+[
+  {
+    "start": 0.0,
+    "end": 0.133,
+    "start_frame": 0,
+    "end_frame": 4
+  },
+  {
+    "start": 0.133,
+    "end": 1.667,
+    "start_frame": 4,
+    "end_frame": 50
+  },
+  {
+    "start": 1.667,
+    "end": 2.833,
+    "start_frame": 50,
+    "end_frame": 85
+  },
+  {
+    "start": 2.833,
+    "end": 4.333,
+    "start_frame": 85,
+    "end_frame": 130
+  },
+  {
+    "start": 4.333,
+    "end": 4.467,
+    "start_frame": 130,
+    "end_frame": 134
+  },
+  {
+    "start": 4.467,
+    "end": 5.4,
+    "start_frame": 134,
+    "end_frame": 162
+  },
+  {
+    "start": 5.4,
+    "end": 6.6,
+    "start_frame": 162,
+    "end_frame": 198
+  },
+  {
+    "start": 6.6,
+    "end": 7.7,
+    "start_frame": 198,
+    "end_frame": 231
+  },
+  {
+    "start": 7.7,
+    "end": 8.367,
+    "start_frame": 231,
+    "end_frame": 251
+  },
+  {
+    "start": 8.367,
+    "end": 8.767,
+    "start_frame": 251,
+    "end_frame": 263
+  },
+  {
+    "start": 8.767,
+    "end": 9.733,
+    "start_frame": 263,
+    "end_frame": 292
+  },
+  {
+    "start": 9.733,
+    "end": 10.7,
+    "start_frame": 292,
+    "end_frame": 321
+  },
+  {
+    "start": 10.7,
+    "end": 13.233,
+    "start_frame": 321,
+    "end_frame": 397
+  },
+  {
+    "start": 13.233,
+    "end": 13.733,
+    "start_frame": 397,
+    "end_frame": 412
+  },
+  {
+    "start": 13.733,
+    "end": 16.567,
+    "start_frame": 412,
+    "end_frame": 497
+  },
+  {
+    "start": 16.567,
+    "end": 18.3,
+    "start_frame": 497,
+    "end_frame": 549
+  },
+  {
+    "start": 18.3,
+    "end": 19.767,
+    "start_frame": 549,
+    "end_frame": 593
+  },
+  {
+    "start": 19.767,
+    "end": 23.1,
+    "start_frame": 593,
+    "end_frame": 693
+  },
+  {
+    "start": 23.1,
+    "end": 24.267,
+    "start_frame": 693,
+    "end_frame": 728
+  },
+  {
+    "start": 24.267,
+    "end": 26.233,
+    "start_frame": 728,
+    "end_frame": 787
+  },
+  {
+    "start": 26.233,
+    "end": 27.4,
+    "start_frame": 787,
+    "end_frame": 822
+  },
+  {
+    "start": 27.4,
+    "end": 28.133,
+    "start_frame": 822,
+    "end_frame": 844
+  },
+  {
+    "start": 28.133,
+    "end": 28.633,
+    "start_frame": 844,
+    "end_frame": 859
+  },
+  {
+    "start": 28.633,
+    "end": 29.5,
+    "start_frame": 859,
+    "end_frame": 885
+  },
+  {
+    "start": 29.5,
+    "end": 33.5,
+    "start_frame": 885,
+    "end_frame": 1005
+  }
+]
