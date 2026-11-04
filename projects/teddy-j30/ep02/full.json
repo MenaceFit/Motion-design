@@ -534,5 +534,6 @@
       "vol": 0.45
     }
   ],
-  "composition": "TeddyEp02"
+  "composition": "TeddyEp02",
+  "_voice_takes": "Voix finale : prise de l'utilisateur (ElevenLabs, voix Hugo – News Narrator, eleven_v4), toutes les répliques, découpée en voice/L<i>.flac (coupes vérifiées par transcription, voir voice/cuts.json). Prioritaire sur le bloc « voices »."
 }
