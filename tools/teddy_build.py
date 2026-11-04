@@ -133,6 +133,11 @@ def main():
         d = {k: l[k] for k in ("text", "tts_text", "pause", "speed", "pitch") if k in l}
         who = l.get("who", "narrator")
         if who in voices: d["voice"] = voices[who]
+        # prise de voix déjà générée (ex. via le connecteur ElevenLabs) : <dossier épisode>/voice/<id>.mp3|wav
+        for ext in ("wav", "mp3"):
+            f = Path(a.episode).resolve().parent / "voice" / f"{l['id']}.{ext}"
+            if f.exists():
+                d["audio_file"] = str(f); break
         script.append(d)
     json.dump(script, open(out / "script.json", "w", encoding="utf-8"), ensure_ascii=False)
     v = ep.get("voice", {})

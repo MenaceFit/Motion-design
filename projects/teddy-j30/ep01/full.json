@@ -571,23 +571,23 @@
   "voices": {
     "narrator": {
       "engine": "elevenlabs",
-      "voice_id": "pNInz6obpgDQGcFmaJgB",
-      "model": "eleven_v3",
+      "voice_id": "mgJuPHzoFzHp7TakLEYb",
+      "model": "eleven_v4",
       "language": "fr",
       "stability": 0.5,
       "similarity": 0.8,
       "style": 0.6,
       "speed": 1.05,
-      "_note": "Voix masculine expressive (documentaire moqueur). voice_id générique à remplacer par une voix française : python3 tools/elevenlabs_voices.py",
       "fallback": {
         "speed": 1.06,
         "pitch": -120
-      }
+      },
+      "_voice_name": "Loïc - Engaging French Storyteller"
     },
     "teddy": {
       "engine": "elevenlabs",
-      "voice_id": "TxGEqnHWrfWFTfGW9XjX",
-      "model": "eleven_v3",
+      "voice_id": "Ayvd8fDj52DfUWXZeAFe",
+      "model": "eleven_v4",
       "language": "fr",
       "stability": 0.5,
       "similarity": 0.75,
@@ -596,12 +596,13 @@
       "fallback": {
         "speed": 0.92,
         "pitch": -380
-      }
+      },
+      "_voice_name": "Nathan Doré - Chill & Casual"
     },
     "mamie": {
       "engine": "elevenlabs",
-      "voice_id": "A_CHOISIR_voix_feminine_agee",
-      "model": "eleven_v3",
+      "voice_id": "1T2MOlQA0Xp3hNv1dBxp",
+      "model": "eleven_v4",
       "language": "fr",
       "stability": 0.5,
       "similarity": 0.75,
@@ -610,8 +611,10 @@
       "fallback": {
         "speed": 1.0,
         "pitch": 260
-      }
+      },
+      "_voice_name": "Loulou"
     }
   },
-  "composition": "TeddyEpFull"
+  "composition": "TeddyEpFull",
+  "_voice_takes": "Prises générées via le connecteur ElevenLabs (flow XskVmCbwSNtPmd1L4DuV), une par ligne, rangées dans voice/<id>.mp3 ; teddy_build les utilise en priorité."
 }

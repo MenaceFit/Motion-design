@@ -224,6 +224,8 @@ def main():
         if eng == "elevenlabs" and not elevenlabs_available():
             eng = "pico"; v = v.get("fallback", {})        # repli hors ligne (voix du personnage approchée)
         toks = [w for w in line["text"].split() if norm_word(w)]  # « ? », « — » seuls : pas de bloc vide
+        if line.get("audio_file") and os.path.exists(line["audio_file"]):
+            eng = "file"                                        # prise fournie (connecteur ElevenLabs, studio…)
         if eng == "elevenlabs":
             spoken = line.get("tts_text", line["text"])            # texte dit (balises d'intonation)
             prev_t = lines[li - 1].get("tts_text", lines[li - 1]["text"]) if li else None
@@ -248,7 +250,13 @@ def main():
             for w, tk in zip(ws, toks):
                 w["text"] = norm_word(tk); w["line"] = li; w["stop"] = tk[-1] in ".!?…,;:"; w.pop("raw", None)
             report.append({"line": li, "engine": "elevenlabs", "voice_id": v.get("voice_id"), "model": v.get("model")})
-        if eng != "elevenlabs":
+        if eng == "file":
+            x = trim(load_resampled(line["audio_file"], 1.0, 0), -40)
+            ws = place_words(toks, x, t, [syll(w) for w in toks])
+            for w, tk in zip(ws, toks):
+                w["line"] = li; w["stop"] = tk[-1] in ".!?…,;:"
+            report.append({"line": li, "engine": "file", "file": os.path.basename(line["audio_file"])})
+        if eng not in ("elevenlabs", "file"):
             sp, pt = v.get("speed", line.get("speed", a.speed)), v.get("pitch", line.get("pitch", a.pitch))
             (synth_pico if eng == "pico" else lambda tx, pa: synth_piper(tx, pa, a.piper_model))(line["text"], p)
             x = trim(load_resampled(p, sp, pt))
