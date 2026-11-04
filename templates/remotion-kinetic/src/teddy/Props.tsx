@@ -172,8 +172,10 @@ export const Croquette: React.FC<{t: number; walking: boolean; facing?: 1 | -1}>
 };
 
 // ============ Téléphone : conversation avec Inès ============
-const TYPED = ['oui avec ma copine', 'jsp peut-être', 'carrément 😏🔥'];
-export const Phone: React.FC<{t: number; typeT: number; sendT: number; seenT: number}> = ({t, typeT, sendT, seenT}) => {
+const TYPED_DEFAULT = ['oui avec ma copine', 'jsp peut-être', 'carrément 😏🔥'];
+const E = (txt: string) => txt.split(/(\p{Extended_Pictographic}\uFE0F?)/u).map((p, i) => /\p{Extended_Pictographic}/u.test(p) ? <span key={i} style={{fontFamily: 'Noto Color Emoji'}}>{p}</span> : p);
+export const Phone: React.FC<{t: number; typeT: number; sendT: number; seenT: number; inesText?: string; history?: {me: boolean; text: string}[]; typed?: string[]; sendEmoji?: string; time?: string}> = ({t, typeT, sendT, seenT, inesText = 'Coucou Teddy !! Trop hâte que tu sois là 🥰 Tu viens accompagné ? 😇', history = [], typed = TYPED_DEFAULT, sendEmoji = '👍', time = "Aujourd'hui 23:47"}) => {
+  const TYPED = typed;
   // saisie : 3 tentatives tapées puis effacées (chaque cycle 1,2 s : tape 0,6 s, attend, efface 0,3 s)
   let draft = '';
   if (typeT > 0 && sendT < 0) {
@@ -196,13 +198,17 @@ export const Phone: React.FC<{t: number; typeT: number; sendT: number; seenT: nu
           <div style={{fontWeight: 800, fontSize: 38, color: '#111', marginTop: 8}}>Inès <span style={{fontFamily: 'Noto Color Emoji'}}>💍</span></div>
         </div>
         <div style={{padding: '30px 34px', display: 'flex', flexDirection: 'column', gap: 18}}>
-          <div style={{alignSelf: 'center', color: '#888', fontSize: 26, fontWeight: 600}}>Aujourd'hui 23:47</div>
+          {history.map((h, i) => (
+            <div key={i} style={{alignSelf: h.me ? 'flex-end' : 'flex-start', maxWidth: '78%', background: h.me ? '#3d7bff' : '#e6e3ec', color: h.me ? '#fff' : '#111',
+              borderRadius: 30, padding: '16px 24px', fontSize: h.text.length <= 2 ? 64 : 32, fontWeight: 600, opacity: 0.75}}>{E(h.text)}</div>
+          ))}
+          <div style={{alignSelf: 'center', color: '#888', fontSize: 26, fontWeight: 600}}>{time}</div>
           <div style={{alignSelf: 'flex-start', maxWidth: '80%', background: '#e6e3ec', borderRadius: 34, padding: '22px 28px', fontSize: 38, fontWeight: 600, color: '#111',
             transform: `scale(${inesIn})`, transformOrigin: '0% 100%'}}>
-            Coucou Teddy !! Trop hâte que tu sois là <span style={{fontFamily: 'Noto Color Emoji'}}>🥰</span> Tu viens accompagné ? <span style={{fontFamily: 'Noto Color Emoji'}}>😇</span>
+            {E(inesText)}
           </div>
           {sent ? (
-            <div style={{alignSelf: 'flex-end', fontSize: 150, lineHeight: 1, transform: `scale(${thumbS}) rotate(${(1 - thumbS) * 30}deg)`, transformOrigin: '100% 100%', fontFamily: 'Noto Color Emoji'}}>👍</div>
+            <div style={{alignSelf: 'flex-end', fontSize: 150, lineHeight: 1, transform: `scale(${thumbS}) rotate(${(1 - thumbS) * 30}deg)`, transformOrigin: '100% 100%', fontFamily: 'Noto Color Emoji'}}>{sendEmoji}</div>
           ) : null}
           {seenT > 0 ? <div style={{alignSelf: 'flex-end', color: '#888', fontSize: 26, fontWeight: 800}}>Vu ✓✓</div> : null}
           {dots ? (
@@ -330,7 +336,8 @@ export const Checklist: React.FC<{t: number}> = ({t}) => {
 };
 
 // ============ Carte de vote : DOUCHE vs CHAMBRE ============
-export const VoteCard: React.FC<{t: number}> = ({t}) => {
+export type VoteSide = {label: string; sub: string; kind: 'shower' | 'room' | 'teeth' | 'sheets'};
+export const VoteCard: React.FC<{t: number; left?: VoteSide; right?: VoteSide}> = ({t, left = {label: 'DOUCHE', sub: '1RE VRAIE DOUCHE DEPUIS MARDI', kind: 'shower'}, right = {label: 'CHAMBRE', sub: 'RANGER LA GROTTE', kind: 'room'}}) => {
   const inL = EXPO(clamp01(t / 0.35)), inR = EXPO(clamp01((t - 0.12) / 0.35));
   const vs = ELASTIC(clamp01((t - 0.3) / 0.8));
   const title = BACK(clamp01((t - 0.15) / 0.35));
@@ -345,28 +352,8 @@ export const VoteCard: React.FC<{t: number}> = ({t}) => {
   );
   return (
     <AbsoluteFill>
-      {side('DOUCHE', '1RE VRAIE DOUCHE DEPUIS MARDI', `linear-gradient(${C.violet}, #4a2a9a)`, inL, (
-        <div style={{position: 'relative', width: '100%', height: '100%'}}>
-          <Teddy t={t + 3} expression="shock" armL={-30} armR={0} showCloud={false} showFly={false} />
-          {/* bonnet de bain + canard */}
-          <svg viewBox="0 0 560 900" style={{position: 'absolute', inset: 0}} width="100%" height="100%">
-            <path d="M150 190 Q280 60 410 190 Q280 160 150 190 Z" fill="#8fd3ff" stroke={INK} strokeWidth={8} />
-            {[200, 260, 320, 370].map((x) => <circle key={x} cx={x} cy={150} r={10} fill="#fff" opacity={0.8} />)}
-            <g transform={`translate(330 ${590 + Math.sin(t * 5) * 6})`}><ellipse cx={0} cy={0} rx={50} ry={34} fill="#FFC23D" stroke={INK} strokeWidth={6} /><circle cx={-30} cy={-34} r={24} fill="#FFC23D" stroke={INK} strokeWidth={6} /><path d="M-56 -34 l-20 6 l20 6z" fill={C.orange} stroke={INK} strokeWidth={4} /><circle cx={-34} cy={-40} r={4} fill={INK} /></g>
-          </svg>
-          {Array.from({length: 8}).map((_, i) => <div key={i} style={{position: 'absolute', left: 60 + (i * 53) % 360, top: ((t * 400 + i * 130) % 700) - 40, width: 8, height: 34, borderRadius: 4, background: '#cfe8ff', opacity: 0.8}} />)}
-        </div>
-      ), -1)}
-      {side('CHAMBRE', 'RANGER LA GROTTE', `linear-gradient(${C.orange}, #b8520a)`, inR, (
-        <div style={{position: 'relative', width: '100%', height: '100%'}}>
-          <Teddy t={t + 5} expression="panic" armL={0} armR={-40} showCloud={false} />
-          <svg viewBox="0 0 560 900" style={{position: 'absolute', inset: 0}} width="100%" height="100%">
-            {/* sac poubelle + balai */}
-            <g transform="translate(110 520) rotate(-10)"><path d="M0 0 Q-40 80 0 150 L120 150 Q160 80 120 0 Z" fill="#2a2433" stroke={INK} strokeWidth={7} /><path d="M40 -10 l20 -30 l20 30" stroke={INK} strokeWidth={6} fill="none" /></g>
-            <g transform="translate(470 300) rotate(18)"><rect x={-8} y={0} width={16} height={430} fill="#c08a52" stroke={INK} strokeWidth={5} /><path d="M-50 430 h100 l20 80 h-140z" fill="#FFC23D" stroke={INK} strokeWidth={6} /></g>
-          </svg>
-        </div>
-      ), 1)}
+      {side(left.label, left.sub, `linear-gradient(${C.violet}, #4a2a9a)`, inL, <VoteAccessory kind={left.kind} t={t} />, -1)}
+      {side(right.label, right.sub, `linear-gradient(${C.orange}, #b8520a)`, inR, <VoteAccessory kind={right.kind} t={t} />, 1)}
       {/* bandeau titre + VS */}
       <div style={{position: 'absolute', top: 330, left: 0, right: 0, display: 'flex', justifyContent: 'center', transform: `scale(${title})`}}>
         <div style={{background: INK, border: `6px solid ${C.gold}`, borderRadius: 60, padding: '12px 46px', fontFamily: 'Anton', fontSize: 72, color: C.gold}}>COMMENTE UN MOT</div>
@@ -377,12 +364,52 @@ export const VoteCard: React.FC<{t: number}> = ({t}) => {
   );
 };
 
-export const DayBanner: React.FC<{t: number}> = ({t}) => {
+// Teddy + accessoire illustrant chaque option de vote
+export const VoteAccessory: React.FC<{kind: VoteSide['kind']; t: number}> = ({kind, t}) => (
+  <div style={{position: 'relative', width: '100%', height: '100%'}}>
+    <Teddy t={t + (kind === 'shower' || kind === 'teeth' ? 3 : 5)} expression={kind === 'shower' ? 'shock' : kind === 'teeth' ? 'happy' : 'panic'}
+      armL={kind === 'shower' ? -30 : kind === 'teeth' ? -60 : 0} armR={kind === 'room' ? -40 : kind === 'sheets' ? -50 : 0}
+      showCloud={kind === 'room' || kind === 'sheets'} showFly={kind !== 'shower'} />
+    <svg viewBox="0 0 560 900" style={{position: 'absolute', inset: 0}} width="100%" height="100%">
+      {kind === 'shower' ? (
+        <>
+          <path d="M150 190 Q280 60 410 190 Q280 160 150 190 Z" fill="#8fd3ff" stroke={INK} strokeWidth={8} />
+          {[200, 260, 320, 370].map((x) => <circle key={x} cx={x} cy={150} r={10} fill="#fff" opacity={0.8} />)}
+          <g transform={`translate(330 ${590 + Math.sin(t * 5) * 6})`}><ellipse cx={0} cy={0} rx={50} ry={34} fill="#FFC23D" stroke={INK} strokeWidth={6} /><circle cx={-30} cy={-34} r={24} fill="#FFC23D" stroke={INK} strokeWidth={6} /><path d="M-56 -34 l-20 6 l20 6z" fill={C.orange} stroke={INK} strokeWidth={4} /><circle cx={-34} cy={-40} r={4} fill={INK} /></g>
+        </>
+      ) : null}
+      {kind === 'room' ? (
+        <>
+          <g transform="translate(110 520) rotate(-10)"><path d="M0 0 Q-40 80 0 150 L120 150 Q160 80 120 0 Z" fill="#2a2433" stroke={INK} strokeWidth={7} /><path d="M40 -10 l20 -30 l20 30" stroke={INK} strokeWidth={6} fill="none" /></g>
+          <g transform="translate(470 300) rotate(18)"><rect x={-8} y={0} width={16} height={430} fill="#c08a52" stroke={INK} strokeWidth={5} /><path d="M-50 430 h100 l20 80 h-140z" fill="#FFC23D" stroke={INK} strokeWidth={6} /></g>
+        </>
+      ) : null}
+      {kind === 'teeth' ? (
+        <g transform={`translate(330 330) rotate(${-30 + Math.sin(t * 9) * 12})`}>
+          <rect x={-14} y={0} width={28} height={300} rx={12} fill="#3FE0FF" stroke={INK} strokeWidth={6} />
+          <rect x={-26} y={-60} width={52} height={70} rx={10} fill="#fff" stroke={INK} strokeWidth={6} />
+          {[-14, 0, 14].map((x) => <path key={x} d={`M${x} -60 v-30`} stroke="#fff" strokeWidth={10} />)}
+          {[0, 1, 2, 3].map((i) => <circle key={i} cx={-60 + i * 40} cy={-110 - ((t * 120 + i * 30) % 60)} r={12} fill="#fff" stroke="#cfe8ff" strokeWidth={3} />)}
+        </g>
+      ) : null}
+      {kind === 'sheets' ? (
+        <g transform={`translate(40 420) rotate(${Math.sin(t * 3) * 3})`}>
+          <path d="M0 0 L240 -30 L260 300 L10 330 Z" fill="#f3ead2" stroke={INK} strokeWidth={8} strokeLinejoin="round" />
+          {[[70, 60, 34], [170, 140, 44], [90, 220, 30], [200, 260, 24]].map(([x, y, r], i) => <ellipse key={i} cx={x} cy={y} rx={r} ry={r * 0.7} fill="#d9b85a" opacity={0.7} />)}
+          {[0, 1, 2].map((i) => <path key={i} d={`M${60 + i * 70} ${-40 - ((t * 50 + i * 15) % 40)} q12 -16 0 -32`} stroke="#8be36a" strokeWidth={7} fill="none" />)}
+        </g>
+      ) : null}
+    </svg>
+    {kind === 'shower' ? Array.from({length: 8}).map((_, i) => <div key={i} style={{position: 'absolute', left: 60 + (i * 53) % 360, top: ((t * 400 + i * 130) % 700) - 40, width: 8, height: 34, borderRadius: 4, background: '#cfe8ff', opacity: 0.8}} />) : null}
+  </div>
+);
+
+export const DayBanner: React.FC<{t: number; day?: number}> = ({t, day = 29}) => {
   const s = BACK(clamp01(t / 0.35));
   return (
     <div style={{position: 'absolute', bottom: 330, left: 0, right: 0, display: 'flex', justifyContent: 'center', transform: `scale(${s})`}}>
       <div style={{background: C.gold, border: `8px solid ${INK}`, borderRadius: 24, padding: '14px 34px', fontFamily: 'Anton', fontSize: 58, color: INK, boxShadow: `0 10px 0 ${INK}`, textAlign: 'center'}}>
-        LE JOUR 29 COMMENCE<br />AVEC VOTRE CHOIX
+        LE JOUR {day} COMMENCE<br />AVEC VOTRE CHOIX
       </div>
     </div>
   );

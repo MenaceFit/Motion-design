@@ -24,6 +24,9 @@ export type TeddyProps = {
   mouthOpen?: number;        // 0..1 (parole)
   showCloud?: boolean;
   showFly?: boolean;
+  clean?: boolean;   // après la douche : peau nette, plus de boutons
+  frozen?: boolean;  // eau glacée : glaçons sur la mèche et le nez
+  towel?: boolean;   // serviette enroulée sur la tête
 };
 
 const INK = '#1B1030';
@@ -121,7 +124,7 @@ const Arm: React.FC<{side: 'L' | 'R'; angle: number; level: 1 | 5}> = ({side, an
 
 export const Teddy: React.FC<TeddyProps> = ({
   t, level = 1, expression = 'neutral', armL = 0, armR = 0, headTilt = 0, squash = 1, antennaKick = 0,
-  holding, blinkSeed = 0, mouthOpen = 0, showCloud = true, showFly = true,
+  holding, blinkSeed = 0, mouthOpen = 0, showCloud = true, showFly = true, clean = false, frozen = false, towel = false,
 }) => {
   const breath = 1 + Math.sin(t * 2.4) * 0.012;
   const blink = blinkAmount(t, blinkSeed);
@@ -209,11 +212,12 @@ export const Teddy: React.FC<TeddyProps> = ({
           ) : (
             <path d="M162 222 Q160 128 280 118 Q400 128 398 222 Q380 172 330 164 Q280 150 230 164 Q182 175 162 222 Z" fill="#4a2e1f" {...o} />
           )}
-          {/* mèche antenne (ressort) */}
-          <g transform={`rotate(${ant + droop} 285 120)`}>
+          {/* mèche antenne (ressort) — gelée = rigide */}
+          {towel ? null : <g transform={`rotate(${frozen ? 0 : ant + droop} 285 120)`}>
             <path d="M285 120 Q270 60 300 48 Q330 40 322 72 Q314 92 296 84" fill="none" stroke={INK} strokeWidth={13} strokeLinecap="round" />
-            <path d="M285 120 Q270 60 300 48 Q330 40 322 72 Q314 92 296 84" fill="none" stroke={L1 ? '#4a2e1f' : '#FFC23D'} strokeWidth={6} strokeLinecap="round" />
-          </g>
+            <path d="M285 120 Q270 60 300 48 Q330 40 322 72 Q314 92 296 84" fill="none" stroke={frozen ? '#bff0ff' : L1 ? '#4a2e1f' : '#FFC23D'} strokeWidth={6} strokeLinecap="round" />
+            {frozen ? <path d="M296 84 l-6 34 l14 -30 z" fill="#bff0ff" stroke={INK} strokeWidth={4} /> : null}
+          </g>}
           <Brows expr={expression} level={level} />
           <Eyes expr={expression} blink={blink} level={level} />
           {/* lunettes */}
@@ -234,9 +238,22 @@ export const Teddy: React.FC<TeddyProps> = ({
           <path d="M280 268 q-10 26 6 30" stroke="#c98d68" strokeWidth={5} fill="none" strokeLinecap="round" />
           {L1 ? <path d="M250 318 q30 -8 60 0" stroke="#7a5a45" strokeWidth={3} strokeDasharray="2 4" fill="none" /> : null}
           <Mouth expr={expression} open={mouthOpen} level={level} />
-          {L1 ? (
+          {L1 && !clean ? (
             <g fill="#e2574c">
               <circle cx={200} cy={305} r={6} /><circle cx={356} cy={300} r={5} /><circle cx={318} cy={186} r={5} /><circle cx={214} cy={322} r={4} />
+            </g>
+          ) : null}
+          {frozen ? (
+            <g fill="#bff0ff" stroke={INK} strokeWidth={4}>
+              <path d="M268 300 l8 46 l8 -46 z" />
+              <path d="M200 360 l6 30 l6 -30 z" /><path d="M350 362 l5 26 l5 -26 z" />
+            </g>
+          ) : null}
+          {towel ? (
+            <g>
+              <path d="M150 210 Q160 70 290 64 Q420 70 412 210 Q380 150 280 150 Q180 150 150 210 Z" fill="#8fd3ff" stroke={INK} strokeWidth={7} />
+              <path d="M240 70 Q300 0 360 40 Q330 70 300 64 Z" fill="#8fd3ff" stroke={INK} strokeWidth={7} />
+              <path d="M180 170 Q280 130 380 170" stroke="#5fb3e0" strokeWidth={6} fill="none" />
             </g>
           ) : null}
           {expression === 'panic' ? <path d="M392 190 q10 20 0 30 q-10 -10 0 -30z" fill="#7fd3ff" stroke={INK} strokeWidth={3} /> : null}

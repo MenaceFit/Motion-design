@@ -35,7 +35,7 @@ durer est commité dans ce dépôt**.
 | github.com (téléchargements) | pas de whisper.cpp | — |
 | freesound.org, pixabay.com | pas de banques SFX/musique | synthèse procédurale |
 | download.pytorch.org | pas de PyTorch → pas de modèles audio/vidéo génératifs locaux | — |
-| Bing/Google TTS, ElevenLabs, OpenAI | pas de voix neuronale en ligne | Pico hors ligne |
+| Bing/Google TTS, **api.elevenlabs.io**, OpenAI | pas de voix neuronale en ligne | Pico hors ligne ; moteur ElevenLabs prêt dans `tools/tts_voice.py` (clé `ELEVENLABS_API_KEY` + domaine à autoriser) |
 | cdn.jsdelivr.net, unpkg.com, fonts.gstatic.com | pas de chargement de polices/libs à la volée | @fontsource via npm |
 
 → Pour débloquer : réglages de l'environnement cloud > Network access > ajouter les domaines

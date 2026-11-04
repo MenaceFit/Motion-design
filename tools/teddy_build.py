@@ -25,7 +25,8 @@ def run(cmd, **kw):
 STOP = {"DANS", "SON", "SA", "SES", "SE", "ET", "ELLE", "IL", "L'A", "À", "AU", "AUX", "LA", "LE", "LES", "L'", "UN", "UNE", "DES",
         "DE", "DU", "D'", "EN", "EST", "PAS", "PAR", "POUR", "SUR", "QUI", "QUE", "MAIS", "OU", "NE", "N'A", "VOICI", "DEPUIS", "SONT",
         "TOUT", "TRÈS", "PLUS", "SI", "ON", "TU", "JE", "MA", "MON", "TES", "TON", "TA", "CE", "CET", "CETTE", "LUI", "Y", "A",
-        "MÊME", "AVANT", "APRÈS", "QUAND", "AVEC", "MOI", "J'AI", "CELUI", "ALORS", "LÀ", "OÙ", "SES", "NOS", "VOS", "VOTRE"}
+        "MÊME", "AVANT", "APRÈS", "QUAND", "AVEC", "MOI", "J'AI", "CELUI", "ALORS", "LÀ", "OÙ", "SES", "NOS", "VOS", "VOTRE",
+        "VOUS", "NOUS", "AVEZ", "AI", "AS", "ONT", "QU'IL", "PUIS", "C'EST", "ENCORE", "UNE"}
 PUNCT = ".,!?…:;"
 
 
@@ -125,7 +126,15 @@ def main():
     ep = json.load(open(a.episode, encoding="utf-8"))
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
     lines = ep["lines"]
-    json.dump([{k: l[k] for k in ("text", "pause", "speed", "pitch") if k in l} for l in lines], open(out / "script.json", "w", encoding="utf-8"), ensure_ascii=False)
+    # voix par personnage : ep["voices"][line["who"]] (moteur, voice_id ElevenLabs, repli hors ligne)
+    voices = ep.get("voices", {})
+    script = []
+    for l in lines:
+        d = {k: l[k] for k in ("text", "pause", "speed", "pitch") if k in l}
+        who = l.get("who", "narrator")
+        if who in voices: d["voice"] = voices[who]
+        script.append(d)
+    json.dump(script, open(out / "script.json", "w", encoding="utf-8"), ensure_ascii=False)
     v = ep.get("voice", {})
     run([PY, ROOT / "tools/tts_voice.py", out / "script.json", out, "--engine", v.get("engine", "pico"), "--speed", v.get("speed", 1.05), "--pitch", v.get("pitch", 0)])
     words = json.load(open(out / "words.json", encoding="utf-8"))

@@ -2,6 +2,10 @@
 """Script → voix off + timings mot à mot (words.json), 100 % hors ligne.
 
 Moteurs :
+  elevenlabs  voix neuronales ElevenLabs (API, clé ELEVENLABS_API_KEY, hôte api.elevenlabs.io autorisé).
+         Une voix par personnage (champ « voice » de chaque ligne), timings exacts par caractère
+         (endpoint /with-timestamps), continuité de prosodie (previous_text / next_text).
+         Repli automatique sur pico si la clé ou le réseau manquent (rapport dans voice_report.json).
   pico   SVOX Pico (paquet apt libttspico-utils, licence Apache 2.0) — disponible ici, qualité
          « correcte » (voix de synthèse audible). Bon pour prototypes et format « texte + voix ».
   piper  Piper (voix neuronales, bien plus naturelles) — nécessite un modèle .onnx local
@@ -41,6 +45,70 @@ def synth_piper(text, path, model):
     subprocess.run(["piper", "--model", model, "--output_file", path], input=text.encode(), check=True)
 
 
+_EL_OK = None
+
+
+def elevenlabs_available():
+    """Clé présente + API joignable (testé une fois)."""
+    global _EL_OK
+    if _EL_OK is None:
+        key = os.environ.get("ELEVENLABS_API_KEY")
+        _EL_OK = False
+        if key:
+            import urllib.request, ssl
+            try:
+                req = urllib.request.Request("https://api.elevenlabs.io/v1/user", headers={"xi-api-key": key})
+                urllib.request.urlopen(req, timeout=15, context=_ssl_ctx())
+                _EL_OK = True
+            except Exception as e:
+                print("ElevenLabs indisponible :", str(e)[:120])
+    return _EL_OK
+
+
+def _ssl_ctx():
+    import ssl
+    ca = "/root/.ccr/ca-bundle.crt"
+    return ssl.create_default_context(cafile=ca) if os.path.exists(ca) else ssl.create_default_context()
+
+
+def synth_elevenlabs(text, path, v, prev_text=None, next_text=None):
+    """Synthèse ElevenLabs avec horodatage par caractère. Retourne l'alignement (chars, starts, ends)."""
+    import urllib.request, base64
+    body = {"text": text, "model_id": v.get("model", "eleven_multilingual_v2"),
+            "voice_settings": {"stability": v.get("stability", 0.4), "similarity_boost": v.get("similarity", 0.8),
+                               "style": v.get("style", 0.35), "use_speaker_boost": True, "speed": v.get("speed", 1.0)}}
+    if v.get("language"): body["language_code"] = v["language"]
+    if prev_text: body["previous_text"] = prev_text
+    if next_text: body["next_text"] = next_text
+    req = urllib.request.Request(f"https://api.elevenlabs.io/v1/text-to-speech/{v['voice_id']}/with-timestamps?output_format=mp3_44100_128",
+                                 data=json.dumps(body).encode(), method="POST",
+                                 headers={"xi-api-key": os.environ["ELEVENLABS_API_KEY"], "Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=120, context=_ssl_ctx()) as r:
+        res = json.loads(r.read())
+    mp3 = path + ".mp3"
+    open(mp3, "wb").write(base64.b64decode(res["audio_base64"]))
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", mp3, "-ac", "1", "-ar", str(SR), path], check=True)
+    al = res.get("alignment") or res.get("normalized_alignment")
+    return al["characters"], al["character_start_times_seconds"], al["character_end_times_seconds"]
+
+
+def words_from_alignment(text, chars, starts, ends, offset, trim_s):
+    """Timings mot à mot exacts à partir de l'alignement par caractère."""
+    out, cur, cs, ce = [], "", None, None
+    for ch, a, b in zip(chars, starts, ends):
+        if ch.isspace():
+            if cur: out.append((cur, cs, ce)); cur, cs = "", None
+            continue
+        if cs is None: cs = a
+        cur += ch; ce = b
+    if cur: out.append((cur, cs, ce))
+    res = []
+    for w, a, b in out:
+        if not norm_word(w): continue
+        res.append({"text": norm_word(w), "start": round(offset + max(0, a - trim_s), 3), "end": round(offset + max(0, b - trim_s), 3), "raw": w})
+    return res
+
+
 def load_resampled(path, speed, pitch):
     """Charge, change le tempo (sans changer la hauteur) et la hauteur via sox, rééchantillonne à 48 kHz."""
     out = path + ".proc.wav"
@@ -50,6 +118,17 @@ def load_resampled(path, speed, pitch):
     subprocess.run(cmd, check=True)
     x, _ = sf.read(out)
     return x.astype(np.float32)
+
+
+def trim_with_offset(x, thr_db=-42):
+    e = np.abs(x)
+    win = int(0.01 * SR)
+    env = np.convolve(e, np.ones(win) / win, mode="same")
+    db = 20 * np.log10(env + 1e-9)
+    idx = np.where(db > db.max() + thr_db)[0]
+    if not len(idx): return x, 0.0
+    a, b = max(0, idx[0] - int(0.02 * SR)), min(len(x), idx[-1] + int(0.04 * SR))
+    return x[a:b], a / SR
 
 
 def trim(x, thr_db=-42):
@@ -110,7 +189,7 @@ def place_words(words, x, offset, weights=None):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("script"); ap.add_argument("out")
-    ap.add_argument("--engine", default="pico", choices=["pico", "piper"])
+    ap.add_argument("--engine", default="pico", choices=["pico", "piper", "elevenlabs"])
     ap.add_argument("--piper-model"); ap.add_argument("--speed", type=float, default=1.12)
     ap.add_argument("--pitch", type=float, default=0, help="cents (ex. -150 pour une voix plus grave)")
     ap.add_argument("--gap", type=float, default=0.10, help="silence entre phrases (s)")
@@ -125,17 +204,34 @@ def main():
 
     chunks, words, t = [np.zeros(int(a.lead * SR), np.float32)], [], a.lead
     tmp = tempfile.mkdtemp()
+    report = []
     for li, line in enumerate(lines):
         p = os.path.join(tmp, f"l{li}.wav")
-        (synth_pico if a.engine == "pico" else lambda tx, pa: synth_piper(tx, pa, a.piper_model))(line["text"], p)
-        sp, pt = line.get("speed", a.speed), line.get("pitch", a.pitch)  # voix par personnage (narrateur, Teddy, Mamie Jo)
-        x = trim(load_resampled(p, sp, pt))
+        v = line.get("voice") or {}
+        eng = v.get("engine", a.engine)
+        if eng == "elevenlabs" and not elevenlabs_available():
+            eng = "pico"; v = v.get("fallback", {})        # repli hors ligne (voix du personnage approchée)
         toks = [w for w in line["text"].split() if norm_word(w)]  # « ? », « — » seuls : pas de bloc vide
-        synth = synth_pico if a.engine == "pico" else (lambda tx, pa: synth_piper(tx, pa, a.piper_model))
-        wts = [word_weight(tk, synth, sp, pt, tmp) for tk in toks]
-        ws = place_words(toks, x, t, wts)
-        for w, tk in zip(ws, toks):
-            w["line"] = li; w["stop"] = tk[-1] in ".!?…,;:"  # ponctuation = frontière de bloc
+        if eng == "elevenlabs":
+            prev_t = lines[li - 1]["text"] if li else None
+            next_t = lines[li + 1]["text"] if li + 1 < len(lines) else None
+            chars, cst, cen = synth_elevenlabs(line["text"], p, v, prev_t, next_t)
+            x0, _ = sf.read(p); x0 = x0.astype(np.float32)
+            x, trim_s = trim_with_offset(x0)
+            ws = words_from_alignment(line["text"], chars, cst, cen, t, trim_s)
+            for w, tk in zip(ws, toks):
+                w["line"] = li; w["stop"] = tk[-1] in ".!?…,;:"; w.pop("raw", None)
+            report.append({"line": li, "engine": "elevenlabs", "voice_id": v.get("voice_id")})
+        else:
+            sp, pt = v.get("speed", line.get("speed", a.speed)), v.get("pitch", line.get("pitch", a.pitch))
+            (synth_pico if eng == "pico" else lambda tx, pa: synth_piper(tx, pa, a.piper_model))(line["text"], p)
+            x = trim(load_resampled(p, sp, pt))
+            synth = synth_pico if eng == "pico" else (lambda tx, pa: synth_piper(tx, pa, a.piper_model))
+            wts = [word_weight(tk, synth, sp, pt, tmp) for tk in toks]
+            ws = place_words(toks, x, t, wts)
+            for w, tk in zip(ws, toks):
+                w["line"] = li; w["stop"] = tk[-1] in ".!?…,;:"  # ponctuation = frontière de bloc
+            report.append({"line": li, "engine": eng})
         acc = {norm_word(m) for m in line.get("accents", [])}
         emo = {norm_word(k): v for k, v in line.get("emoji", {}).items()}
         for w in ws:
@@ -158,6 +254,9 @@ def main():
     ])
     voice = board(voice[None, :], SR)[0]
     sf.write(os.path.join(a.out, "voice.wav"), voice, SR, subtype="PCM_24")
+    json.dump(report, open(os.path.join(a.out, "voice_report.json"), "w"), indent=1)
+    used = sorted({r["engine"] for r in report})
+    print("moteur(s) de voix utilisé(s) :", ", ".join(used))
     # regrouper les mots affichés trop peu de temps (< 0,17 s entre deux débuts) avec le suivant :
     # en dessous de ~10 frames à 60 fps, un mot n'est pas lisible
     merged = []

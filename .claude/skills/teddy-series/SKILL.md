@@ -48,6 +48,23 @@ Saleté de la Grotte (`GrotteDirt`), `PizzaTower` (renversable), `SpareHoodie`, 
 lip-sync simple (bouche pendant les répliques de Teddy), 3 voix (pitch/speed par ligne).
 Rendu 59 s à 60 fps ≈ 42 min (concurrence 4).
 
+## Voix ElevenLabs (personnages)
+Dans le fichier d'épisode : `"voices": {"narrator": {...}, "teddy": {...}, "mamie": {...}}` et
+`"who": "teddy"` sur chaque réplique de personnage. Chaque voix : `engine: "elevenlabs"`, `voice_id`,
+`model` (eleven_multilingual_v2 par défaut), `language: "fr"`, `stability`, `similarity`, `style`,
+`speed`, et un `fallback` hors ligne (`speed`, `pitch`). Timings exacts par caractère (endpoint
+`/with-timestamps`), prosodie enchaînée (`previous_text`/`next_text`).
+Prérequis : variable `ELEVENLABS_API_KEY` + hôte `api.elevenlabs.io` autorisé. Sans eux, repli
+automatique sur Pico (rapport `voice_report.json`). Choisir les voix : `python3 tools/elevenlabs_voices.py`.
+Les `voice_id` par défaut (voix « premade » génériques) sont à remplacer par des voix françaises.
+
+## Ép. 2 (`Bathroom.tsx`, `Episode2.tsx`, composition `TeddyEp02`)
+Salle de bain sale, rideau de douche, douche-placard (bazar éjecté), eau, Teddy gelé (`frozen`),
+serviette (`towel`), propre (`clean`), mousse envahissante, couloir inondé, Bzz en vacances,
+Croquette qui applaudit, bandeau « VOUS AVEZ CHOISI », carton « 20 MINUTES PLUS TARD »,
+éphéméride qui se tourne (`prevDay`/`flipAt`), jauge animée + popups `GaugePop`, `VoteCard`
+paramétrable (shower, room, teeth, sheets), `Phone` paramétrable (historique, texte, saisie).
+
 ## Reste à construire
 Salle de bain + écran de stats, Teddy niveau 2–4, lip-sync piloté par l'enveloppe audio,
 vraie voix (enregistrée ou neuronale), transitions whip entre lieux, bruitages d'animaux sous licence.

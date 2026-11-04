@@ -88,7 +88,11 @@ export const Grotte: React.FC<{t: number; screenGlow?: number}> = ({t, screenGlo
 };
 
 // ---------------- HUD de série : éphéméride J-x + jauge GLOW ----------------
-export const Hud: React.FC<{day: number; glow: number; level: number; t: number; slamAt?: number}> = ({day, glow, level, t, slamAt = 0}) => {
+export const Hud: React.FC<{day: number; glow: number; level: number; t: number; slamAt?: number; prevDay?: number; flipAt?: number}> = ({day, glow, level, t, slamAt = 0, prevDay, flipAt}) => {
+  // page d'éphéméride arrachée : prevDay → day à flipAt
+  const flipK = prevDay !== undefined && flipAt !== undefined ? clamp01((t - flipAt) / 0.35) : 1;
+  const shownDay = flipK < 0.5 ? (prevDay ?? day) : day;
+  const flipRot = flipK < 0.5 ? flipK * 2 * 90 : (1 - flipK) * 2 * -90;
   const k = clamp01((t - slamAt) / 0.35);
   if (t < slamAt) return null;
   const s = interpolate(BACK(k), [0, 1], [1.7, 1]);
@@ -99,7 +103,7 @@ export const Hud: React.FC<{day: number; glow: number; level: number; t: number;
       <div style={{position: 'absolute', top: 60, left: 44, right: 44, display: 'flex', gap: 18, opacity: op, transform: `scale(${s})`, transformOrigin: '50% 0%'}}>
         <div style={{background: C.red, border: `7px solid ${INK}`, borderRadius: 22, width: 210, textAlign: 'center', boxShadow: `0 8px 0 ${INK}`, padding: '6px 0 10px', whiteSpace: 'nowrap'}}>
           <div style={{fontFamily: 'Space Grotesk', fontWeight: 700, fontSize: 26, color: C.cream, letterSpacing: 2}}>JOUR</div>
-          <div style={{fontFamily: 'Anton', fontSize: 84, lineHeight: 0.95, color: C.cream, WebkitTextStroke: `6px ${INK}`, paintOrder: 'stroke fill'}}>J-{day}</div>
+          <div style={{fontFamily: 'Anton', fontSize: 84, lineHeight: 0.95, color: C.cream, WebkitTextStroke: `6px ${INK}`, paintOrder: 'stroke fill', transform: `perspective(400px) rotateX(${flipRot}deg)`}}>J-{shownDay}</div>
         </div>
         <div style={{flex: 1, background: '#2a1a48', border: `7px solid ${INK}`, outline: `4px solid ${C.gold}`, outlineOffset: -11, borderRadius: 22, boxShadow: `0 8px 0 ${INK}`, padding: '14px 22px'}}>
           <div style={{display: 'flex', justifyContent: 'space-between', fontFamily: 'Space Grotesk', fontWeight: 700, fontSize: 28, color: C.cream, letterSpacing: 2}}>
@@ -108,7 +112,7 @@ export const Hud: React.FC<{day: number; glow: number; level: number; t: number;
           </div>
           <div style={{display: 'flex', alignItems: 'center', gap: 16, marginTop: 8}}>
             <div style={{flex: 1, height: 30, background: '#140a26', border: `4px solid ${INK}`, borderRadius: 16, overflow: 'hidden'}}>
-              <div style={{width: `${Math.max(3, glow)}%`, height: '100%', background: `linear-gradient(90deg, ${C.violet}, ${C.gold})`}} />
+              <div style={{width: `${Math.max(3, glow)}%`, height: '100%', background: `linear-gradient(90deg, ${C.violet}, ${C.gold})`, boxShadow: glow > 0.5 ? `0 0 18px ${C.gold}` : undefined}} />
             </div>
             <div style={{fontFamily: 'Anton', fontSize: 64, lineHeight: 1, color: C.gold, WebkitTextStroke: `5px ${INK}`, paintOrder: 'stroke fill', minWidth: 120, textAlign: 'right'}}>{Math.round(glow)}%</div>
           </div>

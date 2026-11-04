@@ -156,3 +156,12 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
   checklist, vote DOUCHE ✕ CHAMBRE.
 - QC : 59,2 s, 60 fps, -13,9 LUFS, synchro médiane 1 ms. Fichier de publication `ep01/PUBLICATION.md`.
 - Erreur corrigée : chute à plat → personnage hors cadre ; remplacée par un écrasement cartoon.
+
+## 2026-11-04 (4) — Épisode 2 « La douche » + moteur ElevenLabs
+- `tools/tts_voice.py` : moteur ElevenLabs (voix par personnage, horodatage par caractère, prosodie
+  enchaînée), repli automatique hors ligne + `voice_report.json` ; `tools/elevenlabs_voices.py`.
+- ElevenLabs non joignable dans cette session (domaine bloqué, pas de clé) → ép. 2 rendu en repli Pico.
+- Nouveaux éléments : salle de bain, rideau, douche-placard, eau, Teddy gelé/serviette/propre, mousse,
+  couloir, Bzz en vacances, Croquette qui applaudit, éphéméride qui se tourne, jauge animée,
+  vote et téléphone paramétrables.
+- QC visuel : flacon hors cadre au zoom, rideau qui masquait les yeux → corrigés avant rendu.
