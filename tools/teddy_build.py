@@ -24,7 +24,13 @@ def run(cmd, **kw):
 
 STOP = {"DANS", "SON", "SA", "SES", "SE", "ET", "ELLE", "IL", "L'A", "À", "AU", "AUX", "LA", "LE", "LES", "L'", "UN", "UNE", "DES",
         "DE", "DU", "D'", "EN", "EST", "PAS", "PAR", "POUR", "SUR", "QUI", "QUE", "MAIS", "OU", "NE", "N'A", "VOICI", "DEPUIS", "SONT",
-        "TOUT", "TRÈS", "PLUS", "SI", "ON", "TU", "JE", "MA", "MON", "TES", "TON", "TA", "CE", "CET", "CETTE", "LUI", "Y", "A"}
+        "TOUT", "TRÈS", "PLUS", "SI", "ON", "TU", "JE", "MA", "MON", "TES", "TON", "TA", "CE", "CET", "CETTE", "LUI", "Y", "A",
+        "MÊME", "AVANT", "APRÈS", "QUAND", "AVEC", "MOI", "J'AI", "CELUI", "ALORS", "LÀ", "OÙ", "SES", "NOS", "VOS", "VOTRE"}
+PUNCT = ".,!?…:;"
+
+
+def _norm(w):
+    return re.sub(r"[^\wÀ-ÿœæ'’-]", "", w).upper()
 
 
 def group_captions(words, lines):
@@ -38,6 +44,19 @@ def group_captions(words, lines):
         d = (w["end"] - w["start"]) / len(parts)
         for i, p in enumerate(parts):
             flat.append({"text": p, "start": w["start"] + i * d, "line": w.get("line", 0)})
+    # ponctuation de fin de mot (depuis le texte source de chaque ligne) → frontière de groupe
+    by_line = {}
+    for li, ln in enumerate(lines):
+        flags = []
+        for tok in ln["text"].split():
+            if _norm(tok): flags.append(tok[-1] in PUNCT)
+            elif flags and any(ch in PUNCT for ch in tok): flags[-1] = True   # « marié ? » : ponctuation isolée
+        by_line[li] = flags
+    idx = {}
+    for fw in flat:
+        k = idx.get(fw["line"], 0); flags = by_line.get(fw["line"], [])
+        fw["punct"] = flags[k] if k < len(flags) else False
+        idx[fw["line"]] = k + 1
     # 1) jetons : expressions (remplacements, mots-clés multi-mots) fusionnées
     toks, i = [], 0
     while i < len(flat):
@@ -49,7 +68,7 @@ def group_captions(words, lines):
             if " ".join(x["text"] for x in flat[i:i + n]) == src:
                 hit = (dst, n); break
         if hit:
-            toks.append({"text": hit[0], "start": flat[i]["start"], "line": flat[i]["line"]}); i += hit[1]
+            toks.append({"text": hit[0], "start": flat[i]["start"], "line": flat[i]["line"], "punct": flat[i + hit[1] - 1]["punct"]}); i += hit[1]
         else:
             toks.append(dict(flat[i])); i += 1
     for tk in toks:
@@ -61,28 +80,38 @@ def group_captions(words, lines):
     def close():
         if g:
             key = g[-1]["key"]
-            out.append({"text": " ".join(x["text"] for x in g), "start": g[0]["start"], "line": g[0]["line"],
+            out.append({"text": " ".join(x["text"] for x in g), "start": g[0]["start"], "line": g[0]["line"], "punct": bool(g[-1].get("punct")),
                         **({"color": COL[key], "colorWords": len(g[-1]["text"].split())} if key else {})})
             g.clear()
     for tk in toks:
         if g:
             txt = " ".join(x["text"] for x in g + [tk])
             nwords = len(txt.split())
-            same = tk["line"] == g[0]["line"]
+            same = tk["line"] == g[0]["line"] and not g[-1].get("punct")
             open_ = all(x["stop"] for x in g)                       # le groupe n'a encore que des mots-outils
             key_after_one = len(g) == 1 and not g[0]["stop"] and tk["key"] and not g[0]["key"] and nwords <= 2
-            fits = len(txt) <= 13 and (nwords <= 2 or len(txt) <= 9 or (tk["key"] and len(g) == 1))
+            fits = len(txt) <= 14 and (nwords <= 2 or len(txt) <= 11 or (tk["key"] and len(g) == 1))
             if not (same and fits and (open_ or key_after_one)):
                 close()
         g.append(tk)
         if not tk["stop"] and not (len(g) == 1 and tk["key"] is None and False):
             # un mot de contenu ferme le groupe, sauf s'il est seul et qu'un mot-clé peut suivre (« RANG DIAMANT »)
             pass
-        if tk["key"]:
+        if tk["key"] or tk.get("punct"):
             close()
         elif not tk["stop"] and len(g) > 1:
             close()
     close()
+    # un mot-outil resté seul rejoint le groupe précédent (même phrase, non coloré, ≤ 14 car.)
+    merged = []
+    for c2 in out:
+        lone = len(c2["text"].split()) == 1 and c2["text"] in STOP and "color" not in c2
+        if lone and merged and merged[-1]["line"] == c2["line"] and "color" not in merged[-1] \
+                and not merged[-1].get("punct") and len(merged[-1]["text"]) + 1 + len(c2["text"]) <= 14:
+            merged[-1]["text"] += " " + c2["text"]
+        else:
+            merged.append(c2)
+    out = merged
     for k, c in enumerate(out):
         c["end"] = round(out[k + 1]["start"] if k + 1 < len(out) else c["start"] + 0.9, 3)
         c["start"] = round(c["start"], 3)
@@ -96,7 +125,7 @@ def main():
     ep = json.load(open(a.episode, encoding="utf-8"))
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
     lines = ep["lines"]
-    json.dump([{k: l[k] for k in ("text", "pause") if k in l} for l in lines], open(out / "script.json", "w", encoding="utf-8"), ensure_ascii=False)
+    json.dump([{k: l[k] for k in ("text", "pause", "speed", "pitch") if k in l} for l in lines], open(out / "script.json", "w", encoding="utf-8"), ensure_ascii=False)
     v = ep.get("voice", {})
     run([PY, ROOT / "tools/tts_voice.py", out / "script.json", out, "--engine", v.get("engine", "pico"), "--speed", v.get("speed", 1.05), "--pitch", v.get("pitch", 0)])
     words = json.load(open(out / "words.json", encoding="utf-8"))

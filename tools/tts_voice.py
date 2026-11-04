@@ -128,10 +128,11 @@ def main():
     for li, line in enumerate(lines):
         p = os.path.join(tmp, f"l{li}.wav")
         (synth_pico if a.engine == "pico" else lambda tx, pa: synth_piper(tx, pa, a.piper_model))(line["text"], p)
-        x = trim(load_resampled(p, a.speed, a.pitch))
+        sp, pt = line.get("speed", a.speed), line.get("pitch", a.pitch)  # voix par personnage (narrateur, Teddy, Mamie Jo)
+        x = trim(load_resampled(p, sp, pt))
         toks = [w for w in line["text"].split() if norm_word(w)]  # « ? », « — » seuls : pas de bloc vide
         synth = synth_pico if a.engine == "pico" else (lambda tx, pa: synth_piper(tx, pa, a.piper_model))
-        wts = [word_weight(tk, synth, a.speed, a.pitch, tmp) for tk in toks]
+        wts = [word_weight(tk, synth, sp, pt, tmp) for tk in toks]
         ws = place_words(toks, x, t, wts)
         for w, tk in zip(ws, toks):
             w["line"] = li; w["stop"] = tk[-1] in ".!?…,;:"  # ponctuation = frontière de bloc
