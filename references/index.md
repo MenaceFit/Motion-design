@@ -10,7 +10,6 @@ watermark TikTok animé et **carte de fin TikTok de ~3–4 s** (à exclure des m
 | ref03 | @zavorix.fr | 576×1024 (9:16) | 66,3 s (62,3) | 17 | 3,9 s | [Night Chat Story](visual-styles/night-chat-story.md) |
 | ref04 | @vertusmental | 1024×576 (16:9) | 40,4 s (36,5) | 15 | 2,7 s | [Minimal Line](visual-styles/minimal-line.md) |
 | ref05 | @vertusmental | 1024×576 (16:9) | 29,3 s (25,3) | 13 | 2,3 s | [Minimal Line](visual-styles/minimal-line.md) |
-
 | ref06 | (série « Hugo », J-30) | 576×1024 (9:16) | 91,8 s (~89) | 20 | 4,6 s | [Glow-up interactif](visual-styles/interactive-glow-up.md) |
 | ref07 | (série « Hugo », J-29) | 576×1024 (9:16) | 103,3 s (~99) | 21 | 4,9 s | [Glow-up interactif](visual-styles/interactive-glow-up.md) |
 | ref08 | (série « Kevin », J-30) | 576×1024 (9:16) | 80,6 s (~77) | 30 | 2,7 s | [Glow-up interactif](visual-styles/interactive-glow-up.md) |
