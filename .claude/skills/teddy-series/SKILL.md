@@ -41,6 +41,13 @@ Références : `projects/teddy-j30/BIBLE.md` (DA, personnages, structure), analy
   zoom (texte court, centrée sur la cible) ; badge hors-zoom qui chevauchait (masqué pendant le zoom) ;
   fin de ligne = fin de la pause (→ fin de PAROLE calculée = début ligne suivante − pause).
 
+## Disponible depuis l'ép. 1 complet (`Props.tsx`, `EpisodeFull.tsx`, composition `TeddyEpFull`)
+Saleté de la Grotte (`GrotteDirt`), `PizzaTower` (renversable), `SpareHoodie`, `MaskedFly`,
+`Croquette` (marche + valise), `Phone` (tape/efface/pouce/vu), `MaxenceStory`, `MamieJoNote`
+(vocal animé), `Checklist`, `VoteCard` + `DayBanner`, onomatopée « PAF ! », chute « crêpe »,
+lip-sync simple (bouche pendant les répliques de Teddy), 3 voix (pitch/speed par ligne).
+Rendu 59 s à 60 fps ≈ 42 min (concurrence 4).
+
 ## Reste à construire
-Téléphone (SMS Inès, vocal Mamie Jo), salle de bain + écran de stats, carte de vote, Croquette,
-Maxence (story), expressions de parole (lip-sync) de Teddy, transitions whip entre lieux.
+Salle de bain + écran de stats, Teddy niveau 2–4, lip-sync piloté par l'enveloppe audio,
+vraie voix (enregistrée ou neuronale), transitions whip entre lieux, bruitages d'animaux sous licence.

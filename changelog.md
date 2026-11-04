@@ -148,3 +148,11 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
 - `tools/teddy_build.py` : épisode JSON → voix calée, sous-titres, musique (drop sur le HUD), SFX, mix.
 - Rendu `teddy-ep01-part1` : 15,2 s, 60 fps, -14,0 LUFS, synchro médiane 13 ms. Skill `teddy-series`.
 - Typographie des sous-titres de la série passée en Anton (plus proche du genre, demande utilisateur).
+
+## 2026-11-04 (3) — Teddy épisode 1 complet (59 s)
+- 24 répliques, 3 voix (pitch/speed par ligne), sous-titres avec frontières de ponctuation.
+- Décor beaucoup plus sale + gags (sweat autonome, mouches masquées, chat avec valise, chute
+  « crêpe », pizza sur le visage), SMS tape/efface/pouce/vu, story du rival, vocal de Mamie Jo,
+  checklist, vote DOUCHE ✕ CHAMBRE.
+- QC : 59,2 s, 60 fps, -13,9 LUFS, synchro médiane 1 ms. Fichier de publication `ep01/PUBLICATION.md`.
+- Erreur corrigée : chute à plat → personnage hors cadre ; remplacée par un écrasement cartoon.
