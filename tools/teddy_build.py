@@ -130,7 +130,7 @@ def main():
     voices = ep.get("voices", {})
     script = []
     for l in lines:
-        d = {k: l[k] for k in ("text", "pause", "speed", "pitch") if k in l}
+        d = {k: l[k] for k in ("text", "tts_text", "pause", "speed", "pitch") if k in l}
         who = l.get("who", "narrator")
         if who in voices: d["voice"] = voices[who]
         script.append(d)
@@ -174,8 +174,15 @@ def main():
          "--duration", duration, "--music-db", -17, "--duck-db", 7])
     pub = TPL / "public" / "projects" / ep["slug"]; pub.mkdir(parents=True, exist_ok=True)
     shutil.copy(out / "master.wav", pub / "master.wav")
+    # enveloppe de la voix à 30 Hz (0..1) → lip-sync des personnages
+    import numpy as np
+    vx, vsr = sf.read(str(out / "voice.wav"))
+    if vx.ndim > 1: vx = vx.mean(1)
+    hop = vsr // 30
+    rms = np.array([np.sqrt(np.mean(vx[i:i + hop] ** 2)) for i in range(0, len(vx) - hop, hop)])
+    env = np.clip(rms / (np.percentile(rms, 95) + 1e-9), 0, 1)
     data = {"slug": ep["slug"], "duration": duration, "cues": {k: round(v, 3) for k, v in cues.items()}, "caps": caps,
-            "audio": f"projects/{ep['slug']}/master.wav"}
+            "audio": f"projects/{ep['slug']}/master.wav", "env": [round(float(e), 2) for e in env], "envRate": 30}
     json.dump(data, open(out / "episode.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(json.dumps({"duration": duration, "cues": data["cues"], "ncaps": len(caps)}, ensure_ascii=False))
 

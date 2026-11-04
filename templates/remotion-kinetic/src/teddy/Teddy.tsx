@@ -27,6 +27,7 @@ export type TeddyProps = {
   clean?: boolean;   // après la douche : peau nette, plus de boutons
   frozen?: boolean;  // eau glacée : glaçons sur la mèche et le nez
   towel?: boolean;   // serviette enroulée sur la tête
+  look?: number;     // direction du regard -1 (gauche) … 1 (droite)
 };
 
 const INK = '#1B1030';
@@ -40,7 +41,7 @@ const blinkAmount = (t: number, seed = 0) => {
   return 0;
 };
 
-const Eyes: React.FC<{expr: Expression; blink: number; level: 1 | 5}> = ({expr, blink, level}) => {
+const Eyes: React.FC<{expr: Expression; blink: number; level: 1 | 5; look?: number}> = ({expr, blink, level, look = 0}) => {
   const lid = Math.max(blink, expr === 'sad' ? 0.45 : expr === 'smug' ? 0.5 : expr === 'neutral' && level === 1 ? 0.3 : 0);
   const pupil = expr === 'shock' || expr === 'panic' ? 6 : 9;
   const r = expr === 'shock' || expr === 'panic' ? 26 : level === 5 ? 20 : 22;
@@ -53,7 +54,7 @@ const Eyes: React.FC<{expr: Expression; blink: number; level: 1 | 5}> = ({expr, 
           ) : (
             <>
               <circle cx={cx} cy={252} r={r} fill="#fff" />
-              <circle cx={cx + (i ? -3 : 3)} cy={256} r={pupil} fill={INK} />
+              <circle cx={cx + (i ? -3 : 3) + look * 9} cy={256} r={pupil} fill={INK} />
               {level === 5 || expr === 'proud' ? <circle cx={cx + 3} cy={250} r={3} fill="#fff" /> : null}
               {/* paupière (cache le haut de l'œil) */}
               <rect x={cx - r - 2} y={252 - r - 2} width={r * 2 + 4} height={(r * 2 + 4) * lid} fill={SKIN} />
@@ -124,7 +125,7 @@ const Arm: React.FC<{side: 'L' | 'R'; angle: number; level: 1 | 5}> = ({side, an
 
 export const Teddy: React.FC<TeddyProps> = ({
   t, level = 1, expression = 'neutral', armL = 0, armR = 0, headTilt = 0, squash = 1, antennaKick = 0,
-  holding, blinkSeed = 0, mouthOpen = 0, showCloud = true, showFly = true, clean = false, frozen = false, towel = false,
+  holding, blinkSeed = 0, mouthOpen = 0, showCloud = true, showFly = true, clean = false, frozen = false, towel = false, look = 0,
 }) => {
   const breath = 1 + Math.sin(t * 2.4) * 0.012;
   const blink = blinkAmount(t, blinkSeed);
@@ -219,7 +220,7 @@ export const Teddy: React.FC<TeddyProps> = ({
             {frozen ? <path d="M296 84 l-6 34 l14 -30 z" fill="#bff0ff" stroke={INK} strokeWidth={4} /> : null}
           </g>}
           <Brows expr={expression} level={level} />
-          <Eyes expr={expression} blink={blink} level={level} />
+          <Eyes expr={expression} blink={blink} level={level} look={look} />
           {/* lunettes */}
           {L1 ? (
             <>

@@ -1,92 +1,617 @@
 {
   "slug": "teddy-ep01",
   "fps": 60,
-  "music": {"mood": "hype", "bpm": 125, "seed": 30},
-  "voice": {"engine": "pico", "speed": 1.06, "pitch": -120},
+  "music": {
+    "mood": "hype",
+    "bpm": 125,
+    "seed": 30
+  },
+  "voice": {
+    "engine": "pico",
+    "speed": 1.06,
+    "pitch": -120
+  },
   "drop_cue": "L1end",
   "lines": [
-    {"id": "L0", "text": "Dans trente jours, son ex se marie.", "pause": 0.35,
-     "replace": {"TRENTE JOURS": "30 JOURS"}, "colors": {"EX": "pink", "SE MARIE": "pink", "30 JOURS": "gold"}},
-    {"id": "L1", "text": "Et elle l'a invité.", "pause": 1.15, "colors": {"L'A INVITÉ": "pink"}},
-    {"id": "L2", "text": "Voici Teddy. Vingt-quatre ans.", "pause": 0.3, "replace": {"VINGT-QUATRE ANS": "24 ANS"}, "colors": {"TEDDY": "gold"}},
-    {"id": "L3", "text": "Rang Diamant à son jeu…", "pause": 0.2, "colors": {"DIAMANT": "cyan"}},
-    {"id": "L4", "text": "et rang carton dans la vraie vie.", "pause": 0.45, "colors": {"CARTON": "red", "VRAIE VIE": "red"}},
-    {"id": "L5", "text": "Son sweat n'a pas été lavé depuis onze jours.", "pause": 0.3,
-     "replace": {"ONZE JOURS": "11 JOURS"}, "colors": {"LAVÉ": "red", "11 JOURS": "red"}},
-    {"id": "L6", "text": "Celui de rechange tient debout tout seul.", "pause": 0.5, "colors": {"TOUT SEUL": "gold", "DEBOUT": "gold"}},
-    {"id": "L7", "text": "Même les mouches portent un masque.", "pause": 0.5, "colors": {"MOUCHES": "cyan", "MASQUE": "cyan"}},
-    {"id": "L8", "text": "Et son chat a fait ses valises.", "pause": 0.6, "colors": {"CHAT": "orange", "VALISES": "orange"}},
-    {"id": "L9", "text": "Tranquille.", "pause": 0.55, "speed": 0.92, "pitch": -380},
-    {"id": "L10", "text": "Ce soir, Inès lui écrit.", "pause": 0.35, "colors": {"INÈS": "pink"}},
-    {"id": "L11", "text": "Il tape. Il efface. Il retape.", "pause": 1.4, "colors": {"EFFACE": "red", "RETAPE": "gold"}},
-    {"id": "L12", "text": "Et il envoie… un pouce.", "pause": 0.55, "colors": {"UN POUCE": "gold", "POUCE": "gold"}},
-    {"id": "L13", "text": "Vu.", "pause": 0.9, "colors": {"VU": "red"}},
-    {"id": "L14", "text": "Le futur marié ? Maxence.", "pause": 0.25, "colors": {"MAXENCE": "cyan"}},
-    {"id": "L15", "text": "Il court dix kilomètres avant le petit-déj.", "pause": 0.3,
-     "replace": {"DIX KILOMÈTRES": "10 KM"}, "colors": {"10 KM": "cyan"}},
-    {"id": "L16", "text": "Teddy, lui, court seulement quand le livreur se trompe d'étage.", "pause": 0.9,
-     "colors": {"TEDDY": "gold", "LIVREUR": "orange", "D'ÉTAGE": "orange"}},
-    {"id": "L17", "text": "Et là, Mamie Jo envoie un vocal.", "pause": 0.3, "colors": {"MAMIE JO": "violet", "VOCAL": "violet"}},
-    {"id": "L18", "text": "Trente jours, mon chéri. Moi, en trente jours, j'ai appris l'allemand et la boxe. Bouge-toi !", "pause": 0.45,
-     "speed": 1.0, "pitch": 260, "replace": {"TRENTE JOURS": "30 JOURS"}, "colors": {"30 JOURS": "gold", "L'ALLEMAND": "violet", "LA BOXE": "red", "BOUGE-TOI": "red"}},
-    {"id": "L19", "text": "Tranquille.", "pause": 0.5, "speed": 0.92, "pitch": -380},
-    {"id": "L20", "text": "Problème : il ne sait pas par où commencer.", "pause": 0.3, "colors": {"PROBLÈME": "red", "COMMENCER": "gold"}},
-    {"id": "L21", "text": "Alors c'est vous qui décidez.", "pause": 0.35, "colors": {"VOUS": "gold", "DÉCIDEZ": "gold"}},
-    {"id": "L22", "text": "Douche, ou chambre ? Écris un seul mot en commentaire.", "pause": 0.3,
-     "colors": {"DOUCHE": "violet", "CHAMBRE": "orange", "UN SEUL MOT": "gold", "COMMENTAIRE": "gold"}},
-    {"id": "L23", "text": "Le jour vingt-neuf commence avec votre choix.", "pause": 1.2,
-     "replace": {"VINGT-NEUF": "29"}, "colors": {"29": "gold", "VOTRE CHOIX": "gold"}}
+    {
+      "id": "L0",
+      "text": "Dans trente jours, son ex se marie.",
+      "pause": 0.35,
+      "replace": {
+        "TRENTE JOURS": "30 JOURS"
+      },
+      "colors": {
+        "EX": "pink",
+        "SE MARIE": "pink",
+        "30 JOURS": "gold"
+      },
+      "tts_text": "[mysterious] Dans trente jours… son ex se marie."
+    },
+    {
+      "id": "L1",
+      "text": "Et elle l'a invité.",
+      "pause": 1.15,
+      "colors": {
+        "L'A INVITÉ": "pink"
+      },
+      "tts_text": "[dramatic pause] Et elle l'a invité."
+    },
+    {
+      "id": "L2",
+      "text": "Voici Teddy. Vingt-quatre ans.",
+      "pause": 0.3,
+      "replace": {
+        "VINGT-QUATRE ANS": "24 ANS"
+      },
+      "colors": {
+        "TEDDY": "gold"
+      },
+      "tts_text": "[amused] Voici Teddy. Vingt-quatre ans."
+    },
+    {
+      "id": "L3",
+      "text": "Rang Diamant à son jeu…",
+      "pause": 0.2,
+      "colors": {
+        "DIAMANT": "cyan"
+      },
+      "tts_text": "[proud] Rang Diamant à son jeu…"
+    },
+    {
+      "id": "L4",
+      "text": "et rang carton dans la vraie vie.",
+      "pause": 0.45,
+      "colors": {
+        "CARTON": "red",
+        "VRAIE VIE": "red"
+      },
+      "tts_text": "[deadpan] et rang carton dans la vraie vie."
+    },
+    {
+      "id": "L5",
+      "text": "Son sweat n'a pas été lavé depuis onze jours.",
+      "pause": 0.3,
+      "replace": {
+        "ONZE JOURS": "11 JOURS"
+      },
+      "colors": {
+        "LAVÉ": "red",
+        "11 JOURS": "red"
+      },
+      "tts_text": "[disgusted] Son sweat n'a pas été lavé depuis… onze jours."
+    },
+    {
+      "id": "L6",
+      "text": "Celui de rechange tient debout tout seul.",
+      "pause": 0.5,
+      "colors": {
+        "TOUT SEUL": "gold",
+        "DEBOUT": "gold"
+      },
+      "tts_text": "[incredulous] Celui de rechange tient debout tout seul."
+    },
+    {
+      "id": "L7",
+      "text": "Même les mouches portent un masque.",
+      "pause": 0.5,
+      "colors": {
+        "MOUCHES": "cyan",
+        "MASQUE": "cyan"
+      },
+      "tts_text": "[whispers] Même les mouches portent un masque."
+    },
+    {
+      "id": "L8",
+      "text": "Et son chat a fait ses valises.",
+      "pause": 0.6,
+      "colors": {
+        "CHAT": "orange",
+        "VALISES": "orange"
+      },
+      "tts_text": "[sad] Et son chat a fait ses valises."
+    },
+    {
+      "id": "L9",
+      "text": "Tranquille.",
+      "pause": 0.55,
+      "tts_text": "[confident] Tranquille.",
+      "who": "teddy"
+    },
+    {
+      "id": "L10",
+      "text": "Ce soir, Inès lui écrit.",
+      "pause": 0.35,
+      "colors": {
+        "INÈS": "pink"
+      },
+      "tts_text": "[teasing] Ce soir, Inès lui écrit."
+    },
+    {
+      "id": "L11",
+      "text": "Il tape. Il efface. Il retape.",
+      "pause": 1.4,
+      "colors": {
+        "EFFACE": "red",
+        "RETAPE": "gold"
+      },
+      "tts_text": "[fast] Il tape. Il efface. [sighs] Il retape."
+    },
+    {
+      "id": "L12",
+      "text": "Et il envoie… un pouce.",
+      "pause": 0.55,
+      "colors": {
+        "UN POUCE": "gold",
+        "POUCE": "gold"
+      },
+      "tts_text": "[suspenseful] Et il envoie… [laughs] un pouce."
+    },
+    {
+      "id": "L13",
+      "text": "Vu.",
+      "pause": 0.9,
+      "colors": {
+        "VU": "red"
+      },
+      "tts_text": "[flatly] Vu."
+    },
+    {
+      "id": "L14",
+      "text": "Le futur marié ? Maxence.",
+      "pause": 0.25,
+      "colors": {
+        "MAXENCE": "cyan"
+      },
+      "tts_text": "[impressed] Le futur marié ? Maxence."
+    },
+    {
+      "id": "L15",
+      "text": "Il court dix kilomètres avant le petit-déj.",
+      "pause": 0.3,
+      "replace": {
+        "DIX KILOMÈTRES": "10 KM"
+      },
+      "colors": {
+        "10 KM": "cyan"
+      },
+      "tts_text": "[admiring] Il court dix kilomètres avant le petit-déj."
+    },
+    {
+      "id": "L16",
+      "text": "Teddy, lui, court seulement quand le livreur se trompe d'étage.",
+      "pause": 0.9,
+      "colors": {
+        "TEDDY": "gold",
+        "LIVREUR": "orange",
+        "D'ÉTAGE": "orange"
+      },
+      "tts_text": "[sarcastic] Teddy, lui, court seulement quand le livreur se trompe d'étage."
+    },
+    {
+      "id": "L17",
+      "text": "Et là, Mamie Jo envoie un vocal.",
+      "pause": 0.3,
+      "colors": {
+        "MAMIE JO": "violet",
+        "VOCAL": "violet"
+      },
+      "tts_text": "[excited] Et là, Mamie Jo envoie un vocal."
+    },
+    {
+      "id": "L18",
+      "text": "Trente jours, mon chéri. Moi, en trente jours, j'ai appris l'allemand et la boxe. Bouge-toi !",
+      "pause": 0.45,
+      "replace": {
+        "TRENTE JOURS": "30 JOURS"
+      },
+      "colors": {
+        "30 JOURS": "gold",
+        "L'ALLEMAND": "violet",
+        "LA BOXE": "red",
+        "BOUGE-TOI": "red"
+      },
+      "tts_text": "[energetic] Trente jours, mon chéri ! Moi, en trente jours, j'ai appris l'allemand ET la boxe. [shouts] Bouge-toi !",
+      "who": "mamie"
+    },
+    {
+      "id": "L19",
+      "text": "Tranquille.",
+      "pause": 0.5,
+      "tts_text": "[unbothered] Tranquille.",
+      "who": "teddy"
+    },
+    {
+      "id": "L20",
+      "text": "Problème : il ne sait pas par où commencer.",
+      "pause": 0.3,
+      "colors": {
+        "PROBLÈME": "red",
+        "COMMENCER": "gold"
+      },
+      "tts_text": "[worried] Problème : il ne sait pas par où commencer."
+    },
+    {
+      "id": "L21",
+      "text": "Alors c'est vous qui décidez.",
+      "pause": 0.35,
+      "colors": {
+        "VOUS": "gold",
+        "DÉCIDEZ": "gold"
+      },
+      "tts_text": "[conspiratorial] Alors… c'est vous qui décidez."
+    },
+    {
+      "id": "L22",
+      "text": "Douche, ou chambre ? Écris un seul mot en commentaire.",
+      "pause": 0.3,
+      "colors": {
+        "DOUCHE": "violet",
+        "CHAMBRE": "orange",
+        "UN SEUL MOT": "gold",
+        "COMMENTAIRE": "gold"
+      },
+      "tts_text": "[excited] Douche, ou chambre ? Écris un seul mot en commentaire !"
+    },
+    {
+      "id": "L23",
+      "text": "Le jour vingt-neuf commence avec votre choix.",
+      "pause": 1.2,
+      "replace": {
+        "VINGT-NEUF": "29"
+      },
+      "colors": {
+        "29": "gold",
+        "VOTRE CHOIX": "gold"
+      },
+      "tts_text": "[dramatic] Le jour vingt-neuf commence… avec votre choix."
+    }
   ],
   "sfx": [
-    {"cue": "start", "at": 0.0, "id": "whoosh_in", "vol": 0.5},
-    {"cue": "L0", "at": 0.6, "id": "zzfx/impact", "vol": 0.4},
-    {"cue": "L1", "at": -0.25, "id": "glitch", "vol": 0.35},
-    {"cue": "L1", "at": 0.25, "id": "jsfxr/hitHurt_2", "vol": 0.3},
-    {"cue": "L1end", "at": 0.15, "id": "uisfx/cinematic/toggle-on", "vol": 0.6},
-    {"cue": "L1end", "at": 0.15, "id": "sub_hit", "vol": 0.55},
-    {"cue": "L2", "at": 0.05, "id": "jsfxr/jump_1", "vol": 0.22},
-    {"cue": "L3", "at": 0.25, "id": "uisfx/cinematic/reward", "vol": 0.5},
-    {"cue": "L4", "at": 0.3, "id": "zzfx/impact", "vol": 0.5},
-    {"cue": "L4", "at": 0.32, "id": "uisfx/cinematic/error", "vol": 0.35},
-    {"cue": "L5", "at": 0.1, "id": "uisfx/cinematic/select", "vol": 0.45},
-    {"cue": "L6", "at": 0.15, "id": "jsfxr/powerUp_1", "vol": 0.2},
-    {"cue": "L6", "at": 0.5, "id": "uisfx/cinematic/select", "vol": 0.4},
-    {"cue": "L7", "at": 0.0, "id": "swish", "vol": 0.35},
-    {"cue": "L7", "at": 0.6, "id": "swish", "vol": 0.3},
-    {"cue": "L8", "at": 0.1, "id": "uisfx/cinematic/swipe", "vol": 0.4},
-    {"cue": "L8end", "at": 0.25, "id": "zzfx/impact", "vol": 0.35},
-    {"cue": "L9", "at": -0.05, "id": "uisfx/cinematic/check", "vol": 0.3},
-    {"cue": "L10", "at": -0.15, "id": "whoosh_in", "vol": 0.4},
-    {"cue": "L10", "at": 0.3, "id": "uisfx/cinematic/notification", "vol": 0.55},
-    {"cue": "L11", "at": 0.1, "id": "uisfx/cinematic/typing", "vol": 0.45},
-    {"cue": "L11", "at": 0.6, "id": "uisfx/cinematic/delete", "vol": 0.4},
-    {"cue": "L11", "at": 1.3, "id": "uisfx/cinematic/typing", "vol": 0.45},
-    {"cue": "L11", "at": 2.0, "id": "uisfx/cinematic/delete", "vol": 0.4},
-    {"cue": "L11", "at": 2.5, "id": "uisfx/cinematic/typing", "vol": 0.45},
-    {"cue": "L11", "at": 3.1, "id": "uisfx/cinematic/delete", "vol": 0.4},
-    {"cue": "L12", "at": 1.0, "id": "uisfx/cinematic/send", "vol": 0.55},
-    {"cue": "L12end", "at": 0.15, "id": "blip_down", "vol": 0.4},
-    {"cue": "L13", "at": 0.3, "id": "uisfx/cinematic/loading", "vol": 0.3},
-    {"cue": "L14", "at": -0.15, "id": "whoosh_in", "vol": 0.4},
-    {"cue": "L14", "at": 0.9, "id": "zzfx/sparkle", "vol": 0.45},
-    {"cue": "L15", "at": 0.8, "id": "zzfx/sparkle", "vol": 0.4},
-    {"cue": "L16", "at": -0.15, "id": "whoosh_out", "vol": 0.4},
-    {"cue": "L16", "at": 1.6, "id": "uisfx/cinematic/notification", "vol": 0.35},
-    {"cue": "L16", "at": 2.1, "id": "swish", "vol": 0.4},
-    {"cue": "L16end", "at": 0.1, "id": "zzfx/impact", "vol": 0.6},
-    {"cue": "L16end", "at": 0.12, "id": "sub_hit", "vol": 0.4},
-    {"cue": "L17", "at": 0.6, "id": "uisfx/cinematic/receive", "vol": 0.5},
-    {"cue": "L18", "at": 3.4, "id": "zzfx/impact", "vol": 0.35},
-    {"cue": "L18", "at": 3.9, "id": "zzfx/impact", "vol": 0.35},
-    {"cue": "L18end", "at": -0.3, "id": "zzfx/impact", "vol": 0.5},
-    {"cue": "L19", "at": -0.1, "id": "jsfxr/jump_2", "vol": 0.2},
-    {"cue": "L20", "at": 0.3, "id": "uisfx/cinematic/processing", "vol": 0.35},
-    {"cue": "L20", "at": 1.2, "id": "uisfx/cinematic/warning", "vol": 0.35},
-    {"cue": "L21", "at": 0.0, "id": "riser", "vol": 0.35},
-    {"cue": "L22", "at": -0.1, "id": "sub_hit", "vol": 0.5},
-    {"cue": "L22", "at": -0.05, "id": "whoosh_in", "vol": 0.45},
-    {"cue": "L22", "at": 0.15, "id": "uisfx/cinematic/select", "vol": 0.45},
-    {"cue": "L22", "at": 0.85, "id": "uisfx/cinematic/select", "vol": 0.45},
-    {"cue": "L23", "at": 0.2, "id": "uisfx/cinematic/achievement", "vol": 0.45}
-  ]
+    {
+      "cue": "start",
+      "at": 0.0,
+      "id": "whoosh_in",
+      "vol": 0.5
+    },
+    {
+      "cue": "L0",
+      "at": 0.6,
+      "id": "zzfx/impact",
+      "vol": 0.4
+    },
+    {
+      "cue": "L1",
+      "at": -0.25,
+      "id": "glitch",
+      "vol": 0.35
+    },
+    {
+      "cue": "L1",
+      "at": 0.25,
+      "id": "jsfxr/hitHurt_2",
+      "vol": 0.3
+    },
+    {
+      "cue": "L1end",
+      "at": 0.15,
+      "id": "uisfx/cinematic/toggle-on",
+      "vol": 0.6
+    },
+    {
+      "cue": "L1end",
+      "at": 0.15,
+      "id": "sub_hit",
+      "vol": 0.55
+    },
+    {
+      "cue": "L2",
+      "at": 0.05,
+      "id": "jsfxr/jump_1",
+      "vol": 0.22
+    },
+    {
+      "cue": "L3",
+      "at": 0.25,
+      "id": "uisfx/cinematic/reward",
+      "vol": 0.5
+    },
+    {
+      "cue": "L4",
+      "at": 0.3,
+      "id": "zzfx/impact",
+      "vol": 0.5
+    },
+    {
+      "cue": "L4",
+      "at": 0.32,
+      "id": "uisfx/cinematic/error",
+      "vol": 0.35
+    },
+    {
+      "cue": "L5",
+      "at": 0.1,
+      "id": "uisfx/cinematic/select",
+      "vol": 0.45
+    },
+    {
+      "cue": "L6",
+      "at": 0.15,
+      "id": "jsfxr/powerUp_1",
+      "vol": 0.2
+    },
+    {
+      "cue": "L6",
+      "at": 0.5,
+      "id": "uisfx/cinematic/select",
+      "vol": 0.4
+    },
+    {
+      "cue": "L7",
+      "at": 0.0,
+      "id": "swish",
+      "vol": 0.35
+    },
+    {
+      "cue": "L7",
+      "at": 0.6,
+      "id": "swish",
+      "vol": 0.3
+    },
+    {
+      "cue": "L8",
+      "at": 0.1,
+      "id": "uisfx/cinematic/swipe",
+      "vol": 0.4
+    },
+    {
+      "cue": "L8end",
+      "at": 0.25,
+      "id": "zzfx/impact",
+      "vol": 0.35
+    },
+    {
+      "cue": "L9",
+      "at": -0.05,
+      "id": "uisfx/cinematic/check",
+      "vol": 0.3
+    },
+    {
+      "cue": "L10",
+      "at": -0.15,
+      "id": "whoosh_in",
+      "vol": 0.4
+    },
+    {
+      "cue": "L10",
+      "at": 0.3,
+      "id": "uisfx/cinematic/notification",
+      "vol": 0.55
+    },
+    {
+      "cue": "L11",
+      "at": 0.1,
+      "id": "uisfx/cinematic/typing",
+      "vol": 0.45
+    },
+    {
+      "cue": "L11",
+      "at": 0.6,
+      "id": "uisfx/cinematic/delete",
+      "vol": 0.4
+    },
+    {
+      "cue": "L11",
+      "at": 1.3,
+      "id": "uisfx/cinematic/typing",
+      "vol": 0.45
+    },
+    {
+      "cue": "L11",
+      "at": 2.0,
+      "id": "uisfx/cinematic/delete",
+      "vol": 0.4
+    },
+    {
+      "cue": "L11",
+      "at": 2.5,
+      "id": "uisfx/cinematic/typing",
+      "vol": 0.45
+    },
+    {
+      "cue": "L11",
+      "at": 3.1,
+      "id": "uisfx/cinematic/delete",
+      "vol": 0.4
+    },
+    {
+      "cue": "L12",
+      "at": 1.0,
+      "id": "uisfx/cinematic/send",
+      "vol": 0.55
+    },
+    {
+      "cue": "L12end",
+      "at": 0.15,
+      "id": "blip_down",
+      "vol": 0.4
+    },
+    {
+      "cue": "L13",
+      "at": 0.3,
+      "id": "uisfx/cinematic/loading",
+      "vol": 0.3
+    },
+    {
+      "cue": "L14",
+      "at": -0.15,
+      "id": "whoosh_in",
+      "vol": 0.4
+    },
+    {
+      "cue": "L14",
+      "at": 0.9,
+      "id": "zzfx/sparkle",
+      "vol": 0.45
+    },
+    {
+      "cue": "L15",
+      "at": 0.8,
+      "id": "zzfx/sparkle",
+      "vol": 0.4
+    },
+    {
+      "cue": "L16",
+      "at": -0.15,
+      "id": "whoosh_out",
+      "vol": 0.4
+    },
+    {
+      "cue": "L16",
+      "at": 1.6,
+      "id": "uisfx/cinematic/notification",
+      "vol": 0.35
+    },
+    {
+      "cue": "L16",
+      "at": 2.1,
+      "id": "swish",
+      "vol": 0.4
+    },
+    {
+      "cue": "L16end",
+      "at": 0.1,
+      "id": "zzfx/impact",
+      "vol": 0.6
+    },
+    {
+      "cue": "L16end",
+      "at": 0.12,
+      "id": "sub_hit",
+      "vol": 0.4
+    },
+    {
+      "cue": "L17",
+      "at": 0.6,
+      "id": "uisfx/cinematic/receive",
+      "vol": 0.5
+    },
+    {
+      "cue": "L18",
+      "at": 3.4,
+      "id": "zzfx/impact",
+      "vol": 0.35
+    },
+    {
+      "cue": "L18",
+      "at": 3.9,
+      "id": "zzfx/impact",
+      "vol": 0.35
+    },
+    {
+      "cue": "L18end",
+      "at": -0.3,
+      "id": "zzfx/impact",
+      "vol": 0.5
+    },
+    {
+      "cue": "L19",
+      "at": -0.1,
+      "id": "jsfxr/jump_2",
+      "vol": 0.2
+    },
+    {
+      "cue": "L20",
+      "at": 0.3,
+      "id": "uisfx/cinematic/processing",
+      "vol": 0.35
+    },
+    {
+      "cue": "L20",
+      "at": 1.2,
+      "id": "uisfx/cinematic/warning",
+      "vol": 0.35
+    },
+    {
+      "cue": "L21",
+      "at": 0.0,
+      "id": "riser",
+      "vol": 0.35
+    },
+    {
+      "cue": "L22",
+      "at": -0.1,
+      "id": "sub_hit",
+      "vol": 0.5
+    },
+    {
+      "cue": "L22",
+      "at": -0.05,
+      "id": "whoosh_in",
+      "vol": 0.45
+    },
+    {
+      "cue": "L22",
+      "at": 0.15,
+      "id": "uisfx/cinematic/select",
+      "vol": 0.45
+    },
+    {
+      "cue": "L22",
+      "at": 0.85,
+      "id": "uisfx/cinematic/select",
+      "vol": 0.45
+    },
+    {
+      "cue": "L23",
+      "at": 0.2,
+      "id": "uisfx/cinematic/achievement",
+      "vol": 0.45
+    }
+  ],
+  "voices": {
+    "narrator": {
+      "engine": "elevenlabs",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "model": "eleven_v3",
+      "language": "fr",
+      "stability": 0.5,
+      "similarity": 0.8,
+      "style": 0.6,
+      "speed": 1.05,
+      "_note": "Voix masculine expressive (documentaire moqueur). voice_id générique à remplacer par une voix française : python3 tools/elevenlabs_voices.py",
+      "fallback": {
+        "speed": 1.06,
+        "pitch": -120
+      }
+    },
+    "teddy": {
+      "engine": "elevenlabs",
+      "voice_id": "TxGEqnHWrfWFTfGW9XjX",
+      "model": "eleven_v3",
+      "language": "fr",
+      "stability": 0.5,
+      "similarity": 0.75,
+      "style": 0.7,
+      "speed": 0.95,
+      "fallback": {
+        "speed": 0.92,
+        "pitch": -380
+      }
+    },
+    "mamie": {
+      "engine": "elevenlabs",
+      "voice_id": "A_CHOISIR_voix_feminine_agee",
+      "model": "eleven_v3",
+      "language": "fr",
+      "stability": 0.5,
+      "similarity": 0.75,
+      "style": 0.8,
+      "speed": 1.0,
+      "fallback": {
+        "speed": 1.0,
+        "pitch": 260
+      }
+    }
+  },
+  "composition": "TeddyEpFull"
 }

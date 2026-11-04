@@ -6,7 +6,7 @@ import gsap from 'gsap';
 import {Teddy, Expression, TEDDY_ANCHORS} from './Teddy';
 import {Grotte, Hud, PunchCaptions, Annotation, Invitation, RankBadge, Cap, clamp01, INK} from './Sets';
 
-export type EpisodeProps = {duration: number; cues: Record<string, number>; caps: Cap[]; audio?: string};
+export type EpisodeProps = {duration: number; cues: Record<string, number>; caps: Cap[]; audio?: string; env?: number[]; envRate?: number};
 export const episodeDefaults: EpisodeProps = {duration: 15, cues: {L0: 0.2, L1: 2.6, L1end: 3.4, L2: 4.6, L3: 7, L4: 8.3, L5: 10.1, L6: 12.3}, caps: []};
 
 const BACK = gsap.parseEase('back.out(1.8)');

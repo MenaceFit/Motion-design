@@ -416,3 +416,35 @@ export const DayBanner: React.FC<{t: number; day?: number}> = ({t, day = 29}) =>
 };
 
 export {interpolate};
+
+// ============ Réaction de Teddy en médaillon (picture-in-picture) ============
+export const ReactionInset: React.FC<{t: number; inT: number; expression: import('./Teddy').Expression; size?: number; mouthOpen?: number; sweat?: boolean}> = ({t, inT, expression, size = 300, mouthOpen = 0, sweat}) => {
+  if (inT < 0) return null;
+  const s = BACK(clamp01(inT / 0.3));
+  const k = 1.05, w = 560 * k;
+  return (
+    <div style={{width: size, height: size, borderRadius: size / 2, overflow: 'hidden', border: `9px solid ${INK}`, outline: `5px solid ${C.gold}`, outlineOffset: -14,
+      background: '#2c1a4a', transform: `scale(${s}) rotate(${(1 - s) * -20}deg)`, boxShadow: `0 10px 0 ${INK}`, position: 'relative'}}>
+      <div style={{position: 'absolute', width: w, height: 900 * k, left: size / 2 - 280 * k, top: size / 2 - 265 * k}}>
+        <Teddy t={t} expression={expression} mouthOpen={mouthOpen} showCloud={false} showFly={false} />
+      </div>
+      {sweat ? <div style={{position: 'absolute', right: 36, top: 60 + ((t * 120) % 60), width: 22, height: 32, borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%', background: '#7fd3ff', border: `4px solid ${INK}`}} /> : null}
+    </div>
+  );
+};
+
+// ============ Transition « whip » : traînées de vitesse + flash ============
+export const Whip: React.FC<{t: number; dir?: 1 | -1}> = ({t, dir = 1}) => {
+  if (t < 0 || t > 0.32) return null;
+  const k = t / 0.32, peak = 1 - Math.abs(k * 2 - 1);
+  return (
+    <AbsoluteFill style={{pointerEvents: 'none', overflow: 'hidden'}}>
+      <AbsoluteFill style={{background: '#fff', opacity: peak * 0.18}} />
+      {Array.from({length: 22}).map((_, i) => {
+        const y = random(`wy${i}`) * 1920, len = 300 + random(`wl${i}`) * 700, sp = 0.6 + random(`ws${i}`) * 0.8;
+        const x = dir * (k * sp * 2600 - 1300) + 540 - len / 2;
+        return <div key={i} style={{position: 'absolute', top: y, left: x, width: len, height: 6 + (i % 3) * 5, borderRadius: 6, background: i % 4 ? 'rgba(255,255,255,0.75)' : C.gold, opacity: peak}} />;
+      })}
+    </AbsoluteFill>
+  );
+};

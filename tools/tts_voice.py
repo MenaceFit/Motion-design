@@ -71,6 +71,9 @@ def _ssl_ctx():
     return ssl.create_default_context(cafile=ca) if os.path.exists(ca) else ssl.create_default_context()
 
 
+TAG = re.compile(r"\[[^\]]*\]")
+
+
 def synth_elevenlabs(text, path, v, prev_text=None, next_text=None):
     """Synthèse ElevenLabs avec horodatage par caractère. Retourne l'alignement (chars, starts, ends)."""
     import urllib.request, base64
@@ -78,8 +81,10 @@ def synth_elevenlabs(text, path, v, prev_text=None, next_text=None):
             "voice_settings": {"stability": v.get("stability", 0.4), "similarity_boost": v.get("similarity", 0.8),
                                "style": v.get("style", 0.35), "use_speaker_boost": True, "speed": v.get("speed", 1.0)}}
     if v.get("language"): body["language_code"] = v["language"]
-    if prev_text: body["previous_text"] = prev_text
-    if next_text: body["next_text"] = next_text
+    v3 = "v3" in body["model_id"]
+    if not v3:  # eleven_v3 : intonation par balises audio ; continuité previous/next réservée aux modèles v2
+        if prev_text: body["previous_text"] = TAG.sub("", prev_text)
+        if next_text: body["next_text"] = TAG.sub("", next_text)
     req = urllib.request.Request(f"https://api.elevenlabs.io/v1/text-to-speech/{v['voice_id']}/with-timestamps?output_format=mp3_44100_128",
                                  data=json.dumps(body).encode(), method="POST",
                                  headers={"xi-api-key": os.environ["ELEVENLABS_API_KEY"], "Content-Type": "application/json"})
@@ -89,13 +94,20 @@ def synth_elevenlabs(text, path, v, prev_text=None, next_text=None):
     open(mp3, "wb").write(base64.b64decode(res["audio_base64"]))
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", mp3, "-ac", "1", "-ar", str(SR), path], check=True)
     al = res.get("alignment") or res.get("normalized_alignment")
+    if not al:
+        return None
     return al["characters"], al["character_start_times_seconds"], al["character_end_times_seconds"]
 
 
 def words_from_alignment(text, chars, starts, ends, offset, trim_s):
-    """Timings mot à mot exacts à partir de l'alignement par caractère."""
+    """Timings mot à mot exacts à partir de l'alignement par caractère (balises [..] ignorées)."""
     out, cur, cs, ce = [], "", None, None
+    in_tag = False
     for ch, a, b in zip(chars, starts, ends):
+        if ch == "[": in_tag = True
+        if in_tag:
+            if ch == "]": in_tag = False
+            continue
         if ch.isspace():
             if cur: out.append((cur, cs, ce)); cur, cs = "", None
             continue
@@ -213,16 +225,30 @@ def main():
             eng = "pico"; v = v.get("fallback", {})        # repli hors ligne (voix du personnage approchée)
         toks = [w for w in line["text"].split() if norm_word(w)]  # « ? », « — » seuls : pas de bloc vide
         if eng == "elevenlabs":
-            prev_t = lines[li - 1]["text"] if li else None
-            next_t = lines[li + 1]["text"] if li + 1 < len(lines) else None
-            chars, cst, cen = synth_elevenlabs(line["text"], p, v, prev_t, next_t)
+            spoken = line.get("tts_text", line["text"])            # texte dit (balises d'intonation)
+            prev_t = lines[li - 1].get("tts_text", lines[li - 1]["text"]) if li else None
+            next_t = lines[li + 1].get("tts_text", lines[li + 1]["text"]) if li + 1 < len(lines) else None
+            if "v3" not in v.get("model", "eleven_multilingual_v2"):
+                spoken = TAG.sub("", spoken).strip()          # les balises ne sont comprises que par eleven_v3
+            try:
+                al = synth_elevenlabs(spoken, p, v, prev_t, next_t)
+            except Exception as e:                              # voix invalide, quota… → repli hors ligne pour cette ligne
+                print(f"ligne {li} : ElevenLabs en erreur ({str(e)[:100]}) → repli hors ligne")
+                eng = "pico"; v = v.get("fallback", {})
+        if eng == "elevenlabs":
             x0, _ = sf.read(p); x0 = x0.astype(np.float32)
             x, trim_s = trim_with_offset(x0)
-            ws = words_from_alignment(line["text"], chars, cst, cen, t, trim_s)
+            if al:
+                ws = words_from_alignment(spoken, *al, t, trim_s)
+                # recaler sur les mots du texte affiché (même ordre, balises retirées)
+                if len(ws) != len(toks):
+                    ws = place_words(toks, x, t, [syll(w) for w in toks])
+            else:
+                ws = place_words(toks, x, t, [syll(w) for w in toks])
             for w, tk in zip(ws, toks):
-                w["line"] = li; w["stop"] = tk[-1] in ".!?…,;:"; w.pop("raw", None)
-            report.append({"line": li, "engine": "elevenlabs", "voice_id": v.get("voice_id")})
-        else:
+                w["text"] = norm_word(tk); w["line"] = li; w["stop"] = tk[-1] in ".!?…,;:"; w.pop("raw", None)
+            report.append({"line": li, "engine": "elevenlabs", "voice_id": v.get("voice_id"), "model": v.get("model")})
+        if eng != "elevenlabs":
             sp, pt = v.get("speed", line.get("speed", a.speed)), v.get("pitch", line.get("pitch", a.pitch))
             (synth_pico if eng == "pico" else lambda tx, pa: synth_piper(tx, pa, a.piper_model))(line["text"], p)
             x = trim(load_resampled(p, sp, pt))

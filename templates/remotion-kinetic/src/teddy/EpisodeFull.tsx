@@ -6,7 +6,7 @@ import {AbsoluteFill, Audio, interpolate, staticFile, useCurrentFrame, useVideoC
 import gsap from 'gsap';
 import {Teddy, Expression, TEDDY_ANCHORS} from './Teddy';
 import {Grotte, Hud, PunchCaptions, Annotation, Invitation, RankBadge, clamp01, INK, C} from './Sets';
-import {GrotteDirt, PizzaTower, SpareHoodie, MaskedFly, Croquette, Phone, MaxenceStory, MamieJoNote, Checklist, VoteCard, DayBanner} from './Props';
+import {GrotteDirt, PizzaTower, SpareHoodie, MaskedFly, Croquette, Phone, MaxenceStory, MamieJoNote, Checklist, VoteCard, DayBanner, ReactionInset, Whip} from './Props';
 import {EpisodeProps} from './Episode';
 
 const BACK = gsap.parseEase('back.out(1.8)');
@@ -36,11 +36,13 @@ const Bam: React.FC<{t: number; x: number; y: number; text: string}> = ({t, x, y
   );
 };
 
-export const TeddyEpisodeFull: React.FC<EpisodeProps> = ({cues, caps, audio}) => {
+export const TeddyEpisodeFull: React.FC<EpisodeProps> = ({cues, caps, audio, env, envRate = 30}) => {
   const f = useCurrentFrame();
   const {fps} = useVideoConfig();
   const t = f / fps;
   const c = (k: string, d = 0) => (cues[k] ?? 999) + d;
+  // enveloppe réelle de la voix → ouverture de bouche (lip-sync)
+  const envAt = (x: number) => (env && env.length ? env[Math.min(env.length - 1, Math.max(0, Math.floor(x * envRate)))] : Math.abs(Math.sin(x * 17)));
 
   // ------- découpage en plans -------
   const cut = c('L1', -0.12);
@@ -100,7 +102,14 @@ export const TeddyEpisodeFull: React.FC<EpisodeProps> = ({cues, caps, audio}) =>
   else if (between(t, c('L20'), c('L21'))) expr = 'panic';
   else if (t >= c('L21')) expr = 'wink';
   const talkTeddy = between(t, c('L9'), c('L9end')) || between(t, c('L19'), c('L19end'));
-  const mouthOpen = talkTeddy ? Math.abs(Math.sin(t * 17)) : 0;
+  const mouthOpen = talkTeddy ? Math.min(1, envAt(t) * 1.3) : 0;
+  // regard : vers le badge, vers le chat qui passe, vers la porte en courant, vers la caméra à la fin
+  const croqXNow = interpolate(t - c('L8'), [0, 2.4], [1150, -420]);
+  let look = 0;
+  if (between(t, c('L3', 0.2), c('L5'))) look = 0.9;
+  else if (between(t, c('L8'), c('L9'))) look = interpolate(croqXNow, [-420, 1150], [-1, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  else if (between(t, c('L16', 1.2), c('L16end'))) look = 1;
+  else if (between(t, c('L7'), c('L8'))) look = Math.sin(t * 5) * 0.8;
 
   // bras
   const armsHold = holdCard ? 1 : 1 - EXPO(clamp01((t - c('L2', 0.05)) / 0.3));
@@ -158,7 +167,7 @@ export const TeddyEpisodeFull: React.FC<EpisodeProps> = ({cues, caps, audio}) =>
           {/* Teddy */}
           <div style={{position: 'absolute', left: TX + tx, top: TY - hop, width: 560 * TS, height: 900 * TS,
             transform: `rotate(${fallRot + lean * (1 - flat)}deg) scale(${1 + 0.4 * flat}, ${1 - 0.68 * flat})`, transformOrigin: `${280 * TS}px ${835 * TS}px`}}>
-            <Teddy t={t} expression={expr} armL={armL} armR={armR} squash={squash} antennaKick={antennaKick} mouthOpen={mouthOpen}
+            <Teddy t={t} expression={expr} armL={armL} armR={armR} squash={squash} antennaKick={antennaKick} mouthOpen={mouthOpen} look={look}
               headTilt={expr === 'sad' ? -7 : expr === 'smug' ? 5 : 0}
               holding={holdCard && t >= cut + 0.24 ? <foreignObject x={180} y={470} width={200} height={276}><Invitation w={200} /></foreignObject> : undefined} />
             {/* part de pizza collée sur le visage après la chute */}
@@ -238,8 +247,19 @@ export const TeddyEpisodeFull: React.FC<EpisodeProps> = ({cues, caps, audio}) =>
         </div>
       ) : null}
 
+      {inPhone && phoneK > 0.6 ? (
+        <div style={{position: 'absolute', left: 740, top: 1330}}>
+          <ReactionInset t={t} inT={t - phoneIn - 0.3} size={300} sweat={between(t, c('L11'), c('L13', 1))}
+            expression={t < c('L11') ? 'happy' : t < c('L12', 0.95) ? 'panic' : t < c('L13') ? 'smug' : 'shock'} />
+        </div>
+      ) : null}
       {/* ================= STORY DE MAXENCE ================= */}
       {inStory ? <AbsoluteFill style={{opacity: storyK, transform: `scale(${interpolate(storyK, [0, 1], [1.15, 1])})`}}><MaxenceStory t={t - storyIn} /></AbsoluteFill> : null}
+      {inStory && t >= c('L15', 0.9) ? (
+        <div style={{position: 'absolute', left: 750, top: 1540, opacity: storyK}}>
+          <ReactionInset t={t} inT={t - c('L15', 0.9)} size={280} expression="sad" />
+        </div>
+      ) : null}
 
       {/* ================= VOTE ================= */}
       {inVote ? (
@@ -265,6 +285,11 @@ export const TeddyEpisodeFull: React.FC<EpisodeProps> = ({cues, caps, audio}) =>
         </div>
       ) : null}
 
+      {/* transitions « whip » aux changements de lieu */}
+      <Whip t={t - phoneIn + 0.05} dir={-1} />
+      <Whip t={t - storyIn + 0.05} />
+      <Whip t={t - backIn + 0.05} dir={-1} />
+      <Whip t={t - voteIn + 0.05} />
       {/* HUD + sous-titres */}
       <div style={{transform: `translate(${camX * 0.5}px, ${camY * 0.5}px)`}}>
         <Hud day={30} glow={0} level={1} t={t} slamAt={c('L1end', 0.15)} />
