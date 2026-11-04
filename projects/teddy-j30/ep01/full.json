@@ -616,5 +616,5 @@
     }
   },
   "composition": "TeddyEpFull",
-  "_voice_takes": "Prises générées via le connecteur ElevenLabs (flow XskVmCbwSNtPmd1L4DuV), une par ligne, rangées dans voice/<id>.mp3 ; teddy_build les utilise en priorité."
+  "_voice_takes": "Voix finale : prise de l'utilisateur (ElevenLabs, voix Liam – Sharp, Professional and Energetic, eleven_v4), toutes les répliques. Découpée en voice/L<i>.flac (points de coupe vérifiés par transcription Whisper, voir voice/cuts.json). teddy_build utilise ces fichiers en priorité ; supprimer voice/ pour revenir aux voix du bloc « voices »."
 }

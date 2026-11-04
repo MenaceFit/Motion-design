@@ -134,7 +134,7 @@ def main():
         who = l.get("who", "narrator")
         if who in voices: d["voice"] = voices[who]
         # prise de voix déjà générée (ex. via le connecteur ElevenLabs) : <dossier épisode>/voice/<id>.mp3|wav
-        for ext in ("wav", "mp3"):
+        for ext in ("wav", "flac", "mp3"):
             f = Path(a.episode).resolve().parent / "voice" / f"{l['id']}.{ext}"
             if f.exists():
                 d["audio_file"] = str(f); break

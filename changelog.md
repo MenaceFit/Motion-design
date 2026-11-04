@@ -165,3 +165,11 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
   couloir, Bzz en vacances, Croquette qui applaudit, éphéméride qui se tourne, jauge animée,
   vote et téléphone paramétrables.
 - QC visuel : flacon hors cadre au zoom, rideau qui masquait les yeux → corrigés avant rendu.
+
+## 2026-11-04 — Ép. 1 : voix ElevenLabs de l'utilisateur
+- Prise unique de 51 s (voix Liam, eleven_v4) découpée en 24 répliques : silences mesurés (ffmpeg silencedetect),
+  points de coupe vérifiés par transcription Whisper base (sherpa-onnx, modèle téléchargé depuis GitHub, HF bloqué).
+- Pipeline : `<dossier épisode>/voice/<id>.(wav|flac|mp3)` = prise fournie, utilisée en priorité par `teddy_build.py`
+  (moteur « file » de `tts_voice.py`). Mots placés sur la zone voisée au prorata des syllabes (±120 ms).
+- Connecteur ElevenLabs : génération possible mais « free generations busy » aux heures chargées ; l'audio généré n'est
+  pas téléchargeable depuis le conteneur (api.us.elevenlabs.io, elevenlabsusercontent.com bloqués) → passer par un fichier.
