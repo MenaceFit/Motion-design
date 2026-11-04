@@ -1,4 +1,4 @@
-# Style « Neon Explainer » — référence : ref01 (@declic.mp3)
+# Style « Neon Explainer » — références : ref01, ref11, ref13 (même compte)
 
 Sujet de la référence : « Avoir de mauvaises notes, est-ce être bête ? » → l'école mesure
 l'obéissance, pas l'intelligence (Edison, Einstein, Jobs, Gates en contre-exemples).
@@ -66,6 +66,24 @@ l'obéissance, pas l'intelligence (Edison, Einstein, Jobs, Gates en contre-exemp
 | Fond radial sombre + particules | Les illustrations (balance, pince…) : créer nos métaphores |
 | Bascule chromatique au climax | Le watermark, le nom du compte |
 | Rythme 1 scène / ~2 s, 1 mot / ~0,4 s | — |
+
+## Mise à jour 2026-11-04 : ref11 (couple, 44,5 s) et ref13 (sexualité/science, 33,5 s)
+Même langage confirmé, avec des variantes utiles :
+- **Fond qui change de couleur à chaque idée** (ref11 : bordeaux → violet → orange → vert d'eau →
+  bleu → rouge ; ref13 : bleu canard, violet, bordeaux rayonnant, vert) — palette mesurée ref11
+  `#de9863` `#c44b85` `#ce2f43` `#8b265a`, ref13 `#1c40bb` `#22348b`. La couleur = l'émotion
+  (rouge/orange = intensité, vert = calme/science, bleu = mesure/froid).
+- **Mot unique** Black Italic avec dégradé bicolore (vert d'eau → rose, rose → bleu) et ombre portée,
+  souvent en casse « Titre » (ref13 : « Pourtant », « Mesuré ») plutôt qu'en capitales.
+- **Changement de mot = smear** : sur 2–3 images, l'ancien mot est étiré horizontalement avec
+  séparation RVB (« ROUGE » → « EST » mesuré ref11 0,6–0,8 s), puis le nouveau apparaît net.
+- **Ouverture** : fondu depuis le noir en ~5 images, le cœur grossit avec halo (ref11 0–0,3 s).
+- Illustrations à l'échelle du cadre : silhouettes néon (contour lumineux sur aplat), règle/pied à
+  coulisse, scanner corporel en grille, foule en perspective, montagnes russes, ECG, briques qui
+  explosent, rayons de fond « sunburst » derrière l'objet-clé.
+- Rythme : pics de mouvement 28,3/min (ref11) et 21,5/min (ref13) ; mouvement moyen 2,3–2,6
+  (plus agité que Spotlight Noir).
+- Loudness -17,7 (ref11) / -16,4 LUFS (ref13).
 
 ## Implémentation
 Remotion : `templates/remotion-kinetic/src/KineticWords.tsx` (mot pop + split + fond + SFX auto).

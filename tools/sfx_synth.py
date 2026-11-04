@@ -165,11 +165,77 @@ def typewriter(rng):
     return norm(x, -8)
 
 
+# --- Ajouts « Spotlight Noir » (ref09/ref10) : sons de caméra et d'enseigne néon ---
+def whip(rng):
+    """Whip pan : souffle très court et brillant, attaque rapide, pic aux 2/3 (vitesse max de la caméra)."""
+    d = rng.uniform(.22, .3); n = int(SR * d)
+    x = bandpass_sweep(rng.standard_normal(n), 600, rng.uniform(6000, 8000), q=1.8)
+    tt = np.linspace(0, 1, n)
+    e = np.where(tt < .66, (tt / .66) ** 2.5, ((1 - tt) / .34) ** 1.4)
+    x = x * e
+    x = x + 0.25 * np.pad(x, (int(SR * .007), 0))[:n]
+    return fade(norm(x, -4))
+
+
+def neon_flicker(rng):
+    """Enseigne néon qui s'allume : bourdonnement 100 Hz + harmoniques, coupé par à-coups, crépitements."""
+    d = rng.uniform(.38, .5); tt = t(d); n = len(tt)
+    hum = sum(np.sin(2 * np.pi * 100 * k * tt) / k for k in (1, 2, 3, 5, 7))
+    gate = np.zeros(n); i = 0
+    while i < n:
+        on = int(SR * rng.uniform(.015, .06)); off = int(SR * rng.uniform(.01, .05) * (1 - i / n))
+        gate[i:i + on] = rng.uniform(.5, 1); i += on + off
+    gate = lowpass(gate, 400)
+    crack = rng.standard_normal(n) * (rng.random(n) > .996) * 4
+    x = hum * gate * .5 + lowpass(crack, 5000)
+    x[int(n * .8):] *= np.linspace(1, .55, n - int(n * .8))
+    return fade(norm(x, -6))
+
+
+def heartbeat(rng):
+    """Double battement grave (lub-dub) : 2 impulsions sinus 55→40 Hz."""
+    def thump(d, f0):
+        tt = t(d); f = f0 * np.exp(-tt * 6) + 38
+        return np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 14)
+    x = np.concatenate([thump(.18, 70), np.zeros(int(SR * .1)), thump(.22, 58) * .75, np.zeros(int(SR * .2))])
+    return fade(norm(np.tanh(2 * x), -2))
+
+
+def boom(rng):
+    """Impact cinéma pour carte mot-clé : sub + corps saturé + queue de bruit filtré (réverb simulée)."""
+    d = 2.2; tt = t(d)
+    f = 34 + 60 * np.exp(-tt * 12)
+    body = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 2.4)
+    snap = lowpass(rng.standard_normal(len(tt)), 2500) * np.exp(-tt * 45) * 2
+    tail = lowpass(rng.standard_normal(len(tt)), 700) * np.exp(-tt * 3) * .25
+    return fade(norm(np.tanh(1.6 * (body + snap + tail)), -1.5))
+
+
+def zoom_in(rng):
+    """Zoom caméra rapide : souffle montant 0,45 s qui s'arrête net (fin = arrivée du cadre)."""
+    d = .45; n = int(SR * d)
+    x = bandpass_sweep(rng.standard_normal(n), 200, 4500, q=3.0)
+    tone = np.sin(2 * np.pi * np.cumsum(np.linspace(120, 600, n)) / SR) * .3
+    e = np.linspace(0, 1, n) ** 2
+    x = (x + tone) * e
+    x[-int(SR * .006):] *= np.linspace(1, 0, int(SR * .006))
+    return norm(x, -5)
+
+
+def flash(rng):
+    """Flash lumineux : transitoire clair + souffle aigu bref (accompagne un flash plein cadre)."""
+    d = .35; tt = t(d)
+    x = bandpass_sweep(rng.standard_normal(len(tt)), 9000, 2500, q=1.5) * np.exp(-tt * 10)
+    x += np.sin(2 * np.pi * 3000 * tt) * np.exp(-tt * 60) * .4
+    return fade(norm(x, -7))
+
+
 GEN = {
     "pop": pop, "click": click, "tick": tick, "whoosh_in": lambda r: whoosh(r),
     "whoosh_out": lambda r: whoosh(r, rev=True), "swish": lambda r: whoosh(r, d=.14),
     "sub_hit": sub_hit, "riser": riser, "blip_up": lambda r: blip(r, True),
     "blip_down": lambda r: blip(r, False), "glitch": glitch, "shimmer": shimmer, "typewriter": typewriter,
+    "whip": whip, "neon_flicker": neon_flicker, "heartbeat": heartbeat, "boom": boom, "zoom_in": zoom_in, "flash": flash,
 }
 
 

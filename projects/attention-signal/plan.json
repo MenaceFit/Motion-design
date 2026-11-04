@@ -1,0 +1,501 @@
+{
+ "slug": "attention-signal",
+ "prompt": "Vidéo séduction/psychologie virale dans le style Spotlight Noir (refs 09/10), script original",
+ "title": "Pourquoi plus tu insistes, moins elle répond",
+ "accent": "#ff2d6f",
+ "fps": 60,
+ "voice": {
+  "engine": "pico",
+  "speed": 1.04,
+  "gap": 0.16
+ },
+ "music": {
+  "mood": "tension",
+  "bpm": 96,
+  "seed": 11,
+  "db": -14
+ },
+ "lines": [
+  {
+   "text": "Plus tu cours après son attention, plus elle t'échappe.",
+   "accents": [
+    "attention",
+    "échappe"
+   ],
+   "shot": {
+    "type": "spotlight",
+    "hud": "SUJET · TOI",
+    "push": 0.1,
+    "lights": [
+     {
+      "x": 680,
+      "w": 170,
+      "to": 930,
+      "at": "@elle",
+      "dur": 0.9
+     }
+    ],
+    "figures": [
+     {
+      "x": 680,
+      "kind": "f",
+      "moves": [
+       {
+        "at": "@elle",
+        "to": 930,
+        "dur": 0.9,
+        "pose": "walk"
+       }
+      ]
+     },
+     {
+      "x": 140,
+      "hero": true,
+      "moves": [
+       {
+        "at": "@cours",
+        "to": 470,
+        "dur": 1.4,
+        "pose": "run"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "text": "Ce n'est pas une question de physique.",
+   "accents": [
+    "physique"
+   ],
+   "shot": {
+    "type": "versus",
+    "in": "whip",
+    "hud": "COMPARATIF",
+    "right": "LES AUTRES",
+    "rows": [
+     {
+      "label": "PHYSIQUE",
+      "a": 0.74,
+      "b": 0.75,
+      "at": "@question"
+     },
+     {
+      "label": "HUMOUR",
+      "a": 0.8,
+      "b": 0.72,
+      "at": "@physique"
+     },
+     {
+      "label": "STYLE",
+      "a": 0.68,
+      "b": 0.7,
+      "at": "@physique+0.35"
+     }
+    ]
+   }
+  },
+  {
+   "text": "C'est une question de signal.",
+   "accents": [
+    "signal"
+   ],
+   "shot": {
+    "type": "keyword",
+    "in": "glitch",
+    "on": "signal",
+    "word": "SIGNAL.",
+    "sub": "CE QUE TU MONTRES SANS LE DIRE",
+    "noCaption": true
+   },
+   "pause": 0.5
+  },
+  {
+   "text": "Trois messages d'affilée. Sans réponse.",
+   "accents": [
+    "trois"
+   ],
+   "shot": {
+    "type": "chat",
+    "in": "zoom",
+    "hud": "CONVERSATION · ELLE",
+    "msgs": [
+     {
+      "text": "Hey, ça va ?",
+      "at": "@trois"
+     },
+     {
+      "text": "Tu fais quoi ce soir ?",
+      "at": "@messages"
+     },
+     {
+      "text": "Allô ??",
+      "at": "@affilée"
+     }
+    ],
+    "seen": {
+     "at": "@sans",
+     "text": "VU · 23:47"
+    }
+   }
+  },
+  {
+   "text": "Toi, tu crois montrer de l'intérêt.",
+   "accents": [
+    "intérêt"
+   ],
+   "shot": {
+    "type": "gauge",
+    "in": "whip",
+    "hud": "CE QUE TU CROIS",
+    "label": "INTÉRÊT",
+    "from": 8,
+    "to": 100,
+    "at": "@crois",
+    "dur": 1.1
+   }
+  },
+  {
+   "text": "Elle, elle ressent de la pression.",
+   "accents": [
+    "pression"
+   ],
+   "shot": {
+    "type": "heartbeat",
+    "in": "whip",
+    "hud": "CE QU'ELLE RESSENT",
+    "label": "PRESSION",
+    "from": 66,
+    "to": 132,
+    "at": "@ressent",
+    "dur": 1.3,
+    "hot": 105
+   }
+  },
+  {
+   "text": "Et la pression ne crée pas le désir.",
+   "accents": [
+    "désir"
+   ],
+   "shot": {
+    "type": "spotlight",
+    "in": "whip",
+    "hud": "DISTANCE",
+    "lights": [
+     {
+      "x": 640,
+      "w": 160,
+      "to": 860,
+      "at": "@pression",
+      "dur": 1.0
+     }
+    ],
+    "figures": [
+     {
+      "x": 330,
+      "hero": true,
+      "pose": "point"
+     },
+     {
+      "x": 640,
+      "kind": "f",
+      "moves": [
+       {
+        "at": "@pression",
+        "to": 860,
+        "dur": 1.0,
+        "pose": "walk",
+        "face": "left"
+       }
+      ]
+     }
+    ],
+    "tags": [
+     {
+      "text": "DÉSIR ↓",
+      "x": 860,
+      "y": 380,
+      "at": "@désir",
+      "to": [
+       860,
+       560
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "text": "En psychologie, ça porte un nom : la réactance.",
+   "accents": [
+    "réactance"
+   ],
+   "shot": {
+    "type": "keyword",
+    "in": "glitch",
+    "on": "réactance",
+    "word": "RÉACTANCE.",
+    "sub": "J. BREHM · 1966",
+    "noCaption": true
+   },
+   "pause": 0.5
+  },
+  {
+   "text": "Quand on se sent poussé, on résiste.",
+   "accents": [
+    "résiste"
+   ],
+   "shot": {
+    "type": "spotlight",
+    "in": "whip",
+    "hud": "RÉACTION",
+    "lights": [
+     {
+      "x": 430,
+      "w": 150
+     },
+     {
+      "x": 700,
+      "w": 150,
+      "flickerAt": "@résiste"
+     }
+    ],
+    "figures": [
+     {
+      "x": 300,
+      "hero": true,
+      "moves": [
+       {
+        "at": "@sent",
+        "to": 520,
+        "dur": 0.7,
+        "pose": "walk"
+       }
+      ],
+      "poseAt": {
+       "at": "@poussé",
+       "pose": "push"
+      }
+     },
+     {
+      "x": 700,
+      "kind": "f",
+      "flipAt": "@résiste",
+      "moves": [
+       {
+        "at": "@résiste",
+        "to": 820,
+        "dur": 0.6,
+        "pose": "walk"
+       }
+      ]
+     }
+    ],
+    "tags": [
+     {
+      "text": "RÉSISTANCE",
+      "x": 790,
+      "y": 380,
+      "at": "@résiste",
+      "accent": true,
+      "to": [
+       790,
+       560
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "text": "Alors fais l'inverse : un seul message.",
+   "accents": [
+    "inverse",
+    "seul"
+   ],
+   "shot": {
+    "type": "counter",
+    "in": "flash",
+    "hud": "NOUVELLE RÈGLE",
+    "from": 3,
+    "to": 1,
+    "at": "@seul",
+    "dur": 0.5,
+    "label": "MESSAGE. PAS TROIS."
+   }
+  },
+  {
+   "text": "Puis tu vis ta vie : ta salle, tes potes, tes projets.",
+   "accents": [
+    "vie"
+   ],
+   "shot": {
+    "type": "spotlight",
+    "in": "zoom",
+    "hud": "TA VIE",
+    "push": 0.12,
+    "lights": [
+     {
+      "x": 540,
+      "w": 200
+     }
+    ],
+    "figures": [
+     {
+      "x": 540,
+      "hero": true,
+      "h": 260
+     }
+    ],
+    "tags": [
+     {
+      "text": "SALLE",
+      "x": 230,
+      "y": 420,
+      "at": "@salle",
+      "to": [
+       470,
+       600
+      ]
+     },
+     {
+      "text": "POTES",
+      "x": 850,
+      "y": 360,
+      "at": "@potes",
+      "to": [
+       610,
+       580
+      ]
+     },
+     {
+      "text": "PROJETS",
+      "x": 540,
+      "y": 200,
+      "at": "@projets",
+      "accent": true,
+      "to": [
+       540,
+       470
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "text": "Et là, la lumière change de côté.",
+   "accents": [
+    "lumière"
+   ],
+   "shot": {
+    "type": "spotlight",
+    "in": "whip",
+    "hud": "INVERSION",
+    "lights": [
+     {
+      "x": 760,
+      "w": 160,
+      "to": 330,
+      "at": "@lumière",
+      "dur": 1.0
+     }
+    ],
+    "figures": [
+     {
+      "x": 330,
+      "hero": true
+     },
+     {
+      "x": 760,
+      "kind": "f",
+      "flip": true,
+      "flipAt": "@change",
+      "moves": [
+       {
+        "at": "@côté",
+        "to": 560,
+        "dur": 0.9,
+        "pose": "walk"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "text": "Elle t'écrit. Parce qu'elle s'est demandé où tu étais.",
+   "accents": [
+    "écrit"
+   ],
+   "shot": {
+    "type": "chat",
+    "in": "zoom",
+    "hud": "NOUVEAU MESSAGE",
+    "tilt": -1,
+    "msgs": [
+     {
+      "from": "her",
+      "text": "T'étais où ?",
+      "at": "@écrit"
+     },
+     {
+      "from": "her",
+      "text": "J'ai pensé à toi",
+      "at": "@demandé"
+     }
+    ]
+   }
+  },
+  {
+   "text": "L'attention ne se réclame pas. Elle s'attire.",
+   "accents": [
+    "attire"
+   ],
+   "shot": {
+    "type": "keyword",
+    "in": "flash",
+    "on": "attire",
+    "word": "S'ATTIRE.",
+    "sub": "L'ATTENTION NE SE RÉCLAME PAS",
+    "noCaption": true
+   },
+   "pause": 0.5
+  },
+  {
+   "text": "Enregistre-la avant d'envoyer ton prochain message.",
+   "accents": [
+    "enregistre"
+   ],
+   "shot": {
+    "type": "spotlight",
+    "in": "whip",
+    "hud": "À GARDER",
+    "push": 0.14,
+    "lights": [
+     {
+      "x": 540,
+      "w": 190
+     }
+    ],
+    "figures": [
+     {
+      "x": 540,
+      "hero": true,
+      "h": 250
+     }
+    ],
+    "tags": [
+     {
+      "text": "AVANT DE L'ENVOYER",
+      "x": 540,
+      "y": 330,
+      "at": "@prochain",
+      "accent": true,
+      "to": [
+       540,
+       520
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}

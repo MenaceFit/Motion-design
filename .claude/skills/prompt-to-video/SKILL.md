@@ -5,6 +5,9 @@ description: Transforme un simple prompt (« fais une vidéo virale sur X ») en
 
 # Prompt → vidéo (texte 3D, 9:16)
 
+> Sujet séduction / relations / psychologie sociale, ou style des refs 09/10 demandé →
+> utiliser plutôt la skill **`spotlight-noir`** (`tools/make_noir.py`, rendu 2D rapide, pictos + caméra).
+
 ## 1. Décisions à prendre seul (ne pas interroger l'utilisateur)
 - **Durée** : 20–35 s par défaut (viralité). Si l'utilisateur vise la rémunération TikTok : 61–75 s.
 - **Thème** selon le sujet : `neon` (psycho, cerveau, réseaux), `gold` (argent, réussite, luxe),

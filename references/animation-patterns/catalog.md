@@ -21,12 +21,30 @@ Source = observé dans les références (ref0X) ou validé par rendu test.
 | A14 | **Step walk** | translation par paliers (1 pas = 10 f), chaque pas easé | 10 f/pas | easeOutExpo par pas | ref04 (recréé dans LineStory) |
 | A15 | **Palette shift climax** | teinte de fond froide → chaude | 15–30 f | ease-in-out | ref01 |
 | A16 | **Glitch accent** | décalage RGB ±6 px + slices horizontales | 2–3 f | step | ref01 (mots-clés) |
+| A17 | **Neon flicker word** | chaque lettre s'allume à t aléatoire ∈ [0 ; 0,3 s] avec 1–2 coupures brèves, lettres éteintes visibles en gris `#232323` | 9–12 f | step | ref09 |
+| A18 | **Flash plein cadre** | fond = couleur d'accent, opacité 0,85 → 0 (ou 2 images pleines) | 2–9 f | ease-out | ref09 |
+| A19 | **Étincelles** | 20–30 particules, vitesse 260–780 px/s vers le haut, gravité 900 px/s², taille → 0 | 20 f | balistique | ref09 |
+| A20 | **Whip pan continu** | les 2 plans glissent ensemble de W px ; flou directionnel ∝ vitesse (max ~80 px) | 8–9 f | ease-in-out cubique | ref09, ref10 |
+| A21 | **Glitch → gris → carte** | 5 f de bandes décalées (±130 px) + RVB, **1 image grise** `#8e8e8e`, carte noire | 6–7 f | step | ref09 |
+| A22 | **Zoom traversant** | plan sortant scale 1 → 3,2 + flou 10 px ; entrant scale 0,5 → 1 | 11 f | ease-in / ease-out | ref10, démo |
+| A23 | **Boîte sous-titre qui grandit** | boîte blanche ajustée au texte, chaque mot monte de 12 px + fondu | 3–5 f/mot | ease-out | ref09, ref10 |
+| A24 | **HUD tapé** | caractères révélés à 30–35 car./s, carré clignotant 2 Hz | — | step | ref09, ref10 |
+| A25 | **Aiguille qui tremble** | valeur cible ± 1–2 % (2 sinus 23 et 37 rad/s) | continu | — | ref09 |
+| A26 | **Punch caméra sur mot-clé** | scale +0,045 → 0 | 12 f | ease-out | démo (dérivé A9) |
+| A27 | **Wipe text à bord doux** | masque gauche → droite, dégradé de 15 % de largeur | 8 f | ease-out | ref12 |
+| A28 | **Word smear** | ancien mot étiré en X + séparation RVB avant le suivant | 2–3 f | step | ref11 |
 
 ## Règles de rythme short-form (déduites des 5 refs)
 - Texte : jamais immobile plus de 0,5 s sans changement (mot ou révélation).
 - Visuel : un changement significatif toutes les 1,3–2,7 s (ref03 : 3,9 s, compensé par des boucles).
 - Une seule action principale à la fois dans les styles minimalistes.
 - Le premier mouvement doit arriver avant 0,3 s (pas d'intro lente).
+
+## Règles ajoutées par le lot ref09–ref13
+- Sur un format long, relancer l'attention toutes les 15–20 s par un événement « carte »
+  (mot-clé plein cadre, chiffre géant, chapitre numéroté).
+- La couleur d'accent ne sert qu'au sujet et à l'idée-clé : si tout est en accent, rien ne l'est.
+- Une transition = un mouvement de caméra justifié (on suit l'idée), pas un effet décoratif.
 
 ## Correspondances After Effects
 - Spring/overshoot → expression *inertial bounce* (voir `templates/after-effects/expressions.md`).

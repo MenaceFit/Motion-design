@@ -13,6 +13,14 @@ watermark TikTok animé et **carte de fin TikTok de ~3–4 s** (à exclure des m
 | ref06 | (série « Hugo », J-30) | 576×1024 (9:16) | 91,8 s (~89) | 20 | 4,6 s | [Glow-up interactif](visual-styles/interactive-glow-up.md) |
 | ref07 | (série « Hugo », J-29) | 576×1024 (9:16) | 103,3 s (~99) | 21 | 4,9 s | [Glow-up interactif](visual-styles/interactive-glow-up.md) |
 | ref08 | (série « Kevin », J-30) | 576×1024 (9:16) | 80,6 s (~77) | 30 | 2,7 s | [Glow-up interactif](visual-styles/interactive-glow-up.md) |
+| ref09 | (séduction, compte A) | 576×1024 (9:16, panneau 16:9 + titre) | 140,6 s (137) | ~70 mouvements* | ~1,9 s | [Spotlight Noir](visual-styles/spotlight-noir.md) |
+| ref10 | (séduction, compte A) | 576×1024 (9:16, panneau 16:9 + titre) | 154,1 s (150,6) | ~80 mouvements* | ~1,8 s | [Spotlight Noir](visual-styles/spotlight-noir.md) |
+| ref11 | @declic.mp3 | 1024×576 (16:9) | 48,0 s (44,5) | 22 | 2,2 s | [Neon Explainer](visual-styles/neon-explainer.md) |
+| ref12 | (psychologie, compte B) | 576×1024 (9:16) | 64,9 s (61,3) | 22 | 2,9 s | [Red Listicle](visual-styles/red-listicle.md) |
+| ref13 | @declic.mp3 | 768×576 (4:3) | 37,0 s (33,5) | 13 | 2,6 s | [Neon Explainer](visual-styles/neon-explainer.md) |
+
+\* ref09/ref10 : caméra continue dans un monde 3D → le détecteur de coupes ne voit que 15 et 10
+« plans » ; le rythme réel est donné par les pics de mouvement (31,5 et 32,7/min).
 
 Notes :
 - Les 4 vidéos 16:9 sont des formats horizontaux publiés sur TikTok (bandes ou recadrage côté
@@ -32,3 +40,15 @@ Notes :
    → conclusion/punchline (+ CTA chez ref03).
 6. **Musique de fond discrète sous la voix** (nappes tonales/drone visibles au spectrogramme),
    SFX brefs et discrets, voix dominante.
+
+## Ce que le lot 2 (ref09–ref13, séduction & psychologie) ajoute à l'ADN
+7. **Le hook reste à l'écran** : titre permanent (ref09/10) ou fil d'Ariane de chapitre (ref12) →
+   un spectateur qui arrive en cours de route comprend tout de suite.
+8. **Une couleur d'accent = « toi » / l'idée importante** (citron ref09/10, rouge ref12) sur un fond
+   neutre. Ailleurs (ref11/13), c'est le fond entier qui change de couleur selon l'émotion.
+9. **Les formats longs (61–150 s) existent et tiennent** grâce à : métaphore récurrente,
+   chapitres numérotés, cartes mot-clé qui relancent l'attention toutes les ~15–20 s.
+10. **Transitions = mouvement de caméra** (whip pan flou, push-in, zoom traversant) plutôt que des
+    cuts ; impact sonore + flash sur les cartes, **silence juste avant l'impact**.
+11. Sujets séduction : pas de photos ni de personnes réelles, uniquement pictogrammes/silhouettes →
+    universel, sans problème de droits ni de représentation.

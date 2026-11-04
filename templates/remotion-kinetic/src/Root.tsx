@@ -9,6 +9,7 @@ import {TeddyEpisode, episodeDefaults} from './teddy/Episode';
 import {TeddyEpisodeFull} from './teddy/EpisodeFull';
 import {TeddyEpisode2} from './teddy/Episode2';
 import {ProfilePic, profilePicDefaults} from './teddy/ProfilePic';
+import {NoirStage, noirDefaults} from './noir/NoirStage';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -55,6 +56,10 @@ export const RemotionRoot: React.FC = () => (
       defaultProps={text3DDefaults}
       calculateMetadata={({props}) => ({durationInFrames: durationFrom3DWords(props.words, 30, props.captions)})}
     />
+    {/* Style « Spotlight Noir » (famille ref09/ref10) — studio sombre, pictos, 1 accent, caméra + transitions */}
+    {[30, 60].map((f) => <Composition key={f} id={f === 60 ? 'NoirStage' : 'NoirStage30'} component={NoirStage} width={1080} height={1920} fps={f}
+      durationInFrames={Math.ceil(noirDefaults.duration * f)} defaultProps={noirDefaults}
+      calculateMetadata={({props}) => ({durationInFrames: Math.ceil(props.duration * f)})} />)}
     <Composition id="Gallery3D" component={Gallery3D} width={1080} height={1920} fps={30} durationInFrames={60} />
     <Composition id="TeddyProfilePic" component={ProfilePic} width={1080} height={1080} fps={30} durationInFrames={1} defaultProps={profilePicDefaults} />
     <Composition id="TeddyRigTest" component={RigTest} width={1080} height={1920} fps={30} durationInFrames={30} />

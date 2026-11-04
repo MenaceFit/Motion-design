@@ -32,6 +32,8 @@ Langue de travail : **français**.
 Skill `prompt-to-video` : écrire `projects/<slug>/plan.json` puis
 `python3 tools/make_video.py projects/<slug>/plan.json --out renders/` (texte 3D 60 fps, voix,
 musique, SFX, mix, QC). Règles virales et contraintes de monétisation : `documentation/virality.md`.
+Séduction / psychologie au style « Spotlight Noir » (studio sombre, pictos, 1 accent, whip pans) :
+skill `spotlight-noir` → `python3 tools/make_noir.py projects/<slug>/plan.json --out renders`.
 
 ## Démarrage rapide (conteneur cloud)
 ```bash

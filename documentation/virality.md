@@ -49,6 +49,13 @@ artificiellement la rétention, YouTube exclut les relectures des *engaged views
 Contraintes : phrases ≤ 8 mots, ~2,5–3 mots/s, 1 mot-clé accentué par phrase (max 2),
 1 emoji max par phrase, tutoiement, zéro jargon.
 
+## 3b. Observé sur le lot séduction/psychologie (ref09–ref13, mesures du 2026-11-04)
+- Deux vidéos de 137 et 150 s (même compte) : le format long existe dans ce créneau. Ce qui les
+  rend regardables : **titre-hook affiché en permanence**, une **métaphore filée**, des **cartes
+  mot-clé** toutes les 15–20 s, une caméra qui ne s'arrête jamais (31–33 pics de mouvement/min).
+- ref12 (61 s) annonce une **liste numérotée** dès 2 s (« 3 signes ») + fil d'Ariane → boucle ouverte.
+- Ce sont des observations de structure, pas des chiffres de performance (pas d'accès aux stats).
+
 ## 4. Ce que nous ne pouvons pas mesurer ici
 Pas d'accès aux analytics des comptes. Après publication, relever : % vues > 3 s (ou « viewed vs
 swiped away » sur Shorts), durée moyenne, complétion, partages/enregistrements → les consigner dans

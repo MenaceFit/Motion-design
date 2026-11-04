@@ -173,3 +173,36 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
   (moteur « file » de `tts_voice.py`). Mots placés sur la zone voisée au prorata des syllabes (±120 ms).
 - Connecteur ElevenLabs : génération possible mais « free generations busy » aux heures chargées ; l'audio généré n'est
   pas téléchargeable depuis le conteneur (api.us.elevenlabs.io, elevenlabsusercontent.com bloqués) → passer par un fichier.
+
+## 2026-11-04 (5) — Lot séduction / psychologie (ref09–ref13) + style « Spotlight Noir »
+### Analyses (mesures : analyze_reference, k-means, image par image, spectrogrammes, EBU R128)
+- ref09/ref10 (séduction, 137 et 150 s) → **nouveau style Spotlight Noir** : titre-hook permanent,
+  studio gris + projecteurs, pictos, accent citron unique `#c4d117`, sous-titre boîte blanche qui
+  grandit mot à mot, cartes mot-clé néon, caméra continue (31–33 pics/min, le détecteur de coupes
+  n'en voit que 10–15), whip pans, glitch → 1 image grise → carte, silence avant l'impact.
+- ref12 (psychologie, 61 s) → **nouveau style Red Listicle** : liste numérotée annoncée à 2 s,
+  fil d'Ariane de chapitre, mot-bloc bicolore blanc/rouge `#e6011d`, wipe à bord doux, sub à 0 s.
+- ref11/ref13 (@declic.mp3) → **mise à jour Neon Explainer** : fond qui change de couleur par
+  idée, word smear RVB entre deux mots, sunburst, silhouettes néon.
+- Catalogues : animations A17–A28, 8 nouvelles correspondances événement → son. ADN du créneau
+  complété (points 7–11 de `references/index.md`).
+
+### Créé (testé)
+- `src/noir/NoirStage.tsx` (compositions `NoirStage` 60 fps / `NoirStage30`) : 8 types de plans
+  (spotlight, crowd, versus, gauge, heartbeat, chat, counter, keyword), 5 transitions (whip continu
+  à 2 plans + flou directionnel, zoom traversant, glitch RVB + flash gris, flash d'accent, cut),
+  punch caméra sur les mots-clés, HUD tapé, croix de visée, grain, barre de progression.
+- `tools/make_noir.py` : plan → voix → plans calés sur la voix (ancres `@mot`, clé `on`) → musique
+  avec creux avant chaque impact → SFX par événement → mix → rendu → finish → QC.
+- `tools/sfx_synth.py` : 6 sons originaux (whip, neon_flicker, heartbeat, boom, zoom_in, flash).
+- Skill `spotlight-noir` ; démo originale `projects/attention-signal` (séduction, accent rose).
+
+### Erreurs trouvées et corrigées
+- `analyze_reference.py` : segfault de librosa `beat_track` (numba 0.68 / numpy 2.5) en parallèle
+  comme en séquentiel → tempo par `librosa.feature.tempo` + grille de beats. Lancer les analyses
+  une par une (5 en parallèle = segfaults mémoire).
+- Whip en deux phases → 2–3 images noires au milieu ; remplacé par un panoramique continu à 2 plans.
+- Flash gris 2 images → 1 (mesure ref09). Personnages 230 px trop petits → 300 px.
+- Ancre `@plus` résolue sur la 1re occurrence ; `@écrit` ne trouvait pas « T'ÉCRIT » (élision).
+- Chemin `--props` relatif refusé par Remotion → chemins absolus.
+- Rendu : 0,12 s/image en aperçu (½ résolution, 30 fps) ; ~1 s/image en final 1080×1920 60 fps.

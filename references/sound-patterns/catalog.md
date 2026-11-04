@@ -27,9 +27,20 @@ Les sons de `tools/sfx_synth.py` sont synthétisés (originaux, libres de droits
 | Validation ✓ / erreur ✗ | blip_up / blip_down | moyen | 0 |
 | Idée, étincelle, illumination | shimmer | faible | 0 |
 | Glitch visuel | glitch | moyen | 0 |
+| Whip pan | whip (0,26 s, pic aux 2/3) | moyen (0,55) | -0,2 s (pic = vitesse max) |
+| Zoom traversant | zoom_in (0,45 s, s'arrête net) | moyen | se termine sur la coupe |
+| Mot néon qui s'allume | neon_flicker (bourdonnement 100 Hz haché) | moyen | 0 |
+| Carte mot-clé pleinement allumée | boom (sub + queue) **précédé d'un creux musical de 0,3 s** | fort (0,6) | 0 |
+| Flash plein cadre | flash + sub_hit | fort | 0 |
+| ECG / tension | heartbeat (lub-dub) sur chaque pic R dessiné | moyen | 0 |
+| Message reçu / envoyé | blip_up (elle) / pop (toi) | moyen | 0 |
 
 ## Observations sur les références (mesures, pas écoute)
 - Toutes : voix très dominante, musique de fond tonale/ambient en continu, mix fort (pic ≈ -4,5 dBFS).
 - ref04/05 : drone grave permanent < 300 Hz = signature « contemplative ».
 - ref01/ref02 : nappe tonale + transitoires larges bande aux coupes.
 - ref03 : densité d'onsets la plus élevée → SFX UI fréquents probables (bulles, notifs).
+- ref09/ref10 : sub-basse quasi continue < 150 Hz, impacts sub sur les cartes, **trou d'énergie
+  juste avant l'impact** (silence avant le coup), mix à -21 LUFS.
+- ref12 : impact sub dès 0,0 s (hook sonore), nappe tonale sans batterie.
+- ref11/ref13 : voix + musique, transitoires aux changements de fond ; -16 à -18 LUFS.
