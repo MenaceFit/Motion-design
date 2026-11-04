@@ -129,3 +129,13 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
   sonores web, LottieFiles, remotion.media.
 - QC visuel v4 : icônes blanches en thème gold (→ `iconColor`), haut des objets coupé (→ y 1,6,
   échelle 1,15), graphique trop haut (→ ×1,8), dernière barre blanche.
+
+## 2026-11-04 — Nouveau genre : glow-up interactif (projet principal de l'utilisateur)
+- Analyse de ref06/07/08 (2 comptes, même formule) → `references/visual-styles/interactive-glow-up.md` :
+  compte à rebours + jauge, vote en commentaire, récap « vous avez choisi », SMS, mission en 3 temps,
+  > 60 s, SFX très denses (~4,5/s), 2D flat à contours épais.
+- Projet `projects/teddy-j30/` : bible de série et DA (`BIBLE.md`), script de l'épisode 1
+  (`ep01-J30-script.md`), fiche personnage (`design/character-sheet.png`, SVG original).
+- Choix clé : on transforme les habitudes et le style de Teddy, pas son corps (marque, monétisation, ton).
+- Prochaine brique technique : rig 2D SVG de Teddy dans Remotion (expressions, tenues par niveau,
+  mèche antenne), décors, HUD, carte de vote, téléphone.
