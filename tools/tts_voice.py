@@ -142,7 +142,7 @@ def main():
             if w["text"] in emo: w["emoji"] = emo[w["text"]]
         words += ws
         chunks.append(x)
-        pause = a.gap * (2.2 if line["text"].rstrip()[-1:] in ".!?…" else 1)
+        pause = line.get("pause", a.gap * (2.2 if line["text"].rstrip()[-1:] in ".!?…" else 1))  # pause propre à la ligne (mise en scène)
         chunks.append(np.zeros(int(pause * SR), np.float32))
         t += len(x) / SR + pause
     voice = np.concatenate(chunks)

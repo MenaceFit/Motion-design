@@ -1,0 +1,33 @@
+{
+  "slug": "teddy-ep01-part1",
+  "fps": 60,
+  "music": {"mood": "hype", "bpm": 125, "seed": 30},
+  "voice": {"engine": "pico", "speed": 1.04, "pitch": -120},
+  "lines": [
+    {"id": "L0", "text": "Dans trente jours, son ex se marie.", "pause": 0.35,
+     "replace": {"TRENTE JOURS": "30 JOURS"}, "colors": {"EX": "pink", "SE MARIE": "pink", "30 JOURS": "gold"}},
+    {"id": "L1", "text": "Et elle l'a invité.", "pause": 1.15, "colors": {"INVITÉ": "pink", "L'A INVITÉ": "pink"}},
+    {"id": "L2", "text": "Voici Teddy. Vingt-quatre ans.", "pause": 0.3,
+     "replace": {"VINGT-QUATRE ANS": "24 ANS"}, "colors": {"TEDDY": "gold"}},
+    {"id": "L3", "text": "Rang Diamant à son jeu…", "pause": 0.2, "colors": {"DIAMANT": "cyan"}},
+    {"id": "L4", "text": "et rang carton dans la vraie vie.", "pause": 0.45, "colors": {"CARTON": "red", "VRAIE VIE": "red"}},
+    {"id": "L5", "text": "Ses lunettes sont fêlées depuis deux mille dix-neuf.", "pause": 0.25,
+     "replace": {"DEUX MILLE DIX-NEUF": "2019"}, "colors": {"FÊLÉES": "red", "2019": "gold"}},
+    {"id": "L6", "text": "Son sweat en est à onze jours.", "pause": 0.8,
+     "replace": {"ONZE JOURS": "11 JOURS"}, "colors": {"11 JOURS": "red"}}
+  ],
+  "sfx": [
+    {"cue": "start", "at": 0.0, "id": "whoosh_in", "vol": 0.5},
+    {"cue": "L0", "at": 0.05, "id": "zzfx/impact", "vol": 0.45},
+    {"cue": "L1", "at": -0.25, "id": "glitch", "vol": 0.35},
+    {"cue": "L1", "at": 0.25, "id": "jsfxr/hitHurt_2", "vol": 0.3},
+    {"cue": "L1end", "at": 0.15, "id": "uisfx/cinematic/toggle-on", "vol": 0.6},
+    {"cue": "L1end", "at": 0.15, "id": "sub_hit", "vol": 0.55},
+    {"cue": "L2", "at": 0.0, "id": "jsfxr/jump_1", "vol": 0.22},
+    {"cue": "L3", "at": 0.25, "id": "uisfx/cinematic/reward", "vol": 0.5},
+    {"cue": "L4", "at": 0.3, "id": "zzfx/impact", "vol": 0.5},
+    {"cue": "L4", "at": 0.32, "id": "uisfx/cinematic/error", "vol": 0.35},
+    {"cue": "L5", "at": 0.1, "id": "uisfx/cinematic/select", "vol": 0.45},
+    {"cue": "L6", "at": 0.1, "id": "uisfx/cinematic/select", "vol": 0.45}
+  ]
+}

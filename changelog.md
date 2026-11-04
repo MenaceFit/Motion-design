@@ -139,3 +139,12 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
 - Choix clé : on transforme les habitudes et le style de Teddy, pas son corps (marque, monétisation, ton).
 - Prochaine brique technique : rig 2D SVG de Teddy dans Remotion (expressions, tenues par niveau,
   mèche antenne), décors, HUD, carte de vote, téléphone.
+
+## 2026-11-04 (2) — Teddy : rig 2D + 15 premières secondes de l'épisode 1
+- Mesure image par image des sous-titres des refs (pop 0,45 → 1,15 → 1,0 en ~6 frames, 1–2 mots,
+  pas de sortie) → `PunchCaptions` + regroupement français (mots-outils, mots-clés, expressions).
+- Rig 2D SVG de Teddy (8 expressions, poses, squash & stretch, mèche à ressort, niveaux 1/5),
+  décor Grotte, HUD slam, annotations, faire-part 3D CSS, badge Diamant → Carton qui se brise.
+- `tools/teddy_build.py` : épisode JSON → voix calée, sous-titres, musique (drop sur le HUD), SFX, mix.
+- Rendu `teddy-ep01-part1` : 15,2 s, 60 fps, -14,0 LUFS, synchro médiane 13 ms. Skill `teddy-series`.
+- Typographie des sous-titres de la série passée en Anton (plus proche du genre, demande utilisateur).

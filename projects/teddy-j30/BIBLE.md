@@ -116,8 +116,8 @@ menthe ; cuisine jaune pâle ; rue briques pastel + ciel turquoise ; supérette 
 salon « Chez Sami » noir & or ; salle de boxe de Mamie Jo rouge brique.
 
 ### Typographie
-- Sous-titres et bannières : **Lilita One** (arrondie, grasse, cartoon — ≠ condensées des refs),
-  majuscules, blanc + contour nuit 10 px + ombre dure ; **1 à 2 mots à la fois**, mot-clé coloré
+- Sous-titres et bannières : **Anton** (condensée grasse, convention du genre — demandé : se rapprocher
+  des références), majuscules, blanc + contour nuit 10 px + ombre dure ; **1 à 2 mots à la fois**, mot-clé coloré
   (or = positif, rose = Inès, cyan = info, rouge = échec).
 - HUD et UI : **Space Grotesk** Bold (chiffres tabulaires).
 - Téléphone : **Inter** (rendu réaliste d'app de messagerie).
