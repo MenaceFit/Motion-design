@@ -8,6 +8,7 @@ import {RigTest} from './teddy/RigTest';
 import {TeddyEpisode, episodeDefaults} from './teddy/Episode';
 import {TeddyEpisodeFull} from './teddy/EpisodeFull';
 import {TeddyEpisode2} from './teddy/Episode2';
+import {ProfilePic, profilePicDefaults} from './teddy/ProfilePic';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -55,6 +56,7 @@ export const RemotionRoot: React.FC = () => (
       calculateMetadata={({props}) => ({durationInFrames: durationFrom3DWords(props.words, 30, props.captions)})}
     />
     <Composition id="Gallery3D" component={Gallery3D} width={1080} height={1920} fps={30} durationInFrames={60} />
+    <Composition id="TeddyProfilePic" component={ProfilePic} width={1080} height={1080} fps={30} durationInFrames={1} defaultProps={profilePicDefaults} />
     <Composition id="TeddyRigTest" component={RigTest} width={1080} height={1920} fps={30} durationInFrames={30} />
     <Composition id="TeddyEp" component={TeddyEpisode} width={1080} height={1920} fps={60} durationInFrames={900}
       defaultProps={episodeDefaults} calculateMetadata={({props}) => ({durationInFrames: Math.ceil(props.duration * 60)})} />
