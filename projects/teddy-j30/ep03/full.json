@@ -1,0 +1,532 @@
+{
+  "slug": "teddy-ep03",
+  "fps": 60,
+  "music": {
+    "mood": "hype",
+    "bpm": 128,
+    "seed": 31
+  },
+  "voice": {
+    "engine": "pico",
+    "speed": 1.06,
+    "pitch": -120
+  },
+  "drop_cue": "L0end",
+  "voices": {
+    "narrator": {
+      "engine": "elevenlabs",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "model": "eleven_v3",
+      "language": "fr",
+      "stability": 0.5,
+      "similarity": 0.8,
+      "style": 0.6,
+      "speed": 1.05,
+      "_note": "Voix masculine expressive (documentaire moqueur). voice_id générique à remplacer par une voix française : python3 tools/elevenlabs_voices.py",
+      "fallback": {
+        "speed": 1.06,
+        "pitch": -120
+      }
+    },
+    "teddy": {
+      "engine": "elevenlabs",
+      "voice_id": "TxGEqnHWrfWFTfGW9XjX",
+      "model": "eleven_v3",
+      "language": "fr",
+      "stability": 0.5,
+      "similarity": 0.75,
+      "style": 0.7,
+      "speed": 0.95,
+      "fallback": {
+        "speed": 0.92,
+        "pitch": -380
+      }
+    },
+    "mamie": {
+      "engine": "elevenlabs",
+      "voice_id": "A_CHOISIR_voix_feminine_agee",
+      "model": "eleven_v3",
+      "language": "fr",
+      "stability": 0.5,
+      "similarity": 0.75,
+      "style": 0.8,
+      "speed": 1.0,
+      "fallback": {
+        "speed": 1.0,
+        "pitch": 260
+      }
+    }
+  },
+  "lines": [
+    {
+      "id": "L0",
+      "text": "Teddy ne s'est pas brossé les dents depuis 2020.",
+      "tts_text": "[dramatic] Teddy ne s'est pas brossé les dents… depuis 2020.",
+      "pause": 0.25,
+      "colors": {
+        "DEPUIS 2020": "red",
+        "2020": "red"
+      }
+    },
+    {
+      "id": "L1",
+      "text": "Son haleine a son propre code postal.",
+      "tts_text": "[disgusted] Son haleine a son propre code postal.",
+      "pause": 0.3,
+      "colors": {
+        "CODE POSTAL": "red"
+      }
+    },
+    {
+      "id": "L2",
+      "text": "Et vous avez voté : les dents.",
+      "tts_text": "[mischievously] Et vous avez voté : les dents.",
+      "pause": 0.25,
+      "colors": {
+        "LES DENTS": "violet",
+        "DENTS": "violet"
+      }
+    },
+    {
+      "id": "L3",
+      "text": "Sa brosse à dents ? Il nettoie sa manette avec.",
+      "tts_text": "[sarcastic] Sa brosse à dents ? Il nettoie sa manette avec.",
+      "pause": 0.25,
+      "colors": {
+        "BROSSE": "cyan",
+        "MANETTE": "orange"
+      }
+    },
+    {
+      "id": "L4",
+      "text": "Son dentifrice ? Périmé depuis 2021.",
+      "tts_text": "Son dentifrice ? [deadpan] Périmé depuis 2021.",
+      "pause": 0.3,
+      "colors": {
+        "PÉRIMÉ": "red",
+        "2021": "red"
+      }
+    },
+    {
+      "id": "L5",
+      "who": "teddy",
+      "text": "Tranquille.",
+      "tts_text": "[unbothered] Tranquille.",
+      "pause": 0.3
+    },
+    {
+      "id": "L6",
+      "text": "Il ouvre la bouche devant le miroir…",
+      "tts_text": "[suspenseful] Il ouvre la bouche devant le miroir…",
+      "pause": 0.15,
+      "colors": {
+        "MIROIR": "cyan"
+      }
+    },
+    {
+      "id": "L7",
+      "text": "Le miroir se fissure.",
+      "tts_text": "[shocked] Le miroir se FISSURE.",
+      "pause": 0.3,
+      "colors": {
+        "FISSURE": "red"
+      }
+    },
+    {
+      "id": "L8",
+      "text": "Croquette met un masque à gaz.",
+      "tts_text": "[deadpan] Croquette met un masque à gaz.",
+      "pause": 0.3,
+      "colors": {
+        "CROQUETTE": "orange",
+        "MASQUE À GAZ": "gold"
+      }
+    },
+    {
+      "id": "L9",
+      "text": "Trois minutes de brossage. Sans pause.",
+      "tts_text": "[excited] Trois minutes de brossage. Sans pause !",
+      "pause": 0.2,
+      "replace": {
+        "TROIS MINUTES": "3 MINUTES"
+      },
+      "colors": {
+        "3 MINUTES": "gold",
+        "SANS PAUSE": "gold"
+      }
+    },
+    {
+      "id": "L10",
+      "text": "La mousse déborde.",
+      "tts_text": "La mousse déborde.",
+      "pause": 0.25,
+      "colors": {
+        "MOUSSE": "cyan",
+        "DÉBORDE": "cyan"
+      }
+    },
+    {
+      "id": "L11",
+      "text": "Et là…",
+      "tts_text": "[pause] Et là…",
+      "pause": 0.1
+    },
+    {
+      "id": "L12",
+      "text": "Ding.",
+      "tts_text": "[amazed] Ding !",
+      "pause": 0.3,
+      "colors": {
+        "DING": "gold"
+      }
+    },
+    {
+      "id": "L13",
+      "text": "Ses dents brillent tellement que Bzz sort ses lunettes de soleil.",
+      "tts_text": "[amused] Ses dents brillent tellement que Bzz sort ses lunettes de soleil.",
+      "pause": 0.3,
+      "colors": {
+        "BRILLENT": "gold",
+        "BZZ": "gold",
+        "LUNETTES": "cyan"
+      }
+    },
+    {
+      "id": "L14",
+      "text": "Glow-up : plus six pour cent.",
+      "tts_text": "[excited] Glow-up : plus six pour cent !",
+      "pause": 0.3,
+      "replace": {
+        "PLUS SIX POUR CENT": "+6 %"
+      },
+      "colors": {
+        "+6 %": "gold"
+      }
+    },
+    {
+      "id": "L15",
+      "text": "Il envoie un selfie à Inès.",
+      "tts_text": "[teasing] Il envoie un selfie à Inès.",
+      "pause": 0.2,
+      "colors": {
+        "SELFIE": "pink",
+        "INÈS": "pink"
+      }
+    },
+    {
+      "id": "L16",
+      "text": "Elle répond…",
+      "tts_text": "[suspenseful] Elle répond…",
+      "pause": 0.4
+    },
+    {
+      "id": "L17",
+      "text": "un cœur.",
+      "tts_text": "[softly] un cœur.",
+      "pause": 0.45,
+      "colors": {
+        "CŒUR": "pink"
+      }
+    },
+    {
+      "id": "L18",
+      "text": "Mais Maxence vient de liker la photo.",
+      "tts_text": "[dramatic] Mais… Maxence vient de liker la photo.",
+      "pause": 0.3,
+      "colors": {
+        "MAXENCE": "red",
+        "LIKER": "red"
+      }
+    },
+    {
+      "id": "L19",
+      "who": "teddy",
+      "text": "Tranquille ?",
+      "tts_text": "[nervous] Tranquille ?",
+      "pause": 0.35,
+      "colors": {
+        "TRANQUILLE ?": "gold"
+      },
+      "replace": {
+        "TRANQUILLE": "TRANQUILLE ?"
+      }
+    },
+    {
+      "id": "L20",
+      "text": "Prochain choix : coiffeur, ou salle de sport ?",
+      "tts_text": "[excited] Prochain choix : coiffeur… ou salle de sport ?",
+      "pause": 0.2,
+      "colors": {
+        "COIFFEUR": "violet",
+        "SALLE DE SPORT": "orange",
+        "SPORT": "orange"
+      }
+    },
+    {
+      "id": "L21",
+      "text": "Un seul mot en commentaire.",
+      "tts_text": "Un seul mot. En commentaire !",
+      "pause": 1.0,
+      "colors": {
+        "UN SEUL MOT": "gold",
+        "COMMENTAIRE": "gold"
+      }
+    }
+  ],
+  "sfx": [
+    {
+      "cue": "start",
+      "at": 0.0,
+      "id": "sub_hit",
+      "vol": 0.55
+    },
+    {
+      "cue": "start",
+      "at": 0.02,
+      "id": "glitch",
+      "vol": 0.3
+    },
+    {
+      "cue": "L0end",
+      "at": -0.6,
+      "id": "zzfx/impact",
+      "vol": 0.55
+    },
+    {
+      "cue": "L0end",
+      "at": -0.6,
+      "id": "uisfx/cinematic/lock",
+      "vol": 0.4
+    },
+    {
+      "cue": "L1",
+      "at": 0.0,
+      "id": "whoosh_out",
+      "vol": 0.4
+    },
+    {
+      "cue": "L1",
+      "at": 0.45,
+      "id": "uisfx/cinematic/drop",
+      "vol": 0.45
+    },
+    {
+      "cue": "L2",
+      "at": -0.12,
+      "id": "whoosh_in",
+      "vol": 0.45
+    },
+    {
+      "cue": "L2",
+      "at": 0.3,
+      "id": "uisfx/cinematic/toggle-on",
+      "vol": 0.5
+    },
+    {
+      "cue": "L2",
+      "at": 0.35,
+      "id": "uisfx/cinematic/select",
+      "vol": 0.4
+    },
+    {
+      "cue": "L3",
+      "at": -0.12,
+      "id": "swish",
+      "vol": 0.4
+    },
+    {
+      "cue": "L3",
+      "at": 0.25,
+      "id": "pop",
+      "vol": 0.5
+    },
+    {
+      "cue": "L3",
+      "at": 0.9,
+      "id": "uisfx/cinematic/scanning",
+      "vol": 0.3
+    },
+    {
+      "cue": "L4",
+      "at": 0.05,
+      "id": "pop",
+      "vol": 0.45
+    },
+    {
+      "cue": "L4",
+      "at": 0.7,
+      "id": "whoosh_out",
+      "vol": 0.3
+    },
+    {
+      "cue": "L4end",
+      "at": -0.75,
+      "id": "zzfx/impact",
+      "vol": 0.45
+    },
+    {
+      "cue": "L6",
+      "at": -0.05,
+      "id": "riser",
+      "vol": 0.3
+    },
+    {
+      "cue": "L7",
+      "at": 0.3,
+      "id": "zzfx/impact",
+      "vol": 0.6
+    },
+    {
+      "cue": "L7",
+      "at": 0.3,
+      "id": "uisfx/glass/error",
+      "vol": 0.55
+    },
+    {
+      "cue": "L7",
+      "at": 0.32,
+      "id": "glitch",
+      "vol": 0.35
+    },
+    {
+      "cue": "L8",
+      "at": 0.5,
+      "id": "uisfx/cinematic/lock",
+      "vol": 0.45
+    },
+    {
+      "cue": "L9",
+      "at": 0.0,
+      "id": "uisfx/cinematic/start",
+      "vol": 0.5
+    },
+    {
+      "cue": "L9",
+      "at": 0.2,
+      "id": "riser",
+      "vol": 0.25
+    },
+    {
+      "cue": "L10",
+      "at": 0.0,
+      "id": "jsfxr/powerUp_2",
+      "vol": 0.2
+    },
+    {
+      "cue": "L11",
+      "at": -0.05,
+      "id": "riser",
+      "vol": 0.35
+    },
+    {
+      "cue": "L12",
+      "at": -0.03,
+      "id": "uisfx/cinematic/achievement",
+      "vol": 0.6
+    },
+    {
+      "cue": "L12",
+      "at": -0.03,
+      "id": "zzfx/sparkle",
+      "vol": 0.55
+    },
+    {
+      "cue": "L12",
+      "at": 0.0,
+      "id": "shimmer",
+      "vol": 0.4
+    },
+    {
+      "cue": "L13",
+      "at": 0.4,
+      "id": "whoosh_in",
+      "vol": 0.3
+    },
+    {
+      "cue": "L13",
+      "at": 0.85,
+      "id": "zzfx/sparkle",
+      "vol": 0.45
+    },
+    {
+      "cue": "L14",
+      "at": 0.4,
+      "id": "uisfx/cinematic/level-up",
+      "vol": 0.55
+    },
+    {
+      "cue": "L15",
+      "at": -0.12,
+      "id": "whoosh_in",
+      "vol": 0.4
+    },
+    {
+      "cue": "L15",
+      "at": 0.55,
+      "id": "uisfx/cinematic/send",
+      "vol": 0.5
+    },
+    {
+      "cue": "L16",
+      "at": 0.3,
+      "id": "uisfx/cinematic/typing",
+      "vol": 0.35
+    },
+    {
+      "cue": "L17",
+      "at": -0.05,
+      "id": "uisfx/cinematic/reaction",
+      "vol": 0.55
+    },
+    {
+      "cue": "L18",
+      "at": 0.35,
+      "id": "uisfx/cinematic/notification",
+      "vol": 0.6
+    },
+    {
+      "cue": "L18",
+      "at": 0.35,
+      "id": "sub_hit",
+      "vol": 0.45
+    },
+    {
+      "cue": "L19",
+      "at": 0.0,
+      "id": "blip_down",
+      "vol": 0.4
+    },
+    {
+      "cue": "L20",
+      "at": -0.12,
+      "id": "sub_hit",
+      "vol": 0.5
+    },
+    {
+      "cue": "L20",
+      "at": -0.12,
+      "id": "whoosh_in",
+      "vol": 0.45
+    },
+    {
+      "cue": "L20",
+      "at": 0.4,
+      "id": "uisfx/cinematic/select",
+      "vol": 0.45
+    },
+    {
+      "cue": "L20",
+      "at": 1.6,
+      "id": "uisfx/cinematic/select",
+      "vol": 0.45
+    },
+    {
+      "cue": "L21",
+      "at": 0.2,
+      "id": "uisfx/cinematic/achievement",
+      "vol": 0.45
+    }
+  ],
+  "composition": "TeddyEp03",
+  "_notes": "Ép. 3 « J-28 : les dents ». Refonte rétention : hook choc en 1re phrase (pas de récap en ouverture), ~40 s, phrases ≤ 9 mots, pauses ≤ 0,45 s, rebondissement (Maxence) + gag récurrent retourné (« Tranquille ? »), vote COIFFEUR ✕ SALLE DE SPORT."
+}

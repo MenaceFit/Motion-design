@@ -336,7 +336,7 @@ export const Checklist: React.FC<{t: number}> = ({t}) => {
 };
 
 // ============ Carte de vote : DOUCHE vs CHAMBRE ============
-export type VoteSide = {label: string; sub: string; kind: 'shower' | 'room' | 'teeth' | 'sheets'};
+export type VoteSide = {label: string; sub: string; kind: 'shower' | 'room' | 'teeth' | 'sheets' | 'hair' | 'gym'};
 export const VoteCard: React.FC<{t: number; left?: VoteSide; right?: VoteSide}> = ({t, left = {label: 'DOUCHE', sub: '1RE VRAIE DOUCHE DEPUIS MARDI', kind: 'shower'}, right = {label: 'CHAMBRE', sub: 'RANGER LA GROTTE', kind: 'room'}}) => {
   const inL = EXPO(clamp01(t / 0.35)), inR = EXPO(clamp01((t - 0.12) / 0.35));
   const vs = ELASTIC(clamp01((t - 0.3) / 0.8));
@@ -367,9 +367,10 @@ export const VoteCard: React.FC<{t: number; left?: VoteSide; right?: VoteSide}> 
 // Teddy + accessoire illustrant chaque option de vote
 export const VoteAccessory: React.FC<{kind: VoteSide['kind']; t: number}> = ({kind, t}) => (
   <div style={{position: 'relative', width: '100%', height: '100%'}}>
-    <Teddy t={t + (kind === 'shower' || kind === 'teeth' ? 3 : 5)} expression={kind === 'shower' ? 'shock' : kind === 'teeth' ? 'happy' : 'panic'}
-      armL={kind === 'shower' ? -30 : kind === 'teeth' ? -60 : 0} armR={kind === 'room' ? -40 : kind === 'sheets' ? -50 : 0}
-      showCloud={kind === 'room' || kind === 'sheets'} showFly={kind !== 'shower'} />
+    <Teddy t={t + (kind === 'shower' || kind === 'teeth' || kind === 'hair' ? 3 : 5)}
+      expression={kind === 'shower' || kind === 'hair' ? 'shock' : kind === 'teeth' ? 'happy' : 'panic'}
+      armL={kind === 'shower' ? -30 : kind === 'teeth' ? -60 : 0} armR={kind === 'room' ? -40 : kind === 'sheets' ? -50 : kind === 'gym' ? -150 : 0}
+      showCloud={kind === 'room' || kind === 'sheets'} showFly={kind !== 'shower'} shinyTeeth={kind === 'hair' || kind === 'gym'} />
     <svg viewBox="0 0 560 900" style={{position: 'absolute', inset: 0}} width="100%" height="100%">
       {kind === 'shower' ? (
         <>
@@ -390,6 +391,31 @@ export const VoteAccessory: React.FC<{kind: VoteSide['kind']; t: number}> = ({ki
           <rect x={-26} y={-60} width={52} height={70} rx={10} fill="#fff" stroke={INK} strokeWidth={6} />
           {[-14, 0, 14].map((x) => <path key={x} d={`M${x} -60 v-30`} stroke="#fff" strokeWidth={10} />)}
           {[0, 1, 2, 3].map((i) => <circle key={i} cx={-60 + i * 40} cy={-110 - ((t * 120 + i * 30) % 60)} r={12} fill="#fff" stroke="#cfe8ff" strokeWidth={3} />)}
+        </g>
+      ) : null}
+      {kind === 'hair' ? (
+        <>
+          {/* ciseaux qui coupent la mèche-antenne */}
+          <g transform={`translate(390 120) rotate(${-20 + Math.sin(t * 10) * 10})`}>
+            <path d="M0 0 L-120 -26" stroke="#c9ccd6" strokeWidth={16} strokeLinecap="round" />
+            <path d="M0 0 L-120 26" stroke="#c9ccd6" strokeWidth={16} strokeLinecap="round" transform={`rotate(${Math.abs(Math.sin(t * 10)) * -18})`} />
+            <circle cx={30} cy={-22} r={22} fill="none" stroke={C.red} strokeWidth={10} /><circle cx={30} cy={22} r={22} fill="none" stroke={C.red} strokeWidth={10} />
+            <circle r={7} fill={INK} />
+          </g>
+          {/* peigne */}
+          <g transform="translate(60 560) rotate(-20)"><rect width={170} height={34} rx={8} fill={C.gold} stroke={INK} strokeWidth={6} />
+            {Array.from({length: 9}).map((_, i) => <path key={i} d={`M${12 + i * 18} 34 v40`} stroke={INK} strokeWidth={8} strokeLinecap="round" />)}</g>
+          {/* mèches qui tombent */}
+          {[0, 1, 2, 3].map((i) => <path key={i} d={`M${200 + i * 50} ${120 + ((t * 160 + i * 70) % 380)} q10 -20 0 -40`} stroke="#4a2f1f" strokeWidth={8} fill="none" strokeLinecap="round" />)}
+        </>
+      ) : null}
+      {kind === 'gym' ? (
+        <g transform={`translate(430 ${150 + Math.abs(Math.sin(t * 4)) * 40}) rotate(-8)`}>
+          {/* haltère trop lourd (bras tremblant) */}
+          <rect x={-110} y={-12} width={220} height={24} rx={10} fill="#c9ccd6" stroke={INK} strokeWidth={6} />
+          {[-1, 1].map((d) => <rect key={d} x={d * 110 - (d < 0 ? 56 : 0)} y={-60} width={56} height={120} rx={14} fill="#2a2433" stroke={INK} strokeWidth={7} />)}
+          <text x={0} y={-80} textAnchor="middle" fontFamily="Anton" fontSize={54} fill={C.cream} stroke={INK} strokeWidth={3}>2 KG</text>
+          {[0, 1, 2].map((i) => <path key={i} d={`M${-150 + i * 20} ${40 + i * 30} q-20 10 -40 0`} stroke="#7fd3ff" strokeWidth={8} fill="none" strokeLinecap="round" />)}
         </g>
       ) : null}
       {kind === 'sheets' ? (

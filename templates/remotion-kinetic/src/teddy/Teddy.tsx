@@ -22,6 +22,7 @@ export type TeddyProps = {
   holding?: React.ReactNode; // objet tenu à deux mains (dessiné devant le torse)
   blinkSeed?: number;
   mouthOpen?: number;        // 0..1 (parole)
+  shinyTeeth?: boolean;      // ép. 3 : dents enfin brossées (blanches)
   showCloud?: boolean;
   showFly?: boolean;
   clean?: boolean;   // après la douche : peau nette, plus de boutons
@@ -86,8 +87,8 @@ const Brows: React.FC<{expr: Expression; level: 1 | 5}> = ({expr, level}) => {
   );
 };
 
-const Mouth: React.FC<{expr: Expression; open: number; level: 1 | 5}> = ({expr, open, level}) => {
-  const teeth = level === 1 ? '#e8d36b' : '#ffffff';
+const Mouth: React.FC<{expr: Expression; open: number; level: 1 | 5; shiny?: boolean}> = ({expr, open, level, shiny}) => {
+  const teeth = level === 1 && !shiny ? '#e8d36b' : '#ffffff';
   if (expr === 'shock' || expr === 'panic' || open > 0.15) {
     const h = expr === 'shock' || expr === 'panic' ? 34 : 10 + 26 * open;
     return <ellipse cx={280} cy={336} rx={expr === 'panic' ? 30 : 22} ry={h / 2 + 4} fill="#5a1f2a" stroke={INK} strokeWidth={5} />;
@@ -97,7 +98,7 @@ const Mouth: React.FC<{expr: Expression; open: number; level: 1 | 5}> = ({expr, 
     return (
       <g>
         <path d="M236 320 q44 46 88 0 q-44 14 -88 0z" fill="#fff" stroke={INK} strokeWidth={5} strokeLinejoin="round" />
-        {level === 1 ? <><rect x={262} y={331} width={12} height={9} fill={teeth} /><rect x={286} y={331} width={12} height={9} fill={teeth} /></> : null}
+        {level === 1 && !shiny ? <><rect x={262} y={331} width={12} height={9} fill={teeth} /><rect x={286} y={331} width={12} height={9} fill={teeth} /></> : null}
       </g>
     );
   }
@@ -125,7 +126,7 @@ const Arm: React.FC<{side: 'L' | 'R'; angle: number; level: 1 | 5}> = ({side, an
 
 export const Teddy: React.FC<TeddyProps> = ({
   t, level = 1, expression = 'neutral', armL = 0, armR = 0, headTilt = 0, squash = 1, antennaKick = 0,
-  holding, blinkSeed = 0, mouthOpen = 0, showCloud = true, showFly = true, clean = false, frozen = false, towel = false, look = 0,
+  holding, blinkSeed = 0, mouthOpen = 0, shinyTeeth = false, showCloud = true, showFly = true, clean = false, frozen = false, towel = false, look = 0,
 }) => {
   const breath = 1 + Math.sin(t * 2.4) * 0.012;
   const blink = blinkAmount(t, blinkSeed);
@@ -238,7 +239,7 @@ export const Teddy: React.FC<TeddyProps> = ({
           )}
           <path d="M280 268 q-10 26 6 30" stroke="#c98d68" strokeWidth={5} fill="none" strokeLinecap="round" />
           {L1 ? <path d="M250 318 q30 -8 60 0" stroke="#7a5a45" strokeWidth={3} strokeDasharray="2 4" fill="none" /> : null}
-          <Mouth expr={expression} open={mouthOpen} level={level} />
+          <Mouth expr={expression} open={mouthOpen} level={level} shiny={shinyTeeth} />
           {L1 && !clean ? (
             <g fill="#e2574c">
               <circle cx={200} cy={305} r={6} /><circle cx={356} cy={300} r={5} /><circle cx={318} cy={186} r={5} /><circle cx={214} cy={322} r={4} />
