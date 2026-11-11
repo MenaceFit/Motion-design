@@ -173,3 +173,12 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
   (moteur « file » de `tts_voice.py`). Mots placés sur la zone voisée au prorata des syllabes (±120 ms).
 - Connecteur ElevenLabs : génération possible mais « free generations busy » aux heures chargées ; l'audio généré n'est
   pas téléchargeable depuis le conteneur (api.us.elevenlabs.io, elevenlabsusercontent.com bloqués) → passer par un fichier.
+
+## 2026-11-11 — Legit check « authentique vs 1.1 » (médias réels)
+- Nouvelle composition `LegitCheck` (Remotion) : split-screen vrai/faux, en-têtes d'étape, badges
+  LEGIT/1.1, ellipse qui se trace sur le détail, pastilles couleur mesurées, compteurs de prix, tampon final.
+- Piège corrigé : dans une `<Sequence>`, `useCurrentFrame()` repart de 0 → contexte `Offset` pour un temps absolu.
+- `transcribe_words.py` : décodage audio via librosa (PyAV 19 casse faster-whisper : `metadata_errors`).
+- Réseau : huggingface.co + hôtes CDN (us.aws.cdn.hf.co, cas-server.xethub.hf.co) nécessaires ; `HF_HUB_DISABLE_XET=1`.
+- Audio : l'encodeur AAC ajoutait ~+3,5 dB de true peak sur les sub hits → limiteur suréchantillonné x4
+  (seuil -6 dB) avant `finish.sh` ; résultat -2,4 dBTP.

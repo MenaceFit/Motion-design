@@ -10,6 +10,7 @@ import {TeddyEpisodeFull} from './teddy/EpisodeFull';
 import {TeddyEpisode2} from './teddy/Episode2';
 import {ProfilePic, profilePicDefaults} from './teddy/ProfilePic';
 import {TeddyEpisode3} from './teddy/Episode3';
+import {LegitCheck, LegitProps} from './LegitCheck';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -56,6 +57,10 @@ export const RemotionRoot: React.FC = () => (
       defaultProps={text3DDefaults}
       calculateMetadata={({props}) => ({durationInFrames: durationFrom3DWords(props.words, 30, props.captions)})}
     />
+    {/* Legit check « authentique vs 1.1 » — médias réels + voix off, durée = props.durationS */}
+    <Composition id="LegitCheck" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={900}
+      defaultProps={{captions: [], T: {}, durationS: 30} as LegitProps}
+      calculateMetadata={({props}) => ({durationInFrames: Math.ceil(props.durationS * 30)})} />
     <Composition id="Gallery3D" component={Gallery3D} width={1080} height={1920} fps={30} durationInFrames={60} />
     <Composition id="TeddyProfilePic" component={ProfilePic} width={1080} height={1080} fps={30} durationInFrames={1} defaultProps={profilePicDefaults} />
     <Composition id="TeddyRigTest" component={RigTest} width={1080} height={1920} fps={30} durationInFrames={30} />
