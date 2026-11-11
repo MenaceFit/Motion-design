@@ -190,3 +190,8 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
 - Surlignage des sous-titres en jaune quand le fond est de la même teinte que l'accent (menthe sur menthe).
 - Voix « plus dynamique » : atempo ×1,10 + EQ (−2,5 dB 280 Hz, +3,5 dB 3,8 kHz, air +2 dB) + compression 4:1 ;
   tous les timings recalés par `build_timeline.py` (division par SPEED, pas de re-transcription).
+
+## 2026-11-11 — Legit check v3
+- Prix de revente corrigé (110 €, « modèle rare ») : la phrase de la voix qui disait « 80 € » est coupée
+  (`CUT` dans build_timeline.py) plutôt que d'afficher un chiffre contredit par la voix ; le prix est porté
+  par le compteur + étiquette MODÈLE RARE. Sous-titres masqués 0,7 s après le dernier mot.

@@ -13,6 +13,9 @@ from pedalboard import (Pedalboard, HighpassFilter, NoiseGate, LowShelfFilter, P
                         HighShelfFilter, Compressor, Gain, Limiter)
 
 SPEED = 1.10
+# Fin de la voix (s, tempo d'origine) : coupée après « grâce à mon plug » — la phrase sur la revente
+# disait « 80 € », prix corrigé à 110 € par l'utilisateur → le prix est porté par l'écran, pas par la voix.
+CUT = 37.70
 HERE = os.path.dirname(os.path.abspath(__file__))
 A = os.path.join(HERE, "audio")
 k = lambda t: round(t / SPEED, 3)
@@ -20,7 +23,7 @@ k = lambda t: round(t / SPEED, 3)
 # 1) voix
 tmp = os.path.join(A, "voice_fast.wav")
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", os.path.join(HERE, "assets/voice.wav"),
-                "-af", f"atempo={SPEED}", "-ar", "48000", "-ac", "1", tmp], check=True)
+                "-af", f"atrim=0:{CUT},afade=t=out:st={CUT - 0.08}:d=0.08,atempo={SPEED}", "-ar", "48000", "-ac", "1", tmp], check=True)
 y, sr = sf.read(tmp, always_2d=True)
 chain = Pedalboard([
     HighpassFilter(90), NoiseGate(threshold_db=-48, ratio=3, release_ms=120),
@@ -33,12 +36,12 @@ dur = len(out) / sr
 
 # 2) plans (secondes au tempo d'origine, calés sur words.json)
 T0 = dict(vs=2.6, s1=5.5, c1=7.9, claire=9.9, c2=10.6, foncee=12.4, s2=13.3, c3=16.5, grisee=18.4, c4=19.2,
-          blanche=22.0, s3=23.2, c5=25.9, traces=28.2, c6=29.0, grossiers=31.3, s4=33.1, p30=36.0, p80=38.8,
-          stamp=40.9)
+          blanche=22.0, s3=23.2, c5=25.9, traces=28.2, c6=29.0, grossiers=31.3, s4=33.1, p30=36.0, p80=37.75,
+          stamp=39.6)
 T = {n: k(v) for n, v in T0.items()}
 T["end"] = round(max(dur + 0.9, T["stamp"] + 1.4), 2)
 caps = json.load(open(os.path.join(HERE, "captions.json")))
-caps = [{**c, "start": k(c["start"]), "end": k(c["end"])} for c in caps]
+caps = [{**c, "start": k(c["start"]), "end": k(c["end"])} for c in caps if c["start"] < CUT]
 json.dump({"captions": caps, "T": T, "durationS": T["end"]}, open(os.path.join(HERE, "props.json"), "w"), ensure_ascii=False)
 
 # 3) SFX (chaque son a une fonction : entrée, coupe, verdict, compteur, tampon)
@@ -54,8 +57,9 @@ for t in (7.9, 10.6, 16.5, 19.2, 25.9, 29.0, 33.1):                # coupes
 for t in (9.9, 18.4, 28.2): a("blip_up_01", t, 0.45)               # verdict authentique
 for t in (12.4, 22.0, 31.3): a("blip_down_01", t, 0.45)            # verdict 1.1
 for t in (21.6, 30.8): a("swish_02", t, 0.4)                       # cercles
-for base in (36.0, 38.8):                                          # compteurs de prix
-    for i in range(10): a("tick_0%d" % (i % 3 + 1), base + i * 0.075 * SPEED, 0.3)
-a("sub_hit_03", 40.9, 0.41); a("shimmer_01", 40.95, 0.45)          # tampon LEGIT
+for base in (36.0, 37.75):                                          # compteurs de prix
+    for i in range(10 if base < 37 else 14): a("tick_0%d" % (i % 3 + 1), base + i * 0.075 * SPEED, 0.3)
+a("pop_02", 38.75, 0.5)                                            # étiquette MODÈLE RARE
+a("sub_hit_03", 39.6, 0.41); a("shimmer_01", 39.65, 0.45)          # tampon LEGIT
 json.dump(ev, open(os.path.join(A, "sfx_timeline.json"), "w"), indent=0)
 print(f"voix {dur:.2f}s · vidéo {T['end']}s · {len(caps)} mots · {len(ev)} SFX")

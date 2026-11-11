@@ -290,7 +290,11 @@ export const LegitCheck: React.FC<LegitProps> = ({voice, music, captions, T}) =>
           <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(8,16,14,0.75) 0%, rgba(8,16,14,0.35) 30%, rgba(8,16,14,0) 45%)'}} />
           <div style={{position: 'absolute', top: 230, left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 50}}>
             <Counter label="PAYÉ" value={30} at={T.p30} color={MINT} />
-            <Counter label="REVENTE" value={80} at={T.p80} color="#FFD34D" prefix="≈" />
+            <Counter label="REVENTE" value={110} at={T.p80} color="#FFD34D" prefix="≈" />
+            {t >= T.p80 + 0.9 ? (
+              <div style={{marginTop: -24, fontFamily: 'Montserrat', fontWeight: 800, fontSize: 40, letterSpacing: 6, color: INK, background: '#FFD34D',
+                padding: '10px 26px', borderRadius: 12, transform: `scale(${BACK(prog(t, T.p80 + 0.9, 0.4))}) rotate(-3deg)`}}>MODÈLE RARE</div>
+            ) : null}
           </div>
           {t >= T.stamp ? (
             <div style={{position: 'absolute', top: 1060, left: 0, right: 0, textAlign: 'center'}}>
@@ -303,7 +307,7 @@ export const LegitCheck: React.FC<LegitProps> = ({voice, music, captions, T}) =>
       ))}
 
       <Flash at={[T.c1, T.c2, T.s2, T.c3, T.c4, T.s3, T.c5, T.c6, T.s4]} />
-      <Captions words={captions} accent="#FFE14D" />
+      {captions.length && t < captions[captions.length - 1].end + 0.7 ? <Captions words={captions} accent="#FFE14D" /> : null}
       {voice ? <Audio src={staticFile(voice)} /> : null}
       {music ? <Audio src={staticFile(music)} /> : null}
     </AbsoluteFill>
