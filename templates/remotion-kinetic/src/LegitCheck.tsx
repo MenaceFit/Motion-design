@@ -10,23 +10,23 @@ import '@fontsource/montserrat/800.css';
 import gsap from 'gsap';
 import {Captions, CaptionWord} from './Captions';
 
-const BACK = gsap.parseEase('back.out(1.8)');
-const OUT = gsap.parseEase('expo.out');
-const INOUT = gsap.parseEase('power2.inOut');
-const MINT = '#5CF2C4', RED = '#FF3D57', INK = '#08100E';
+export const BACK = gsap.parseEase('back.out(1.8)');
+export const OUT = gsap.parseEase('expo.out');
+export const INOUT = gsap.parseEase('power2.inOut');
+export const MINT = '#5CF2C4', RED = '#FF3D57', INK = '#08100E';
 
-const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
-const prog = (t: number, a: number, d: number) => Math.min(1, Math.max(0, (t - a) / d));
+export const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
+export const prog = (t: number, a: number, d: number) => Math.min(1, Math.max(0, (t - a) / d));
 // Temps ABSOLU de la vidéo : dans une <Sequence>, useCurrentFrame() repart de 0 → on rajoute le début du plan.
-const Offset = React.createContext(0);
-const useT = () => { const f = useCurrentFrame(); const {fps} = useVideoConfig(); return f / fps + React.useContext(Offset); };
+export const Offset = React.createContext(0);
+export const useT = () => { const f = useCurrentFrame(); const {fps} = useVideoConfig(); return f / fps + React.useContext(Offset); };
 
-type Src = {src: string; w: number; h: number; video?: boolean; rate?: number; from?: number; filter?: string};
-type Focus = {x: number; y: number; z: number};
+export type Src = {src: string; w: number; h: number; video?: boolean; rate?: number; from?: number; filter?: string};
+export type Focus = {x: number; y: number; z: number};
 
 // Média recadré : le point focal (x,y normalisés) est amené vers le centre du cadre, zoom z (1 = cover).
 // Interpolation douce entre deux focus (Ken Burns piloté).
-const Framed: React.FC<{m: Src; a: Focus; b: Focus; t0: number; t1: number; w: number; h: number; radius?: number; anchorY?: number; free?: boolean}> =
+export const Framed: React.FC<{m: Src; a: Focus; b: Focus; t0: number; t1: number; w: number; h: number; radius?: number; anchorY?: number; free?: boolean}> =
   ({m, a, b, t0, t1, w, h, radius = 0, anchorY, free = false}) => {
   const t = useT();
   const k = INOUT(prog(t, t0, t1 - t0));
@@ -46,7 +46,7 @@ const Framed: React.FC<{m: Src; a: Focus; b: Focus; t0: number; t1: number; w: n
   );
 };
 
-const Badge: React.FC<{kind: 'legit' | 'fake'; at: number; size?: number}> = ({kind, at, size = 46}) => {
+export const Badge: React.FC<{kind: 'legit' | 'fake'; at: number; size?: number}> = ({kind, at, size = 46}) => {
   const t = useT();
   const k = prog(t, at, 0.45);
   if (t < at) return null;
@@ -61,7 +61,7 @@ const Badge: React.FC<{kind: 'legit' | 'fake'; at: number; size?: number}> = ({k
 };
 
 // Étiquette de verdict : texte + trait, glisse depuis le côté.
-const Verdict: React.FC<{text: string; kind: 'legit' | 'fake'; at: number; top: number}> = ({text, kind, at, top}) => {
+export const Verdict: React.FC<{text: string; kind: 'legit' | 'fake'; at: number; top: number}> = ({text, kind, at, top}) => {
   const t = useT();
   if (t < at) return null;
   const k = OUT(prog(t, at, 0.5));
@@ -78,7 +78,7 @@ const Verdict: React.FC<{text: string; kind: 'legit' | 'fake'; at: number; top: 
 };
 
 // Cercle qui se trace (stroke-dashoffset) autour d'un détail, avec léger pulse.
-const Ring: React.FC<{x: number; y: number; rx: number; ry: number; at: number; color: string}> = ({x, y, rx, ry, at, color}) => {
+export const Ring: React.FC<{x: number; y: number; rx: number; ry: number; at: number; color: string}> = ({x, y, rx, ry, at, color}) => {
   const t = useT();
   if (t < at) return null;
   const k = OUT(prog(t, at, 0.55));
@@ -93,7 +93,7 @@ const Ring: React.FC<{x: number; y: number; rx: number; ry: number; at: number; 
   );
 };
 
-const StepHeader: React.FC<{n: number; title: string; at: number}> = ({n, title, at}) => {
+export const StepHeader: React.FC<{n: number; title: string; at: number}> = ({n, title, at}) => {
   const t = useT();
   const k = prog(t, at, 0.5);
   return (
@@ -108,13 +108,13 @@ const StepHeader: React.FC<{n: number; title: string; at: number}> = ({n, title,
 };
 
 // Flash blanc court au changement de plan (masque la coupe).
-const Flash: React.FC<{at: number[]}> = ({at}) => {
+export const Flash: React.FC<{at: number[]}> = ({at}) => {
   const t = useT();
   const o = Math.max(0, ...at.map((a) => interpolate(t, [a - 0.02, a, a + 0.16], [0, 0.55, 0], clamp)));
   return <AbsoluteFill style={{background: '#fff', opacity: o, pointerEvents: 'none'}} />;
 };
 
-const Counter: React.FC<{label: string; value: number; at: number; color: string; prefix?: string}> = ({label, value, at, color, prefix = ''}) => {
+export const Counter: React.FC<{label: string; value: number; at: number; color: string; prefix?: string}> = ({label, value, at, color, prefix = ''}) => {
   const t = useT();
   if (t < at) return null;
   const k = OUT(prog(t, at, 0.9));
@@ -130,14 +130,14 @@ const Counter: React.FC<{label: string; value: number; at: number; color: string
 };
 
 // Plan plein cadre avec léger « punch-in » d'entrée (scale 1.08 → 1).
-const Shot: React.FC<{a: number; children: React.ReactNode}> = ({a, children}) => {
+export const Shot: React.FC<{a: number; children: React.ReactNode}> = ({a, children}) => {
   const t = useT();
   const k = OUT(prog(t, a, 0.6));
   return <AbsoluteFill style={{transform: `scale(${1.08 - 0.08 * k})`}}>{children}</AbsoluteFill>;
 };
 
 // Carte du split-screen (accroche + étape 1).
-const Card: React.FC<{m: Src; f: Focus; kind: 'legit' | 'fake'; side: -1 | 1; at: number; swatch?: string; swatchAt?: number}> = ({m, f, kind, side, at, swatch, swatchAt = 0}) => {
+export const Card: React.FC<{m: Src; f: Focus; kind: 'legit' | 'fake'; side: -1 | 1; at: number; swatch?: string; swatchAt?: number}> = ({m, f, kind, side, at, swatch, swatchAt = 0}) => {
   const t = useT();
   const k = OUT(prog(t, at, 0.7));
   return (

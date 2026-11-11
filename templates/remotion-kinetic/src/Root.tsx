@@ -11,6 +11,7 @@ import {TeddyEpisode2} from './teddy/Episode2';
 import {ProfilePic, profilePicDefaults} from './teddy/ProfilePic';
 import {TeddyEpisode3} from './teddy/Episode3';
 import {LegitCheck, LegitProps} from './LegitCheck';
+import {PhenomCheck, PhenomProps} from './PhenomCheck';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -60,6 +61,9 @@ export const RemotionRoot: React.FC = () => (
     {/* Legit check « authentique vs 1.1 » — médias réels + voix off, durée = props.durationS */}
     <Composition id="LegitCheck" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={900}
       defaultProps={{captions: [], T: {}, durationS: 30} as LegitProps}
+      calculateMetadata={({props}) => ({durationInFrames: Math.ceil(props.durationS * 30)})} />
+    <Composition id="PhenomCheck" component={PhenomCheck} width={1080} height={1920} fps={30} durationInFrames={900}
+      defaultProps={{captions: [], T: {}, durationS: 30} as PhenomProps}
       calculateMetadata={({props}) => ({durationInFrames: Math.ceil(props.durationS * 30)})} />
     <Composition id="Gallery3D" component={Gallery3D} width={1080} height={1920} fps={30} durationInFrames={60} />
     <Composition id="TeddyProfilePic" component={ProfilePic} width={1080} height={1080} fps={30} durationInFrames={1} defaultProps={profilePicDefaults} />

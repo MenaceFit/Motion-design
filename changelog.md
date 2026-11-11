@@ -195,3 +195,12 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
 - Prix de revente corrigé (110 €, « modèle rare ») : la phrase de la voix qui disait « 80 € » est coupée
   (`CUT` dans build_timeline.py) plutôt que d'afficher un chiffre contredit par la voix ; le prix est porté
   par le compteur + étiquette MODÈLE RARE. Sous-titres masqués 0,7 s après le dernier mot.
+
+## 2026-11-11 — Legit check Phenom Elite (pantalon)
+- Nouvelle composition `PhenomCheck` réutilisant les briques exportées de `LegitCheck` + comparatif empilé
+  (1.1 en haut / authentique en bas) et carte texte quand une photo de l'authentique manque (pas d'image inventée).
+- Voix vérifiée contre les photos : la phrase « authentique = juste écrit Running » était contredite par la photo
+  (les 2 lacets portent « NIKE RUNNING ») → coupée avec accord de l'utilisateur ; l'écran montre la vraie
+  différence (lettrage épais vs fin). Règle : toujours confronter chaque critère dit à l'image avant publication.
+- Whisper « medium » (+ initial_prompt court) bien meilleur que « small » sur « 1.1 » (« emploi » en small).
+- `build_timeline.py` : coupes avec silence inséré + remap() des temps (sous-titres, plans, SFX).

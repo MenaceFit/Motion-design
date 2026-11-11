@@ -1,0 +1,638 @@
+[
+{
+"text": "Comment",
+"start": 0.045,
+"end": 0.518,
+"accent": false
+},
+{
+"text": "différencier",
+"start": 0.518,
+"end": 1.1,
+"accent": false
+},
+{
+"text": "un",
+"start": 1.1,
+"end": 1.3,
+"accent": false
+},
+{
+"text": "Phenom",
+"start": 1.3,
+"end": 1.518,
+"accent": true
+},
+{
+"text": "Elite",
+"start": 1.518,
+"end": 1.718,
+"accent": true
+},
+{
+"text": "authentique",
+"start": 1.718,
+"end": 2.173,
+"accent": true
+},
+{
+"text": "d'un",
+"start": 2.173,
+"end": 2.427,
+"accent": false
+},
+{
+"text": "1.1",
+"start": 2.427,
+"end": 2.882,
+"accent": true
+},
+{
+"text": "?",
+"start": 2.882,
+"end": 3.209,
+"accent": false
+},
+{
+"text": "La",
+"start": 3.209,
+"end": 3.409,
+"accent": false
+},
+{
+"text": "première",
+"start": 3.409,
+"end": 3.609,
+"accent": false
+},
+{
+"text": "étape,",
+"start": 3.609,
+"end": 3.973,
+"accent": false
+},
+{
+"text": "c'est",
+"start": 4.064,
+"end": 4.227,
+"accent": false
+},
+{
+"text": "si",
+"start": 4.227,
+"end": 4.282,
+"accent": false
+},
+{
+"text": "la",
+"start": 4.282,
+"end": 4.518,
+"accent": false
+},
+{
+"text": "matière",
+"start": 4.518,
+"end": 4.736,
+"accent": false
+},
+{
+"text": "est",
+"start": 4.736,
+"end": 5.009,
+"accent": false
+},
+{
+"text": "lisse",
+"start": 5.009,
+"end": 5.5,
+"accent": true
+},
+{
+"text": "et",
+"start": 5.5,
+"end": 5.791,
+"accent": false
+},
+{
+"text": "qu'on",
+"start": 5.791,
+"end": 5.918,
+"accent": false
+},
+{
+"text": "ne",
+"start": 5.918,
+"end": 6.045,
+"accent": false
+},
+{
+"text": "voit",
+"start": 6.045,
+"end": 6.045,
+"accent": false
+},
+{
+"text": "pas",
+"start": 6.045,
+"end": 6.191,
+"accent": false
+},
+{
+"text": "bien",
+"start": 6.191,
+"end": 6.318,
+"accent": false
+},
+{
+"text": "les",
+"start": 6.318,
+"end": 6.518,
+"accent": false
+},
+{
+"text": "détails,",
+"start": 6.518,
+"end": 7.009,
+"accent": true
+},
+{
+"text": "c'est",
+"start": 7.227,
+"end": 7.373,
+"accent": false
+},
+{
+"text": "clairement",
+"start": 7.373,
+"end": 7.736,
+"accent": false
+},
+{
+"text": "un",
+"start": 7.736,
+"end": 7.882,
+"accent": false
+},
+{
+"text": "1.1.",
+"start": 7.882,
+"end": 8.264,
+"accent": true
+},
+{
+"text": "Ensuite,",
+"start": 8.936,
+"end": 9.173,
+"accent": false
+},
+{
+"text": "il",
+"start": 9.282,
+"end": 9.336,
+"accent": false
+},
+{
+"text": "faut",
+"start": 9.336,
+"end": 9.445,
+"accent": false
+},
+{
+"text": "regarder",
+"start": 9.445,
+"end": 9.845,
+"accent": false
+},
+{
+"text": "l'écriture",
+"start": 9.845,
+"end": 10.682,
+"accent": false
+},
+{
+"text": "là",
+"start": 10.682,
+"end": 10.955,
+"accent": false
+},
+{
+"text": "où",
+"start": 10.955,
+"end": 11.1,
+"accent": false
+},
+{
+"text": "se",
+"start": 11.1,
+"end": 11.245,
+"accent": false
+},
+{
+"text": "situe",
+"start": 11.245,
+"end": 11.427,
+"accent": false
+},
+{
+"text": "la",
+"start": 11.427,
+"end": 11.627,
+"accent": false
+},
+{
+"text": "taille.",
+"start": 11.627,
+"end": 12.082,
+"accent": true
+},
+{
+"text": "Si",
+"start": 12.355,
+"end": 12.427,
+"accent": false
+},
+{
+"text": "l'écriture",
+"start": 12.427,
+"end": 13.064,
+"accent": false
+},
+{
+"text": "est",
+"start": 13.064,
+"end": 13.282,
+"accent": false
+},
+{
+"text": "bien",
+"start": 13.282,
+"end": 13.645,
+"accent": false
+},
+{
+"text": "grisée,",
+"start": 13.645,
+"end": 14.009,
+"accent": true
+},
+{
+"text": "c'est",
+"start": 14.064,
+"end": 14.173,
+"accent": false
+},
+{
+"text": "un",
+"start": 14.173,
+"end": 14.282,
+"accent": false
+},
+{
+"text": "authentique.",
+"start": 14.282,
+"end": 14.809,
+"accent": true
+},
+{
+"text": "Si",
+"start": 15.136,
+"end": 15.3,
+"accent": false
+},
+{
+"text": "c'est",
+"start": 15.3,
+"end": 15.5,
+"accent": false
+},
+{
+"text": "blanc,",
+"start": 15.5,
+"end": 15.809,
+"accent": true
+},
+{
+"text": "c'est",
+"start": 15.809,
+"end": 16.209,
+"accent": false
+},
+{
+"text": "un",
+"start": 16.209,
+"end": 16.318,
+"accent": false
+},
+{
+"text": "1.1.",
+"start": 16.318,
+"end": 17.027,
+"accent": true
+},
+{
+"text": "Ensuite,",
+"start": 17.464,
+"end": 17.9,
+"accent": false
+},
+{
+"text": "il",
+"start": 18.155,
+"end": 18.173,
+"accent": false
+},
+{
+"text": "faut",
+"start": 18.173,
+"end": 18.318,
+"accent": false
+},
+{
+"text": "regarder",
+"start": 18.318,
+"end": 18.627,
+"accent": false
+},
+{
+"text": "au",
+"start": 18.627,
+"end": 18.791,
+"accent": false
+},
+{
+"text": "niveau",
+"start": 18.791,
+"end": 18.918,
+"accent": false
+},
+{
+"text": "des",
+"start": 18.918,
+"end": 19.136,
+"accent": false
+},
+{
+"text": "lacets.",
+"start": 19.136,
+"end": 19.482,
+"accent": true
+},
+{
+"text": "Donc",
+"start": 22.182,
+"end": 22.509,
+"accent": false
+},
+{
+"text": "voilà",
+"start": 22.509,
+"end": 22.836,
+"accent": false
+},
+{
+"text": "le",
+"start": 22.836,
+"end": 23.073,
+"accent": false
+},
+{
+"text": "Phenom",
+"start": 23.073,
+"end": 23.309,
+"accent": true
+},
+{
+"text": "Elite",
+"start": 23.309,
+"end": 23.455,
+"accent": true
+},
+{
+"text": "que",
+"start": 23.455,
+"end": 23.6,
+"accent": false
+},
+{
+"text": "je",
+"start": 23.6,
+"end": 23.727,
+"accent": false
+},
+{
+"text": "vous",
+"start": 23.727,
+"end": 23.8,
+"accent": false
+},
+{
+"text": "ai",
+"start": 23.8,
+"end": 23.982,
+"accent": false
+},
+{
+"text": "présenté",
+"start": 23.982,
+"end": 24.455,
+"accent": false
+},
+{
+"text": "dans",
+"start": 24.455,
+"end": 24.636,
+"accent": false
+},
+{
+"text": "la",
+"start": 24.636,
+"end": 24.691,
+"accent": false
+},
+{
+"text": "vidéo.",
+"start": 24.691,
+"end": 24.873,
+"accent": false
+},
+{
+"text": "Je",
+"start": 24.891,
+"end": 24.945,
+"accent": false
+},
+{
+"text": "l'ai",
+"start": 24.945,
+"end": 25.109,
+"accent": false
+},
+{
+"text": "touché",
+"start": 25.109,
+"end": 25.309,
+"accent": false
+},
+{
+"text": "pour",
+"start": 25.309,
+"end": 25.436,
+"accent": false
+},
+{
+"text": "seulement",
+"start": 25.436,
+"end": 25.6,
+"accent": false
+},
+{
+"text": "12",
+"start": 25.6,
+"end": 25.818,
+"accent": true
+},
+{
+"text": "euros.",
+"start": 25.818,
+"end": 26.164,
+"accent": false
+},
+{
+"text": "Ça",
+"start": 26.382,
+"end": 26.545,
+"accent": false
+},
+{
+"text": "se",
+"start": 26.545,
+"end": 26.636,
+"accent": false
+},
+{
+"text": "revend",
+"start": 26.636,
+"end": 26.836,
+"accent": false
+},
+{
+"text": "90",
+"start": 26.836,
+"end": 27.255,
+"accent": true
+},
+{
+"text": "euros.",
+"start": 27.255,
+"end": 27.6,
+"accent": false
+},
+{
+"text": "Et",
+"start": 27.818,
+"end": 27.891,
+"accent": false
+},
+{
+"text": "ça,",
+"start": 27.891,
+"end": 28.0,
+"accent": false
+},
+{
+"text": "c'est",
+"start": 28.091,
+"end": 28.182,
+"accent": false
+},
+{
+"text": "grâce",
+"start": 28.182,
+"end": 28.255,
+"accent": false
+},
+{
+"text": "à",
+"start": 28.255,
+"end": 28.436,
+"accent": false
+},
+{
+"text": "mon plug.",
+"start": 28.436,
+"end": 28.745,
+"accent": false
+},
+{
+"text": "Et",
+"start": 29.2,
+"end": 29.382,
+"accent": false
+},
+{
+"text": "si",
+"start": 29.382,
+"end": 29.4,
+"accent": false
+},
+{
+"text": "vous",
+"start": 29.4,
+"end": 29.527,
+"accent": false
+},
+{
+"text": "êtes",
+"start": 29.527,
+"end": 29.655,
+"accent": false
+},
+{
+"text": "intéressé,",
+"start": 29.655,
+"end": 30.691,
+"accent": false
+},
+{
+"text": "vous",
+"start": 30.755,
+"end": 30.755,
+"accent": false
+},
+{
+"text": "avez",
+"start": 30.755,
+"end": 30.845,
+"accent": false
+},
+{
+"text": "juste",
+"start": 30.845,
+"end": 31.009,
+"accent": false
+},
+{
+"text": "à",
+"start": 31.009,
+"end": 31.082,
+"accent": false
+},
+{
+"text": "m'écrire",
+"start": 31.082,
+"end": 31.391,
+"accent": false
+},
+{
+"text": "un",
+"start": 31.391,
+"end": 31.536,
+"accent": false
+},
+{
+"text": "message.",
+"start": 31.536,
+"end": 31.718,
+"accent": true
+}
+]
