@@ -95,7 +95,7 @@ for t in (T0["s1"], T0["s2"], T0["s3"], T0["s4"]): a("sub_hit_02", t, 0.36); a("
 for t in (T0["c1"], T0["c3"], T0["c4"], T0["c5"]): a("whoosh_in_03", t - 0.12, 0.4)
 for t in (T0["details"], T0["grisee"], T0["epais"]): a("blip_up_01", t, 0.45)
 for t in (T0["lisse"], T0["blanc"], T0["fin"]): a("blip_down_01", t, 0.45)
-a("swish_02", T0["blanc"] - 0.4, 0.4)
+a("swish_02", T0["blanc"] - 0.4, 0.4); a("swish_02", T0["grisee"] - 0.4, 0.4)
 for base in (T0["p12"], T0["p90"]):
     for i in range(10): a("tick_0%d" % (i % 3 + 1), base + i * 0.075 * SPEED, 0.3)
 a("sub_hit_03", T0["stamp"], 0.41); a("shimmer_01", T0["stamp"] + 0.05, 0.45); a("pop_03", T0["cta"], 0.5)

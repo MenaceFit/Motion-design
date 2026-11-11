@@ -1,6 +1,6 @@
 // Legit check Phenom Elite (pantalon) — même grammaire que LegitCheck (zip), médias = photos uniquement.
 // Ajout : comparatif empilé (1.1 en haut / authentique en bas) pour matière et lacets, et carte texte
-// pour l'étiquette authentique (pas de photo fournie → on n'invente pas d'image).
+// pour l'étiquette : photo authentique (impression grisée) puis photo du 1.1 (impression blanche).
 import React from 'react';
 import {AbsoluteFill, Sequence, useVideoConfig} from 'remotion';
 import {Captions, CaptionWord} from './Captions';
@@ -9,6 +9,8 @@ import {BACK, OUT, MINT, RED, INK, prog, Offset, useT, Src, Focus, Framed, Badge
 
 const P = 'projects/phenom/';
 const legit: Src = {src: P + 'legit_full.jpg', w: 1440, h: 2558, filter: 'contrast(1.05) brightness(1.06)'};
+// impression ton sur ton très discrète → éclaircie pour la lisibilité (la teinte grise reste celle de la photo)
+const legitLabel: Src = {src: P + 'legit_label.jpg', w: 1440, h: 2557, filter: 'brightness(1.45) contrast(1.25)'};
 const legitLace: Src = {src: P + 'legit_lace.jpg', w: 1440, h: 2558};
 const fakeFull: Src = {src: P + 'fake_full.jpg', w: 1080, h: 1920};
 const fakeLace: Src = {src: P + 'fake_lace.jpg', w: 984, h: 1315};
@@ -41,25 +43,6 @@ const Panel: React.FC<{m: Src; a: Focus; b: Focus; t0: number; t1: number; kind:
           </div>
         </div>
       ) : null}
-    </div>
-  );
-};
-
-// Carte d'information (authentique sans photo de l'étiquette) : échantillon de texte gris.
-const InfoCard: React.FC<{at: number}> = ({at}) => {
-  const t = useT();
-  if (t < at) return null;
-  const k = BACK(prog(t, at, 0.5));
-  return (
-    <div style={{position: 'absolute', top: 470, left: 90, right: 90, background: 'rgba(8,16,14,0.88)', border: `6px solid ${MINT}`,
-      borderRadius: 36, padding: '40px 30px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 22,
-      transform: `scale(${k})`, boxShadow: '0 20px 60px rgba(0,0,0,0.6)'}}>
-      <div style={{fontFamily: 'Montserrat', fontWeight: 800, fontSize: 34, letterSpacing: 6, color: MINT}}>ÉTIQUETTE AUTHENTIQUE</div>
-      <div style={{fontFamily: 'Montserrat', fontWeight: 700, fontSize: 64, letterSpacing: 4, color: '#8E959A'}}>DRI-FIT ADV</div>
-      <div style={{fontFamily: 'Montserrat', fontWeight: 700, fontSize: 34, letterSpacing: 2, color: '#8E959A', textAlign: 'center', lineHeight: 1.3}}>
-        écriture grisée<br />pas blanc éclatant
-      </div>
-      <div style={{fontFamily: 'Anton', fontSize: 70, color: MINT, letterSpacing: 2}}>GRISÉE ✓</div>
     </div>
   );
 };
@@ -123,10 +106,11 @@ export const PhenomCheck: React.FC<PhenomProps> = ({captions, T}) => {
       ))}
       {seg(T.c3, T.c4, (
         <Shot a={T.c3}>
-          <Framed m={legit} a={{x: 0.5, y: 0.08, z: 2.4}} b={{x: 0.5, y: 0.1, z: 2.6}} t0={T.c3} t1={T.c4} {...full} />
-          <AbsoluteFill style={{background: 'rgba(8,16,14,0.25)'}} />
+          <Framed m={legitLabel} a={{x: 0.45, y: 0.5, z: 1.0}} b={{x: 0.42, y: 0.56, z: 1.6}} t0={T.c3} t1={T.c3 + 1.3} {...full} />
+          {shade}
           <TopBadge kind="legit" at={T.c3 + 0.1} />
-          <InfoCard at={T.c3 + 0.2} />
+          <Ring x={545} y={1050} rx={310} ry={310} at={T.grisee - 0.35} color={MINT} />
+          <Verdict text="ÉCRITURE GRISÉE" kind="legit" at={T.grisee} top={260} />
         </Shot>
       ))}
       {seg(T.c4, T.s3, (

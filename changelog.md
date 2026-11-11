@@ -204,3 +204,5 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
   différence (lettrage épais vs fin). Règle : toujours confronter chaque critère dit à l'image avant publication.
 - Whisper « medium » (+ initial_prompt court) bien meilleur que « small » sur « 1.1 » (« emploi » en small).
 - `build_timeline.py` : coupes avec silence inséré + remap() des temps (sous-titres, plans, SFX).
+- v2 : photo de l'étiquette authentique fournie → la carte texte est remplacée par la photo (éclaircie
+  brightness 1.45 / contrast 1.25 car impression ton sur ton) + ellipse menthe + « ÉCRITURE GRISÉE ✓ ».

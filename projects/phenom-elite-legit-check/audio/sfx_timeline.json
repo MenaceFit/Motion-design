@@ -120,6 +120,11 @@
 "volume": 0.4
 },
 {
+"src": "projects/nike-rd-legit-check/audio/sfx/swish_02.wav",
+"at": 13.273,
+"volume": 0.4
+},
+{
 "src": "projects/nike-rd-legit-check/audio/sfx/tick_01.wav",
 "at": 25.5,
 "volume": 0.3
