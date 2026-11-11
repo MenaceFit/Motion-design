@@ -1,5 +1,12 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-11 — Niche « Choisis ta team » (épisode 1)
+- Nouveau format : série quotidienne team vs team, résultat révélé le lendemain (raison concrète de
+  s'abonner). Stratégie + 30 duels : `projects/team-vs-team-ep01/strategie-niche.md`.
+- Scène `versus` : accepte `emoji` / `emoji2` (ex. 🥐 vs 🍫) à la place des icônes.
+- Piège : `make_video.py --out` doit être un chemin **absolu** (sinon Remotion ne trouve pas props.json).
+- Rendu 60 fps : ~2 s/frame en concurrency 4 (11 s de vidéo ≈ 35–40 min).
+
 ## 2026-11-03 — Mise en place initiale
 
 ### Environnement
