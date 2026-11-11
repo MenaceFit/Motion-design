@@ -1,0 +1,18 @@
+{
+  "slug": "team-vs-team-ep01",
+  "prompt": "Niche « Choisis ta team » (série quotidienne team vs team, résultat révélé le lendemain) — épisode 1 : pain au chocolat vs chocolatine. Objectif : commentaires + abonnements.",
+  "theme": "neon",
+  "font": "montserrat",
+  "entrance": "slam",
+  "fps": 60,
+  "climax_line": 4,
+  "voice": {"engine": "pico", "speed": 1.08},
+  "music": {"mood": "hype", "bpm": 124, "seed": 21},
+  "lines": [
+    {"text": "Épisode 1. Choisis ta team.", "accents": ["team"], "scene": {"type": "icon", "icon": "VS"}},
+    {"text": "Pain au chocolat… ou chocolatine ?", "accents": ["chocolat", "chocolatine"], "scene": {"type": "versus", "emoji": "🥐", "emoji2": "🍫"}},
+    {"text": "Écris ta team en commentaire.", "accents": ["commentaire"], "scene": {"type": "icon", "icon": "bubble"}},
+    {"text": "Demain, je révèle la team gagnante.", "accents": ["gagnante"], "scene": {"type": "icon", "icon": "trophy"}},
+    {"text": "Abonne-toi pour voir qui gagne.", "accents": ["abonne-toi"], "scene": {"type": "emoji", "emoji": "🔔"}}
+  ]
+}

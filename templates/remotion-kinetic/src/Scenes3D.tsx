@@ -18,7 +18,7 @@ export type SceneSpec = {
   shape?: 'coin' | 'cube' | 'ball'; // pour 'physics'
   start: number; end: number;
   icon?: string; icon2?: string; // icône (et 2e icône pour versus)
-  emoji?: string;
+  emoji?: string; emoji2?: string; // emoji2 : côté droit d'un versus
   color?: string; color2?: string;
   action?: 'idle' | 'leave' | 'jump' | 'walk' | 'rise' | 'fall';
   count?: number;
@@ -454,9 +454,9 @@ export const SceneLayer: React.FC<{s: SceneSpec; p: Palette; idx: number}> = ({s
   if (s.type === 'physics') body = <PhysicsPile s={s} t={t} p={p} />;
   if (s.type === 'versus') body = (
     <group>
-      <group position={[-1.15, 0, 0]} scale={0.62}><Thing name={s.icon ?? '?'} t={t} c={c} c2={c2} /></group>
+      <group position={[-1.15, 0, 0]} scale={0.62}>{s.emoji ? <EmojiBillboard emoji={s.emoji} /> : <Thing name={s.icon ?? '?'} t={t} c={c} c2={c2} />}</group>
       <group position={[0, -0.1, 0.3]} scale={0.32}><Glyph txt="VS" c={p.face} /></group>
-      <group position={[1.15, 0, 0]} scale={0.62}><Thing name={s.icon2 ?? '?'} t={t} c={s.color2 ?? p.face} c2={c} /></group>
+      <group position={[1.15, 0, 0]} scale={0.62}>{s.emoji2 ? <EmojiBillboard emoji={s.emoji2} /> : <Thing name={s.icon2 ?? '?'} t={t} c={s.color2 ?? p.face} c2={c} />}</group>
     </group>
   );
   return (
