@@ -182,3 +182,11 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
 - Réseau : huggingface.co + hôtes CDN (us.aws.cdn.hf.co, cas-server.xethub.hf.co) nécessaires ; `HF_HUB_DISABLE_XET=1`.
 - Audio : l'encodeur AAC ajoutait ~+3,5 dB de true peak sur les sub hits → limiteur suréchantillonné x4
   (seuil -6 dB) avant `finish.sh` ; résultat -2,4 dBTP.
+
+## 2026-11-11 — Legit check v2 (retours utilisateur)
+- « Photo en noir et blanc » : causé par des voiles sombres plein cadre (35–55 %) posés pour la lisibilité,
+  qui éteignaient un vêtement pastel. Règle : jamais de voile plein cadre sur le produit dont la couleur
+  EST le sujet → dégradés limités aux zones de texte + `saturate(1.35)` sur la photo.
+- Surlignage des sous-titres en jaune quand le fond est de la même teinte que l'accent (menthe sur menthe).
+- Voix « plus dynamique » : atempo ×1,10 + EQ (−2,5 dB 280 Hz, +3,5 dB 3,8 kHz, air +2 dB) + compression 4:1 ;
+  tous les timings recalés par `build_timeline.py` (division par SPEED, pas de re-transcription).

@@ -21,7 +21,7 @@ const prog = (t: number, a: number, d: number) => Math.min(1, Math.max(0, (t - a
 const Offset = React.createContext(0);
 const useT = () => { const f = useCurrentFrame(); const {fps} = useVideoConfig(); return f / fps + React.useContext(Offset); };
 
-type Src = {src: string; w: number; h: number; video?: boolean; rate?: number; from?: number};
+type Src = {src: string; w: number; h: number; video?: boolean; rate?: number; from?: number; filter?: string};
 type Focus = {x: number; y: number; z: number};
 
 // Média recadré : le point focal (x,y normalisés) est amené vers le centre du cadre, zoom z (1 = cover).
@@ -36,7 +36,7 @@ const Framed: React.FC<{m: Src; a: Focus; b: Focus; t0: number; t1: number; w: n
   const ay = anchorY ?? h / 2;
   const left = free ? w / 2 - fx * W : Math.min(0, Math.max(w - W, w / 2 - fx * W));
   const top = free ? ay - fy * H : Math.min(0, Math.max(h - H, ay - fy * H));
-  const style: React.CSSProperties = {position: 'absolute', left, top, width: W, height: H};
+  const style: React.CSSProperties = {position: 'absolute', left, top, width: W, height: H, filter: m.filter};
   return (
     <div style={{position: 'relative', width: w, height: h, overflow: 'hidden', borderRadius: radius, background: free ? 'transparent' : '#000'}}>
       {m.video
@@ -170,7 +170,7 @@ export const LegitCheck: React.FC<LegitProps> = ({voice, music, captions, T}) =>
   const t = useT();
   const {fps} = useVideoConfig();
   const F = (s: number) => Math.round(s * fps);
-  const legit: Src = {src: 'projects/legit/legit.jpg', w: 1440, h: 2558};
+  const legit: Src = {src: 'projects/legit/legit.jpg', w: 1440, h: 2558, filter: 'saturate(1.35) contrast(1.06) brightness(1.04)'};
   const fake1: Src = {src: 'projects/legit/fake1.jpg', w: 984, h: 1314};
   const fake2: Src = {src: 'projects/legit/fake2.jpg', w: 1080, h: 1112};
   const chest: Src = {src: 'projects/legit/chest.mp4', w: 1080, h: 1920, video: true};
@@ -180,7 +180,7 @@ export const LegitCheck: React.FC<LegitProps> = ({voice, music, captions, T}) =>
   const seg = (a: number, b: number, el: React.ReactNode) => (
     <Sequence from={F(a)} durationInFrames={F(b) - F(a)} layout="none"><Offset.Provider value={F(a) / fps}>{el}</Offset.Provider></Sequence>
   );
-  const shade = <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(8,16,14,0.78) 0%, rgba(8,16,14,0) 30%, rgba(8,16,14,0) 55%, rgba(8,16,14,0.75) 100%)'}} />;
+  const shade = <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(8,16,14,0.6) 0%, rgba(8,16,14,0) 24%, rgba(8,16,14,0) 62%, rgba(8,16,14,0.5) 100%)'}} />;
 
   return (
     <AbsoluteFill style={{background: `radial-gradient(120% 80% at 50% 40%, #12302A 0%, ${INK} 70%)`}}>
@@ -235,7 +235,7 @@ export const LegitCheck: React.FC<LegitProps> = ({voice, music, captions, T}) =>
       {seg(T.s2, T.c3, (
         <Shot a={T.s2}>
           <Framed m={legit} a={{x: 0.5, y: 0.45, z: 1}} b={{x: 0.44, y: 0.17, z: 2.6}} t0={T.s2 + 0.3} t1={T.c3} {...full} />
-          <AbsoluteFill style={{background: 'rgba(8,16,14,0.35)'}} />
+          <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(8,16,14,0.7) 0%, rgba(8,16,14,0) 26%)'}} />
           <StepHeader n={2} title={"L'ÉCRITURE\nDU COL"} at={T.s2} />
         </Shot>
       ))}
@@ -261,7 +261,7 @@ export const LegitCheck: React.FC<LegitProps> = ({voice, music, captions, T}) =>
       {seg(T.s3, T.c5, (
         <Shot a={T.s3}>
           <Framed m={legit} a={{x: 0.5, y: 0.45, z: 1}} b={{x: 0.81, y: 0.38, z: 2.3}} t0={T.s3 + 0.3} t1={T.c5} {...full} />
-          <AbsoluteFill style={{background: 'rgba(8,16,14,0.35)'}} />
+          <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(8,16,14,0.7) 0%, rgba(8,16,14,0) 26%)'}} />
           <StepHeader n={3} title={'LES DÉTAILS\n« ARAIGNÉE »'} at={T.s3} />
         </Shot>
       ))}
@@ -287,7 +287,7 @@ export const LegitCheck: React.FC<LegitProps> = ({voice, music, captions, T}) =>
       {seg(T.s4, T.end, (
         <Shot a={T.s4}>
           <Framed m={legit} a={{x: 0.5, y: 0.3, z: 1.35}} b={{x: 0.5, y: 0.45, z: 1.0}} t0={T.s4} t1={T.end} {...full} />
-          <AbsoluteFill style={{background: 'rgba(8,16,14,0.55)'}} />
+          <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(8,16,14,0.75) 0%, rgba(8,16,14,0.35) 30%, rgba(8,16,14,0) 45%)'}} />
           <div style={{position: 'absolute', top: 230, left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 50}}>
             <Counter label="PAYÉ" value={30} at={T.p30} color={MINT} />
             <Counter label="REVENTE" value={80} at={T.p80} color="#FFD34D" prefix="≈" />
@@ -303,7 +303,7 @@ export const LegitCheck: React.FC<LegitProps> = ({voice, music, captions, T}) =>
       ))}
 
       <Flash at={[T.c1, T.c2, T.s2, T.c3, T.c4, T.s3, T.c5, T.c6, T.s4]} />
-      <Captions words={captions} accent={MINT} />
+      <Captions words={captions} accent="#FFE14D" />
       {voice ? <Audio src={staticFile(voice)} /> : null}
       {music ? <Audio src={staticFile(music)} /> : null}
     </AbsoluteFill>
