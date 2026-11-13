@@ -13,6 +13,8 @@ watermark TikTok animé et **carte de fin TikTok de ~3–4 s** (à exclure des m
 | ref06 | (série « Hugo », J-30) | 576×1024 (9:16) | 91,8 s (~89) | 20 | 4,6 s | [Glow-up interactif](visual-styles/interactive-glow-up.md) |
 | ref07 | (série « Hugo », J-29) | 576×1024 (9:16) | 103,3 s (~99) | 21 | 4,9 s | [Glow-up interactif](visual-styles/interactive-glow-up.md) |
 | ref08 | (série « Kevin », J-30) | 576×1024 (9:16) | 80,6 s (~77) | 30 | 2,7 s | [Glow-up interactif](visual-styles/interactive-glow-up.md) |
+| ref09 | (legit check « bas Division », format jeu) | 576×1024 (9:16) | 67,3 s (~63) | 22 | 3,1 s | [Arcade Legit Check](visual-styles/arcade-legit-check.md) |
+| ref10 | (legit check bas, format jeu) | 576×1024 (9:16) | 53,6 s (~50) | 13 | 4,1 s | [Arcade Legit Check](visual-styles/arcade-legit-check.md) |
 
 Notes :
 - Les 4 vidéos 16:9 sont des formats horizontaux publiés sur TikTok (bandes ou recadrage côté

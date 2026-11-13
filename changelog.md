@@ -233,3 +233,15 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
 - Voix confrontée aux photos : « Made in China » coupé, l'étiquette du 1.1 fournie dit MADE IN CAMBODIA.
 - Petites captures (≈450 px) agrandies ×2,4 en Lanczos + léger unsharp avant usage.
 - Localiser un détail par crop gradué avant de cadrer (swoosh estimé à y 0,23, réel 0,35).
+
+## 2026-11-13 — Nouveau style « Arcade Legit Check » (refs 09–10) + version arcade du bas Division
+- 2 références analysées (`references/analyses/legitcheck-ref/`), nouvelle fiche
+  `references/visual-styles/arcade-legit-check.md`, index mis à jour.
+- Nouvelle composition `ArcadeCheck` : jeu « un seul est vrai » + 3-2-1, révélation rouge/vert,
+  score x/4 + « +1 », étapes N°, cartes à viseurs/flèches/tampons, transitions pixel, écran
+  « t'en avais combien ? » (appel au commentaire), mascotte pixel ORIGINALE (pas l'avatar de la réf.),
+  sous-titres pixel compacts (≤ 3 mots) au-dessus de la mascotte, CRT léger.
+- `build_arcade.py` : réutilise la voix montée, ajoute 6,8 s de jeu sans voix et une pause score de 3,4 s.
+- `tools/analyze_reference.py` : `beat_track` (numba) provoquait un segfault sur ref09 → tempo par
+  autocorrélation (`librosa.feature.tempo`) + grille de temps.
+- Police pixel : Pixelify Sans (Silkscreen écartée, chiffres ambigus).

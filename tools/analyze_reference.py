@@ -108,7 +108,12 @@ def audio(path, out):
     onsets = librosa.onset.onset_detect(onset_envelope=onset_env, sr=sr, hop_length=hop, units="time", backtrack=False)
     rms = librosa.feature.rms(y=y, hop_length=hop)[0]
     t = librosa.frames_to_time(np.arange(len(rms)), sr=sr, hop_length=hop)
-    tempo, beats = librosa.beat.beat_track(onset_envelope=onset_env, sr=sr, hop_length=hop, units="time")
+    # Tempo par autocorrélation (librosa.feature.tempo) puis grille de temps calée sur le 1er onset fort.
+    # beat_track (programmation dynamique numba) provoque un segfault sur certaines pistes (Python 3.13 / numba).
+    from librosa.feature import tempo as _tempo
+    tempo = float(np.atleast_1d(_tempo(onset_envelope=onset_env, sr=sr, hop_length=hop))[0])
+    t0 = float(onsets[0]) if len(onsets) else 0.0
+    beats = np.arange(t0, len(y) / sr, 60.0 / tempo) if tempo > 0 else np.array([])
     strength = {round(float(o), 3): float(onset_env[min(len(onset_env) - 1, librosa.time_to_frames(o, sr=sr, hop_length=hop))]) for o in onsets}
     top = sorted(strength.items(), key=lambda kv: -kv[1])[:25]
     cent = librosa.feature.spectral_centroid(y=y, sr=sr, hop_length=hop)[0]
