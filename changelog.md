@@ -224,3 +224,12 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
 - Voix du Tech gris réutilisée à la demande de l'utilisateur, recoupée : « trop petit » retiré (logo du 1.1 noir
   plus gros sur les photos) et étape étiquette retirée (pas de photo d'étiquette du 1.1 noir).
 - Toujours vérifier la position d'un détail sur l'image réelle (crop de contrôle) avant de cadrer : logo mal localisé au 1er essai.
+
+## 2026-11-13 — Legit check bas Nike Running Division (retour DA Phenom)
+- L'utilisateur préfère la DA Phenom/zip (menthe, titres d'étape, badges) à la DA « BlackTech » → nouvelle
+  composition `DivisionCheck` dans cette DA, 4 étapes (`StepHeader` accepte maintenant `total`).
+- Ajouts : pastilles de couleur mesurées (1.1 #202024 vs authentique #424248), checklist qui se coche sur la voix
+  (étape logo décrite uniquement sur l'authentique), 3 compteurs (payé / revente / bénéfice).
+- Voix confrontée aux photos : « Made in China » coupé, l'étiquette du 1.1 fournie dit MADE IN CAMBODIA.
+- Petites captures (≈450 px) agrandies ×2,4 en Lanczos + léger unsharp avant usage.
+- Localiser un détail par crop gradué avant de cadrer (swoosh estimé à y 0,23, réel 0,35).

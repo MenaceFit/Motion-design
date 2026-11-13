@@ -1,0 +1,1082 @@
+[
+{
+"text": "Comment",
+"start": 0.14,
+"end": 0.78,
+"accent": false
+},
+{
+"text": "différencier",
+"start": 0.78,
+"end": 1.66,
+"accent": false
+},
+{
+"text": "un",
+"start": 1.66,
+"end": 1.92,
+"accent": false
+},
+{
+"text": "Bad",
+"start": 1.92,
+"end": 2.14,
+"accent": false
+},
+{
+"text": "Division",
+"start": 2.14,
+"end": 2.62,
+"accent": false
+},
+{
+"text": "R",
+"start": 2.62,
+"end": 3.0,
+"accent": false
+},
+{
+"text": "&E",
+"start": 3.0,
+"end": 3.22,
+"accent": false
+},
+{
+"text": "1",
+"start": 3.22,
+"end": 3.6,
+"accent": false
+},
+{
+"text": ".1",
+"start": 3.6,
+"end": 3.82,
+"accent": false
+},
+{
+"text": "d",
+"start": 3.82,
+"end": 3.94,
+"accent": false
+},
+{
+"text": "'un",
+"start": 3.94,
+"end": 4.08,
+"accent": false
+},
+{
+"text": "Authentic",
+"start": 4.08,
+"end": 4.78,
+"accent": false
+},
+{
+"text": "?",
+"start": 4.78,
+"end": 5.22,
+"accent": false
+},
+{
+"text": "La",
+"start": 5.22,
+"end": 5.38,
+"accent": false
+},
+{
+"text": "première",
+"start": 5.38,
+"end": 5.6,
+"accent": false
+},
+{
+"text": "différence,",
+"start": 5.6,
+"end": 5.96,
+"accent": false
+},
+{
+"text": "c",
+"start": 6.06,
+"end": 6.08,
+"accent": false
+},
+{
+"text": "'est",
+"start": 6.08,
+"end": 6.14,
+"accent": false
+},
+{
+"text": "au",
+"start": 6.14,
+"end": 6.24,
+"accent": false
+},
+{
+"text": "niveau",
+"start": 6.24,
+"end": 6.34,
+"accent": false
+},
+{
+"text": "de",
+"start": 6.34,
+"end": 6.52,
+"accent": false
+},
+{
+"text": "la",
+"start": 6.52,
+"end": 6.68,
+"accent": false
+},
+{
+"text": "couleur.",
+"start": 6.68,
+"end": 7.02,
+"accent": false
+},
+{
+"text": "Sur",
+"start": 7.32,
+"end": 7.42,
+"accent": false
+},
+{
+"text": "l",
+"start": 7.42,
+"end": 7.58,
+"accent": false
+},
+{
+"text": "'1",
+"start": 7.58,
+"end": 7.62,
+"accent": false
+},
+{
+"text": ".1,",
+"start": 7.62,
+"end": 7.9,
+"accent": false
+},
+{
+"text": "on",
+"start": 7.96,
+"end": 8.1,
+"accent": false
+},
+{
+"text": "voit",
+"start": 8.1,
+"end": 8.26,
+"accent": false
+},
+{
+"text": "que",
+"start": 8.26,
+"end": 8.36,
+"accent": false
+},
+{
+"text": "c",
+"start": 8.36,
+"end": 8.5,
+"accent": false
+},
+{
+"text": "'est",
+"start": 8.5,
+"end": 8.5,
+"accent": false
+},
+{
+"text": "quasiment",
+"start": 8.5,
+"end": 8.92,
+"accent": false
+},
+{
+"text": "noir,",
+"start": 8.92,
+"end": 9.38,
+"accent": false
+},
+{
+"text": "alors",
+"start": 9.7,
+"end": 9.88,
+"accent": false
+},
+{
+"text": "que",
+"start": 9.88,
+"end": 10.0,
+"accent": false
+},
+{
+"text": "chez",
+"start": 10.0,
+"end": 10.08,
+"accent": false
+},
+{
+"text": "l",
+"start": 10.08,
+"end": 10.16,
+"accent": false
+},
+{
+"text": "'Authentic,",
+"start": 10.16,
+"end": 10.68,
+"accent": false
+},
+{
+"text": "on",
+"start": 10.82,
+"end": 10.86,
+"accent": false
+},
+{
+"text": "voit",
+"start": 10.86,
+"end": 10.98,
+"accent": false
+},
+{
+"text": "que",
+"start": 10.98,
+"end": 11.12,
+"accent": false
+},
+{
+"text": "la",
+"start": 11.12,
+"end": 11.22,
+"accent": false
+},
+{
+"text": "partie",
+"start": 11.22,
+"end": 11.5,
+"accent": false
+},
+{
+"text": "au",
+"start": 11.5,
+"end": 11.76,
+"accent": false
+},
+{
+"text": "-dessus",
+"start": 11.76,
+"end": 11.9,
+"accent": false
+},
+{
+"text": "est",
+"start": 11.9,
+"end": 12.2,
+"accent": false
+},
+{
+"text": "un",
+"start": 12.2,
+"end": 12.3,
+"accent": false
+},
+{
+"text": "peu",
+"start": 12.3,
+"end": 12.62,
+"accent": false
+},
+{
+"text": "grise.",
+"start": 12.62,
+"end": 13.08,
+"accent": false
+},
+{
+"text": "Ensuite,",
+"start": 13.54,
+"end": 13.82,
+"accent": false
+},
+{
+"text": "c",
+"start": 13.82,
+"end": 13.98,
+"accent": false
+},
+{
+"text": "'est",
+"start": 13.98,
+"end": 13.98,
+"accent": false
+},
+{
+"text": "au",
+"start": 13.98,
+"end": 14.12,
+"accent": false
+},
+{
+"text": "niveau",
+"start": 14.12,
+"end": 14.24,
+"accent": false
+},
+{
+"text": "du",
+"start": 14.24,
+"end": 14.46,
+"accent": false
+},
+{
+"text": "logo.",
+"start": 14.46,
+"end": 14.76,
+"accent": false
+},
+{
+"text": "Si",
+"start": 15.16,
+"end": 15.28,
+"accent": false
+},
+{
+"text": "le",
+"start": 15.28,
+"end": 15.46,
+"accent": false
+},
+{
+"text": "logo",
+"start": 15.46,
+"end": 15.68,
+"accent": false
+},
+{
+"text": "est",
+"start": 15.68,
+"end": 15.9,
+"accent": false
+},
+{
+"text": "bien",
+"start": 15.9,
+"end": 16.14,
+"accent": false
+},
+{
+"text": "placé,",
+"start": 16.14,
+"end": 16.84,
+"accent": false
+},
+{
+"text": "bien",
+"start": 17.06,
+"end": 17.34,
+"accent": false
+},
+{
+"text": "droit,",
+"start": 17.34,
+"end": 17.52,
+"accent": false
+},
+{
+"text": "pas",
+"start": 17.6,
+"end": 17.8,
+"accent": false
+},
+{
+"text": "trop",
+"start": 17.8,
+"end": 18.08,
+"accent": false
+},
+{
+"text": "petit,",
+"start": 18.08,
+"end": 18.34,
+"accent": false
+},
+{
+"text": "c",
+"start": 18.72,
+"end": 18.9,
+"accent": false
+},
+{
+"text": "'est",
+"start": 18.9,
+"end": 18.92,
+"accent": false
+},
+{
+"text": "bon.",
+"start": 18.92,
+"end": 19.1,
+"accent": false
+},
+{
+"text": "Ensuite,",
+"start": 20.16,
+"end": 20.56,
+"accent": false
+},
+{
+"text": "c",
+"start": 20.56,
+"end": 20.76,
+"accent": false
+},
+{
+"text": "'est",
+"start": 20.76,
+"end": 20.76,
+"accent": false
+},
+{
+"text": "au",
+"start": 20.76,
+"end": 20.96,
+"accent": false
+},
+{
+"text": "niveau",
+"start": 20.96,
+"end": 21.1,
+"accent": false
+},
+{
+"text": "de",
+"start": 21.1,
+"end": 21.28,
+"accent": false
+},
+{
+"text": "l",
+"start": 21.28,
+"end": 21.38,
+"accent": false
+},
+{
+"text": "'écriture",
+"start": 21.38,
+"end": 21.84,
+"accent": false
+},
+{
+"text": "intérieure.",
+"start": 21.84,
+"end": 22.42,
+"accent": false
+},
+{
+"text": "Si",
+"start": 22.76,
+"end": 22.92,
+"accent": false
+},
+{
+"text": "c",
+"start": 22.92,
+"end": 23.08,
+"accent": false
+},
+{
+"text": "'est",
+"start": 23.08,
+"end": 23.16,
+"accent": false
+},
+{
+"text": "écrit",
+"start": 23.16,
+"end": 23.44,
+"accent": false
+},
+{
+"text": "en",
+"start": 23.44,
+"end": 23.82,
+"accent": false
+},
+{
+"text": "blanc",
+"start": 23.82,
+"end": 24.16,
+"accent": false
+},
+{
+"text": "et",
+"start": 24.16,
+"end": 24.72,
+"accent": false
+},
+{
+"text": "«",
+"start": 24.72,
+"end": 24.72,
+"accent": false
+},
+{
+"text": "Made",
+"start": 24.72,
+"end": 24.96,
+"accent": false
+},
+{
+"text": "in",
+"start": 24.96,
+"end": 25.12,
+"accent": false
+},
+{
+"text": "China",
+"start": 25.12,
+"end": 25.56,
+"accent": false
+},
+{
+"text": "»,",
+"start": 25.56,
+"end": 25.94,
+"accent": false
+},
+{
+"text": "«",
+"start": 25.94,
+"end": 25.94,
+"accent": false
+},
+{
+"text": "Fuyé",
+"start": 25.94,
+"end": 26.36,
+"accent": false
+},
+{
+"text": "»,",
+"start": 26.36,
+"end": 26.36,
+"accent": false
+},
+{
+"text": "c",
+"start": 26.36,
+"end": 26.54,
+"accent": false
+},
+{
+"text": "'est",
+"start": 26.54,
+"end": 26.54,
+"accent": false
+},
+{
+"text": "un",
+"start": 26.54,
+"end": 26.66,
+"accent": false
+},
+{
+"text": "1",
+"start": 26.66,
+"end": 26.84,
+"accent": false
+},
+{
+"text": ".1.",
+"start": 26.84,
+"end": 27.34,
+"accent": false
+},
+{
+"text": "Normalement,",
+"start": 27.34,
+"end": 27.94,
+"accent": false
+},
+{
+"text": "l",
+"start": 28.02,
+"end": 28.06,
+"accent": false
+},
+{
+"text": "'écriture",
+"start": 28.06,
+"end": 28.48,
+"accent": false
+},
+{
+"text": "doit",
+"start": 28.48,
+"end": 28.66,
+"accent": false
+},
+{
+"text": "être",
+"start": 28.66,
+"end": 28.92,
+"accent": false
+},
+{
+"text": "grise",
+"start": 28.92,
+"end": 29.68,
+"accent": false
+},
+{
+"text": "et",
+"start": 29.68,
+"end": 30.34,
+"accent": false
+},
+{
+"text": "écrit",
+"start": 30.34,
+"end": 30.48,
+"accent": false
+},
+{
+"text": "«",
+"start": 30.48,
+"end": 30.48,
+"accent": false
+},
+{
+"text": "Made",
+"start": 30.48,
+"end": 30.68,
+"accent": false
+},
+{
+"text": "in",
+"start": 30.68,
+"end": 30.86,
+"accent": false
+},
+{
+"text": "Cambodia",
+"start": 30.86,
+"end": 31.18,
+"accent": false
+},
+{
+"text": "».",
+"start": 31.18,
+"end": 31.84,
+"accent": false
+},
+{
+"text": "Ensuite,",
+"start": 31.84,
+"end": 32.3,
+"accent": false
+},
+{
+"text": "au",
+"start": 32.52,
+"end": 32.52,
+"accent": false
+},
+{
+"text": "niveau",
+"start": 32.52,
+"end": 32.66,
+"accent": false
+},
+{
+"text": "des",
+"start": 32.66,
+"end": 32.92,
+"accent": false
+},
+{
+"text": "détails",
+"start": 32.92,
+"end": 33.24,
+"accent": false
+},
+{
+"text": "araignés,",
+"start": 33.24,
+"end": 33.8,
+"accent": false
+},
+{
+"text": "ils",
+"start": 33.92,
+"end": 33.92,
+"accent": false
+},
+{
+"text": "doivent",
+"start": 33.92,
+"end": 34.1,
+"accent": false
+},
+{
+"text": "être",
+"start": 34.1,
+"end": 34.48,
+"accent": false
+},
+{
+"text": "précis",
+"start": 34.48,
+"end": 34.9,
+"accent": false
+},
+{
+"text": "et",
+"start": 34.9,
+"end": 35.76,
+"accent": false
+},
+{
+"text": "ressembler",
+"start": 35.76,
+"end": 36.08,
+"accent": false
+},
+{
+"text": "à",
+"start": 36.08,
+"end": 36.52,
+"accent": false
+},
+{
+"text": "ça.",
+"start": 36.52,
+"end": 36.82,
+"accent": false
+},
+{
+"text": "Donc",
+"start": 37.68,
+"end": 37.9,
+"accent": false
+},
+{
+"text": "voilà,",
+"start": 37.9,
+"end": 38.38,
+"accent": false
+},
+{
+"text": "ce",
+"start": 38.88,
+"end": 38.92,
+"accent": false
+},
+{
+"text": "Bad",
+"start": 38.92,
+"end": 39.12,
+"accent": false
+},
+{
+"text": "Division,",
+"start": 39.12,
+"end": 39.6,
+"accent": false
+},
+{
+"text": "je",
+"start": 39.78,
+"end": 39.88,
+"accent": false
+},
+{
+"text": "l",
+"start": 39.88,
+"end": 39.94,
+"accent": false
+},
+{
+"text": "'ai",
+"start": 39.94,
+"end": 40.0,
+"accent": false
+},
+{
+"text": "touché",
+"start": 40.0,
+"end": 40.34,
+"accent": false
+},
+{
+"text": "pour",
+"start": 40.34,
+"end": 40.64,
+"accent": false
+},
+{
+"text": "50",
+"start": 40.64,
+"end": 40.98,
+"accent": false
+},
+{
+"text": "€.",
+"start": 40.98,
+"end": 41.32,
+"accent": false
+},
+{
+"text": "C",
+"start": 41.72,
+"end": 41.78,
+"accent": false
+},
+{
+"text": "'est",
+"start": 41.78,
+"end": 41.78,
+"accent": false
+},
+{
+"text": "un",
+"start": 41.78,
+"end": 41.88,
+"accent": false
+},
+{
+"text": "Bad",
+"start": 41.88,
+"end": 41.96,
+"accent": false
+},
+{
+"text": "qui",
+"start": 41.96,
+"end": 42.08,
+"accent": false
+},
+{
+"text": "se",
+"start": 42.08,
+"end": 42.3,
+"accent": false
+},
+{
+"text": "revend",
+"start": 42.3,
+"end": 42.42,
+"accent": false
+},
+{
+"text": "jusqu",
+"start": 42.42,
+"end": 42.62,
+"accent": false
+},
+{
+"text": "'à",
+"start": 42.62,
+"end": 42.8,
+"accent": false
+},
+{
+"text": "180",
+"start": 42.8,
+"end": 43.24,
+"accent": false
+},
+{
+"text": "€,",
+"start": 43.24,
+"end": 43.82,
+"accent": false
+},
+{
+"text": "donc",
+"start": 44.3,
+"end": 44.46,
+"accent": false
+},
+{
+"text": "je",
+"start": 44.46,
+"end": 44.64,
+"accent": false
+},
+{
+"text": "me",
+"start": 44.64,
+"end": 44.8,
+"accent": false
+},
+{
+"text": "fais",
+"start": 44.8,
+"end": 44.9,
+"accent": false
+},
+{
+"text": "à",
+"start": 44.9,
+"end": 44.98,
+"accent": false
+},
+{
+"text": "peu",
+"start": 44.98,
+"end": 45.18,
+"accent": false
+},
+{
+"text": "près",
+"start": 45.18,
+"end": 45.88,
+"accent": false
+},
+{
+"text": "120",
+"start": 45.88,
+"end": 46.22,
+"accent": false
+},
+{
+"text": "€",
+"start": 46.22,
+"end": 46.5,
+"accent": false
+},
+{
+"text": "de",
+"start": 46.5,
+"end": 46.66,
+"accent": false
+},
+{
+"text": "bénéfice,",
+"start": 46.66,
+"end": 47.26,
+"accent": false
+},
+{
+"text": "ce",
+"start": 47.36,
+"end": 47.48,
+"accent": false
+},
+{
+"text": "qui",
+"start": 47.48,
+"end": 47.64,
+"accent": false
+},
+{
+"text": "est",
+"start": 47.64,
+"end": 47.7,
+"accent": false
+},
+{
+"text": "énorme.",
+"start": 47.7,
+"end": 48.32,
+"accent": false
+},
+{
+"text": "Si",
+"start": 48.52,
+"end": 48.84,
+"accent": false
+},
+{
+"text": "t",
+"start": 48.84,
+"end": 48.92,
+"accent": false
+},
+{
+"text": "'es",
+"start": 48.92,
+"end": 49.04,
+"accent": false
+},
+{
+"text": "intéressé",
+"start": 49.04,
+"end": 49.26,
+"accent": false
+},
+{
+"text": "par",
+"start": 49.26,
+"end": 49.42,
+"accent": false
+},
+{
+"text": "le",
+"start": 49.42,
+"end": 49.54,
+"accent": false
+},
+{
+"text": "plaf,",
+"start": 49.54,
+"end": 49.66,
+"accent": false
+},
+{
+"text": "t",
+"start": 49.76,
+"end": 49.76,
+"accent": false
+},
+{
+"text": "'as",
+"start": 49.76,
+"end": 49.82,
+"accent": false
+},
+{
+"text": "juste",
+"start": 49.82,
+"end": 50.02,
+"accent": false
+},
+{
+"text": "à",
+"start": 50.02,
+"end": 50.12,
+"accent": false
+},
+{
+"text": "m",
+"start": 50.12,
+"end": 50.2,
+"accent": false
+},
+{
+"text": "'écrire",
+"start": 50.2,
+"end": 50.54,
+"accent": false
+},
+{
+"text": "un",
+"start": 50.54,
+"end": 50.74,
+"accent": false
+},
+{
+"text": "message.",
+"start": 50.74,
+"end": 50.98,
+"accent": false
+}
+]

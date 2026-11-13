@@ -93,13 +93,13 @@ export const Ring: React.FC<{x: number; y: number; rx: number; ry: number; at: n
   );
 };
 
-export const StepHeader: React.FC<{n: number; title: string; at: number}> = ({n, title, at}) => {
+export const StepHeader: React.FC<{n: number; title: string; at: number; total?: number}> = ({n, title, at, total = 3}) => {
   const t = useT();
   const k = prog(t, at, 0.5);
   return (
     <div style={{position: 'absolute', top: 175, left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10}}>
       <div style={{fontFamily: 'Montserrat', fontWeight: 800, fontSize: 34, letterSpacing: 8, color: INK, background: MINT,
-        padding: '8px 22px', borderRadius: 10, transform: `scale(${BACK(prog(t, at, 0.35))})`}}>ÉTAPE {n}/3</div>
+        padding: '8px 22px', borderRadius: 10, transform: `scale(${BACK(prog(t, at, 0.35))})`}}>ÉTAPE {n}/{total}</div>
       <div style={{fontFamily: 'Anton', fontSize: 104, color: '#fff', letterSpacing: 1, lineHeight: 1.14, paddingTop: 14, textAlign: 'center', whiteSpace: 'pre-line',
         clipPath: `inset(0 ${(1 - OUT(prog(t, at + 0.08, 0.55))) * 100}% 0 0)`, textShadow: '0 8px 30px rgba(0,0,0,0.7)',
         WebkitTextStroke: '3px #08100E', opacity: k > 0 ? 1 : 0}}>{title}</div>

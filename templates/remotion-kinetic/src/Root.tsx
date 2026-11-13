@@ -14,6 +14,7 @@ import {LegitCheck, LegitProps} from './LegitCheck';
 import {PhenomCheck, PhenomProps} from './PhenomCheck';
 import {TechCheck, TechProps} from './TechCheck';
 import {BlackTech, BlackTechProps} from './BlackTech';
+import {DivisionCheck, DivisionProps} from './DivisionCheck';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -72,6 +73,9 @@ export const RemotionRoot: React.FC = () => (
       calculateMetadata={({props}) => ({durationInFrames: Math.ceil(props.durationS * 30)})} />
     <Composition id="BlackTech" component={BlackTech} width={1080} height={1920} fps={30} durationInFrames={900}
       defaultProps={{captions: [], T: {}, durationS: 30} as BlackTechProps}
+      calculateMetadata={({props}) => ({durationInFrames: Math.ceil(props.durationS * 30)})} />
+    <Composition id="DivisionCheck" component={DivisionCheck} width={1080} height={1920} fps={30} durationInFrames={900}
+      defaultProps={{captions: [], T: {}, durationS: 30} as DivisionProps}
       calculateMetadata={({props}) => ({durationInFrames: Math.ceil(props.durationS * 30)})} />
     <Composition id="Gallery3D" component={Gallery3D} width={1080} height={1920} fps={30} durationInFrames={60} />
     <Composition id="TeddyProfilePic" component={ProfilePic} width={1080} height={1080} fps={30} durationInFrames={1} defaultProps={profilePicDefaults} />
