@@ -10,6 +10,7 @@ import {TeddyEpisodeFull} from './teddy/EpisodeFull';
 import {TeddyEpisode2} from './teddy/Episode2';
 import {ProfilePic, profilePicDefaults} from './teddy/ProfilePic';
 import {TeddyEpisode3} from './teddy/Episode3';
+import {PirateToken, pirateDefaults} from './PirateToken';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -56,6 +57,8 @@ export const RemotionRoot: React.FC = () => (
       defaultProps={text3DDefaults}
       calculateMetadata={({props}) => ({durationInFrames: durationFrom3DWords(props.words, 30, props.captions)})}
     />
+    {/* TikTok 10 s « Jeton de la Boutique Pirate » : habillage motion autour des captures de jeu */}
+    <Composition id="PirateToken" component={PirateToken} width={1080} height={1920} fps={60} durationInFrames={600} defaultProps={pirateDefaults} />
     <Composition id="Gallery3D" component={Gallery3D} width={1080} height={1920} fps={30} durationInFrames={60} />
     <Composition id="TeddyProfilePic" component={ProfilePic} width={1080} height={1080} fps={30} durationInFrames={1} defaultProps={profilePicDefaults} />
     <Composition id="TeddyRigTest" component={RigTest} width={1080} height={1920} fps={30} durationInFrames={30} />

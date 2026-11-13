@@ -6,7 +6,7 @@
     "render": "remotion render"
   },
   "dependencies": {
-    "@fontsource/anton": "^5.1.0",
+    "@fontsource/anton": "^5.0.20",
     "@fontsource/archivo-black": "^5.1.0",
     "@fontsource/bebas-neue": "^5.1.0",
     "@fontsource/inter": "5.1.0",
