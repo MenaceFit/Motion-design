@@ -1,5 +1,11 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-13 — Vidéo « jeton de la chance » (joueurs Fortnite)
+- Format porte-bonheur (« abonne-toi pour activer le jeton ») au lieu d'un faux concours : aucun lot
+  promis, aucun asset Epic (jeton 3D original). `projects/jeton-chance-fortnite/plan.json`.
+- Nouvelle icône 3D `token` : jeton doré à étoile, sans symbole monétaire (l'icône `coin` porte un « € »
+  qui suggère de l'argent à gagner → à éviter pour ce type de format).
+
 ## 2026-11-11 — Niche « Choisis ta team » (épisode 1)
 - Nouveau format : série quotidienne team vs team, résultat révélé le lendemain (raison concrète de
   s'abonner). Stratégie + 30 duels : `projects/team-vs-team-ep01/strategie-niche.md`.
