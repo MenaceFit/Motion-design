@@ -455,7 +455,7 @@ export const ArcadeCheck: React.FC<ArcadeProps> = ({captions, T}) => {
               <div key={l} style={{width: 310, padding: '12px 0', background: 'rgba(8,12,26,0.9)', border: `5px solid ${t >= a ? c : '#2a3c66'}`, textAlign: 'center',
                 opacity: t >= a ? 1 : 0.35, transform: `scale(${t >= a ? BACK(prog(t, a, 0.3)) : 1})`, boxShadow: '0 6px 0 #000'}}>
                 <div style={{fontFamily: PX, fontWeight: 700, fontSize: 28, color: '#9fb3da'}}>{l}</div>
-                <div style={{fontFamily: PX, fontWeight: 700, fontSize: 66, color: c, textShadow: '0 4px 0 #000'}}>{pre}{t >= a ? Math.round(v * OUT(prog(t, a, 0.8))) : 0}<span style={{fontFamily: 'Montserrat', fontWeight: 800, fontSize: 56, marginLeft: 4}}>€</span></div>
+                <div style={{fontFamily: 'Montserrat', fontWeight: 800, fontSize: 62, color: c, textShadow: '0 4px 0 #000'}}>{pre}{t >= a ? Math.round(v * OUT(prog(t, a, 0.8))) : 0}<span style={{fontFamily: 'Montserrat', fontWeight: 800, fontSize: 56, marginLeft: 4}}>€</span></div>
               </div>
             ))}
           </div>

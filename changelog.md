@@ -245,3 +245,7 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
 - `tools/analyze_reference.py` : `beat_track` (numba) provoquait un segfault sur ref09 → tempo par
   autocorrélation (`librosa.feature.tempo`) + grille de temps.
 - Police pixel : Pixelify Sans (Silkscreen écartée, chiffres ambigus).
+- Correctifs ArcadeCheck : € absent de Pixelify Sans (→ Montserrat) ; chiffres des compteurs de prix en
+  Montserrat 800 (5/8 et 2/8 confondus en pixel à petite taille). Rendu : `--concurrency=2`
+  (le rendu par défaut a fait redémarrer le conteneur, OOM probable) ; correctif de fin rendu seul
+  (`--frames=1260-1687`) puis raccordé par concat ffmpeg.
