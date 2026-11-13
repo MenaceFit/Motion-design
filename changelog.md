@@ -206,3 +206,11 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
 - `build_timeline.py` : coupes avec silence inséré + remap() des temps (sous-titres, plans, SFX).
 - v2 : photo de l'étiquette authentique fournie → la carte texte est remplacée par la photo (éclaircie
   brightness 1.45 / contrast 1.25 car impression ton sur ton) + ellipse menthe + « ÉCRITURE GRISÉE ✓ ».
+
+## 2026-11-13 — Legit check Nike Tech Kangourou
+- Nouvelle composition `TechCheck` (3 étapes : poches, logo de manche, étiquette rouge), briques partagées
+  avec `LegitCheck`/`PhenomCheck` (`Panel` paramétrable : position/taille).
+- Comparatif **côte à côte** (1.1 gauche / authentique droite, 500×780 sous le titre) plutôt qu'empilé :
+  les sous-titres (bas, ~1300–1450 px) ne masquent plus le panneau du bas. À privilégier pour les photos portrait.
+- Photos authentiques couchées / à l'envers redressées (rotation 90° / 180°) avant usage.
+- Critère « Made in China » présenté comme indice (« fortes chances »), pas comme preuve — formulation de l'utilisateur gardée.

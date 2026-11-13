@@ -19,26 +19,27 @@ const full = {w: 1080, h: 1920};
 
 const topShade = <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(8,16,14,0.7) 0%, rgba(8,16,14,0) 26%)'}} />;
 const shade = <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(8,16,14,0.6) 0%, rgba(8,16,14,0) 24%, rgba(8,16,14,0) 62%, rgba(8,16,14,0.5) 100%)'}} />;
-const TopBadge: React.FC<{kind: 'legit' | 'fake'; at: number}> = ({kind, at}) => (
+export const TopBadge: React.FC<{kind: 'legit' | 'fake'; at: number}> = ({kind, at}) => (
   <div style={{position: 'absolute', top: 150, left: 0, right: 0, display: 'flex', justifyContent: 'center'}}><Badge kind={kind} at={at} /></div>
 );
 
 // Panneau du comparatif empilé : média recadré + badge + verdict dans le coin.
-const Panel: React.FC<{m: Src; a: Focus; b: Focus; t0: number; t1: number; kind: 'legit' | 'fake'; top: number;
-  verdict: string; vAt: number; enter: number}> = ({m, a, b, t0, t1, kind, top, verdict, vAt, enter}) => {
+export const Panel: React.FC<{m: Src; a: Focus; b: Focus; t0: number; t1: number; kind: 'legit' | 'fake'; top: number;
+  verdict: string; vAt: number; enter: number; left?: number; width?: number; height?: number}> =
+  ({m, a, b, t0, t1, kind, top, verdict, vAt, enter, left = 40, width = 1000, height = 640}) => {
   const t = useT();
   const c = kind === 'legit' ? MINT : RED;
   const k = OUT(prog(t, enter, 0.6));
   return (
-    <div style={{position: 'absolute', top, left: 40, width: 1000, height: 640, borderRadius: 32, overflow: 'hidden',
+    <div style={{position: 'absolute', top, left, width, height, borderRadius: 32, overflow: 'hidden',
       border: `6px solid ${c}`, boxShadow: '0 20px 60px rgba(0,0,0,0.6)', opacity: k,
       transform: `translateX(${(1 - k) * (kind === 'fake' ? -900 : 900)}px)`}}>
-      <Framed m={m} a={a} b={b} t0={t0} t1={t1} w={988} h={628} />
+      <Framed m={m} a={a} b={b} t0={t0} t1={t1} w={width - 12} h={height - 12} />
       <div style={{position: 'absolute', top: 18, left: 18}}><Badge kind={kind} at={enter + 0.3} size={36} /></div>
       {t >= vAt ? (
-        <div style={{position: 'absolute', bottom: 22, left: 0, right: 0, display: 'flex', justifyContent: 'center'}}>
-          <div style={{background: 'rgba(8,16,14,0.85)', border: `4px solid ${c}`, borderRadius: 18, padding: '8px 26px',
-            fontFamily: 'Anton', fontSize: 56, color: c, letterSpacing: 2, transform: `scale(${BACK(prog(t, vAt, 0.4))})`}}>
+        <div style={{position: 'absolute', bottom: 22, left: 12, right: 12, display: 'flex', justifyContent: 'center'}}>
+          <div style={{background: 'rgba(8,16,14,0.85)', border: `4px solid ${c}`, borderRadius: 18, padding: '8px 22px', textAlign: 'center',
+            fontFamily: 'Anton', fontSize: width < 700 ? 44 : 56, lineHeight: 1.1, color: c, letterSpacing: 2, transform: `scale(${BACK(prog(t, vAt, 0.4))})`}}>
             {verdict} {kind === 'legit' ? '✓' : '✗'}
           </div>
         </div>
