@@ -26,15 +26,15 @@ export type Focus = {x: number; y: number; z: number};
 
 // Média recadré : le point focal (x,y normalisés) est amené vers le centre du cadre, zoom z (1 = cover).
 // Interpolation douce entre deux focus (Ken Burns piloté).
-export const Framed: React.FC<{m: Src; a: Focus; b: Focus; t0: number; t1: number; w: number; h: number; radius?: number; anchorY?: number; free?: boolean}> =
-  ({m, a, b, t0, t1, w, h, radius = 0, anchorY, free = false}) => {
+export const Framed: React.FC<{m: Src; a: Focus; b: Focus; t0: number; t1: number; w: number; h: number; radius?: number; anchorY?: number; anchorX?: number; free?: boolean}> =
+  ({m, a, b, t0, t1, w, h, radius = 0, anchorY, anchorX, free = false}) => {
   const t = useT();
   const k = INOUT(prog(t, t0, t1 - t0));
   const fx = a.x + (b.x - a.x) * k, fy = a.y + (b.y - a.y) * k, z = a.z + (b.z - a.z) * k;
   const s = Math.max(w / m.w, h / m.h) * z;
   const W = m.w * s, H = m.h * s;
-  const ay = anchorY ?? h / 2;
-  const left = free ? w / 2 - fx * W : Math.min(0, Math.max(w - W, w / 2 - fx * W));
+  const ay = anchorY ?? h / 2, ax = anchorX ?? w / 2;
+  const left = free ? ax - fx * W : Math.min(0, Math.max(w - W, ax - fx * W));
   const top = free ? ay - fy * H : Math.min(0, Math.max(h - H, ay - fy * H));
   const style: React.CSSProperties = {position: 'absolute', left, top, width: W, height: H, filter: m.filter};
   return (

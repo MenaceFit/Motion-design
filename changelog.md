@@ -214,3 +214,13 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
   les sous-titres (bas, ~1300–1450 px) ne masquent plus le panneau du bas. À privilégier pour les photos portrait.
 - Photos authentiques couchées / à l'envers redressées (rotation 90° / 180°) avant usage.
 - Critère « Made in China » présenté comme indice (« fortes chances »), pas comme preuve — formulation de l'utilisateur gardée.
+
+## 2026-11-13 — Legit check Tech NOIR (nouvelle DA « BlackTech »)
+- Nouvelle composition `BlackTech` : accroche question « VRAI OU FAUX ? » (pas de faux chiffre type « 90 % »),
+  barre de progression segmentée (rétention), comparatif plein écran à curseur qui balaie puis se pose,
+  verdicts géants qui claquent (scale 2.2→1 + secousse), glitch RVB sur le côté 1.1, palette noir/rouge/citron.
+- `Framed` : nouveau `anchorX` (point focal ancré au centre d'une moitié d'écran, cadrage cover sans vide).
+  Le mode `free` (z < 1) laisse des zones vides : à éviter en plein écran.
+- Voix du Tech gris réutilisée à la demande de l'utilisateur, recoupée : « trop petit » retiré (logo du 1.1 noir
+  plus gros sur les photos) et étape étiquette retirée (pas de photo d'étiquette du 1.1 noir).
+- Toujours vérifier la position d'un détail sur l'image réelle (crop de contrôle) avant de cadrer : logo mal localisé au 1er essai.
