@@ -1,0 +1,18 @@
+{
+  "slug": "jeton-chance-fortnite",
+  "prompt": "Vidéo « jeton porte-bonheur » pour joueurs Fortnite : abonne-toi pour activer le jeton et avoir plus de chance de faire Top 1. Pas de faux concours, pas d'asset Epic (jeton 3D original).",
+  "theme": "gold",
+  "font": "montserrat",
+  "entrance": "slam",
+  "fps": 60,
+  "climax_line": 2,
+  "voice": {"engine": "pico", "speed": 1.08},
+  "music": {"mood": "hype", "bpm": 126, "seed": 33},
+  "lines": [
+    {"text": "Joueur Fortnite ? Ne scrolle pas.", "accents": ["Fortnite"], "scene": {"type": "emoji", "emoji": "🎮"}},
+    {"text": "Voici le jeton de la chance.", "accents": ["jeton", "chance"], "scene": {"type": "icon", "icon": "coin"}},
+    {"text": "Abonne-toi pour l'activer.", "accents": ["abonne-toi"], "scene": {"type": "icon", "icon": "lock"}},
+    {"text": "Ta prochaine game ? Top 1.", "accents": ["Top"], "scene": {"type": "icon", "icon": "crown"}},
+    {"text": "Écris « activé » en commentaire.", "accents": ["activé"], "scene": {"type": "physics", "shape": "coin", "count": 18}}
+  ]
+}
