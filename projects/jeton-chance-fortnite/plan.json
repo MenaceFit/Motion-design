@@ -10,7 +10,7 @@
   "music": {"mood": "hype", "bpm": 126, "seed": 33},
   "lines": [
     {"text": "Joueur Fortnite ? Ne scrolle pas.", "accents": ["Fortnite"], "scene": {"type": "emoji", "emoji": "🎮"}},
-    {"text": "Voici le jeton de la chance.", "accents": ["jeton", "chance"], "scene": {"type": "icon", "icon": "coin"}},
+    {"text": "Voici le jeton de la chance.", "accents": ["jeton", "chance"], "scene": {"type": "icon", "icon": "token"}},
     {"text": "Abonne-toi pour l'activer.", "accents": ["abonne-toi"], "scene": {"type": "icon", "icon": "lock"}},
     {"text": "Ta prochaine game ? Top 1.", "accents": ["Top"], "scene": {"type": "icon", "icon": "crown"}},
     {"text": "Écris « activé » en commentaire.", "accents": ["activé"], "scene": {"type": "physics", "shape": "coin", "count": 18}}

@@ -153,6 +153,18 @@ const ICONS: Record<string, React.FC<IconProps>> = {
       <mesh position={[0, -0.12, 0]} rotation={[Math.PI / 2, 0, Math.PI]} geometry={glyphGeo('€', 1.0, 0.08)}><M c={c} m={0.9} r={0.2} e={0.15} /></mesh>
     </group></group>
   ),
+  // jeton porte-bonheur : disque doré + étoile en relief sur les deux faces (pas de symbole monétaire)
+  token: ({t, c}) => (
+    <group rotation={[0, t * 2.5, 0]}>
+      <mesh rotation={[Math.PI / 2, 0, 0]}><cylinderGeometry args={[1, 1, 0.2, 48]} /><M c={c} m={0.85} r={0.25} /></mesh>
+      {[0.1, -0.1].map((z) => <mesh key={z} position={[0, 0, z]}><torusGeometry args={[0.86, 0.045, 12, 64]} /><M c={c} m={0.9} r={0.2} e={0.15} /></mesh>)}
+      {[1, -1].map((sz) => (
+        <mesh key={sz} position={[0, 0, sz * 0.13]} rotation={[0, sz > 0 ? 0 : Math.PI, 0]} scale={[0.55, 0.55, 0.25]} geometry={extrude('star', () => starShape())}>
+          <M c={c} m={0.9} r={0.2} e={0.2} />
+        </mesh>
+      ))}
+    </group>
+  ),
   coins: ({t, c}) => (
     <group>
       {Array.from({length: 7}).map((_, i) => {
@@ -442,7 +454,7 @@ export const SceneLayer: React.FC<{s: SceneSpec; p: Palette; idx: number}> = ({s
   const still = s.type === 'physics';
   const rotY = still ? 0.25 * side : interpolate(inS, [0, 1], [side * 1.4, 0]) + Math.sin(t * 1.3) * 0.18 + out * side * 1.2;
   const y = (still ? 1.45 : 1.6 + Math.sin(t * 2) * 0.06) + out * 1.5; // marge haute : rien ne doit être coupé
-  const c = s.color ?? (s.type === 'icon' && ['coin', 'coins', 'trophy', 'crown', 'star'].includes(s.icon ?? '') ? GOLD : p.iconColor ?? p.accentFace);
+  const c = s.color ?? (s.type === 'icon' && ['coin', 'coins', 'token', 'trophy', 'crown', 'star'].includes(s.icon ?? '') ? GOLD : p.iconColor ?? p.accentFace);
   const c2 = s.color2 ?? p.face;
   let body: React.ReactNode = null;
   if (s.type === 'icon') body = <Thing name={s.icon ?? '?'} t={t} c={c} c2={c2} />;
