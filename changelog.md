@@ -1,5 +1,15 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-14 — Style Retro Sunset + overlays de série interactive
+
+- Nouveau thème `retro` (`tools/make_video.py`) + décor procédural `RetroDecor` (soleil rayé,
+  grille néon, palmiers) → fiche `references/visual-styles/retro-sunset.md`.
+- Nouveaux overlays `episode`, `gauge` (jauge d'abonnés à paliers) et `vote` (carte A/B/C + SFX)
+  dans `src/RetroOverlays.tsx`, branchés dans `Text3D` et `make_video.py`.
+- Premier épisode de la série « Vous construisez mon jeu » : `projects/serie-jeu-ep01/`.
+- Leçons : compteur 3D « 10 000 » déborde en 9:16 (→ « 10K ») ; la carte de vote masquait le
+  mot-clé 3D (→ texte en position basse pendant le vote).
+
 ## 2026-11-03 — Mise en place initiale
 
 ### Environnement

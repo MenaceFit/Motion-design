@@ -1,0 +1,157 @@
+{
+ "slug": "serie-jeu-ep01",
+ "prompt": "Épisode 1 de la série interactive « Vous construisez mon jeu Roblox » — style rétro sunset années 80 (principes synthwave, aucun asset GTA), hype GTA VI J-5, objectif 10k abonnés, vote du nom de la ville.",
+ "theme": "retro",
+ "font": "montserrat",
+ "fps": 60,
+ "voice": {
+  "engine": "pico",
+  "speed": 1.1
+ },
+ "music": {
+  "mood": "hype",
+  "bpm": 116,
+  "seed": 86
+ },
+ "climax_line": 3,
+ "decor": {
+  "type": "retro",
+  "horizon": 0.66
+ },
+ "episode": {
+  "label": "ÉP. 1",
+  "sub": "LA VILLE"
+ },
+ "gauge": {
+  "value": 0,
+  "goal": 10000,
+  "label": "OBJECTIF",
+  "milestones": [
+   {
+    "at": 1000,
+    "label": "1K"
+   },
+   {
+    "at": 5000,
+    "label": "5K"
+   },
+   {
+    "at": 10000,
+    "label": "SORTIE"
+   }
+  ]
+ },
+ "vote": {
+  "from_line": 7,
+  "title": "VOTE N°1 : LA VILLE",
+  "options": [
+   {
+    "key": "A",
+    "text": "NEON BAY"
+   },
+   {
+    "key": "B",
+    "text": "SUNRISE KEYS"
+   },
+   {
+    "key": "C",
+    "text": "PALMERA"
+   }
+  ]
+ },
+ "lines": [
+  {
+   "text": "Tout le monde attend GTA 6.",
+   "accents": [
+    "GTA"
+   ],
+   "scene": {
+    "type": "crowd",
+    "action": "idle",
+    "count": 9
+   }
+  },
+  {
+   "text": "Moi, je n'attends pas.",
+   "accents": [
+    "pas"
+   ],
+   "scene": {
+    "type": "crowd",
+    "action": "rise",
+    "count": 9
+   }
+  },
+  {
+   "text": "Je code mon propre jeu.",
+   "accents": [
+    "jeu"
+   ],
+   "scene": {
+    "type": "icon",
+    "icon": "gear"
+   }
+  },
+  {
+   "text": "Et c'est vous qui le construisez.",
+   "accents": [
+    "vous"
+   ],
+   "scene": {
+    "type": "physics",
+    "shape": "cube",
+    "count": 14
+   }
+  },
+  {
+   "text": "Chaque abonné aura son nom dans le jeu.",
+   "accents": [
+    "nom"
+   ],
+   "scene": {
+    "type": "icon",
+    "icon": "star"
+   }
+  },
+  {
+   "text": "Objectif : dix mille abonnés.",
+   "accents": [
+    "mille"
+   ],
+   "scene": {
+    "type": "counter",
+    "from": 0,
+    "to": 10,
+    "suffix": "K"
+   }
+  },
+  {
+   "text": "À dix mille, le jeu sort.",
+   "accents": [
+    "sort"
+   ],
+   "scene": {
+    "type": "icon",
+    "icon": "rocket"
+   }
+  },
+  {
+   "text": "Premier vote : le nom de la ville.",
+   "accents": [
+    "vote"
+   ]
+  },
+  {
+   "text": "Vote en commentaire !",
+   "accents": [
+    "commentaire"
+   ]
+  },
+  {
+   "text": "Abonne-toi pour voir le résultat.",
+   "accents": [
+    "Abonne-toi"
+   ]
+  }
+ ]
+}

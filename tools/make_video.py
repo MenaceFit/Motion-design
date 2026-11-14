@@ -5,7 +5,7 @@ Le plan est écrit par Claude à partir du prompt de l'utilisateur (voir skill p
 Schéma minimal :
 {
   "slug": "cerveau-raccourcis",
-  "theme": "neon",                       # neon | gold | ice | mono | fire | toxic (ou objet theme complet)
+  "theme": "neon",                       # neon | gold | ice | mono | fire | toxic | retro (ou objet theme complet)
   "font": "montserrat",                  # montserrat | montserratUp | anton | archivo
   "entrance": "flip",                    # flip | slam | twist
   "fps": 60,                             # 60 = fluidité max (rendu ~2x plus long que 30)
@@ -33,6 +33,8 @@ THEMES = {
     "ice":   {"bgTop": "#06213a", "bgBottom": "#01060d", "face": "#eaf8ff", "side": "#1d5f8c", "accentFace": "#39e6ff", "accentSide": "#063a52", "light": "#d6f3ff", "particles": "#9fe8ff", "captionAccent": "#39e6ff"},
     "mono":  {"bgTop": "#151515", "bgBottom": "#000000", "face": "#ffffff", "side": "#3a3a3a", "accentFace": "#ffffff", "accentSide": "#7a7a7a", "light": "#ffffff", "particles": "#ffffff", "glow": "#ffffff", "captionAccent": "#ffe14d"},
     "fire":  {"bgTop": "#2b0700", "bgBottom": "#070100", "face": "#fff1e0", "side": "#8a2a00", "accentFace": "#ff7a00", "accentSide": "#4a1200", "light": "#ffc58a", "particles": "#ffb070", "captionAccent": "#ffb000"},
+    "retro": {"bgTop": "#0b0220", "bgBottom": "#07010f", "face": "#fff4fb", "side": "#7a1f8f", "accentFace": "#ff2bd6", "accentSide": "#3a0638", "light": "#ffb3e6", "particles": "#ffd1f3",
+              "glow": "#ff4fd8", "accent2Face": "#22f1ff", "accent2Side": "#063a4a", "captionAccent": "#22f1ff"},
     "toxic": {"bgTop": "#0c1f08", "bgBottom": "#020601", "face": "#f2ffe9", "side": "#2c5a12", "accentFace": "#b6ff3b", "accentSide": "#2a4a06", "light": "#eaffd0", "particles": "#c8ff7a", "captionAccent": "#b6ff3b"},
 }
 
@@ -107,7 +109,7 @@ def main():
     a = ap.parse_args()
     plan = json.load(open(a.plan, encoding="utf-8"))
     slug = plan["slug"]
-    work = Path(a.out) / slug; work.mkdir(parents=True, exist_ok=True)
+    work = Path(a.out).resolve() / slug; work.mkdir(parents=True, exist_ok=True)
     fps = 30 if a.preview else plan.get("fps", 60)
     py = sys.executable
 
@@ -200,6 +202,12 @@ def main():
     for i, sc in enumerate(scenes):  # whoosh d'entrée de scène (pic au moment du pop) + pop léger
         plan_sfx.append({"src": f"{sfx_dir}/whoosh_in_0{1 + i % 3}.wav", "at": max(0, sc["start"] - 0.25), "volume": 0.22})
         plan_sfx.append({"src": f"{sfx_dir}/pop_0{1 + i % 2}.wav", "at": sc["start"] + 0.04, "volume": 0.3})
+    if plan.get("vote"):
+        vli = plan["vote"].get("from_line", order[-1])
+        v0 = firsts[vli] - 0.05
+        plan_sfx.append({"src": f"{sfx_dir}/whoosh_in_01.wav", "at": max(0, v0 - 0.2), "volume": 0.3})
+        for i in range(len(plan["vote"].get("options", []))):
+            plan_sfx.append({"src": f"{sfx_dir}/pop_0{1 + i % 2}.wav", "at": round(v0 + 0.35 + 0.32 * i + 0.05, 3), "volume": 0.4})
     json.dump(plan_sfx, open(work / "sfx.json", "w"), indent=1)
     mix = [py, TOOLS / "mix_audio.py", work / "master.wav", "--music", work / "music.wav", "--sfx", work / "sfx.json", "--duration", round(duration, 2)]
     if voice: mix += ["--voice", work / "voice.wav"]
@@ -223,6 +231,11 @@ def main():
              "progressBar": plan.get("progressBar", True), "scenes": scenes,
              **({"climaxAt": round(firsts[plan["climax_line"]] - 0.06, 3)} if plan.get("climax_line") is not None and plan["climax_line"] in firsts else {}), "shake": plan.get("shake", 1),
              "quality": "draft" if a.preview else "final"}
+    for k in ("decor", "episode", "gauge"):  # habillage + overlays de série (RetroOverlays.tsx)
+        if plan.get(k): props[k] = plan[k]
+    if plan.get("vote"):  # carte de vote : de la ligne `from_line` jusqu'à la fin
+        vli = plan["vote"].get("from_line", order[-1])
+        props["vote"] = {**{k: v for k, v in plan["vote"].items() if k != "from_line"}, "start": round(firsts[vli] - 0.05, 3), "end": round(duration + 0.4, 3)}
     json.dump(props, open(work / "props.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     if a.no_render:
         print("props prêtes :", work / "props.json"); return

@@ -17,6 +17,7 @@ import anton from './fonts3d/anton.json';
 import archivo from './fonts3d/archivo-black.json';
 import {Grain} from './KineticWords';
 import {SceneLayer, SceneSpec} from './Scenes3D';
+import {RetroDecor, DecorSpec, EpisodeBadge, EpisodeSpec, SubGauge, GaugeSpec, VoteCard, VoteSpec} from './RetroOverlays';
 
 const FONTS: Record<string, unknown> = {montserrat, montserratUp, anton, archivo};
 const loader = new FontLoader();
@@ -46,6 +47,10 @@ export type Text3DProps = {
   captions?: CaptionWord[]; // sous-titres karaoké (phrase complète, mot actif surligné)
   progressBar?: boolean; // barre de progression (incite à regarder jusqu'au bout)
   shake?: number; // intensité de l'impact caméra sur les mots accentués (0 = off)
+  decor?: DecorSpec; // décor 2D derrière le texte 3D (ex. « retro » : soleil rayé, grille néon, palmiers)
+  episode?: EpisodeSpec; // badge de série (« ÉP. 1 »)
+  gauge?: GaugeSpec; // jauge d'abonnés à paliers (série interactive)
+  vote?: VoteSpec; // carte de vote A/B/C en fin d'épisode
   dpr?: number; // résolution interne WebGL (0.75 = 2x plus rapide, quasi invisible après compression plateforme)
 };
 
@@ -375,7 +380,7 @@ const Rig: React.FC<{p: Text3DProps}> = ({p}) => {
         return (
           <Sequence key={i} from={from} durationInFrames={dur} layout="none">
             <Word w={w} p={p} dur={i === p.words.length - 1 ? dur + Math.round(fps * 0.6) : dur} maxWidth={visibleW * 0.74} idx={i} isLast={i === p.words.length - 1}
-              low={(p.scenes ?? []).some((sc) => w.start >= sc.start - 0.01 && w.start < sc.end)} />
+              low={(p.scenes ?? []).some((sc) => w.start >= sc.start - 0.01 && w.start < sc.end) || (!!p.vote && w.start >= p.vote.start - 0.01)} />
           </Sequence>
         );
       })}
@@ -411,6 +416,7 @@ export const Text3D: React.FC<Text3DProps> = (p) => {
           background: `linear-gradient(180deg, ${p.climax?.bgTop ?? '#3a1a05'} 0%, ${p.climax?.bgBottom ?? '#0a0402'} 100%)`}} />
       ) : null}
       <AbsoluteFill style={{background: 'radial-gradient(circle at 50% 45%, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0) 55%)'}} />
+      {p.decor?.type === 'retro' ? <RetroDecor d={p.decor} climaxAt={p.climaxAt} /> : null}
       <AbsoluteFill>
       <ThreeCanvas width={width} height={height} camera={{fov: FOV, position: [0, 0, CAM_Z]}} gl={{antialias: p.quality !== 'draft', alpha: true}} dpr={p.dpr ?? 1}>
         <Rig p={p} />
@@ -426,6 +432,13 @@ export const Text3D: React.FC<Text3DProps> = (p) => {
           <LottieOverlay spec={l} />
         </Sequence>
       ))}
+      {p.vote ? (
+        <Sequence from={Math.round(p.vote.start * fps)} durationInFrames={Math.max(2, Math.round((p.vote.end - p.vote.start) * fps))} layout="none">
+          <VoteCard v={p.vote} />
+        </Sequence>
+      ) : null}
+      {p.episode ? <EpisodeBadge e={p.episode} /> : null}
+      {p.gauge ? <SubGauge g={p.gauge} /> : null}
       {p.captions?.length ? <Captions words={p.captions} accent={p.theme.captionAccent ?? '#d7ff3a'} /> : null}
       {/* light sweep : barre lumineuse diagonale qui balaie l'écran à chaque nouvelle scène (ref02) */}
       {(p.scenes ?? []).map((sc, i) => {
