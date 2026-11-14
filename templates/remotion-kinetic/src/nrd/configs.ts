@@ -72,3 +72,26 @@ export const techfleeceCfg: Cfg = {
   outro: {alors: 27.86, combien: 28.34, ecris: 29.16, moi: 30.56, p1At: 31.34, revend: 32.08, p2At: 32.96, benefAt: 33.94,
     plugAt: 35.46, dmAt: 36.32, p1: '9€', p2: '85€', benef: '+76€', img: 'full_auth.jpg'},
 };
+
+// Zip Running Division vert — 1:1 = photo fournie, vrai = vidéo utilisateur ; voix Kevin v4, 38,3 s ; effets v2+v3+v4
+export const divisionCfg: Cfg = {
+  dir: 'division', duration: 39.1, quizEnd: 28.3, fx: true, fx2: true, fx3: true,
+  words: [[0, 0.82], [1.28, 2.18], [2.52, 3.24], [3.48, 3.94], [4.06, 4.5], [4.92, 5.5], [5.66, 6.36], [6.76, 7.38],
+    [7.76, 8.92], [9.48, 11.5], [11.8, 13.78], [14.26, 16.44], [16.96, 17.66], [18.06, 19.28], [19.54, 20.78],
+    [21.14, 22.94], [23.18, 25.76], [26.0, 28.24], [28.44, 29.38], [29.7, 30.94], [31.14, 32.44], [32.7, 34.82],
+    [35.22, 36.32], [36.56, 36.96], [37.3, 37.98]],
+  intro: {q: 1.28, three: 2.52, counts: [3.48, 4.06, 4.92], celui: 5.66, reveal: 6.1, compte: 6.76},
+  secs: [
+    {n: 1, title: 'LA COULEUR', at: 7.76, end: 14.26, imgs: ['color_fake.jpg', 'color_auth.jpg'],
+      fakeAt: 9.48, fakeCap: 'TERNE & GRISÂTRE', realAt: 11.8, realCap: 'VERT MENTHE VIF', plusAt: 13.6,
+      fakeBox: [0.2, 0.3, 0.6, 0.4], realBox: [0.15, 0.3, 0.7, 0.4], stampY: 0.74, swatches: ['#91A69A', '#94D2C5']},
+    {n: 2, title: "L'ÉCRITURE", sub: 'RUNNING DIVISION', at: 14.26, end: 21.14, imgs: ['writing_fake.jpg', 'writing_auth.jpg'],
+      fakeAt: 16.96, fakeMarkAt: 18.06, fakeCap: 'ÉCRITURE BLANCHE', realAt: 19.54, realCap: 'ÉCRITURE GRISÉE', plusAt: 20.6,
+      fakeBox: [0.25, 0.17, 0.5, 0.34], realBox: [0.08, 0.5, 0.76, 0.34], stampY: [0.72, 0.1]},
+    {n: 3, title: 'LES DÉTAILS', sub: 'ARAIGNÉE', at: 21.14, end: 28.7, imgs: ['spider_fake.jpg', 'spider_auth.jpg'],
+      fakeAt: 23.18, fakeMarkAt: 24.44, fakeCap: 'APPROXIMATIFS', realAt: 26.0, realCap: 'GRIS & BIEN TRACÉS', plusAt: 27.9,
+      fakeBox: [0.1, 0.08, 0.8, 0.62], realBox: [0.08, 0.06, 0.84, 0.6], stampY: 0.76},
+  ],
+  outro: {alors: 28.44, combien: 28.92, ecris: 29.7, moi: 31.14, p1At: 31.9, revend: 32.7, p2At: 34.42, benefAt: 35.22,
+    plugAt: 36.56, dmAt: 37.3, p1: '30€', p2: '110€', benef: '+80€', img: 'full_auth.jpg', rareAt: 32.94},
+};

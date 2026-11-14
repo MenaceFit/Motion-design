@@ -1,5 +1,13 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-14 (4) — Vidéo Zip Running Division vert (effets v4)
+- `fx3` : anneau de compte à rebours (jaune → rouge sur le 1), pastilles couleur avec hex mesuré sur les photos
+  (`swatches`, moyenne de pixels : 1:1 #91A69A, vrai #94D2C5), badge « MODÈLE RARE » (`outro.rareAt`), tampons placés
+  par carte (`stampY: [faux, vrai]`).
+- 1:1 = photo fournie par l'utilisateur, vrai = vidéo utilisateur. Script adapté à ce qu'on voit (1:1 terne/grisâtre,
+  pas « plus foncé ») pour éviter une incohérence image/voix.
+- 108 SFX (tic-tac de l'anneau, badge, pops des pastilles). QC : 39,2 s, -14,0 LUFS, TP -1,4 dBTP, synchro médiane -11 ms.
+
 ## 2026-11-14 (3) — Vidéo Tech Fleece kangourou (effets v3)
 - Nouveaux effets `fx2` : tampons « 1:1 » (rouge) et « LEGIT ✓ » (vert) qui s'écrasent sur les cartes (scale 1,7→1 + shake),
   position réglable par section (`stampY`) pour ne pas masquer le détail ; balayage lumineux jaune entre les étapes.

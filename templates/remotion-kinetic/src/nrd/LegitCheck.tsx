@@ -18,13 +18,15 @@ export type Sec = {
   fakeAt: number; fakeMarkAt?: number; fakeCap: string; realAt: number; realCap: string; plusAt: number;
   fakeBox: [number, number, number, number]; realBox: [number, number, number, number]; // x,y,w,h (fractions de carte)
   checklist?: [string, number][];
-  stampY?: number; // position verticale des tampons (fraction de carte)
+  stampY?: number | [number, number]; // position verticale des tampons (fraction de carte), commune ou [faux, vrai]
+  swatches?: [string, string]; // couleurs mesurées (hex) affichées en pastilles [faux, vrai]
 };
 export type Cfg = {
   dir: string; duration: number; words: [number, number][]; secs: Sec[]; quizEnd: number;
   intro: {q: number; three: number; counts: [number, number, number]; celui: number; reveal: number; compte: number};
   outro: {alors: number; combien: number; ecris: number; moi: number; p1At: number; revend: number; p2At: number;
-    benefAt: number; plugAt: number; dmAt: number; p1: string; p2: string; benef: string; img: string};
+    benefAt: number; plugAt: number; dmAt: number; p1: string; p2: string; benef: string; img: string; rareAt?: number};
+  fx3?: boolean; // effets « v4 » : anneau du compte à rebours, pastilles couleur, badge modèle rare
   fx2?: boolean; // effets « v3 » : tampons 1:1 / LEGIT sur les cartes, balayage entre les étapes
   fx?: boolean; // effets « v2 » : focus carte, balayage lumineux, saut du perso, compteurs animés, punch caméra
 };
@@ -318,8 +320,17 @@ const QuizCards: React.FC<{t: number}> = ({t}) => {
         <Mark ok={false} x={CARD_X[0]} t={t} at={sec.fakeMarkAt ?? sec.fakeAt} />
         <Mark ok x={CARD_X[1]} t={t} at={sec.realAt} />
         <Sparkles x={CARD_X[1]} t={t} at={sec.realAt} />
-        {K.fx2 && <><Stamp x={CARD_X[0]} t={t} at={(sec.fakeMarkAt ?? sec.fakeAt) + 0.05} text="1:1" color={C.red} y={sec.stampY} />
-          <Stamp x={CARD_X[1]} t={t} at={sec.realAt + 0.3} text="LEGIT ✓" color={C.green} y={sec.stampY} /></>}
+        {K.fx2 && <><Stamp x={CARD_X[0]} t={t} at={(sec.fakeMarkAt ?? sec.fakeAt) + 0.05} text="1:1" color={C.red} y={Array.isArray(sec.stampY) ? sec.stampY[0] : sec.stampY} />
+          <Stamp x={CARD_X[1]} t={t} at={sec.realAt + 0.3} text="LEGIT ✓" color={C.green} y={Array.isArray(sec.stampY) ? sec.stampY[1] : sec.stampY} /></>}
+        {sec.swatches && [0, 1].map((i) => {
+          const at = i === 0 ? sec.fakeAt : sec.realAt;
+          return t >= at ? <div key={'sw' + i} style={{position: 'absolute', left: CARD_X[i], width: CARD_W, top: CARD_Y + CARD_H + 78, display: 'flex', justifyContent: 'center',
+            transform: `scale(${pop(t, at + 0.15)})`}}>
+            <div style={{display: 'flex', alignItems: 'center', gap: 12, background: 'rgba(5,10,24,.8)', border: `4px solid ${i === 0 ? C.red : C.green}`, borderRadius: 30, padding: '6px 18px 6px 8px'}}>
+              <div style={{width: 40, height: 40, borderRadius: '50%', background: sec.swatches![i], border: '4px solid #fff'}} />
+              <div style={{fontFamily: F, fontWeight: 700, fontSize: 26, color: C.white}}>{sec.swatches![i]}</div>
+            </div></div> : null;
+        })}
         <CardLabel x={CARD_X[0]} text={sec.fakeCap} color={C.red} t={t} at={sec.fakeAt} />
         <CardLabel x={CARD_X[1]} text={sec.realCap} color={C.green} t={t} at={sec.realAt} />
         {sec.checklist && t < sec.realAt + 0.01 && sec.checklist.map(([s, at], j) => t >= at ? (
@@ -347,10 +358,19 @@ const Titles: React.FC<{t: number}> = ({t}) => {
     const n = t < K.intro.counts[1] ? 3 : t < K.intro.counts[2] ? 2 : 1;
     const at = [K.intro.counts[0], K.intro.counts[1], K.intro.counts[2]][3 - n];
     return <>
-      <Txt size={150} color={C.yellow} style={{...box, top: top - 70, textAlign: 'center', transform: `scale(${pop(t, at, 0.3)})`}}>{n}</Txt>
-      <Txt size={40} style={{...box, top: top + 90, textAlign: 'center'}}>GAUCHE <span style={{color: C.yellow}}>OU</span> DROITE ?</Txt>
+      {K.fx3 && (() => {
+        const p = interpolate(t, [at, at + (n > 1 ? K.intro.counts[3 - n + 1] - at : K.intro.celui - at)], [1, 0], clamp);
+        const r = 128, c = 2 * Math.PI * r;
+        return <svg width={300} height={300} style={{position: 'absolute', left: W / 2 - 150, top: top - 130, transform: `scale(${pop(t, at, 0.3)})`}}>
+          <circle cx={150} cy={150} r={r} fill="rgba(5,10,24,.6)" stroke="#2a3a66" strokeWidth={18} />
+          <circle cx={150} cy={150} r={r} fill="none" stroke={n === 1 ? C.red : C.yellow} strokeWidth={18} strokeDasharray={c} strokeDashoffset={c * (1 - p)}
+            transform="rotate(-90 150 150)" strokeLinecap="butt" />
+        </svg>;
+      })()}
+      <Txt size={150} color={n === 1 && K.fx3 ? C.red : C.yellow} style={{...box, top: top - 70, textAlign: 'center', transform: `scale(${pop(t, at, 0.3)})`}}>{n}</Txt>
+      {!K.fx3 && <><Txt size={40} style={{...box, top: top + 90, textAlign: 'center'}}>GAUCHE <span style={{color: C.yellow}}>OU</span> DROITE ?</Txt>
       <div style={{position: 'absolute', left: W / 2 - 200, top: top + 150, height: 8, background: C.yellow,
-        width: 400 * interpolate(t, [K.intro.counts[0], K.intro.celui], [1, 0], clamp)}} />
+        width: 400 * interpolate(t, [K.intro.counts[0], K.intro.celui], [1, 0], clamp)}} /></>}
     </>;
   }
   if (t < K.intro.compte) return <>
@@ -411,6 +431,10 @@ const Outro: React.FC<{t: number}> = ({t}) => {
       </div>
       {/* sticker 50 € */}
       {t >= K.outro.p1At && <Sticker t={t} at={K.outro.p1At} x={second ? 150 : 640} y={second ? 900 : 860} text={K.outro.p1} color={C.yellow} strike={second} small={second} />}
+      {K.outro.rareAt !== undefined && t >= K.outro.rareAt && <div style={{position: 'absolute', left: 0, width: W, top: 292, display: 'flex', justifyContent: 'center',
+        transform: `scale(${pop(t, K.outro.rareAt, 0.32)}) rotate(-3deg)`}}>
+        <Chip label="★ MODÈLE RARE ★" bg={C.yellow} size={32} style={{boxShadow: `6px 6px 0 ${C.ink}, 0 0 40px rgba(255,210,63,.7)`}} />
+      </div>}
       {second && t >= K.outro.p2At && <Sticker t={t} at={K.outro.p2At} x={640} y={820} text={K.outro.p2} color={C.green} />}
     </>;
   }
