@@ -1,5 +1,12 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-14 (5) — Vidéo bas Under Armour hybrid
+- 1:1 = photos d'annonce fournies (filigrane exclu du cadrage), vrai = photos utilisateur. Les captures « différences »
+  d'un autre créateur servent seulement à apprendre les critères, jamais affichées.
+- Étapes : matière hybride (deux noirs), logo (réfléchissant / gris mat), dos (mollets brillants / uniforme).
+  Le critère « écriture brillante de la ceinture » n'est pas montré : pas de photo de la ceinture du 1:1.
+- 105 SFX ; effets v2+v3+v4. QC OK.
+
 ## 2026-11-14 (4) — Vidéo Zip Running Division vert (effets v4)
 - `fx3` : anneau de compte à rebours (jaune → rouge sur le 1), pastilles couleur avec hex mesuré sur les photos
   (`swatches`, moyenne de pixels : 1:1 #91A69A, vrai #94D2C5), badge « MODÈLE RARE » (`outro.rareAt`), tampons placés

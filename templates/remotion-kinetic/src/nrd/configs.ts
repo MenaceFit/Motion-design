@@ -95,3 +95,26 @@ export const divisionCfg: Cfg = {
   outro: {alors: 28.44, combien: 28.92, ecris: 29.7, moi: 31.14, p1At: 31.9, revend: 32.7, p2At: 34.42, benefAt: 35.22,
     plugAt: 36.56, dmAt: 37.3, p1: '30€', p2: '110€', benef: '+80€', img: 'full_auth.jpg', rareAt: 32.94},
 };
+
+// Bas Under Armour hybrid — 1:1 = photos 4-6, vrai = photos 7-10 ; voix Kevin v4, 38,3 s ; effets v2+v3+v4
+export const underarmourCfg: Cfg = {
+  dir: 'underarmour', duration: 39.0, quizEnd: 28.45, fx: true, fx2: true, fx3: true,
+  words: [[0, 0.78], [1.12, 2.1], [2.44, 3.18], [3.46, 3.94], [4.02, 4.6], [5.1, 5.4], [5.78, 6.56], [6.9, 7.54],
+    [7.92, 9.56], [9.98, 11.84], [12.2, 14.1], [14.48, 15.72], [16.1, 17.78], [18.28, 19.52], [19.78, 21.54],
+    [21.9, 23.2], [23.5, 26.0], [26.18, 28.54], [28.54, 29.78], [30.06, 31.24], [31.46, 32.76], [33.04, 34.38],
+    [34.88, 35.92], [36.3, 36.72], [37.0, 37.74]],
+  intro: {q: 1.12, three: 2.44, counts: [3.46, 4.02, 5.1], celui: 5.78, reveal: 6.36, compte: 6.9},
+  secs: [
+    {n: 1, title: 'LA MATIÈRE', sub: 'HYBRIDE', at: 7.92, end: 14.48, imgs: ['panel_fake.jpg', 'panel_auth.jpg'],
+      fakeAt: 9.98, fakeCap: 'DEUX NOIRS', realAt: 12.2, realCap: 'MÊME NOIR PARTOUT', plusAt: 13.8,
+      fakeBox: [0.05, 0.3, 0.9, 0.4], realBox: [0.05, 0.2, 0.9, 0.45], stampY: 0.78},
+    {n: 2, title: 'LE LOGO', at: 14.48, end: 21.9, imgs: ['logo_fake.jpg', 'logo_auth.jpg'],
+      fakeAt: 16.1, fakeMarkAt: 18.28, fakeCap: 'RÉFLÉCHISSANT', realAt: 19.78, realCap: 'GRIS & MAT', plusAt: 21.0,
+      fakeBox: [0.15, 0.55, 0.55, 0.25], realBox: [0.28, 0.25, 0.42, 0.3], stampY: [0.12, 0.72]},
+    {n: 3, title: 'LE DOS', at: 21.9, end: 28.85, imgs: ['back_fake.jpg', 'back_auth.jpg'],
+      fakeAt: 23.5, fakeCap: 'MOLLETS BRILLANTS', realAt: 26.18, realCap: 'MAT & UNIFORME', plusAt: 27.95,
+      fakeBox: [0.1, 0.5, 0.8, 0.32], realBox: [0.1, 0.5, 0.8, 0.32], stampY: 0.16},
+  ],
+  outro: {alors: 28.54, combien: 29.16, ecris: 30.06, moi: 31.46, p1At: 32.22, revend: 33.04, p2At: 33.94, benefAt: 34.88,
+    plugAt: 36.3, dmAt: 37.0, p1: '30€', p2: '160€', benef: '+130€', img: 'full_auth.jpg'},
+};
