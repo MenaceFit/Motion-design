@@ -268,3 +268,6 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
 - Typo : police mixte via @font-face unicode-range — lettres Silkscreen (C ouvert ; le C de Pixelify
   se lit « O ») + chiffres Pixelify Sans (le 4 de Silkscreen se lit « q »). `src/assets.d.ts` pour les .woff2.
 - Secousse d'écran (décroissance exp.) sur la révélation, les verdicts ✗ et « t'en avais combien ».
+- Bug v2 : clé `cards` absente de la timeline → animation d'entrée des cartes cassée (NaN). Toujours
+  vérifier que toutes les clés T utilisées par la composition existent (Object.keys vs grep `T\.`).
+- CTA final déplacé en haut (2 lignes) : trop large en bas et superposé à la mascotte.

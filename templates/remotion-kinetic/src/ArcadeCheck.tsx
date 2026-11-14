@@ -418,7 +418,14 @@ export const ArcadeCheck: React.FC<ArcadeProps> = ({captions, T}) => {
       {seg(T.s5, T.end, (
         <AbsoluteFill>
           <Card img="legit_full" x={305} tag={REAL} tagAt={T.s5 + 0.3} enter={T.s5} verdict={{at: T.stamp, ok: true, lines: []}} />
-          <div style={{position: 'absolute', top: 140, left: 0, right: 0, textAlign: 'center'}}><Typed text="LE VRAI DIVISION" at={T.s5 + 0.2} size={60} cps={30} color={C.green} glow="rgba(47,227,107,0.6)" /></div>
+          {t < T.cta ? (
+            <div style={{position: 'absolute', top: 140, left: 0, right: 0, textAlign: 'center'}}><Typed text="LE VRAI DIVISION" at={T.s5 + 0.2} size={60} cps={30} color={C.green} glow="rgba(47,227,107,0.6)" /></div>
+          ) : (
+            <div style={{position: 'absolute', top: 175, left: 0, right: 0, textAlign: 'center', lineHeight: 1.25}}>
+              <Typed text="LE PLUG ?" at={T.cta} size={64} cps={40} color={C.green} glow="rgba(47,227,107,0.7)" /><br />
+              <Typed text="ÉCRIS-MOI EN DM" at={T.cta + 0.35} size={56} cps={40} color={C.yellow} glow="rgba(255,210,63,0.6)" />
+            </div>
+          )}
           <div style={{position: 'absolute', top: 1070, left: 40, right: 40, display: 'flex', justifyContent: 'space-between'}}>
             {([['PAYÉ', 50, T.p50, '#fff', ''], ['REVENTE', 180, T.p180, C.yellow, ''], ['BÉNEF', 120, T.p120, C.green, '+']] as [string, number, number, string, string][]).map(([l, v, a, c, pre]) => (
               <div key={l} style={{width: 310, padding: '12px 0', background: 'rgba(8,12,26,0.9)', border: `5px solid ${t >= a ? c : '#2a3c66'}`, textAlign: 'center',
@@ -428,7 +435,7 @@ export const ArcadeCheck: React.FC<ArcadeProps> = ({captions, T}) => {
               </div>
             ))}
           </div>
-          <Big top={1262} at={T.cta} size={58}><span style={{color: C.green}}>LE PLUG ?</span> ÉCRIS-MOI EN DM</Big>
+          
         </AbsoluteFill>
       ))}
 

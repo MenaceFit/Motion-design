@@ -41,7 +41,7 @@ FIX = {"arémiers.": "araignées.", "bénéfices.": "de bénef.", "180.": "180 �
 caps = [{"text": FIX.get(x["text"], x["text"]), "start": f(x["start"]), "end": f(x["end"]), "accent": False} for x in m]
 
 # 3) plans (temps de la voix d'origine → f)
-T0 = dict(title=0.0, question=1.2, three=2.1, cd3=3.1, cd2=3.8, cd1=4.7, reveal=5.6, compte=6.8,
+T0 = dict(title=0.0, cards=0.9, question=1.2, three=2.1, cd3=3.1, cd2=3.8, cd1=4.7, reveal=5.6, compte=6.8,
           s1=7.6, noir=10.1, gris=12.5, s2=13.2, place=14.6, droit=15.5, petit=16.2, pt2=17.5,
           s3=18.3, blanc=20.1, grise=23.1, s4=24.0, precis=27.0, pasprecis=28.9,
           score=29.8, scoreQ=31.8, comment=32.8, s5=34.05, p50=35.0, p180=36.6, p120=38.0, stamp=38.5, cta=39.1)
