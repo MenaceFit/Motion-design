@@ -1,5 +1,12 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-14 (6) — Format « comment différencier » (mode howto)
+- `mode: 'howto'` : intro « COMMENT DIFFÉRENCIER » + nom du produit, cartes étiquetées 1:1 / AUTHENTIQUE d'emblée,
+  pastille VS, tampons ; chips « ÉTAPE n/N » ; HUD dès la 1re étape ; pas de « t'en avais combien » (bloc sauté en
+  posant alors = combien = écris = moi).
+- Leçon : en howto, finir la dernière section *avant* « moi » (quizEnd ≈ moi − 0,3 s), sinon titres et cartes se chevauchent.
+- Under Armour hybrid howto : 34,1 s, 85 SFX, QC OK.
+
 ## 2026-11-14 (5) — Vidéo bas Under Armour hybrid
 - 1:1 = photos d'annonce fournies (filigrane exclu du cadrage), vrai = photos utilisateur. Les captures « différences »
   d'un autre créateur servent seulement à apprendre les critères, jamais affichées.

@@ -119,8 +119,18 @@ export const underarmourCfg: Cfg = {
     plugAt: 36.3, dmAt: 37.0, p1: '30€', p2: '160€', benef: '+130€', img: 'full_auth.jpg'},
 };
 
-// Format « comment différencier » — Under Armour hybrid. Timings provisoires : remplacés après transcription de la voix.
+// Format « comment différencier » — Under Armour hybrid, voix Kevin v4 (33,1 s)
 export const underarmourHowtoCfg: Cfg = {
-  ...underarmourCfg, mode: 'howto', product: 'BAS UNDER ARMOUR HYBRID',
-  intro: {q: 1.2, three: 0, counts: [0, 0, 0], celui: 0, reveal: 3.4, compte: 5.6},
+  ...underarmourCfg, mode: 'howto', product: 'BAS UNDER ARMOUR HYBRID', duration: 34.0, quizEnd: 25.95,
+  words: [[0, 4.12], [4.12, 4.74], [5.1, 6.68], [7.02, 9.4], [9.74, 11.7], [12.06, 13.2], [13.6, 15.28], [15.68, 16.86],
+    [17.1, 18.92], [19.24, 20.46], [20.8, 23.54], [23.76, 26.1], [26.26, 27.78], [27.78, 29.4], [29.84, 31.06],
+    [31.3, 31.76], [32.16, 32.76]],
+  intro: {q: 0.96, three: 0, counts: [0, 0, 0], celui: 0, reveal: 2.6, compte: 4.12},
+  secs: [
+    {...underarmourCfg.secs[0], at: 5.1, end: 12.06, fakeAt: 7.02, realAt: 9.74, plusAt: 11.4},
+    {...underarmourCfg.secs[1], at: 12.06, end: 19.24, fakeAt: 13.6, fakeMarkAt: 15.68, realAt: 17.1, plusAt: 18.5},
+    {...underarmourCfg.secs[2], at: 19.24, end: 26.25, fakeAt: 20.8, realAt: 23.76, plusAt: 25.6},
+  ],
+  outro: {...underarmourCfg.outro, alors: 26.26, combien: 26.26, ecris: 26.26, moi: 26.26, p1At: 27.26, revend: 27.78, p2At: 28.88,
+    benefAt: 29.84, plugAt: 31.3, dmAt: 32.16},
 };
