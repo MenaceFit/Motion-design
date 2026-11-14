@@ -1,5 +1,14 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-14 (2) — LegitCheck paramétrable + vidéo Phenom Elite (v2 des effets)
+- `LegitCheck.tsx` piloté par une config (`src/nrd/configs.ts` : nrdCfg, phenomCfg) → une nouvelle vidéo = images + timings Whisper.
+  Nombre de détails libre (score « ?/N »), sous-titre de section, marque ✗ décalée (`fakeMarkAt`).
+- Effets v2 (`fx: true`) : focus sur la carte commentée (zoom 6 %, l'autre s'assombrit), balayage lumineux sur le vrai,
+  saut du personnage sur chaque « vrai », punch caméra sur les coupes, prix et bénef qui comptent jusqu'à leur valeur.
+- Phenom Elite : 9 images extraites de la vidéo de l'utilisateur (zones sans texte incrusté), voix Roger v4, 80 SFX
+  (riser avant la révélation, whoosh de focus, ticks de compteur sur les prix).
+- Leçon : ElevenLabs a d'abord rendu seulement le 1er paragraphe (8,75 s) → coller le script en un seul bloc et vérifier la durée.
+
 ## 2026-11-14 — Quiz legit-check pixel (ref09/ref10) + vidéo « bas NRD : 1:1 vs authentique »
 - 2 nouvelles références analysées (contact sheets, transcription Whisper small, tempo 117,5 BPM) →
   nouvelle fiche `visual-styles/pixel-legit-quiz.md` (format réellement nouveau : quiz vrai/faux + personnage pixel).

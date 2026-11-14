@@ -11,6 +11,7 @@ import {TeddyEpisode2} from './teddy/Episode2';
 import {ProfilePic, profilePicDefaults} from './teddy/ProfilePic';
 import {TeddyEpisode3} from './teddy/Episode3';
 import {LegitCheck} from './nrd/LegitCheck';
+import {nrdCfg, phenomCfg} from './nrd/configs';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -69,6 +70,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="TeddyEp03" component={TeddyEpisode3} width={1080} height={1920} fps={60} durationInFrames={3600}
       defaultProps={episodeDefaults} calculateMetadata={({props}) => ({durationInFrames: Math.ceil(props.duration * 60)})} />
     {/* Quiz legit-check pixel (ref09/ref10) — bas Nike Running Division : 1:1 vs authentique */}
-    <Composition id="LegitCheck" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={1245} />
+    <Composition id="LegitCheck" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={1245} defaultProps={{cfg: nrdCfg}} />
+    <Composition id="LegitCheckPhenom" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(phenomCfg.duration * 30)} defaultProps={{cfg: phenomCfg}} />
   </>
 );
