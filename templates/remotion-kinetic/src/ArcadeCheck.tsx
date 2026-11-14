@@ -5,14 +5,20 @@
 // Mascotte (Mascot.tsx), décor et textes : originaux (aucun élément de la référence n'est réutilisé).
 import React from 'react';
 import {AbsoluteFill, Img, Sequence, staticFile, useVideoConfig} from 'remotion';
-import '@fontsource/pixelify-sans/500.css';
-import '@fontsource/pixelify-sans/700.css';
+import '@fontsource/silkscreen/400.css';
+import '@fontsource/silkscreen/700.css';
+import digitsFont from '@fontsource/pixelify-sans/files/pixelify-sans-latin-700-normal.woff2';
 import '@fontsource/montserrat/800.css';  // glyphes absents de la police pixel (€)
 import {CaptionWord} from './Captions';
 import {BACK, OUT, prog, Offset, useT} from './LegitCheck';
 import {Mascot, Pose} from './Mascot';
 
-const PX = 'Pixelify Sans';
+// Lettres en Silkscreen (C bien ouvert ; dans Pixelify le C se lit « O ») + chiffres en Pixelify Sans
+// (dans Silkscreen le 4 se lit « q ») : police mixte par unicode-range.
+const PX = "'PixDigits', 'Silkscreen'";
+const FontMix = () => (
+  <style>{`@font-face{font-family:'PixDigits';src:url(${digitsFont}) format('woff2');font-weight:100 900;unicode-range:U+0030-0039,U+002F;}`}</style>
+);
 const C = {bg0: '#0a1226', bg1: '#04060e', stair: '#0e1a33', blue: '#3d8bff', red: '#ff3b4a', green: '#2fe36b',
   yellow: '#ffd23f', ink: '#04060e', card: '#cdd6e8'};
 const IMG = 'projects/division/cards/';
@@ -226,7 +232,7 @@ const PixelCaptions: React.FC<{words: CaptionWord[]}> = ({words}) => {
   const page = pages[idx];
   if (t > page[page.length - 1].end + 0.6) return null;
   return (
-    <div style={{position: 'absolute', top: 1222, left: 40, right: 40, textAlign: 'center'}}>
+    <div style={{position: 'absolute', top: 1186, left: 40, right: 40, textAlign: 'center'}}>
       {page.map((w, i) => {
         const active = t >= w.start && (i + 1 < page.length ? t < page[i + 1].start : true);
         return <span key={i} style={{display: 'inline-block', margin: '0 12px', fontFamily: PX, fontWeight: 700, fontSize: 50, letterSpacing: 1,
@@ -300,7 +306,15 @@ export const ArcadeCheck: React.FC<ArcadeProps> = ({captions, T}) => {
   ));
 
   return (
-    <AbsoluteFill style={{background: C.bg1}}>
+    <AbsoluteFill style={{background: C.bg1, transform: (() => {
+      // secousse d'impact (révélation + verdicts ✗) : décroissance exponentielle, déterministe
+      const hits = [T.reveal, T.noir, T.blanc, T.pasprecis, T.scoreQ];
+      const h = hits.filter((x) => t >= x && t < x + 0.35).pop();
+      if (h === undefined) return undefined;
+      const d = t - h, e = Math.exp(-d * 12) * 14;
+      return `translate(${Math.sin(d * 95) * e}px, ${Math.cos(d * 70) * e}px)`;
+    })()}}>
+      <FontMix />
       <Stage tint={t >= T.reveal && !inScore && !inOutro ? 'split' : 'none'} tintAt={splitAt}
         rays={inScore ? 'rgba(255,210,63,0.55)' : inOutro ? 'rgba(47,227,107,0.5)' : undefined} raysAt={inScore ? T.score : T.s5} />
 

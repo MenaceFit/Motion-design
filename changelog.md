@@ -257,3 +257,14 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
 - `Mascot.tsx` : sprite 20×27, poses idle/left/right/think/cheer, clignement, rebond, ombre ; composition
   `MascotSheet` (planche des poses). `ArcadeCheck` utilise désormais cette mascotte.
 - Lisibilité pixel : une casquette se lit si la visière n'est PAS plus large que la calotte (sinon chapeau melon).
+
+## 2026-11-14 — Arcade v2 : voix ElevenLabs + mascotte moodboard
+- Voix ElevenLabs (script écrit pour le format jeu) : tout le montage est calé dessus dès 0 s
+  (`build_arcade_v2.py`), traitement léger (EQ présence, compression 3:1, petite pièce 6 %),
+  +1,2 s de silence après « écris ton score en commentaire ».
+- Mascotte mise à jour sur le moodboard de l'utilisateur : casquette noire à l'envers, capuche
+  autour du cou + cordons, tech gris clair, jogging à poche zippée, chaussettes blanches, TN noires,
+  sacoche monogrammée noire sangle rouge/verte.
+- Typo : police mixte via @font-face unicode-range — lettres Silkscreen (C ouvert ; le C de Pixelify
+  se lit « O ») + chiffres Pixelify Sans (le 4 de Silkscreen se lit « q »). `src/assets.d.ts` pour les .woff2.
+- Secousse d'écran (décroissance exp.) sur la révélation, les verdicts ✗ et « t'en avais combien ».

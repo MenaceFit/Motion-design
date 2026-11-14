@@ -1,0 +1,367 @@
+[
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/typewriter_01.wav",
+"at": 0.05,
+"volume": 0.3
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/whoosh_in_01.wav",
+"at": 0.9,
+"volume": 0.42
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/pop_01.wav",
+"at": 1.15,
+"volume": 0.42
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/pop_02.wav",
+"at": 1.35,
+"volume": 0.42
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/blip_up_02.wav",
+"at": 2.1,
+"volume": 0.3
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/riser_01.wav",
+"at": 3.1,
+"volume": 0.22
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_01.wav",
+"at": 3.1,
+"volume": 0.55
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_01.wav",
+"at": 3.8,
+"volume": 0.55
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_01.wav",
+"at": 4.7,
+"volume": 0.55
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/glitch_01.wav",
+"at": 5.6,
+"volume": 0.38
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/sub_hit_01.wav",
+"at": 5.6,
+"volume": 0.42
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/blip_up_01.wav",
+"at": 5.75,
+"volume": 0.45
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/blip_down_01.wav",
+"at": 5.65,
+"volume": 0.38
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/shimmer_01.wav",
+"at": 5.8,
+"volume": 0.32
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/glitch_02.wav",
+"at": 7.55,
+"volume": 0.28
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/swish_01.wav",
+"at": 7.6,
+"volume": 0.38
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/glitch_02.wav",
+"at": 13.15,
+"volume": 0.28
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/swish_01.wav",
+"at": 13.2,
+"volume": 0.38
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/glitch_02.wav",
+"at": 18.25,
+"volume": 0.28
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/swish_01.wav",
+"at": 18.3,
+"volume": 0.38
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/glitch_02.wav",
+"at": 23.95,
+"volume": 0.28
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/swish_01.wav",
+"at": 24.0,
+"volume": 0.38
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/blip_down_01.wav",
+"at": 10.1,
+"volume": 0.42
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/sub_hit_02.wav",
+"at": 10.1,
+"volume": 0.22
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/blip_down_01.wav",
+"at": 20.1,
+"volume": 0.42
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/sub_hit_02.wav",
+"at": 20.1,
+"volume": 0.22
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/blip_down_01.wav",
+"at": 28.9,
+"volume": 0.42
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/sub_hit_02.wav",
+"at": 28.9,
+"volume": 0.22
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/click_02.wav",
+"at": 14.6,
+"volume": 0.38
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/click_02.wav",
+"at": 15.5,
+"volume": 0.38
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/click_02.wav",
+"at": 16.2,
+"volume": 0.38
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/blip_up_01.wav",
+"at": 12.5,
+"volume": 0.42
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/shimmer_02.wav",
+"at": 12.58,
+"volume": 0.28
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/blip_up_01.wav",
+"at": 17.5,
+"volume": 0.42
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/shimmer_02.wav",
+"at": 17.58,
+"volume": 0.28
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/blip_up_01.wav",
+"at": 23.1,
+"volume": 0.42
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/shimmer_02.wav",
+"at": 23.18,
+"volume": 0.28
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/blip_up_01.wav",
+"at": 27.0,
+"volume": 0.42
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/shimmer_02.wav",
+"at": 27.08,
+"volume": 0.28
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/glitch_01.wav",
+"at": 29.8,
+"volume": 0.32
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/sub_hit_02.wav",
+"at": 31.8,
+"volume": 0.38
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/pop_03.wav",
+"at": 32.8,
+"volume": 0.42
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/whoosh_in_02.wav",
+"at": 35.15,
+"volume": 0.38
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_01.wav",
+"at": 36.2,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_02.wav",
+"at": 36.28,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_03.wav",
+"at": 36.36,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_01.wav",
+"at": 36.44,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_02.wav",
+"at": 36.52,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_03.wav",
+"at": 36.6,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_01.wav",
+"at": 36.68,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_02.wav",
+"at": 36.76,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_03.wav",
+"at": 36.84,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_01.wav",
+"at": 37.8,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_02.wav",
+"at": 37.88,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_03.wav",
+"at": 37.96,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_01.wav",
+"at": 38.04,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_02.wav",
+"at": 38.12,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_03.wav",
+"at": 38.2,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_01.wav",
+"at": 38.28,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_02.wav",
+"at": 38.36,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_03.wav",
+"at": 38.44,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_01.wav",
+"at": 39.2,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_02.wav",
+"at": 39.28,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_03.wav",
+"at": 39.36,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_01.wav",
+"at": 39.44,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_02.wav",
+"at": 39.52,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_03.wav",
+"at": 39.6,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_01.wav",
+"at": 39.68,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_02.wav",
+"at": 39.76,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/tick_03.wav",
+"at": 39.84,
+"volume": 0.24
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/sub_hit_03.wav",
+"at": 39.7,
+"volume": 0.36
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/shimmer_01.wav",
+"at": 39.75,
+"volume": 0.36
+},
+{
+"src": "projects/nike-rd-legit-check/audio/sfx/pop_03.wav",
+"at": 40.3,
+"volume": 0.45
+}
+]

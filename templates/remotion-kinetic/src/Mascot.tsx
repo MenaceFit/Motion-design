@@ -1,18 +1,17 @@
-// Mascotte pixel ORIGINALE « streetwear » (inspiration moodboard : survêt gris type tech fleece,
-// sacoche bandoulière monogrammée sangle rouge/verte, casquette noire, mules foam).
+// Mascotte pixel ORIGINALE « streetwear » (moodboard fourni par l'utilisateur : tech fleece gris clair,
+// sacoche bandoulière monogrammée noire sangle rouge/verte, casquette noire à l'envers, TN noires).
 // Ne représente aucune personne réelle. Sprite 20×27 px logiques, rendu en <rect> nets (crispEdges).
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {useT} from './LegitCheck';
 
-const HALF = ['......kkkk', '.....kcccc', '....kccccC', '....kccccc', '....kzzzzz', '....khSzzz', '....khssss', '....ksskss',
-  '....ksssss', '....kssssk', '.....kssss', '......kSss', '....kkllll', '...kglllgz', '..kggggggz', '..kggggggz', '..kggggggz',
-  '..kgGGGGgz', '..kkkkkkkk', '...kgggggg', '...kgggggk', '...kgggggk', '....kggggk', '....kggggk', '....kGGGGk',
-  '...kffffk.', '...kkkkkk.'];
+// Look (moodboard utilisateur) : tech fleece gris clair capuche autour du cou + cordons, casquette noire
+// à l'envers (ouverture de la sangle sur le front), jogging à poche zippée, chaussettes blanches, TN noires.
+const HALF = ['......kkkk', '.....kcccc', '....kccccC', '....kccccc', '....kkkkhh', '....khssss', '....ksssss', '....ksskss', '....ksssss', '....kssssk', '.....kssss', '...klllllS', '..kllllllz', '..kggggzgz', '..kggggzgz', '..kggggggz', '..kgGGGggz', '..kGGGGGGG', '...kgggggg', '...kgggggk', '...kgggggk', '....kggggk', '....kGGGGk', '....kwwwwk', '...kffffk.', '..kffFFfk.', '..kkkkkkk.'];
 const BODY = HALF.map((l) => l + l.split('').reverse().join(''));
 export const COL: Record<string, string> = {
-  k: '#0b0c10', h: '#1a120c', c: '#1d2027', C: '#3b404b', s: '#c98d63', S: '#a8714c', l: '#b9bec6', g: '#8f949d', G: '#6f747e',
-  z: '#24272d', f: '#34373e', r: '#c4283a', n: '#1f6b3a', b: '#3a2e24', B: '#b59a6e', m: '#d8c39a'};
+  k: '#0b0c10', h: '#140e0a', c: '#15171c', C: '#2f333b', s: '#9a6644', S: '#7b4e33', l: '#d6d9de', g: '#bfc3ca', G: '#9ea3ab',
+  z: '#25282e', w: '#f2f2f2', f: '#1b1c20', F: '#5c6068', r: '#c4283a', n: '#1f6b3a', b: '#26282e', B: '#41444c', m: '#c9b27a'};
 
 export type Pose = 'idle' | 'left' | 'right' | 'think' | 'cheer';
 // bras [x, y, w, h, couleur] en pixels logiques du canevas (corps décalé de 4 colonnes)
@@ -36,12 +35,13 @@ for (let y = 17; y <= 21; y++) for (let x = 12; x <= 18; x++) {
   bag.push([x, y, edge ? 'k' : (x + y) % 3 === 0 ? 'B' : 'b']);
 }
 bag.push([15, 19, 'm']);                         // fermoir
+const extra: [number, number, string][] = [[5, 19, 'z'], [5, 20, 'z'], [5, 21, 'z']];   // poche zippée du jogging
 
 export const MascotSprite: React.FC<{pose: Pose; P?: number; blink?: boolean}> = ({pose, P = 14, blink = false}) => {
   const cells = new Map<string, string>();
   BODY.forEach((row, y) => row.split('').forEach((ch, x) => { if (ch !== '.') cells.set(`${x},${y}`, ch); }));
   if (blink) [[7, 7], [12, 7]].forEach(([x, y]) => cells.set(`${x},${y}`, 's'));
-  [...strap, ...bag].forEach(([x, y, c]) => cells.set(`${x},${y}`, c));
+  [...extra, ...strap, ...bag].forEach(([x, y, c]) => cells.set(`${x},${y}`, c));
   const rects: React.ReactNode[] = [];
   ARMS[pose].forEach(([x, y, w, h], i) => rects.push(
     <rect key={`ao${i}`} x={x * P - 3} y={y * P - 3} width={w * P + 6} height={h * P + 6} fill={COL.k} />));
@@ -50,7 +50,8 @@ export const MascotSprite: React.FC<{pose: Pose; P?: number; blink?: boolean}> =
   ARMS[pose].forEach(([x, y, w, h, c], i) => rects.push(
     <rect key={`a${i}`} x={x * P} y={y * P} width={w * P} height={h * P} fill={COL[c]} />));
   // reflet sur la casquette
-  rects.push(<rect key="hl" x={9 * P} y={1 * P} width={2 * P} height={P} fill="rgba(255,255,255,0.18)" />);
+  rects.push(<rect key="hl" x={9 * P} y={1 * P} width={2 * P} height={P} fill="rgba(255,255,255,0.14)" />);
+  rects.push(<rect key="clasp" x={13.5 * P} y={4 * P + 3} width={P} height={P - 6} fill="#9aa0a8" />);
   return (
     <svg width={30 * P} height={27 * P} viewBox={`${-1 * P} 0 ${30 * P} ${27 * P}`} shapeRendering="crispEdges" style={{overflow: 'visible'}}>{rects}</svg>
   );
@@ -65,7 +66,7 @@ export const Mascot: React.FC<{pose: Pose; since: number; floor: number; color?:
   return (
     <div style={{position: 'absolute', left: 540 - 14 * P, top: floor - 27 * P + bob, transformOrigin: '50% 100%', transform: `scaleY(${squash})`}}>
       {pose === 'think' ? (
-        <div style={{position: 'absolute', left: 12 * P, top: -76 + Math.sin(t * 6) * 6, fontFamily: 'Pixelify Sans', fontWeight: 700, fontSize: 64,
+        <div style={{position: 'absolute', left: 23 * P, top: 4 + Math.sin(t * 6) * 6, fontFamily: 'Pixelify Sans', fontWeight: 700, fontSize: 64,
           color, textShadow: '0 4px 0 #000'}}>?</div>
       ) : null}
       <MascotSprite pose={pose} P={P} blink={(t % 3.1) < 0.12} />
