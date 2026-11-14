@@ -1,0 +1,134 @@
+[
+  {
+    "start": 0.0,
+    "end": 9.3,
+    "start_frame": 0,
+    "end_frame": 279
+  },
+  {
+    "start": 9.3,
+    "end": 13.4,
+    "start_frame": 279,
+    "end_frame": 402
+  },
+  {
+    "start": 13.4,
+    "end": 15.1,
+    "start_frame": 402,
+    "end_frame": 453
+  },
+  {
+    "start": 15.1,
+    "end": 18.733,
+    "start_frame": 453,
+    "end_frame": 562
+  },
+  {
+    "start": 18.733,
+    "end": 21.067,
+    "start_frame": 562,
+    "end_frame": 632
+  },
+  {
+    "start": 21.067,
+    "end": 24.567,
+    "start_frame": 632,
+    "end_frame": 737
+  },
+  {
+    "start": 24.567,
+    "end": 26.267,
+    "start_frame": 737,
+    "end_frame": 788
+  },
+  {
+    "start": 26.267,
+    "end": 29.933,
+    "start_frame": 788,
+    "end_frame": 898
+  },
+  {
+    "start": 29.933,
+    "end": 31.767,
+    "start_frame": 898,
+    "end_frame": 953
+  },
+  {
+    "start": 31.767,
+    "end": 35.367,
+    "start_frame": 953,
+    "end_frame": 1061
+  },
+  {
+    "start": 35.367,
+    "end": 37.2,
+    "start_frame": 1061,
+    "end_frame": 1116
+  },
+  {
+    "start": 37.2,
+    "end": 42.8,
+    "start_frame": 1116,
+    "end_frame": 1284
+  },
+  {
+    "start": 42.8,
+    "end": 44.833,
+    "start_frame": 1284,
+    "end_frame": 1345
+  },
+  {
+    "start": 44.833,
+    "end": 48.733,
+    "start_frame": 1345,
+    "end_frame": 1462
+  },
+  {
+    "start": 48.733,
+    "end": 50.367,
+    "start_frame": 1462,
+    "end_frame": 1511
+  },
+  {
+    "start": 50.367,
+    "end": 52.6,
+    "start_frame": 1511,
+    "end_frame": 1578
+  },
+  {
+    "start": 52.6,
+    "end": 52.933,
+    "start_frame": 1578,
+    "end_frame": 1588
+  },
+  {
+    "start": 52.933,
+    "end": 54.367,
+    "start_frame": 1588,
+    "end_frame": 1631
+  },
+  {
+    "start": 54.367,
+    "end": 56.467,
+    "start_frame": 1631,
+    "end_frame": 1694
+  },
+  {
+    "start": 56.467,
+    "end": 59.733,
+    "start_frame": 1694,
+    "end_frame": 1792
+  },
+  {
+    "start": 59.733,
+    "end": 61.033,
+    "start_frame": 1792,
+    "end_frame": 1831
+  },
+  {
+    "start": 61.033,
+    "end": 67.3,
+    "start_frame": 1831,
+    "end_frame": 2019
+  }
+]

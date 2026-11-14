@@ -1,5 +1,16 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-14 — Quiz legit-check pixel (ref09/ref10) + vidéo « bas NRD : 1:1 vs authentique »
+- 2 nouvelles références analysées (contact sheets, transcription Whisper small, tempo 117,5 BPM) →
+  nouvelle fiche `visual-styles/pixel-legit-quiz.md` (format réellement nouveau : quiz vrai/faux + personnage pixel).
+- Composition Remotion `LegitCheck` (`src/nrd/LegitCheck.tsx`) : cartes photo, compte à rebours 3-2-1, révélation
+  vert/rouge, 4 détails (couleur, logo, étiquette, damiers) avec crochets de visée, HUD score, outro ?/4 → prix → bénef → DM.
+- Personnage pixel original généré en Python (`projects/nrd-legit-check/sprite.py`, 13 poses), texte tapé en Silkscreen.
+- Voix ElevenLabs fournie par l'utilisateur (Kevin, v4) ; 67 SFX 8-bit (jsfxr/zzfx/uisfx) placés par `sfx_plan.py`.
+- QC : 41,6 s, 1080×1920, 30 fps, -14,0 LUFS, TP -1,4 dBTP, synchro médiane -3 ms → OK.
+- Corrigé avant livraison : trous entre sections (crash `sec` undefined), « EN DM » qui passait à la ligne.
+- Outillage : faster-whisper plante avec PyAV récent sur un chemin de fichier → passer un tableau numpy (soundfile).
+
 ## 2026-11-03 — Mise en place initiale
 
 ### Environnement
