@@ -26,6 +26,8 @@ export type Cfg = {
   intro: {q: number; three: number; counts: [number, number, number]; celui: number; reveal: number; compte: number};
   outro: {alors: number; combien: number; ecris: number; moi: number; p1At: number; revend: number; p2At: number;
     benefAt: number; plugAt: number; dmAt: number; p1: string; p2: string; benef: string; img: string; rareAt?: number};
+  mode?: 'quiz' | 'howto'; // howto = format « comment différencier » (pas de devinette ni de score à commenter)
+  product?: string; // nom du produit affiché en intro (howto)
   fx3?: boolean; // effets « v4 » : anneau du compte à rebours, pastilles couleur, badge modèle rare
   fx2?: boolean; // effets « v3 » : tampons 1:1 / LEGIT sur les cartes, balayage entre les étapes
   fx?: boolean; // effets « v2 » : focus carte, balayage lumineux, saut du perso, compteurs animés, punch caméra
@@ -241,8 +243,9 @@ const CardLabel: React.FC<{x: number; text: string; color: string; t: number; at
 
 // ——— HUD score ———
 const Hud: React.FC<{t: number}> = ({t}) => {
-  if (t < K.intro.compte || t > K.quizEnd + 0.4) return null;
-  const k = pop(t, K.intro.compte);
+  const hudAt = K.mode === 'howto' ? K.secs[0].at : K.intro.compte;
+  if (t < hudAt || t > K.quizEnd + 0.4) return null;
+  const k = pop(t, hudAt);
   const score = K.secs.filter((s) => t >= s.plusAt).length;
   return (
     <div style={{position: 'absolute', left: W / 2 - 170, top: 110, width: 340, height: 60, transform: `scale(${k})`,
@@ -266,12 +269,13 @@ const QuizCards: React.FC<{t: number}> = ({t}) => {
   const intro = t < K.secs[0].at;
   const revealed = t >= K.intro.reveal;
   // compte à rebours : surbrillance alternée
-  const countSel = t >= K.intro.counts[0] && t < K.intro.reveal ? (t < K.intro.counts[1] ? 0 : t < K.intro.counts[2] ? 1 : 0) : -1;
+  const howto = K.mode === 'howto';
+  const countSel = howto ? -1 : t >= K.intro.counts[0] && t < K.intro.reveal ? (t < K.intro.counts[1] ? 0 : t < K.intro.counts[2] ? 1 : 0) : -1;
   const imgs = intro ? ['full_fake.jpg', 'full_auth.jpg'] : sec!.imgs;
   const enter = intro ? [0.15, 0.3] : [sec!.at, sec!.at + 0.08];
   const fakeOn = intro ? revealed : t >= sec!.fakeAt;
   const realOn = intro ? revealed : t >= sec!.realAt;
-  const tags = intro && !revealed ? ['?', '?'] : ['FAUX 1:1', 'VRAI'];
+  const tags = intro && !revealed ? ['?', '?'] : howto ? ['1:1', 'AUTHENTIQUE'] : ['FAUX 1:1', 'VRAI'];
   // focus : la carte commentée grossit, l'autre s'efface (effets v2)
   let focusSide = -1;
   if (K.fx && sec) {
@@ -294,19 +298,23 @@ const QuizCards: React.FC<{t: number}> = ({t}) => {
       })}
       {/* étiquettes au-dessus des cartes */}
       {[0, 1].map((i) => {
-        const at = intro ? (revealed ? K.intro.reveal : 0.5) : sec!.at + 0.15;
+        const at = intro ? (revealed ? K.intro.reveal : howto ? 999 : 0.5) : sec!.at + 0.15;
         const label = tags[i];
         const bg = label === '?' ? C.yellow : i === 0 ? C.red : C.green;
         return <div key={i} style={{position: 'absolute', left: CARD_X[i], width: CARD_W, top: CARD_Y - 36, display: 'flex', justifyContent: 'center',
           transform: `scale(${pop(t, at)})`}}><Chip label={label} bg={bg} fg={label === '?' ? C.ink : C.white} /></div>;
       })}
       {/* sous les cartes */}
-      {intro && !revealed && t >= K.intro.q && <>
+      {howto && intro && t >= K.intro.reveal && <div style={{position: 'absolute', left: W / 2 - 62, top: CARD_Y + CARD_H / 2 - 62, width: 124, height: 124,
+        borderRadius: '50%', background: C.yellow, border: `6px solid ${C.ink}`, boxShadow: `6px 6px 0 ${C.ink}, 0 0 40px rgba(255,210,63,.7)`,
+        display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${pop(t, K.intro.reveal + 0.1, 0.32)}) rotate(-8deg)`, zIndex: 5}}>
+        <Txt size={56} color={C.ink} style={{textShadow: 'none'}}>VS</Txt></div>}
+      {!howto && intro && !revealed && t >= K.intro.q && <>
         <CardLabel x={CARD_X[0]} text="← GAUCHE" color={countSel === 0 ? C.yellow : C.white} t={t} at={K.intro.q} />
         <CardLabel x={CARD_X[1]} text="DROITE →" color={countSel === 1 ? C.yellow : C.white} t={t} at={K.intro.q + 0.18} />
       </>}
       {intro && revealed && <>
-        <CardLabel x={CARD_X[0]} text="LA COPIE" color={C.red} t={t} at={K.intro.reveal + 0.04} />
+        <CardLabel x={CARD_X[0]} text={howto ? '1:1' : 'LA COPIE'} color={C.red} t={t} at={K.intro.reveal + 0.04} />
         <CardLabel x={CARD_X[1]} text="L'AUTHENTIQUE" color={C.green} t={t} at={K.intro.reveal + 0.04} />
         <Mark ok={false} x={CARD_X[0]} t={t} at={K.intro.reveal} />
         <Mark ok x={CARD_X[1]} t={t} at={K.intro.reveal} />
@@ -346,6 +354,10 @@ const QuizCards: React.FC<{t: number}> = ({t}) => {
 const Titles: React.FC<{t: number}> = ({t}) => {
   const top = 200;
   const box: React.CSSProperties = {position: 'absolute', left: 0, width: W, top};
+  if (K.mode === 'howto' && t < K.secs[0].at) return <>
+    <Typed parts={[{t: 'COMMENT '}, {t: 'DIFFÉRENCIER', c: C.yellow}]} at={0.02} t={t} size={48} style={{...box, top: top - 70}} />
+    <Typed parts={[{t: K.product ?? ''}]} at={K.intro.q} t={t} size={60} cps={40} style={{...box, top: top - 5, padding: '0 40px', boxSizing: 'border-box'}} />
+  </>;
   if (t < K.intro.three) return <>
     <Typed parts={[{t: 'UN SEUL EST '}, {t: 'VRAI', c: C.green}]} at={0.02} t={t} size={70} style={box} />
     <Typed parts={[{t: 'GAUCHE '}, {t: 'OU', c: C.yellow}, {t: ' DROITE ?'}]} at={K.intro.q} t={t} size={40} style={{...box, top: top + 90}} />
@@ -383,7 +395,7 @@ const Titles: React.FC<{t: number}> = ({t}) => {
     const plus = t >= sec.plusAt && t < sec.plusAt + 0.9;
     return <>
       <div style={{position: 'absolute', left: 0, width: W, top: top - 8, display: 'flex', justifyContent: 'center', transform: `scale(${pop(t, sec.at)})`}}>
-        <Chip label={`N°${sec.n}`} bg={C.yellow} size={26} />
+        <Chip label={K.mode === 'howto' ? `ÉTAPE ${sec.n}/${K.secs.length}` : `N°${sec.n}`} bg={C.yellow} size={26} />
       </div>
       <Typed parts={[{t: sec.title}]} at={sec.at + 0.05} t={t} size={sec.sub ? 62 : 68} style={{...box, top: top + 50}} />
       {sec.sub && <Typed parts={[{t: sec.sub, c: C.yellow}]} at={sec.at + 0.4} t={t} size={34} cursor={false} style={{...box, top: top + 122}} />}
@@ -486,6 +498,12 @@ const Sticker: React.FC<{t: number; at: number; x: number; y: number; text: stri
 
 // ——— poses du personnage ———
 function poseAt(t: number): {pose: string; mark?: string} {
+  if (K.mode === 'howto' && t < K.secs[0].at) {
+    if (t < K.intro.q) return {pose: 'wave_c'};
+    if (t < K.intro.reveal) return {pose: 'think', mark: '?'};
+    if (t < K.intro.compte) return {pose: 'point_r_c', mark: t < K.intro.reveal + 0.4 ? '!' : undefined};
+    return {pose: 'idle'};
+  }
   if (t < K.intro.q - 0.02) return {pose: 'wave_c'};
   if (t < K.intro.three - 0.03) return {pose: 'idle'};
   if (t < K.intro.celui - 0.03) return {pose: 'think', mark: '?'};

@@ -118,3 +118,9 @@ export const underarmourCfg: Cfg = {
   outro: {alors: 28.54, combien: 29.16, ecris: 30.06, moi: 31.46, p1At: 32.22, revend: 33.04, p2At: 33.94, benefAt: 34.88,
     plugAt: 36.3, dmAt: 37.0, p1: '30€', p2: '160€', benef: '+130€', img: 'full_auth.jpg'},
 };
+
+// Format « comment différencier » — Under Armour hybrid. Timings provisoires : remplacés après transcription de la voix.
+export const underarmourHowtoCfg: Cfg = {
+  ...underarmourCfg, mode: 'howto', product: 'BAS UNDER ARMOUR HYBRID',
+  intro: {q: 1.2, three: 0, counts: [0, 0, 0], celui: 0, reveal: 3.4, compte: 5.6},
+};
