@@ -16,6 +16,7 @@ import {TechCheck, TechProps} from './TechCheck';
 import {BlackTech, BlackTechProps} from './BlackTech';
 import {DivisionCheck, DivisionProps} from './DivisionCheck';
 import {ArcadeCheck, ArcadeProps} from './ArcadeCheck';
+import {MascotSheet} from './Mascot';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -81,6 +82,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="ArcadeCheck" component={ArcadeCheck} width={1080} height={1920} fps={30} durationInFrames={900}
       defaultProps={{captions: [], T: {}, durationS: 30} as ArcadeProps}
       calculateMetadata={({props}) => ({durationInFrames: Math.ceil(props.durationS * 30)})} />
+    <Composition id="MascotSheet" component={MascotSheet} width={1600} height={500} fps={30} durationInFrames={1} />
     <Composition id="Gallery3D" component={Gallery3D} width={1080} height={1920} fps={30} durationInFrames={60} />
     <Composition id="TeddyProfilePic" component={ProfilePic} width={1080} height={1080} fps={30} durationInFrames={1} defaultProps={profilePicDefaults} />
     <Composition id="TeddyRigTest" component={RigTest} width={1080} height={1920} fps={30} durationInFrames={30} />

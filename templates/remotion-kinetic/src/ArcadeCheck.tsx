@@ -2,7 +2,7 @@
 // analysées dans references/analyses/legitcheck-ref : « un seul est vrai » + compte à rebours 3-2-1,
 // révélation rouge/vert, score x/N qui se remplit, étapes « N° », cartes à viseurs + flèches + tampons ✗/✓,
 // transitions en pixelisation, écran « t'en avais combien ? » (appel au commentaire), mascotte pixel.
-// Mascotte, décor et textes : originaux (aucun élément de la référence n'est réutilisé).
+// Mascotte (Mascot.tsx), décor et textes : originaux (aucun élément de la référence n'est réutilisé).
 import React from 'react';
 import {AbsoluteFill, Img, Sequence, staticFile, useVideoConfig} from 'remotion';
 import '@fontsource/pixelify-sans/500.css';
@@ -10,6 +10,7 @@ import '@fontsource/pixelify-sans/700.css';
 import '@fontsource/montserrat/800.css';  // glyphes absents de la police pixel (€)
 import {CaptionWord} from './Captions';
 import {BACK, OUT, prog, Offset, useT} from './LegitCheck';
+import {Mascot, Pose} from './Mascot';
 
 const PX = 'Pixelify Sans';
 const C = {bg0: '#0a1226', bg1: '#04060e', stair: '#0e1a33', blue: '#3d8bff', red: '#ff3b4a', green: '#2fe36b',
@@ -88,52 +89,6 @@ const CRT = () => (
   <AbsoluteFill style={{pointerEvents: 'none',
     background: 'repeating-linear-gradient(180deg, rgba(0,0,0,0.12) 0px, rgba(0,0,0,0.12) 2px, rgba(0,0,0,0) 2px, rgba(0,0,0,0) 5px), radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%)'}} />
 );
-
-// ---------- mascotte pixel originale ----------
-const BODY = [
-  '....kkkkkkkk....', '...khhhhhhhhk...', '..khhhhhhhhhhk..', '..kkkkkkkkkkkk..', '..kssssssssssk..',
-  '..ksskwsskwssk..', '..kssssssssssk..', '..ksssskkssssk..', '...kssssssssk...', '....kkkkkkkk....',
-  '...kbbbbbbbbk...', '..kbbbbbbbbbbk..', '..kbbbbhhbbbbk..', '..kbbbbbbbbbbk..', '..kbbbbbbbbbbk..',
-  '..kbbbbbbbbbbk..', '..kbbbbbbbbbbk..', '..kkkkkkkkkkkk..', '...kggggggggk...', '...kgggkkgggk...',
-  '...kgggkkgggk...', '...kgggkkgggk...', '..kwwwwk.kwwwwk.', '..kkkkkk.kkkkkk.'];
-const COL: Record<string, string> = {k: '#06070c', h: '#5CF2C4', s: '#f2c29b', w: '#ffffff', b: '#2c3342', g: '#1a1e27'};
-type Pose = 'idle' | 'left' | 'right' | 'think' | 'cheer';
-// bras : listes de [x, y, w, h, couleur] en unités pixel (corps décalé de 4 colonnes)
-const ARMS: Record<Pose, [number, number, number, number, string][]> = {
-  idle: [[4, 11, 2, 6, 'b'], [4, 17, 2, 1, 's'], [18, 11, 2, 6, 'b'], [18, 17, 2, 1, 's']],
-  left: [[0, 11, 6, 2, 'b'], [-1, 11, 1, 2, 's'], [18, 11, 2, 6, 'b'], [18, 17, 2, 1, 's']],
-  right: [[4, 11, 2, 6, 'b'], [4, 17, 2, 1, 's'], [18, 11, 6, 2, 'b'], [24, 11, 1, 2, 's']],
-  think: [[4, 11, 2, 6, 'b'], [4, 17, 2, 1, 's'], [17, 9, 2, 4, 'b'], [16, 8, 2, 1, 's']],
-  cheer: [[3, 4, 2, 7, 'b'], [3, 3, 2, 1, 's'], [19, 4, 2, 7, 'b'], [19, 3, 2, 1, 's']],
-};
-const Mascot: React.FC<{pose: Pose; since: number}> = ({pose, since}) => {
-  const t = useT();
-  const P = 14;
-  const bob = Math.round(Math.sin(t * 5) * 1.5) * 3;
-  const squash = 1 + 0.08 * Math.exp(-(t - since) * 12) * Math.sin((t - since) * 30);
-  const blink = (t % 3.1) < 0.12;
-  const rects: React.ReactNode[] = [];
-  BODY.forEach((row, y) => row.split('').forEach((ch, x) => {
-    if (ch === '.') return;
-    let c = COL[ch];
-    if (blink && y === 5 && (ch === 'w' || ch === 'k') && x > 3 && x < 12) c = COL.s;
-    rects.push(<rect key={`${x}-${y}`} x={(x + 4) * P} y={y * P} width={P} height={P} fill={c} />);
-  }));
-  ARMS[pose].forEach(([x, y, w, h, c], i) => {
-    rects.push(<rect key={`a${i}`} x={x * P - 2} y={y * P - 2} width={w * P + 4} height={h * P + 4} fill={COL.k} />);
-    rects.push(<rect key={`b${i}`} x={x * P} y={y * P} width={w * P} height={h * P} fill={COL[c]} />);
-  });
-  return (
-    <div style={{position: 'absolute', left: 540 - 12 * P, top: FLOOR - 24 * P + bob, transformOrigin: '50% 100%', transform: `scaleY(${squash})`}}>
-      {pose === 'think' ? (
-        <div style={{position: 'absolute', left: 10 * P, top: -70 + Math.sin(t * 6) * 6, fontFamily: PX, fontWeight: 700, fontSize: 64, color: C.yellow,
-          textShadow: '0 4px 0 #000'}}>?</div>
-      ) : null}
-      <svg width={30 * P} height={24 * P} viewBox={`${-1 * P} 0 ${30 * P} ${24 * P}`} shapeRendering="crispEdges" style={{overflow: 'visible'}}>{rects}</svg>
-      <div style={{position: 'absolute', left: 4 * P, top: 24 * P + 4, width: 16 * P, height: 14, borderRadius: '50%', background: 'rgba(0,0,0,0.45)', filter: 'blur(4px)'}} />
-    </div>
-  );
-};
 
 // ---------- cartes ----------
 type Verdict = {at: number; ok: boolean; lines: string[]} | null;
@@ -465,7 +420,7 @@ export const ArcadeCheck: React.FC<ArcadeProps> = ({captions, T}) => {
 
       {!inOutro ? <PixelCaptions words={captions} /> : null}
       <Score n={4} pts={pts} current={t < T.s2 ? 0 : t < T.s3 ? 1 : t < T.s4 ? 2 : 3} at={T.compte + 0.4} />
-      <Mascot pose={pose} since={since} />
+      <Mascot pose={pose} since={since} floor={FLOOR} />
       <PixelWipe at={[T.s1, T.s2, T.s3, T.s4, T.score, T.s5]} />
       <CRT />
     </AbsoluteFill>

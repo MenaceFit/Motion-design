@@ -249,3 +249,11 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
   Montserrat 800 (5/8 et 2/8 confondus en pixel à petite taille). Rendu : `--concurrency=2`
   (le rendu par défaut a fait redémarrer le conteneur, OOM probable) ; correctif de fin rendu seul
   (`--frames=1260-1687`) puis raccordé par concat ffmpeg.
+
+## 2026-11-14 — Mascotte pixel « streetwear » (Mascot.tsx)
+- Refus de représenter la personne réelle des captures fournies (créateur de la réf., probablement mineur) ;
+  mascotte originale sur moodboard : survêt gris type tech fleece, zip foncé, sacoche bandoulière
+  monogrammée (motif générique, aucun logo), sangle rouge/verte, casquette noire à visière, mules foam.
+- `Mascot.tsx` : sprite 20×27, poses idle/left/right/think/cheer, clignement, rebond, ombre ; composition
+  `MascotSheet` (planche des poses). `ArcadeCheck` utilise désormais cette mascotte.
+- Lisibilité pixel : une casquette se lit si la visière n'est PAS plus large que la calotte (sinon chapeau melon).
