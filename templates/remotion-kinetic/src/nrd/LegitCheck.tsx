@@ -18,12 +18,14 @@ export type Sec = {
   fakeAt: number; fakeMarkAt?: number; fakeCap: string; realAt: number; realCap: string; plusAt: number;
   fakeBox: [number, number, number, number]; realBox: [number, number, number, number]; // x,y,w,h (fractions de carte)
   checklist?: [string, number][];
+  stampY?: number; // position verticale des tampons (fraction de carte)
 };
 export type Cfg = {
   dir: string; duration: number; words: [number, number][]; secs: Sec[]; quizEnd: number;
   intro: {q: number; three: number; counts: [number, number, number]; celui: number; reveal: number; compte: number};
   outro: {alors: number; combien: number; ecris: number; moi: number; p1At: number; revend: number; p2At: number;
     benefAt: number; plugAt: number; dmAt: number; p1: string; p2: string; benef: string; img: string};
+  fx2?: boolean; // effets « v3 » : tampons 1:1 / LEGIT sur les cartes, balayage entre les étapes
   fx?: boolean; // effets « v2 » : focus carte, balayage lumineux, saut du perso, compteurs animés, punch caméra
 };
 let K: Cfg; // positionné par le composant racine avant le rendu des enfants
@@ -204,6 +206,19 @@ const Mark: React.FC<{ok: boolean; x: number; t: number; at: number}> = ({ok, x,
   );
 };
 
+const Stamp: React.FC<{x: number; t: number; at: number; text: string; color: string; until?: number; y?: number}> = ({x, t, at, text, color, until, y = 0.6}) => {
+  if (t < at || (until !== undefined && t >= until)) return null;
+  const k = interpolate(t, [at, at + 0.14], [1.7, 1], {...clamp, easing: Easing.in(Easing.quad)});
+  const o = interpolate(t, [at, at + 0.06], [0, 1], clamp);
+  return (
+    <div style={{position: 'absolute', left: x, width: CARD_W, top: CARD_Y + CARD_H * y, display: 'flex', justifyContent: 'center', opacity: o,
+      transform: `scale(${k}) rotate(-12deg)`, pointerEvents: 'none'}}>
+      <div style={{fontFamily: F, fontWeight: 700, fontSize: 52, color, padding: '4px 18px', border: `8px solid ${color}`, borderRadius: 12,
+        background: 'rgba(5,10,24,.55)', textShadow: `3px 3px 0 ${C.ink}`, boxShadow: `0 0 30px ${color}`, whiteSpace: 'nowrap', letterSpacing: 4}}>{text}</div>
+    </div>
+  );
+};
+
 const Sparkles: React.FC<{x: number; t: number; at: number}> = ({x, t, at}) => {
   const frame = useCurrentFrame();
   if (t < at || t > at + 1.6) return null;
@@ -294,6 +309,8 @@ const QuizCards: React.FC<{t: number}> = ({t}) => {
         <Mark ok={false} x={CARD_X[0]} t={t} at={K.intro.reveal} />
         <Mark ok x={CARD_X[1]} t={t} at={K.intro.reveal} />
         <Sparkles x={CARD_X[1]} t={t} at={K.intro.reveal} />
+        {K.fx2 && <><Stamp x={CARD_X[0]} t={t} at={K.intro.reveal + 0.1} text="1:1" color={C.red} />
+          <Stamp x={CARD_X[1]} t={t} at={K.intro.reveal + 0.3} text="LEGIT ✓" color={C.green} /></>}
       </>}
       {sec && <>
         <Brackets x={CARD_X[0]} box={sec.fakeBox} color={C.red} t={t} at={sec.fakeAt} />
@@ -301,6 +318,8 @@ const QuizCards: React.FC<{t: number}> = ({t}) => {
         <Mark ok={false} x={CARD_X[0]} t={t} at={sec.fakeMarkAt ?? sec.fakeAt} />
         <Mark ok x={CARD_X[1]} t={t} at={sec.realAt} />
         <Sparkles x={CARD_X[1]} t={t} at={sec.realAt} />
+        {K.fx2 && <><Stamp x={CARD_X[0]} t={t} at={(sec.fakeMarkAt ?? sec.fakeAt) + 0.05} text="1:1" color={C.red} y={sec.stampY} />
+          <Stamp x={CARD_X[1]} t={t} at={sec.realAt + 0.3} text="LEGIT ✓" color={C.green} y={sec.stampY} /></>}
         <CardLabel x={CARD_X[0]} text={sec.fakeCap} color={C.red} t={t} at={sec.fakeAt} />
         <CardLabel x={CARD_X[1]} text={sec.realCap} color={C.green} t={t} at={sec.realAt} />
         {sec.checklist && t < sec.realAt + 0.01 && sec.checklist.map(([s, at], j) => t >= at ? (
@@ -485,7 +504,8 @@ export const LegitCheck: React.FC<{cfg: Cfg}> = ({cfg}) => {
   const hop = hopAt !== undefined ? Math.sin(((t - hopAt) / 0.4) * Math.PI) * 60 : 0;
   const punchAt = K.fx ? flashes.filter((a) => t >= a && t < a + 0.35).pop() : undefined;
   const punch = punchAt !== undefined ? interpolate(t, [punchAt, punchAt + 0.35], [1.045, 1], {...clamp, easing: Easing.out(Easing.cubic)}) : 1;
-  const shake = [K.intro.reveal, K.outro.combien + 0.1, K.outro.benefAt].some((a) => t >= a && t < a + 0.2) ? (random(frame) - 0.5) * 16 : 0;
+  const shakeAt = [K.intro.reveal, K.outro.combien + 0.1, K.outro.benefAt, ...(K.fx2 ? K.secs.flatMap((x) => [(x.fakeMarkAt ?? x.fakeAt) + 0.19, x.realAt + 0.44]) : [])];
+  const shake = shakeAt.some((a) => t >= a && t < a + 0.2) ? (random(frame) - 0.5) * 16 : 0;
   return (
     <AbsoluteFill style={{background: '#081230', transform: `translate(${shake}px, ${shake * 0.6}px) scale(${punch})`}}>
       <Stage t={t} tintL={outro ? 0 : tintL} tintR={outro ? 0 : tintR} rays={rays} grid={grid} green={green} />
@@ -496,6 +516,9 @@ export const LegitCheck: React.FC<{cfg: Cfg}> = ({cfg}) => {
       <Character t={t} pose={pose} mark={mark} hop={hop} />
       {/* barre de progression (haut) */}
       <div style={{position: 'absolute', left: 0, top: 0, height: 10, width: (W * frame) / durationInFrames, background: C.blue, boxShadow: `0 0 14px ${C.blue}`}} />
+      {K.fx2 && K.secs.map((x) => t >= x.at - 0.12 && t < x.at + 0.3 ? (
+        <div key={x.n} style={{position: 'absolute', top: 0, height: 1920, width: 260, left: interpolate(t, [x.at - 0.12, x.at + 0.3], [-300, W + 40]),
+          transform: 'skewX(-14deg)', background: `linear-gradient(90deg,transparent,${C.yellow}cc,#fff,${C.yellow}cc,transparent)`, opacity: 0.55}} />) : null)}
       <Scanlines />
       {flash > 0 && <AbsoluteFill style={{background: '#fff', opacity: flash * 0.5}} />}
     </AbsoluteFill>

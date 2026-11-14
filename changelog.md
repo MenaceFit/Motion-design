@@ -1,5 +1,11 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-14 (3) — Vidéo Tech Fleece kangourou (effets v3)
+- Nouveaux effets `fx2` : tampons « 1:1 » (rouge) et « LEGIT ✓ » (vert) qui s'écrasent sur les cartes (scale 1,7→1 + shake),
+  position réglable par section (`stampY`) pour ne pas masquer le détail ; balayage lumineux jaune entre les étapes.
+- 8 images extraites d'une vidéo utilisateur en 576×1024 (gros plans 1:1 issus des encarts → un peu plus doux).
+- 96 SFX (impacts des tampons, swish du balayage). QC : 38,3 s, -14,0 LUFS, TP -1,5 dBTP, synchro médiane 0 ms.
+
 ## 2026-11-14 (2) — LegitCheck paramétrable + vidéo Phenom Elite (v2 des effets)
 - `LegitCheck.tsx` piloté par une config (`src/nrd/configs.ts` : nrdCfg, phenomCfg) → une nouvelle vidéo = images + timings Whisper.
   Nombre de détails libre (score « ?/N »), sous-titre de section, marque ✗ décalée (`fakeMarkAt`).
