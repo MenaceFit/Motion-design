@@ -1,5 +1,12 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-16 (3) — Bas Nike AeroSwift + thèmes de DA
+- Testé une DA « street mag » (`theme: 'mag'`) : refusée par l'utilisateur → conservée dans le code mais non utilisée.
+- Retenu : DA pixel d'origine + fond « bleu minuit étoilé » (`theme: 'night'` : dégradé nuit, 140 étoiles scintillantes,
+  étoiles pixel en croix, voie lactée, étoiles filantes). Rendu ~30 % plus lent (nombreux éléments).
+- Leçon voix : des repères en MAJUSCULES dans le script sont lus tels quels par ElevenLabs → toujours écrire les prix.
+- AeroSwift : logo (penché / droit), écriture intérieure (blanche / grisée), matière hybride ; 25 € → 90 € → +65 €. QC OK.
+
 ## 2026-11-16 (2) — Gilet Therma-FIT ADV menthe
 - Vrai = images 1-3, 1:1 = images 4-5 (hypothèse signalée à l'utilisateur, confirmée par les indices visibles).
   Étape 3 choisie après zoom : « THERMA-FIT » réfléchissant fin (vrai) vs « THERMA-FIT ADV » noir épais (1:1).

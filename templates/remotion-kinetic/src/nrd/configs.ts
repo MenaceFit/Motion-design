@@ -181,25 +181,25 @@ export const thermamintCfg: Cfg = {
     plugAt: 33.74, dmAt: 34.62, p1: '22€', p2: '80€', benef: '+58€', img: 'full_auth.jpg'},
 };
 
-// Bas Nike AeroSwift — nouvelle DA « street mag » ; vrai = images 3-5, 1:1 = images 1-2 ; voix Kevin v4
-// (fin de voix à régénérer : prix lus comme des repères ; timings de l'outro provisoires)
+// Bas Nike AeroSwift — DA pixel sur fond bleu minuit étoilé (theme night) ; vrai = images 3-5, 1:1 = images 1-2 ; voix Kevin v4, 39,7 s
 export const aeroswiftCfg: Cfg = {
-  dir: 'aeroswift', duration: 38.5, quizEnd: 29.1, theme: 'night', fx: true, fx2: true, fx3: true,
-  words: [[0, 0.84], [1.32, 2.08], [2.42, 3.22], [3.44, 3.72], [3.96, 4.54], [4.86, 5.4], [5.74, 6.42], [6.74, 7.42],
-    [7.84, 9.5], [9.9, 12.14], [12.4, 15.16], [15.48, 17.2], [17.7, 18.44], [18.82, 20.2], [20.42, 21.68],
-    [22.06, 23.82], [24.12, 26.98], [27.18, 29.26], [29.26, 30.56], [30.88, 32.06]],
-  intro: {q: 1.32, three: 2.42, counts: [3.44, 3.96, 4.86], celui: 5.74, reveal: 6.18, compte: 6.74},
+  dir: 'aeroswift', duration: 40.4, quizEnd: 29.15, theme: 'night', fx: true, fx2: true, fx3: true,
+  words: [[0, 0.76], [1.18, 2.12], [2.48, 3.18], [3.38, 3.86], [3.88, 4.5], [4.98, 5.5], [5.72, 6.44], [6.82, 7.46],
+    [7.88, 9.48], [9.88, 12.16], [12.42, 15.18], [15.56, 17.16], [17.72, 18.46], [18.84, 20.32], [20.52, 21.78],
+    [22.2, 23.86], [24.14, 27.0], [27.22, 29.26], [29.26, 30.64], [31.02, 32.2], [32.44, 33.9], [34.2, 35.6],
+    [36.04, 37.56], [37.86, 38.28], [38.66, 39.32]],
+  intro: {q: 1.18, three: 2.48, counts: [3.38, 3.88, 4.98], celui: 5.72, reveal: 6.18, compte: 6.82},
   secs: [
-    {n: 1, title: "L'EMPLACEMENT", sub: 'DU LOGO', at: 7.84, end: 15.48, imgs: ['logo_fake.jpg', 'logo_auth.jpg'],
-      fakeAt: 9.9, fakeCap: 'PENCHÉ & MAL PLACÉ', realAt: 12.4, realCap: 'DROIT, PRÈS DE LA POCHE', plusAt: 15.1,
+    {n: 1, title: "L'EMPLACEMENT", sub: 'DU LOGO', at: 7.88, end: 15.56, imgs: ['logo_fake.jpg', 'logo_auth.jpg'],
+      fakeAt: 9.88, fakeCap: 'PENCHÉ & MAL PLACÉ', realAt: 12.42, realCap: 'DROIT, PRÈS DE LA POCHE', plusAt: 15.2,
       fakeBox: [0.45, 0.42, 0.45, 0.32], realBox: [0.45, 0.42, 0.45, 0.25], stampY: 0.1},
-    {n: 2, title: "L'ÉCRITURE", sub: "À L'INTÉRIEUR", at: 15.48, end: 22.06, imgs: ['label_fake.jpg', 'label_auth.jpg'],
-      fakeAt: 17.7, fakeMarkAt: 18.82, fakeCap: 'ÉCRITURE BLANCHE', realAt: 20.42, realCap: 'ÉCRITURE GRISÉE', plusAt: 21.7,
+    {n: 2, title: "L'ÉCRITURE", sub: "À L'INTÉRIEUR", at: 15.56, end: 22.2, imgs: ['label_fake.jpg', 'label_auth.jpg'],
+      fakeAt: 17.72, fakeMarkAt: 18.84, fakeCap: 'ÉCRITURE BLANCHE', realAt: 20.52, realCap: 'ÉCRITURE GRISÉE', plusAt: 21.85,
       fakeBox: [0.1, 0.25, 0.8, 0.45], realBox: [0.1, 0.05, 0.8, 0.4], stampY: [0.8, 0.62]},
-    {n: 3, title: 'LA MATIÈRE', sub: 'HYBRIDE', at: 22.06, end: 29.5, imgs: ['hybrid_fake.jpg', 'hybrid_auth.jpg'],
-      fakeAt: 24.12, fakeCap: 'CÔTELÉ EN BAS SEULEMENT', realAt: 27.18, realCap: 'REMONTE SUR LES CÔTÉS', plusAt: 29.0,
+    {n: 3, title: 'LA MATIÈRE', sub: 'HYBRIDE', at: 22.2, end: 29.6, imgs: ['hybrid_fake.jpg', 'hybrid_auth.jpg'],
+      fakeAt: 24.14, fakeCap: 'CÔTELÉ EN BAS SEULEMENT', realAt: 27.22, realCap: 'REMONTE SUR LES CÔTÉS', plusAt: 29.1,
       fakeBox: [0.1, 0.55, 0.8, 0.3], realBox: [0.02, 0.2, 0.4, 0.6], stampY: 0.12},
   ],
-  outro: {alors: 29.26, combien: 30.0, ecris: 30.88, moi: 32.3, p1At: 33.0, revend: 33.8, p2At: 34.6, benefAt: 35.5,
-    plugAt: 36.8, dmAt: 37.4, p1: '??€', p2: '??€', benef: '+??€', img: 'full_auth.jpg'},
+  outro: {alors: 29.26, combien: 30.1, ecris: 31.02, moi: 32.44, p1At: 33.18, revend: 34.2, p2At: 35.06, benefAt: 36.04,
+    plugAt: 37.86, dmAt: 38.66, p1: '25€', p2: '90€', benef: '+65€', img: 'full_auth.jpg'},
 };
