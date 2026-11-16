@@ -157,3 +157,26 @@ export const thermavestCfg: Cfg = {
   outro: {alors: 28.28, combien: 28.7, ecris: 29.48, moi: 30.9, p1At: 31.64, revend: 32.4, p2At: 33.3, benefAt: 34.4,
     plugAt: 35.82, dmAt: 36.56, p1: '15€', p2: '80€', benef: '+65€', img: 'full_auth.jpg'},
 };
+
+// Gilet Therma-FIT ADV menthe — authentique À GAUCHE ; vrai = images 1-3, 1:1 = images 4-5 ; voix Kevin v4, 35,6 s
+export const thermamintCfg: Cfg = {
+  dir: 'thermamint', duration: 36.3, quizEnd: 26.1, realLeft: true, fx: true, fx2: true, fx3: true,
+  words: [[0, 0.78], [1.22, 2.1], [2.44, 3.16], [3.4, 3.84], [4.06, 4.44], [4.84, 5.4], [5.68, 6.42], [6.74, 7.36],
+    [7.76, 9.12], [9.32, 11.08], [11.36, 13.14], [13.68, 14.96], [15.2, 16.98], [17.32, 18.84], [19.18, 20.94],
+    [21.22, 23.32], [23.6, 25.86], [26.2, 27.1], [27.46, 28.56], [28.56, 30.3], [30.56, 31.76], [32.24, 33.52],
+    [33.74, 34.26], [34.62, 35.28]],
+  intro: {q: 1.22, three: 2.44, counts: [3.4, 4.06, 4.84], celui: 5.68, reveal: 6.16, compte: 6.74},
+  secs: [
+    {n: 1, title: 'LES BULLES', at: 7.76, end: 13.68, imgs: ['bubbles_fake.jpg', 'bubbles_auth.jpg'],
+      fakeAt: 11.36, fakeCap: 'TOUTES PLATES', realAt: 9.32, realCap: 'BIEN GONFLÉES', plusAt: 13.3,
+      fakeBox: [0.1, 0.15, 0.8, 0.55], realBox: [0.1, 0.15, 0.8, 0.55], stampY: 0.78},
+    {n: 2, title: 'LE SIFFLET', at: 13.68, end: 19.18, imgs: ['cord_fake.jpg', 'cord_auth.jpg'],
+      fakeAt: 17.32, fakeCap: 'RIEN DU TOUT', realAt: 15.2, realCap: 'ACCROCHÉ AU COL', plusAt: 18.9,
+      fakeBox: [0.1, 0.05, 0.8, 0.35], realBox: [0.4, 0.3, 0.4, 0.32], stampY: 0.78},
+    {n: 3, title: "L'ÉCRITURE", sub: 'DANS LE DOS', at: 19.18, end: 26.5, imgs: ['back_fake.jpg', 'back_auth.jpg'],
+      fakeAt: 23.6, fakeCap: 'NOIRE & ÉPAISSE', realAt: 21.22, realCap: 'FINE & RÉFLÉCHISSANTE', plusAt: 25.9,
+      fakeBox: [0.15, 0.55, 0.7, 0.2], realBox: [0.55, 0.62, 0.43, 0.2], stampY: 0.12},
+  ],
+  outro: {alors: 26.2, combien: 26.64, ecris: 27.46, moi: 28.56, p1At: 29.56, revend: 30.56, p2At: 31.4, benefAt: 32.24,
+    plugAt: 33.74, dmAt: 34.62, p1: '22€', p2: '80€', benef: '+58€', img: 'full_auth.jpg'},
+};

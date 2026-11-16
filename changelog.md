@@ -1,5 +1,10 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-16 (2) — Gilet Therma-FIT ADV menthe
+- Vrai = images 1-3, 1:1 = images 4-5 (hypothèse signalée à l'utilisateur, confirmée par les indices visibles).
+  Étape 3 choisie après zoom : « THERMA-FIT » réfléchissant fin (vrai) vs « THERMA-FIT ADV » noir épais (1:1).
+- Sources basse définition (~250 px) → cartes plus douces. 105 SFX ; 22 € → 80 € → +58 €. QC OK.
+
 ## 2026-11-16 — Gilet Therma-FIT ADV (authentique à gauche)
 - Option `realLeft` : positions des cartes par rôle (`XS()`), teintes, tampons, « GAUCHE ! », gestes du perso
   (`toReal()` / `toFake()`) et surbrillance du compte à rebours suivent le côté de l'authentique.
