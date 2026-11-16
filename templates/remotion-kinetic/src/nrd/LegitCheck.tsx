@@ -62,7 +62,7 @@ const toFake = () => (K.realLeft ? 'point_r_c' : 'point_l');
 const Txt: React.FC<{children: React.ReactNode; size: number; color?: string; style?: React.CSSProperties}> = ({children, size, color = C.white, style}) => (
   <div style={{fontFamily: F, fontWeight: isMag() ? 400 : 700, fontSize: isMag() ? size * 1.25 : size, color, letterSpacing: isMag() ? 1 : 2,
     lineHeight: isMag() ? 0.98 : 1.05, textTransform: 'uppercase',
-    textShadow: isMag() ? 'none' : `${size / 14}px ${size / 14}px 0 ${C.ink}, 0 0 ${size / 3}px rgba(0,0,0,.45)`, ...style}}>{children}</div>
+    textShadow: isMag() ? (color !== C.white ? `${Math.max(3, size / 22)}px ${Math.max(3, size / 22)}px 0 #141414` : 'none') : `${size / 14}px ${size / 14}px 0 ${C.ink}, 0 0 ${size / 3}px rgba(0,0,0,.45)`, ...style}}>{children}</div>
 );
 
 type Part = {t: string; c?: string};
@@ -453,11 +453,11 @@ const Titles: React.FC<{t: number}> = ({t}) => {
   if (sec) {
     const plus = t >= sec.plusAt && t < sec.plusAt + 0.9;
     return <>
-      <div style={{position: 'absolute', left: 0, width: W, top: top - 8, display: 'flex', justifyContent: 'center', transform: `scale(${pop(t, sec.at)})`}}>
+      <div style={{position: 'absolute', left: 0, width: W, top: top - (isMag() ? 30 : 8), display: 'flex', justifyContent: 'center', transform: `scale(${pop(t, sec.at)})`}}>
         <Chip label={K.mode === 'howto' ? `ÉTAPE ${sec.n}/${K.secs.length}` : `N°${sec.n}`} bg={C.yellow} size={26} />
       </div>
-      <Typed parts={[{t: sec.title}]} at={sec.at + 0.05} t={t} size={sec.sub ? 62 : 68} style={{...box, top: top + (isMag() ? 40 : 50)}} />
-      {sec.sub && <Typed parts={[{t: sec.sub, c: C.yellow}]} at={sec.at + 0.4} t={t} size={isMag() ? 28 : 34} cursor={false} style={{...box, top: top + 122}} />}
+      <Typed parts={[{t: sec.title}]} at={sec.at + 0.05} t={t} size={sec.sub ? 62 : 68} style={{...box, top: top + (isMag() ? 28 : 50)}} />
+      {sec.sub && <Typed parts={[{t: sec.sub, c: C.yellow}]} at={sec.at + 0.4} t={t} size={isMag() ? 28 : 34} cursor={false} style={{...box, top: top + (isMag() ? 106 : 122)}} />}
       {plus && <Txt size={54} color={C.green} style={{position: 'absolute', left: W / 2 + 190, top: top - 120 - (t - sec.plusAt) * 90, opacity: 1 - (t - sec.plusAt) / 0.9}}>+1</Txt>}
     </>;
   }
