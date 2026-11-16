@@ -1,5 +1,11 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-16 — Gilet Therma-FIT ADV (authentique à gauche)
+- Option `realLeft` : positions des cartes par rôle (`XS()`), teintes, tampons, « GAUCHE ! », gestes du perso
+  (`toReal()` / `toFake()`) et surbrillance du compte à rebours suivent le côté de l'authentique.
+- Étapes : bulles (gonflées / plates), sifflet + cordon (présents / absents), écriture intérieure (fine / épaisse qui bave).
+- 104 SFX ; 15 € → 80 € → +65 €. QC OK.
+
 ## 2026-11-14 (6) — Format « comment différencier » (mode howto)
 - `mode: 'howto'` : intro « COMMENT DIFFÉRENCIER » + nom du produit, cartes étiquetées 1:1 / AUTHENTIQUE d'emblée,
   pastille VS, tampons ; chips « ÉTAPE n/N » ; HUD dès la 1re étape ; pas de « t'en avais combien » (bloc sauté en

@@ -134,3 +134,26 @@ export const underarmourHowtoCfg: Cfg = {
   outro: {...underarmourCfg.outro, alors: 26.26, combien: 26.26, ecris: 26.26, moi: 26.26, p1At: 27.26, revend: 27.78, p2At: 28.88,
     benefAt: 29.84, plugAt: 31.3, dmAt: 32.16},
 };
+
+// Gilet Nike Therma-FIT ADV — authentique À GAUCHE ; vrai = photos 1-2, 1:1 = photos 3-4 ; voix Kevin v4, 37,8 s
+export const thermavestCfg: Cfg = {
+  dir: 'thermavest', duration: 38.5, quizEnd: 28.15, realLeft: true, fx: true, fx2: true, fx3: true,
+  words: [[0, 0.8], [1.16, 2.22], [2.52, 3.16], [3.66, 4.1], [4.1, 4.54], [5.06, 5.38], [5.86, 6.62], [6.94, 7.56],
+    [8.06, 9.38], [9.6, 11.34], [11.64, 13.48], [14.04, 15.32], [15.56, 18.86], [19.12, 20.54], [20.8, 22.62],
+    [23.1, 25.42], [25.5, 27.96], [28.28, 29.14], [29.48, 30.7], [30.9, 32.18], [32.4, 33.72], [34.4, 35.6],
+    [35.82, 36.28], [36.56, 37.32]],
+  intro: {q: 1.16, three: 2.52, counts: [3.66, 4.1, 5.06], celui: 5.86, reveal: 6.34, compte: 6.94},
+  secs: [
+    {n: 1, title: 'LES BULLES', at: 8.06, end: 14.04, imgs: ['bubbles_fake.jpg', 'bubbles_auth.jpg'],
+      fakeAt: 11.64, fakeCap: 'TOUTES PLATES', realAt: 9.6, realCap: 'BIEN GONFLÉES', plusAt: 13.6,
+      fakeBox: [0.1, 0.15, 0.8, 0.55], realBox: [0.1, 0.15, 0.8, 0.55], stampY: 0.76},
+    {n: 2, title: 'LE SIFFLET', at: 14.04, end: 20.8, imgs: ['cord_fake.jpg', 'cord_auth.jpg'],
+      fakeAt: 19.12, fakeCap: 'RIEN DU TOUT', realAt: 15.56, realCap: 'SIFFLET + CORDON', plusAt: 20.4,
+      fakeBox: [0.1, 0.02, 0.8, 0.3], realBox: [0.05, 0.02, 0.9, 0.36], stampY: 0.78},
+    {n: 3, title: "L'ÉCRITURE", sub: "À L'INTÉRIEUR", at: 20.8, end: 28.55, imgs: ['label_fake.jpg', 'label_auth.jpg'],
+      fakeAt: 25.5, fakeCap: 'ÉPAISSE, ÇA BAVE', realAt: 23.1, realCap: 'FINE & NETTE', plusAt: 28.0,
+      fakeBox: [0.1, 0.3, 0.8, 0.32], realBox: [0.05, 0.3, 0.9, 0.32], stampY: 0.8},
+  ],
+  outro: {alors: 28.28, combien: 28.7, ecris: 29.48, moi: 30.9, p1At: 31.64, revend: 32.4, p2At: 33.3, benefAt: 34.4,
+    plugAt: 35.82, dmAt: 36.56, p1: '15€', p2: '80€', benef: '+65€', img: 'full_auth.jpg'},
+};
