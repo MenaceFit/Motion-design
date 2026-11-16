@@ -11,7 +11,7 @@ import {TeddyEpisode2} from './teddy/Episode2';
 import {ProfilePic, profilePicDefaults} from './teddy/ProfilePic';
 import {TeddyEpisode3} from './teddy/Episode3';
 import {LegitCheck} from './nrd/LegitCheck';
-import {nrdCfg, phenomCfg, techfleeceCfg, divisionCfg, underarmourCfg, underarmourHowtoCfg, thermavestCfg, thermamintCfg} from './nrd/configs';
+import {nrdCfg, phenomCfg, techfleeceCfg, divisionCfg, underarmourCfg, underarmourHowtoCfg, thermavestCfg, thermamintCfg, aeroswiftCfg} from './nrd/configs';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -78,5 +78,6 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="LegitHowtoUnderArmour" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(underarmourHowtoCfg.duration * 30)} defaultProps={{cfg: underarmourHowtoCfg}} />
     <Composition id="LegitCheckThermaVest" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(thermavestCfg.duration * 30)} defaultProps={{cfg: thermavestCfg}} />
     <Composition id="LegitCheckThermaMint" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(thermamintCfg.duration * 30)} defaultProps={{cfg: thermamintCfg}} />
+    <Composition id="LegitCheckAeroSwift" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(aeroswiftCfg.duration * 30)} defaultProps={{cfg: aeroswiftCfg}} />
   </>
 );

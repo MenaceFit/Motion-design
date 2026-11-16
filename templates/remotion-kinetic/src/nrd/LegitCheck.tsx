@@ -6,12 +6,21 @@ import React from 'react';
 import {AbsoluteFill, Img, interpolate, random, staticFile, useCurrentFrame, useVideoConfig, Easing} from 'remotion';
 import '@fontsource/silkscreen/400.css';
 import '@fontsource/silkscreen/700.css';
+import '@fontsource/anton/400.css';
+import '@fontsource/space-grotesk/700.css';
 
-const F = "'Silkscreen', monospace";
-const C = {
-  green: '#3ee06a', greenD: '#16a34a', red: '#ff4b55', redD: '#c81e2c', yellow: '#ffd23f', white: '#f4f7ff',
-  blue: '#3a7bff', ink: '#050a18', grey: '#9fb0d6',
-};
+// ——— DA (thèmes) ———
+// pixel : DA d'origine (bleu nuit, police pixel, scanlines) · mag : « street mag » (papier crème, Anton, lime / rouge / orange,
+// polaroids scotchés, perso en sticker, trame de points)
+const PIXEL = {font: "'Silkscreen', monospace", pal: {green: '#3ee06a', greenD: '#16a34a', red: '#ff4b55', redD: '#c81e2c', yellow: '#ffd23f',
+  white: '#f4f7ff', blue: '#3a7bff', ink: '#050a18', grey: '#9fb0d6'}, panel: 'rgba(10,20,50,.85)', panelFg: '#f4f7ff', dotOff: '#2a3a66'};
+const MAG = {font: "'Anton', 'Impact', sans-serif", pal: {green: '#9be22d', greenD: '#4d8a00', red: '#ff3b2f', redD: '#b81d14', yellow: '#ff7a00',
+  white: '#141414', blue: '#141414', ink: '#141414', grey: '#8a8475'}, panel: '#141414', panelFg: '#f3eee4', dotOff: '#cfc7b6'};
+let F = PIXEL.font;
+const C = {...PIXEL.pal};
+let TH = PIXEL;
+const isMag = () => TH === MAG;
+const applyTheme = (name?: string) => { TH = name === 'mag' ? MAG : PIXEL; F = TH.font; Object.assign(C, TH.pal); };
 // Configuration (une vidéo = un fichier de config, timings issus de la transcription mot à mot)
 export type Sec = {
   n: number; title: string; sub?: string; at: number; end: number; imgs: [string, string];
@@ -26,6 +35,7 @@ export type Cfg = {
   intro: {q: number; three: number; counts: [number, number, number]; celui: number; reveal: number; compte: number};
   outro: {alors: number; combien: number; ecris: number; moi: number; p1At: number; revend: number; p2At: number;
     benefAt: number; plugAt: number; dmAt: number; p1: string; p2: string; benef: string; img: string; rareAt?: number};
+  theme?: 'pixel' | 'mag'; // DA graphique
   realLeft?: boolean; // l'authentique à gauche (par défaut à droite)
   mode?: 'quiz' | 'howto'; // howto = format « comment différencier » (pas de devinette ni de score à commenter)
   product?: string; // nom du produit affiché en intro (howto)
@@ -50,8 +60,9 @@ const toFake = () => (K.realLeft ? 'point_r_c' : 'point_l');
 
 // ——— utilitaires d'affichage ———
 const Txt: React.FC<{children: React.ReactNode; size: number; color?: string; style?: React.CSSProperties}> = ({children, size, color = C.white, style}) => (
-  <div style={{fontFamily: F, fontWeight: 700, fontSize: size, color, letterSpacing: 2, lineHeight: 1.05,
-    textShadow: `${size / 14}px ${size / 14}px 0 ${C.ink}, 0 0 ${size / 3}px rgba(0,0,0,.45)`, ...style}}>{children}</div>
+  <div style={{fontFamily: F, fontWeight: isMag() ? 400 : 700, fontSize: isMag() ? size * 1.25 : size, color, letterSpacing: isMag() ? 1 : 2,
+    lineHeight: isMag() ? 0.98 : 1.05, textTransform: 'uppercase',
+    textShadow: isMag() ? 'none' : `${size / 14}px ${size / 14}px 0 ${C.ink}, 0 0 ${size / 3}px rgba(0,0,0,.45)`, ...style}}>{children}</div>
 );
 
 type Part = {t: string; c?: string};
@@ -86,6 +97,7 @@ const pop = (t: number, at: number, d = 0.28) => t < at ? 0 : interpolate(t, [at
 // ——— décor ———
 const Stage: React.FC<{t: number; tintL?: number; tintR?: number; green?: number; rays?: number; grid?: number}> = ({t, tintL = 0, tintR = 0, green = 0, rays = 0, grid = 0}) => {
   const frame = useCurrentFrame();
+  if (isMag()) return <MagStage t={t} tintL={tintL} tintR={tintR} green={green} rays={rays} grid={grid} />;
   return (
     <AbsoluteFill style={{background: 'linear-gradient(180deg,#081230 0%,#0d1d4a 55%,#0a1638 100%)'}}>
       {/* colonnes de lumière */}
@@ -133,6 +145,37 @@ const Stage: React.FC<{t: number; tintL?: number; tintR?: number; green?: number
   );
 };
 
+// décor « street mag » : papier crème, trame de points, gros mot en filigrane, sol = trait d'encre
+const MagStage: React.FC<{t: number; tintL: number; tintR: number; green: number; rays: number; grid: number}> = ({tintL, tintR, green, rays, grid}) => {
+  const frame = useCurrentFrame();
+  return (
+    <AbsoluteFill style={{background: '#f3eee4'}}>
+      <AbsoluteFill style={{backgroundImage: 'radial-gradient(rgba(20,20,20,.13) 2px, transparent 2.5px)', backgroundSize: '26px 26px',
+        backgroundPosition: grid ? `0 ${(frame * 1.2) % 26}px` : '0 0'}} />
+      <div style={{position: 'absolute', left: -60, top: 560, width: 1300, transform: 'rotate(-8deg)', fontFamily: "'Anton', sans-serif", fontSize: 330,
+        lineHeight: 0.85, color: 'transparent', WebkitTextStroke: '3px rgba(20,20,20,.08)', whiteSpace: 'nowrap', letterSpacing: 6}}>LEGIT CHECK<br />LEGIT CHECK</div>
+      {/* blocs « surligneur » derrière les cartes */}
+      {[tintL, tintR].map((v, i) => v > 0 ? (
+        <div key={i} style={{position: 'absolute', left: XS()[i] - 30, top: CARD_Y - 70, width: CARD_W + 60, height: CARD_H + 150,
+          opacity: v * 0.9, background: i === 0 ? C.red : C.green, transform: `rotate(${i === 0 ? -2 : 2}deg)`,
+          clipPath: 'polygon(2% 0,100% 1%,98% 100%,0 98%)'}} />
+      ) : null)}
+      {rays > 0 && <AbsoluteFill style={{opacity: rays, background:
+        `repeating-conic-gradient(from ${frame * 0.6}deg at 50% 42%, rgba(255,122,0,.35) 0deg 9deg, transparent 9deg 22deg)`}} />}
+      {green > 0 && <AbsoluteFill style={{opacity: green, background: C.green}}>
+        <AbsoluteFill style={{backgroundImage: 'radial-gradient(rgba(20,20,20,.22) 3px, transparent 3.5px)', backgroundSize: '30px 30px'}} />
+      </AbsoluteFill>}
+      <div style={{position: 'absolute', left: 60, width: W - 120, top: FLOOR_Y, height: 8, background: C.ink, borderRadius: 4}} />
+    </AbsoluteFill>
+  );
+};
+
+const PaperGrain: React.FC = () => (
+  <AbsoluteFill style={{pointerEvents: 'none', opacity: 0.35, mixBlendMode: 'multiply',
+    backgroundImage: 'repeating-linear-gradient(37deg, rgba(0,0,0,.025) 0 2px, transparent 2px 5px), repeating-linear-gradient(-53deg, rgba(0,0,0,.02) 0 1px, transparent 1px 4px)',
+    boxShadow: 'inset 0 0 200px rgba(80,60,20,.25)'}} />
+);
+
 const Scanlines: React.FC = () => (
   <AbsoluteFill style={{pointerEvents: 'none', backgroundImage: 'repeating-linear-gradient(0deg,rgba(0,0,0,.10) 0 2px,transparent 2px 5px)',
     boxShadow: 'inset 0 0 240px rgba(0,0,0,.55)'}} />
@@ -151,7 +194,7 @@ const Character: React.FC<{t: number; pose: string; mark?: string; x?: number; h
   return (
     <div style={{position: 'absolute', left: x - w / 2, top: FLOOR_Y - h + 6 + bob - hop, width: w, height: h}}>
       <div style={{position: 'absolute', left: 50, top: h - 18 - bob, width: 180, height: 20, borderRadius: '50%', background: 'rgba(0,0,0,.45)'}} />
-      <Img src={img(`char_${p}.png`)} style={{width: w, height: h, imageRendering: 'pixelated'}} />
+      <Img src={img(`char_${p}.png`)} style={{width: w, height: h, imageRendering: 'pixelated', filter: isMag() ? 'drop-shadow(6px 0 0 #fff) drop-shadow(-6px 0 0 #fff) drop-shadow(0 6px 0 #fff) drop-shadow(0 -6px 0 #fff) drop-shadow(6px 10px 0 rgba(20,20,20,.25))' : undefined}} />
       {mark ? <Txt size={70} color={mark === '!' ? C.red : C.yellow} style={{position: 'absolute', left: w / 2 - 18, top: -80 - (Math.floor(frame / 6) % 2) * 8}}>{mark}</Txt> : null}
     </div>
   );
@@ -163,11 +206,15 @@ const Card: React.FC<{src: string; x: number; t: number; enterAt: number; glow?:
   const frame = useCurrentFrame();
   const dis = dissolveAt !== undefined ? interpolate(t, [dissolveAt, dissolveAt + 0.25], [1, 0], clamp) : 0;
   return (
-    <div style={{position: 'absolute', left: x, top: CARD_Y + (1 - k) * 120, width: CARD_W, height: CARD_H, opacity: k,
+    <div style={isMag() ? {position: 'absolute', left: x, top: CARD_Y + (1 - k) * 120, width: CARD_W, height: CARD_H, opacity: k,
+      transform: `scale(${(0.8 + 0.2 * k) * focus}) rotate(${x < W / 2 ? -2.2 : 2.2}deg)`, padding: '14px 14px 14px 14px', background: '#fffdf8',
+      outline: glow ? `8px solid ${glow}` : 'none', boxShadow: '0 22px 40px rgba(60,40,10,.35), 0 4px 8px rgba(0,0,0,.2)'} : {position: 'absolute', left: x, top: CARD_Y + (1 - k) * 120, width: CARD_W, height: CARD_H, opacity: k,
       transform: `scale(${(0.8 + 0.2 * k) * focus})`, borderRadius: 16, padding: 12,
       background: 'linear-gradient(160deg,#f2f6ff,#b7c7f0)', border: `5px solid ${glow ?? '#dfe8ff'}`,
       boxShadow: `0 0 0 4px ${C.ink}, 0 20px 50px rgba(0,0,0,.6)${glow ? `, 0 0 46px 6px ${glow}` : ''}`}}>
-      <div style={{position: 'relative', width: '100%', height: '100%', overflow: 'hidden', borderRadius: 8, background: '#111'}}>
+      {isMag() && <div style={{position: 'absolute', left: CARD_W / 2 - 80, top: -26, width: 160, height: 46, zIndex: 3, transform: `rotate(${x < W / 2 ? 4 : -5}deg)`,
+        background: 'rgba(235,222,190,.85)', boxShadow: '0 2px 4px rgba(0,0,0,.15)'}} />}
+      <div style={{position: 'relative', width: '100%', height: '100%', overflow: 'hidden', borderRadius: isMag() ? 2 : 8, background: '#111'}}>
         <Img src={img(src)} style={{width: '100%', height: '100%', objectFit: 'cover', filter: `brightness(${1 - dim})`}} />
         {sweepAt !== undefined && t >= sweepAt && t < sweepAt + 0.6 && <div style={{position: 'absolute', top: -200, width: 160, height: CARD_H + 400,
           left: interpolate(t, [sweepAt, sweepAt + 0.6], [-260, CARD_W + 60]), transform: 'rotate(18deg)',
@@ -176,7 +223,7 @@ const Card: React.FC<{src: string; x: number; t: number; enterAt: number; glow?:
         {dis > 0 && Array.from({length: 48}).map((_, i) => {
           const on = random(`b${src}${i}${Math.floor(frame / 2)}`) < dis;
           return on ? <div key={i} style={{position: 'absolute', left: (i % 6) * 73, top: Math.floor(i / 6) * 75, width: 74, height: 76,
-            background: random(`c${i}${frame}`) > 0.5 ? '#1b2a55' : '#9fb3e8'}} /> : null;
+            background: isMag() ? (random(`c${i}${frame}`) > 0.5 ? '#141414' : '#f3eee4') : random(`c${i}${frame}`) > 0.5 ? '#1b2a55' : '#9fb3e8'}} /> : null;
         })}
       </div>
     </div>
@@ -223,7 +270,7 @@ const Stamp: React.FC<{x: number; t: number; at: number; text: string; color: st
     <div style={{position: 'absolute', left: x, width: CARD_W, top: CARD_Y + CARD_H * y, display: 'flex', justifyContent: 'center', opacity: o,
       transform: `scale(${k}) rotate(-12deg)`, pointerEvents: 'none'}}>
       <div style={{fontFamily: F, fontWeight: 700, fontSize: 52, color, padding: '4px 18px', border: `8px solid ${color}`, borderRadius: 12,
-        background: 'rgba(5,10,24,.55)', textShadow: `3px 3px 0 ${C.ink}`, boxShadow: `0 0 30px ${color}`, whiteSpace: 'nowrap', letterSpacing: 4}}>{text}</div>
+        background: isMag() ? 'rgba(255,253,248,.85)' : 'rgba(5,10,24,.55)', textShadow: isMag() ? 'none' : `3px 3px 0 ${C.ink}`, boxShadow: isMag() ? 'none' : `0 0 30px ${color}`, whiteSpace: 'nowrap', letterSpacing: 4}}>{text}</div>
     </div>
   );
 };
@@ -242,6 +289,13 @@ const Sparkles: React.FC<{x: number; t: number; at: number}> = ({x, t, at}) => {
 
 const CardLabel: React.FC<{x: number; text: string; color: string; t: number; at: number}> = ({x, text, color, t, at}) => {
   if (t < at) return null;
+  if (isMag()) {
+    const n = Math.min(text.length, Math.max(0, Math.floor((t - at) * 32)));
+    const fg = color === C.red ? C.red : color === C.green ? C.green : color === C.yellow ? C.yellow : '#f3eee4';
+    return <div style={{position: 'absolute', left: x - 30, width: CARD_W + 60, top: CARD_Y + CARD_H + 22, display: 'flex', justifyContent: 'center'}}>
+      <div style={{fontFamily: F, fontSize: 32, letterSpacing: 1, color: fg, background: C.ink, padding: '4px 14px', transform: `rotate(${x < W / 2 ? -1.5 : 1.5}deg)`,
+        whiteSpace: 'nowrap', maxWidth: CARD_W + 50, overflow: 'hidden'}}>{text.slice(0, n) || '\u00a0'}</div></div>;
+  }
   return <Typed parts={[{t: text, c: color}]} at={at} t={t} size={30} cursor={false}
     style={{position: 'absolute', left: x - 30, width: CARD_W + 60, top: CARD_Y + CARD_H + 26}} />;
 };
@@ -254,14 +308,14 @@ const Hud: React.FC<{t: number}> = ({t}) => {
   const score = K.secs.filter((s) => t >= s.plusAt).length;
   return (
     <div style={{position: 'absolute', left: W / 2 - 170, top: 110, width: 340, height: 60, transform: `scale(${k})`,
-      background: 'rgba(10,20,50,.85)', border: `4px solid ${C.blue}`, borderRadius: 30, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16}}>
+      background: TH.panel, border: `4px solid ${C.blue}`, borderRadius: 30, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16}}>
       {K.secs.map((s, i) => {
         const on = t >= s.plusAt;
         const cur = t >= s.at && !on;
         return <div key={i} style={{width: 30, height: 30, borderRadius: 6, border: `3px solid ${C.ink}`,
-          background: on ? C.green : cur ? C.yellow : '#2a3a66', transform: `scale(${on ? pop(t, s.plusAt) : 1})`}} />;
+          background: on ? C.green : cur ? C.yellow : TH.dotOff, transform: `scale(${on ? pop(t, s.plusAt) : 1})`}} />;
       })}
-      <div style={{fontFamily: F, fontWeight: 700, fontSize: 30, color: C.white, marginLeft: 10}}>{score}/{K.secs.length}</div>
+      <div style={{fontFamily: F, fontWeight: 700, fontSize: 30, color: TH.panelFg, marginLeft: 10}}>{score}/{K.secs.length}</div>
     </div>
   );
 };
@@ -339,9 +393,9 @@ const QuizCards: React.FC<{t: number}> = ({t}) => {
           const at = i === 0 ? sec.fakeAt : sec.realAt;
           return t >= at ? <div key={'sw' + i} style={{position: 'absolute', left: XS()[i], width: CARD_W, top: CARD_Y + CARD_H + 78, display: 'flex', justifyContent: 'center',
             transform: `scale(${pop(t, at + 0.15)})`}}>
-            <div style={{display: 'flex', alignItems: 'center', gap: 12, background: 'rgba(5,10,24,.8)', border: `4px solid ${i === 0 ? C.red : C.green}`, borderRadius: 30, padding: '6px 18px 6px 8px'}}>
+            <div style={{display: 'flex', alignItems: 'center', gap: 12, background: TH.panel, border: `4px solid ${i === 0 ? C.red : C.green}`, borderRadius: 30, padding: '6px 18px 6px 8px'}}>
               <div style={{width: 40, height: 40, borderRadius: '50%', background: sec.swatches![i], border: '4px solid #fff'}} />
-              <div style={{fontFamily: F, fontWeight: 700, fontSize: 26, color: C.white}}>{sec.swatches![i]}</div>
+              <div style={{fontFamily: F, fontWeight: 700, fontSize: 26, color: TH.panelFg}}>{sec.swatches![i]}</div>
             </div></div> : null;
         })}
         <CardLabel x={XS()[0]} text={sec.fakeCap} color={C.red} t={t} at={sec.fakeAt} />
@@ -402,8 +456,8 @@ const Titles: React.FC<{t: number}> = ({t}) => {
       <div style={{position: 'absolute', left: 0, width: W, top: top - 8, display: 'flex', justifyContent: 'center', transform: `scale(${pop(t, sec.at)})`}}>
         <Chip label={K.mode === 'howto' ? `ÉTAPE ${sec.n}/${K.secs.length}` : `N°${sec.n}`} bg={C.yellow} size={26} />
       </div>
-      <Typed parts={[{t: sec.title}]} at={sec.at + 0.05} t={t} size={sec.sub ? 62 : 68} style={{...box, top: top + 50}} />
-      {sec.sub && <Typed parts={[{t: sec.sub, c: C.yellow}]} at={sec.at + 0.4} t={t} size={34} cursor={false} style={{...box, top: top + 122}} />}
+      <Typed parts={[{t: sec.title}]} at={sec.at + 0.05} t={t} size={sec.sub ? 62 : 68} style={{...box, top: top + (isMag() ? 40 : 50)}} />
+      {sec.sub && <Typed parts={[{t: sec.sub, c: C.yellow}]} at={sec.at + 0.4} t={t} size={isMag() ? 28 : 34} cursor={false} style={{...box, top: top + 122}} />}
       {plus && <Txt size={54} color={C.green} style={{position: 'absolute', left: W / 2 + 190, top: top - 120 - (t - sec.plusAt) * 90, opacity: 1 - (t - sec.plusAt) / 0.9}}>+1</Txt>}
     </>;
   }
@@ -532,6 +586,7 @@ function poseAt(t: number): {pose: string; mark?: string} {
 
 export const LegitCheck: React.FC<{cfg: Cfg}> = ({cfg}) => {
   K = cfg;
+  applyTheme(cfg.theme);
   const frame = useCurrentFrame();
   const {fps, durationInFrames} = useVideoConfig();
   const t = frame / fps;
@@ -554,7 +609,7 @@ export const LegitCheck: React.FC<{cfg: Cfg}> = ({cfg}) => {
   const shakeAt = [K.intro.reveal, K.outro.combien + 0.1, K.outro.benefAt, ...(K.fx2 ? K.secs.flatMap((x) => [(x.fakeMarkAt ?? x.fakeAt) + 0.19, x.realAt + 0.44]) : [])];
   const shake = shakeAt.some((a) => t >= a && t < a + 0.2) ? (random(frame) - 0.5) * 16 : 0;
   return (
-    <AbsoluteFill style={{background: '#081230', transform: `translate(${shake}px, ${shake * 0.6}px) scale(${punch})`}}>
+    <AbsoluteFill style={{background: isMag() ? '#f3eee4' : '#081230', transform: `translate(${shake}px, ${shake * 0.6}px) scale(${punch})`}}>
       <Stage t={t} tintL={outro ? 0 : tintL} tintR={outro ? 0 : tintR} rays={rays} grid={grid} green={green} />
       <QuizCards t={t} />
       <Titles t={t} />
@@ -566,7 +621,7 @@ export const LegitCheck: React.FC<{cfg: Cfg}> = ({cfg}) => {
       {K.fx2 && K.secs.map((x) => t >= x.at - 0.12 && t < x.at + 0.3 ? (
         <div key={x.n} style={{position: 'absolute', top: 0, height: 1920, width: 260, left: interpolate(t, [x.at - 0.12, x.at + 0.3], [-300, W + 40]),
           transform: 'skewX(-14deg)', background: `linear-gradient(90deg,transparent,${C.yellow}cc,#fff,${C.yellow}cc,transparent)`, opacity: 0.55}} />) : null)}
-      <Scanlines />
+      {isMag() ? <PaperGrain /> : <Scanlines />}
       {flash > 0 && <AbsoluteFill style={{background: '#fff', opacity: flash * 0.5}} />}
     </AbsoluteFill>
   );
