@@ -26,6 +26,7 @@ export type Cfg = {
   intro: {q: number; three: number; counts: [number, number, number]; celui: number; reveal: number; compte: number};
   outro: {alors: number; combien: number; ecris: number; moi: number; p1At: number; revend: number; p2At: number;
     benefAt: number; plugAt: number; dmAt: number; p1: string; p2: string; benef: string; img: string; rareAt?: number};
+  realLeft?: boolean; // l'authentique à gauche (par défaut à droite)
   mode?: 'quiz' | 'howto'; // howto = format « comment différencier » (pas de devinette ni de score à commenter)
   product?: string; // nom du produit affiché en intro (howto)
   fx3?: boolean; // effets « v4 » : anneau du compte à rebours, pastilles couleur, badge modèle rare
@@ -42,6 +43,10 @@ const speaking = (t: number) => K.words.some(([a, b]) => t >= a && t <= b);
 // ——— géométrie ———
 const W = 1080, CARD_W = 460, CARD_H = 620, CARD_Y = 420, FLOOR_Y = 1600;
 const CARD_X = [W / 2 - CARD_W - 26, W / 2 + 26];
+// position écran des cartes par rôle : [faux, vrai]
+const XS = () => (K.realLeft ? [CARD_X[1], CARD_X[0]] : CARD_X);
+const toReal = () => (K.realLeft ? 'point_l' : 'point_r_c');
+const toFake = () => (K.realLeft ? 'point_r_c' : 'point_l');
 
 // ——— utilitaires d'affichage ———
 const Txt: React.FC<{children: React.ReactNode; size: number; color?: string; style?: React.CSSProperties}> = ({children, size, color = C.white, style}) => (
@@ -102,7 +107,7 @@ const Stage: React.FC<{t: number; tintL?: number; tintR?: number; green?: number
       </AbsoluteFill>}
       {/* colonnes teintées vrai / faux derrière les cartes */}
       {[tintL, tintR].map((v, i) => v > 0 ? (
-        <div key={i} style={{position: 'absolute', left: CARD_X[i] - 26, top: CARD_Y - 60, width: CARD_W + 52, height: FLOOR_Y - CARD_Y + 60,
+        <div key={i} style={{position: 'absolute', left: XS()[i] - 26, top: CARD_Y - 60, width: CARD_W + 52, height: FLOOR_Y - CARD_Y + 60,
           opacity: v, background: i === 0
             ? 'linear-gradient(180deg,rgba(255,60,80,.38),rgba(160,20,40,.28))'
             : 'linear-gradient(180deg,rgba(60,230,110,.38),rgba(20,140,60,.28))'}} />
@@ -289,10 +294,10 @@ const QuizCards: React.FC<{t: number}> = ({t}) => {
       {[0, 1].map((i) => {
         const isFake = i === 0;
         const on = isFake ? fakeOn : realOn;
-        const glow = countSel === i ? C.yellow : on ? (isFake ? C.red : C.green) : undefined;
+        const glow = countSel === (K.realLeft ? 1 - i : i) ? C.yellow : on ? (isFake ? C.red : C.green) : undefined;
         const f = fk(i);
         const sweepAt = K.fx && !isFake ? (intro ? K.intro.reveal : sec!.realAt) : undefined;
-        return <Card key={(sec?.n ?? 0) + '-' + i} src={imgs[i]} x={CARD_X[i]} t={t} enterAt={enter[i]} glow={glow}
+        return <Card key={(sec?.n ?? 0) + '-' + i} src={imgs[i]} x={XS()[i]} t={t} enterAt={enter[i]} glow={glow}
           dissolveAt={intro ? undefined : sec!.at} dim={(intro && !revealed ? 0 : on && isFake ? 0.1 : 0) + (f < 0 ? -f * 0.45 : 0)}
           focus={1 + (f > 0 ? f * 0.06 : f * 0.03)} sweepAt={sweepAt} />;
       })}
@@ -301,7 +306,7 @@ const QuizCards: React.FC<{t: number}> = ({t}) => {
         const at = intro ? (revealed ? K.intro.reveal : howto ? 999 : 0.5) : sec!.at + 0.15;
         const label = tags[i];
         const bg = label === '?' ? C.yellow : i === 0 ? C.red : C.green;
-        return <div key={i} style={{position: 'absolute', left: CARD_X[i], width: CARD_W, top: CARD_Y - 36, display: 'flex', justifyContent: 'center',
+        return <div key={i} style={{position: 'absolute', left: XS()[i], width: CARD_W, top: CARD_Y - 36, display: 'flex', justifyContent: 'center',
           transform: `scale(${pop(t, at)})`}}><Chip label={label} bg={bg} fg={label === '?' ? C.ink : C.white} /></div>;
       })}
       {/* sous les cartes */}
@@ -314,35 +319,35 @@ const QuizCards: React.FC<{t: number}> = ({t}) => {
         <CardLabel x={CARD_X[1]} text="DROITE →" color={countSel === 1 ? C.yellow : C.white} t={t} at={K.intro.q + 0.18} />
       </>}
       {intro && revealed && <>
-        <CardLabel x={CARD_X[0]} text={howto ? '1:1' : 'LA COPIE'} color={C.red} t={t} at={K.intro.reveal + 0.04} />
-        <CardLabel x={CARD_X[1]} text="L'AUTHENTIQUE" color={C.green} t={t} at={K.intro.reveal + 0.04} />
-        <Mark ok={false} x={CARD_X[0]} t={t} at={K.intro.reveal} />
-        <Mark ok x={CARD_X[1]} t={t} at={K.intro.reveal} />
-        <Sparkles x={CARD_X[1]} t={t} at={K.intro.reveal} />
-        {K.fx2 && <><Stamp x={CARD_X[0]} t={t} at={K.intro.reveal + 0.1} text="1:1" color={C.red} />
-          <Stamp x={CARD_X[1]} t={t} at={K.intro.reveal + 0.3} text="LEGIT ✓" color={C.green} /></>}
+        <CardLabel x={XS()[0]} text={howto ? '1:1' : 'LA COPIE'} color={C.red} t={t} at={K.intro.reveal + 0.04} />
+        <CardLabel x={XS()[1]} text="L'AUTHENTIQUE" color={C.green} t={t} at={K.intro.reveal + 0.04} />
+        <Mark ok={false} x={XS()[0]} t={t} at={K.intro.reveal} />
+        <Mark ok x={XS()[1]} t={t} at={K.intro.reveal} />
+        <Sparkles x={XS()[1]} t={t} at={K.intro.reveal} />
+        {K.fx2 && <><Stamp x={XS()[0]} t={t} at={K.intro.reveal + 0.1} text="1:1" color={C.red} />
+          <Stamp x={XS()[1]} t={t} at={K.intro.reveal + 0.3} text="LEGIT ✓" color={C.green} /></>}
       </>}
       {sec && <>
-        <Brackets x={CARD_X[0]} box={sec.fakeBox} color={C.red} t={t} at={sec.fakeAt} />
-        <Brackets x={CARD_X[1]} box={sec.realBox} color={C.green} t={t} at={sec.realAt} />
-        <Mark ok={false} x={CARD_X[0]} t={t} at={sec.fakeMarkAt ?? sec.fakeAt} />
-        <Mark ok x={CARD_X[1]} t={t} at={sec.realAt} />
-        <Sparkles x={CARD_X[1]} t={t} at={sec.realAt} />
-        {K.fx2 && <><Stamp x={CARD_X[0]} t={t} at={(sec.fakeMarkAt ?? sec.fakeAt) + 0.05} text="1:1" color={C.red} y={Array.isArray(sec.stampY) ? sec.stampY[0] : sec.stampY} />
-          <Stamp x={CARD_X[1]} t={t} at={sec.realAt + 0.3} text="LEGIT ✓" color={C.green} y={Array.isArray(sec.stampY) ? sec.stampY[1] : sec.stampY} /></>}
+        <Brackets x={XS()[0]} box={sec.fakeBox} color={C.red} t={t} at={sec.fakeAt} />
+        <Brackets x={XS()[1]} box={sec.realBox} color={C.green} t={t} at={sec.realAt} />
+        <Mark ok={false} x={XS()[0]} t={t} at={sec.fakeMarkAt ?? sec.fakeAt} />
+        <Mark ok x={XS()[1]} t={t} at={sec.realAt} />
+        <Sparkles x={XS()[1]} t={t} at={sec.realAt} />
+        {K.fx2 && <><Stamp x={XS()[0]} t={t} at={(sec.fakeMarkAt ?? sec.fakeAt) + 0.05} text="1:1" color={C.red} y={Array.isArray(sec.stampY) ? sec.stampY[0] : sec.stampY} />
+          <Stamp x={XS()[1]} t={t} at={sec.realAt + 0.3} text="LEGIT ✓" color={C.green} y={Array.isArray(sec.stampY) ? sec.stampY[1] : sec.stampY} /></>}
         {sec.swatches && [0, 1].map((i) => {
           const at = i === 0 ? sec.fakeAt : sec.realAt;
-          return t >= at ? <div key={'sw' + i} style={{position: 'absolute', left: CARD_X[i], width: CARD_W, top: CARD_Y + CARD_H + 78, display: 'flex', justifyContent: 'center',
+          return t >= at ? <div key={'sw' + i} style={{position: 'absolute', left: XS()[i], width: CARD_W, top: CARD_Y + CARD_H + 78, display: 'flex', justifyContent: 'center',
             transform: `scale(${pop(t, at + 0.15)})`}}>
             <div style={{display: 'flex', alignItems: 'center', gap: 12, background: 'rgba(5,10,24,.8)', border: `4px solid ${i === 0 ? C.red : C.green}`, borderRadius: 30, padding: '6px 18px 6px 8px'}}>
               <div style={{width: 40, height: 40, borderRadius: '50%', background: sec.swatches![i], border: '4px solid #fff'}} />
               <div style={{fontFamily: F, fontWeight: 700, fontSize: 26, color: C.white}}>{sec.swatches![i]}</div>
             </div></div> : null;
         })}
-        <CardLabel x={CARD_X[0]} text={sec.fakeCap} color={C.red} t={t} at={sec.fakeAt} />
-        <CardLabel x={CARD_X[1]} text={sec.realCap} color={C.green} t={t} at={sec.realAt} />
+        <CardLabel x={XS()[0]} text={sec.fakeCap} color={C.red} t={t} at={sec.fakeAt} />
+        <CardLabel x={XS()[1]} text={sec.realCap} color={C.green} t={t} at={sec.realAt} />
         {sec.checklist && t < sec.realAt + 0.01 && sec.checklist.map(([s, at], j) => t >= at ? (
-          <div key={j} style={{position: 'absolute', left: CARD_X[1], width: CARD_W, display: 'flex', justifyContent: 'center', top: CARD_Y + CARD_H + 24 + j * 62, transform: `scale(${pop(t, at)})`}}>
+          <div key={j} style={{position: 'absolute', left: XS()[1], width: CARD_W, display: 'flex', justifyContent: 'center', top: CARD_Y + CARD_H + 24 + j * 62, transform: `scale(${pop(t, at)})`}}>
             <Chip label={'✓ ' + s} bg={C.green} fg={C.white} size={24} />
           </div>) : null)}
       </>}
@@ -387,7 +392,7 @@ const Titles: React.FC<{t: number}> = ({t}) => {
   }
   if (t < K.intro.compte) return <>
     <Typed parts={[{t: "C'EST CELUI DE"}]} at={K.intro.celui} t={t} size={48} cps={40} style={{...box, top: top - 20}} />
-    {t >= K.intro.reveal && <Txt size={96} color={C.green} style={{...box, top: top + 40, textAlign: 'center', transform: `scale(${pop(t, K.intro.reveal)})`}}>DROITE !</Txt>}
+    {t >= K.intro.reveal && <Txt size={96} color={C.green} style={{...box, top: top + 40, textAlign: 'center', transform: `scale(${pop(t, K.intro.reveal)})`}}>{K.realLeft ? 'GAUCHE !' : 'DROITE !'}</Txt>}
   </>;
   if (t < K.secs[0].at) return <Typed parts={[{t: 'COMPTE '}, {t: 'AVEC', c: C.yellow}, {t: ' MOI'}]} at={K.intro.compte} t={t} size={56} style={{...box, top: top + 30}} />;
   const sec = K.secs.find((s) => t >= s.at && t < s.end);
@@ -501,18 +506,18 @@ function poseAt(t: number): {pose: string; mark?: string} {
   if (K.mode === 'howto' && t < K.secs[0].at) {
     if (t < K.intro.q) return {pose: 'wave_c'};
     if (t < K.intro.reveal) return {pose: 'think', mark: '?'};
-    if (t < K.intro.compte) return {pose: 'point_r_c', mark: t < K.intro.reveal + 0.4 ? '!' : undefined};
+    if (t < K.intro.compte) return {pose: toReal(), mark: t < K.intro.reveal + 0.4 ? '!' : undefined};
     return {pose: 'idle'};
   }
   if (t < K.intro.q - 0.02) return {pose: 'wave_c'};
   if (t < K.intro.three - 0.03) return {pose: 'idle'};
   if (t < K.intro.celui - 0.03) return {pose: 'think', mark: '?'};
-  if (t < K.intro.compte - 0.06) return {pose: 'point_r_c', mark: t < K.intro.reveal + 0.24 ? '!' : undefined};
+  if (t < K.intro.compte - 0.06) return {pose: toReal(), mark: t < K.intro.reveal + 0.24 ? '!' : undefined};
   if (t < K.quizEnd) {
     const sec = K.secs.find((s) => t >= s.at && t < s.end);
     if (sec) {
-      if (t >= sec.fakeAt && t < sec.fakeAt + 1.3) return {pose: 'point_l', mark: t < sec.fakeAt + 0.6 ? '!' : undefined};
-      if (t >= sec.realAt && t < sec.realAt + 1.3) return {pose: 'point_r_c'};
+      if (t >= sec.fakeAt && t < sec.fakeAt + 1.3) return {pose: toFake(), mark: t < sec.fakeAt + 0.6 ? '!' : undefined};
+      if (t >= sec.realAt && t < sec.realAt + 1.3) return {pose: toReal()};
       if (sec.checklist && t >= sec.checklist[0][1] - 0.04 && t < sec.realAt) return {pose: 'think'};
     }
     return {pose: 'idle'};
