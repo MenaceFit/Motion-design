@@ -35,7 +35,7 @@ export type Cfg = {
   intro: {q: number; three: number; counts: [number, number, number]; celui: number; reveal: number; compte: number};
   outro: {alors: number; combien: number; ecris: number; moi: number; p1At: number; revend: number; p2At: number;
     benefAt: number; plugAt: number; dmAt: number; p1: string; p2: string; benef: string; img: string; rareAt?: number};
-  theme?: 'pixel' | 'mag'; // DA graphique
+  theme?: 'pixel' | 'mag' | 'night'; // DA graphique (night = pixel sur fond bleu minuit étoilé)
   realLeft?: boolean; // l'authentique à gauche (par défaut à droite)
   mode?: 'quiz' | 'howto'; // howto = format « comment différencier » (pas de devinette ni de score à commenter)
   product?: string; // nom du produit affiché en intro (howto)
@@ -98,8 +98,10 @@ const pop = (t: number, at: number, d = 0.28) => t < at ? 0 : interpolate(t, [at
 const Stage: React.FC<{t: number; tintL?: number; tintR?: number; green?: number; rays?: number; grid?: number}> = ({t, tintL = 0, tintR = 0, green = 0, rays = 0, grid = 0}) => {
   const frame = useCurrentFrame();
   if (isMag()) return <MagStage t={t} tintL={tintL} tintR={tintR} green={green} rays={rays} grid={grid} />;
+  const night = K.theme === 'night';
   return (
-    <AbsoluteFill style={{background: 'linear-gradient(180deg,#081230 0%,#0d1d4a 55%,#0a1638 100%)'}}>
+    <AbsoluteFill style={{background: night ? 'radial-gradient(ellipse at 50% 30%,#14215a 0%,#0a1238 45%,#04071c 100%)' : 'linear-gradient(180deg,#081230 0%,#0d1d4a 55%,#0a1638 100%)'}}>
+      {night && <StarField />}
       {/* colonnes de lumière */}
       {[0.08, 0.3, 0.5, 0.7, 0.92].map((x, i) => (
         <div key={i} style={{position: 'absolute', left: x * W - 90, top: 0, width: 180, height: FLOOR_Y,
@@ -168,6 +170,36 @@ const MagStage: React.FC<{t: number; tintL: number; tintR: number; green: number
       <div style={{position: 'absolute', left: 60, width: W - 120, top: FLOOR_Y, height: 8, background: C.ink, borderRadius: 4}} />
     </AbsoluteFill>
   );
+};
+
+// ciel étoilé : 3 couches (petites étoiles qui scintillent, étoiles moyennes en croix pixel, voie lactée diffuse) + étoiles filantes
+const StarField: React.FC = () => {
+  const frame = useCurrentFrame();
+  return <>
+    <AbsoluteFill style={{background: 'linear-gradient(115deg, transparent 30%, rgba(120,140,255,.10) 45%, rgba(190,150,255,.08) 52%, transparent 66%)'}} />
+    {Array.from({length: 140}).map((_, i) => {
+      const x = random('sx' + i) * W, y = random('sy' + i) * (FLOOR_Y - 20);
+      const tw = 0.35 + 0.65 * Math.abs(Math.sin(frame / (14 + random('sp' + i) * 30) + random('ph' + i) * 6));
+      const sz = random('sz' + i) < 0.85 ? 4 : 6;
+      return <div key={i} style={{position: 'absolute', left: x, top: y, width: sz, height: sz, background: random('sc' + i) < 0.8 ? '#ffffff' : '#ffe9a8', opacity: tw}} />;
+    })}
+    {Array.from({length: 12}).map((_, i) => {
+      const x = random('bx' + i) * W, y = random('by' + i) * (FLOOR_Y - 200);
+      const on = 0.5 + 0.5 * Math.sin(frame / 10 + i * 1.7);
+      return <div key={'b' + i} style={{position: 'absolute', left: x, top: y, width: 24, height: 24, opacity: 0.35 + 0.65 * on}}>
+        <div style={{position: 'absolute', left: 9, top: 0, width: 6, height: 24, background: '#fff'}} />
+        <div style={{position: 'absolute', left: 0, top: 9, width: 24, height: 6, background: '#fff'}} />
+        <div style={{position: 'absolute', left: 6, top: 6, width: 12, height: 12, background: '#cfe0ff'}} />
+      </div>;
+    })}
+    {[0, 1].map((k) => {
+      const per = 150, f0 = 40 + k * 75, p = ((frame - f0) % per + per) % per;
+      if (p > 18) return null;
+      const x0 = 120 + k * 520, y0 = 140 + k * 260;
+      return <div key={'s' + k} style={{position: 'absolute', left: x0 + p * 26, top: y0 + p * 10, width: 160, height: 4, transform: 'rotate(21deg)', transformOrigin: 'right',
+        background: 'linear-gradient(90deg, transparent, #fff)', opacity: 1 - p / 18}} />;
+    })}
+  </>;
 };
 
 const PaperGrain: React.FC = () => (

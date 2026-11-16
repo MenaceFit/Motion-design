@@ -184,7 +184,7 @@ export const thermamintCfg: Cfg = {
 // Bas Nike AeroSwift — nouvelle DA « street mag » ; vrai = images 3-5, 1:1 = images 1-2 ; voix Kevin v4
 // (fin de voix à régénérer : prix lus comme des repères ; timings de l'outro provisoires)
 export const aeroswiftCfg: Cfg = {
-  dir: 'aeroswift', duration: 38.5, quizEnd: 29.1, theme: 'mag', fx: true, fx2: true, fx3: true,
+  dir: 'aeroswift', duration: 38.5, quizEnd: 29.1, theme: 'night', fx: true, fx2: true, fx3: true,
   words: [[0, 0.84], [1.32, 2.08], [2.42, 3.22], [3.44, 3.72], [3.96, 4.54], [4.86, 5.4], [5.74, 6.42], [6.74, 7.42],
     [7.84, 9.5], [9.9, 12.14], [12.4, 15.16], [15.48, 17.2], [17.7, 18.44], [18.82, 20.2], [20.42, 21.68],
     [22.06, 23.82], [24.12, 26.98], [27.18, 29.26], [29.26, 30.56], [30.88, 32.06]],
