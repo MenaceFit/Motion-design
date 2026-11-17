@@ -203,3 +203,26 @@ export const aeroswiftCfg: Cfg = {
   outro: {alors: 29.26, combien: 30.1, ecris: 31.02, moi: 32.44, p1At: 33.18, revend: 34.2, p2At: 35.06, benefAt: 36.04,
     plugAt: 37.86, dmAt: 38.66, p1: '25€', p2: '90€', benef: '+65€', img: 'full_auth.jpg'},
 };
+
+// Bas Nike Trail — authentique À GAUCHE, fond étoilé ; vrai = images 1-2, 1:1 = images 3-5 ; voix Kevin v4, 41,6 s
+export const trailCfg: Cfg = {
+  dir: 'trail', duration: 42.3, quizEnd: 31.75, theme: 'night', realLeft: true, fx: true, fx2: true, fx3: true,
+  words: [[0, 0.9], [1.12, 2.3], [2.36, 3.25], [3.32, 3.8], [3.88, 4.4], [4.8, 5.4], [5.56, 6.5], [6.66, 7.6],
+    [7.66, 8.9], [9.46, 11.8], [12.0, 14.2], [14.68, 16.5], [16.84, 18.7], [18.92, 21.5], [21.84, 23.5],
+    [23.98, 26.0], [26.5, 30.2], [30.34, 31.6], [31.92, 33.0], [33.14, 34.4], [34.58, 35.9], [36.2, 37.6],
+    [37.9, 39.7], [39.78, 40.3], [40.6, 41.4]],
+  intro: {q: 1.12, three: 2.36, counts: [3.32, 3.88, 4.8], celui: 5.56, reveal: 6.02, compte: 6.66},
+  secs: [
+    {n: 1, title: 'LA MATIÈRE', at: 7.66, end: 14.68, imgs: ['mat_fake.jpg', 'mat_auth.jpg'],
+      fakeAt: 12.0, fakeCap: 'MATE & PLATE', realAt: 9.46, realCap: 'LÉGÈRE & BRILLANTE', plusAt: 14.3,
+      fakeBox: [0.1, 0.15, 0.8, 0.6], realBox: [0.1, 0.15, 0.8, 0.6], stampY: 0.78},
+    {n: 2, title: 'LE LOGO', sub: 'NIKE TRAIL', at: 14.68, end: 21.84, imgs: ['logo_fake.jpg', 'logo_auth.jpg'],
+      fakeAt: 18.92, fakeCap: 'BLANC & ÉPAIS', realAt: 16.84, realCap: 'GRIS RÉFLÉCHISSANT', plusAt: 21.4,
+      fakeBox: [0.25, 0.28, 0.5, 0.2], realBox: [0.22, 0.28, 0.5, 0.25], stampY: 0.78},
+    {n: 3, title: "L'ÉCRITURE", sub: "À L'INTÉRIEUR", at: 21.84, end: 32.1, imgs: ['label_fake.jpg', 'label_auth.jpg'],
+      fakeAt: 26.5, fakeMarkAt: 30.34, fakeCap: 'DRI-FIT ADV, CAMBODIA', realAt: 23.98, realCap: 'MADE IN VIETNAM', plusAt: 31.4,
+      fakeBox: [0.1, 0.1, 0.8, 0.6], realBox: [0.1, 0.4, 0.8, 0.3], stampY: [0.85, 0.82]},
+  ],
+  outro: {alors: 31.92, combien: 32.34, ecris: 33.14, moi: 34.58, p1At: 35.32, revend: 36.2, p2At: 37.1, benefAt: 37.9,
+    plugAt: 39.78, dmAt: 40.6, p1: '15€', p2: '110€', benef: '+95€', img: 'full_auth.jpg'},
+};

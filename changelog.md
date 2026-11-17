@@ -1,5 +1,12 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-17 — Bas Nike Trail + son adouci
+- Retour utilisateur : compte à rebours « trop agressif ». Nouveau `tools/soft_sfx.py` (SFX synthétisés doux) :
+  tons marimba (ré5, puis la5 sur le « 1 ») + battement de cœur grave à la place des blips 8-bit et du tic-tac ;
+  révélation en cloche douce (accord majeur) au lieu de power-up + hitHurt ; buzzers, impacts et riser baissés,
+  laser du balayage remplacé par un swoosh ; musique −18 dB. → à réutiliser par défaut.
+- Trail : authentique à gauche, fond étoilé ; matière, logo Nike Trail, écriture intérieure ; 15 € → 110 € → +95 €. QC OK.
+
 ## 2026-11-16 (3) — Bas Nike AeroSwift + thèmes de DA
 - Testé une DA « street mag » (`theme: 'mag'`) : refusée par l'utilisateur → conservée dans le code mais non utilisée.
 - Retenu : DA pixel d'origine + fond « bleu minuit étoilé » (`theme: 'night'` : dégradé nuit, 140 étoiles scintillantes,
