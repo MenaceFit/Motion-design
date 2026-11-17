@@ -11,6 +11,7 @@ import {TeddyEpisode2} from './teddy/Episode2';
 import {ProfilePic, profilePicDefaults} from './teddy/ProfilePic';
 import {TeddyEpisode3} from './teddy/Episode3';
 import {LegitCheck} from './nrd/LegitCheck';
+import {PackPromo} from './nrd/PackPromo';
 import {nrdCfg, phenomCfg, techfleeceCfg, divisionCfg, underarmourCfg, underarmourHowtoCfg, thermavestCfg, thermamintCfg, aeroswiftCfg, trailCfg} from './nrd/configs';
 
 export const RemotionRoot: React.FC = () => (
@@ -80,5 +81,6 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="LegitCheckThermaMint" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(thermamintCfg.duration * 30)} defaultProps={{cfg: thermamintCfg}} />
     <Composition id="LegitCheckAeroSwift" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(aeroswiftCfg.duration * 30)} defaultProps={{cfg: aeroswiftCfg}} />
     <Composition id="LegitCheckTrail" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(trailCfg.duration * 30)} defaultProps={{cfg: trailCfg}} />
+    <Composition id="PackPromo" component={PackPromo} width={1080} height={1920} fps={30} durationInFrames={966} />
   </>
 );
