@@ -226,3 +226,28 @@ export const trailCfg: Cfg = {
   outro: {alors: 31.92, combien: 32.34, ecris: 33.14, moi: 34.58, p1At: 35.32, revend: 36.2, p2At: 37.1, benefAt: 37.9,
     plugAt: 39.78, dmAt: 40.6, p1: '15€', p2: '110€', benef: '+95€', img: 'full_auth.jpg'},
 };
+
+// Bas Nike Phenom Elite Tokyo — format « comment différencier », fond étoilé, vrai à droite ; images = slideshow @ak4run ; voix Kevin v4, 47,2 s
+export const phenomtokyoCfg: Cfg = {
+  dir: 'phenomtokyo', duration: 48.0, quizEnd: 37.6, mode: 'howto', product: 'NIKE PHENOM ELITE TOKYO 🇯🇵', theme: 'night', fx: true, fx2: true, fx3: true,
+  words: [[0, 4.12], [4.36, 4.96], [5.52, 6.6], [7.04, 10.0], [10.44, 12.7], [13.06, 14.6], [14.82, 17.4], [17.78, 19.6],
+    [19.94, 21.6], [21.94, 22.6], [22.86, 23.9], [24.34, 26.4], [26.8, 28.4], [28.46, 32.3], [32.5, 37.3], [37.78, 39.3],
+    [39.46, 40.8], [41.24, 45.2], [45.52, 46.0], [46.2, 47.1]],
+  intro: {q: 0.96, three: 0, counts: [0, 0, 0], celui: 0, reveal: 3.52, compte: 4.36},
+  secs: [
+    {n: 1, title: 'LE LOGO', at: 5.52, end: 13.06, imgs: ['logo_fake.jpg', 'logo_auth.jpg'],
+      fakeAt: 7.04, fakeCap: "S'EFFACE VITE", realAt: 10.44, realCap: 'NET & BIEN IMPRIMÉ', plusAt: 12.6,
+      fakeBox: [0.25, 0.3, 0.6, 0.35], realBox: [0.3, 0.35, 0.65, 0.35], stampY: 0.8},
+    {n: 2, title: 'LA POCHE', sub: 'ARRIÈRE', at: 13.06, end: 19.94, imgs: ['back_fake.jpg', 'back_auth.jpg'],
+      fakeAt: 14.82, fakeCap: 'POCHE & ZIP TROP PETITS', realAt: 17.78, realCap: 'POCHE & ZIP PLUS GRANDS', plusAt: 19.5,
+      fakeBox: [0.3, 0.12, 0.35, 0.22], realBox: [0.12, 0.12, 0.45, 0.35], stampY: 0.8},
+    {n: 3, title: 'LA POCHE', sub: 'SUR LE CÔTÉ', at: 19.94, end: 26.8, imgs: ['pocket_fake.jpg', 'pocket_auth.jpg'],
+      fakeAt: 21.94, fakeMarkAt: 22.86, fakeCap: 'ELLE BRILLE', realAt: 24.34, realCap: 'CLASSIQUE & MATE', plusAt: 26.4,
+      fakeBox: [0.15, 0.05, 0.6, 0.6], realBox: [0.1, 0.2, 0.75, 0.35], stampY: [0.8, 0.08]},
+    {n: 4, title: "L'ÉTIQUETTE", sub: 'INTÉRIEURE', at: 26.8, end: 37.95, imgs: ['label_fake.jpg', 'label_auth.jpg'],
+      fakeAt: 28.46, fakeCap: 'FAUX N° : DQ6537', realAt: 32.5, realCap: 'BON N° : DH1483', plusAt: 36.6,
+      fakeBox: [0.3, 0.02, 0.45, 0.45], realBox: [0.55, 0.1, 0.4, 0.55], stampY: [0.85, 0.85]},
+  ],
+  outro: {alors: 37.78, combien: 39.46, ecris: 39.46, moi: 41.24, p1At: 41.76, revend: 42.52, p2At: 42.94, benefAt: 43.62,
+    plugAt: 45.52, dmAt: 46.2, p1: '30€', p2: '150€', benef: '+120€', img: 'full_auth.jpg'},
+};

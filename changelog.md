@@ -1,5 +1,10 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-20 — Phenom Elite Tokyo (howto, 4 étapes) + récap final
+- Images tirées du slideshow TikTok de l'utilisateur (zones photo seules, sans légendes ni filigrane).
+- Howto : nouveau bloc de fin « MAINTENANT TU SAIS » = récap coché des étapes (incite à enregistrer) + « ABONNE-TOI »
+  + « ENREGISTRE POUR PLUS TARD », avant les prix. Son doux (soft_sfx). 30 € → 150 € → +120 €. QC OK.
+
 ## 2026-11-17 — Bas Nike Trail + son adouci
 - Retour utilisateur : compte à rebours « trop agressif ». Nouveau `tools/soft_sfx.py` (SFX synthétisés doux) :
   tons marimba (ré5, puis la5 sur le « 1 ») + battement de cœur grave à la place des blips 8-bit et du tic-tac ;

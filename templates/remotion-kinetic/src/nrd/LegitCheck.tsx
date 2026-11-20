@@ -502,6 +502,26 @@ const Outro: React.FC<{t: number}> = ({t}) => {
   if (t < K.quizEnd) return null;
   const top = 230;
   const box: React.CSSProperties = {position: 'absolute', left: 0, width: W, top};
+  if (t < K.outro.moi && K.mode === 'howto') {
+    // récap des étapes (incite à enregistrer) + appel à l'abonnement
+    return <>
+      <Typed parts={[{t: 'MAINTENANT '}, {t: 'TU SAIS', c: C.green}]} at={K.outro.alors} t={t} size={60} style={{...box, top: 190}} />
+      {K.secs.map((x, i) => {
+        const at = K.outro.alors + 0.3 + i * 0.22;
+        if (t < at) return null;
+        return <div key={i} style={{position: 'absolute', left: 120, width: W - 240, top: 330 + i * 110, display: 'flex', alignItems: 'center', gap: 22,
+          transform: `translateX(${interpolate(t, [at, at + 0.25], [-180, 0], {...clamp, easing: Easing.out(Easing.cubic)})}px)`, opacity: interpolate(t, [at, at + 0.12], [0, 1], clamp)}}>
+          <div style={{width: 76, height: 76, borderRadius: 12, background: C.green, border: `5px solid ${C.ink}`, boxShadow: `4px 4px 0 ${C.ink}`, display: 'flex',
+            alignItems: 'center', justifyContent: 'center', transform: `scale(${pop(t, at + 0.12)})`}}><Txt size={48}>✓</Txt></div>
+          <div style={{flex: 1, padding: '12px 20px', background: 'rgba(10,20,50,.85)', border: `4px solid ${C.blue}`, borderRadius: 12}}>
+            <Txt size={32}>{x.title}{x.sub ? ' ' + x.sub : ''}</Txt></div>
+        </div>;
+      })}
+      {t >= K.outro.combien && <div style={{position: 'absolute', left: 0, width: W, top: 820, display: 'flex', justifyContent: 'center', transform: `scale(${pop(t, K.outro.combien, 0.35)}) rotate(-3deg)`}}>
+        <Chip label="➕ ABONNE-TOI" bg={C.red} fg="#fff" size={56} /></div>}
+      {t >= K.outro.combien + 0.4 && <Typed parts={[{t: '📌 ENREGISTRE POUR PLUS TARD', c: C.yellow}]} at={K.outro.combien + 0.4} t={t} size={34} cursor={false} style={{...box, top: 960}} />}
+    </>;
+  }
   if (t < K.outro.moi) {
     return <>
       <Typed parts={[{t: 'ALORS...'}]} at={K.outro.alors} t={t} size={60} cps={14} style={box} />
