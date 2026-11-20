@@ -246,7 +246,8 @@ def file_voice(path, lines, work):
     wtxt = "".join(wc)
     plan_chars, owner = [], []
     for li, ln in enumerate(lines):
-        n = norm(num_to_words(ln.get("say", ln["text"]).replace("{", "").replace("}", "")))
+        say = re.sub(r"\[[^\]]*\]", " ", ln.get("say_elevenlabs", ln.get("say", ln["text"])))  # balises ElevenLabs v3/v4 ([excited]…) ignorées
+        n = norm(num_to_words(say.replace("{", "").replace("}", "")))
         plan_chars.append(n); owner += [li] * len(n)
     ptxt = "".join(plan_chars)
     sm = difflib.SequenceMatcher(None, ptxt, wtxt, autojunk=False)

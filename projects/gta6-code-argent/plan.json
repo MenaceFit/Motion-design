@@ -77,7 +77,8 @@
     "type": "counter",
     "value": 250000,
     "at": "250"
-   }
+   },
+   "say_elevenlabs": "[excited] Ce code te donne 250 000 dollars… sur GTA 6 !"
   },
   {
    "text": "Mais personne ne te dit le piège.",
@@ -93,7 +94,8 @@
     "type": "alert",
     "text": "Le piège",
     "at": "piège"
-   }
+   },
+   "say_elevenlabs": "[mischievously] [whispers] Mais personne ne te dit le piège."
   },
   {
    "text": "Déjà, les codes marchent seulement après l'histoire : les {91 missions}.",
@@ -118,7 +120,8 @@
       "icon": "check"
      }
     ]
-   }
+   },
+   "say_elevenlabs": "[curious] Déjà : les codes marchent seulement après l'histoire. Les 91 missions."
   },
   {
    "text": "Ensuite, sors ton téléphone avec la flèche du haut.",
@@ -130,7 +133,8 @@
     "type": "step",
     "n": 1,
     "label": "Le téléphone"
-   }
+   },
+   "say_elevenlabs": "[excited] Ensuite, sors ton téléphone avec la flèche du haut."
   },
   {
    "text": "Maintiens {L1} et appuie sur {R1}. Sur Xbox, {LB} et {RB}.",
@@ -155,7 +159,8 @@
      "y": 470,
      "at": "maintiens"
     }
-   ]
+   ],
+   "say_elevenlabs": "Maintiens L1, et appuie sur R1. Sur Xbox : LB, et RB."
   },
   {
    "text": "Puis tape : haut, droite, bas, gauche, haut, gauche, bas, droite.",
@@ -188,7 +193,8 @@
      "until": 4.4
     }
    ],
-   "transition": "spin"
+   "transition": "spin",
+   "say_elevenlabs": "[dramatically] Puis tape : haut, droite, bas, gauche… haut, gauche, bas, droite."
   },
   {
    "text": "Et boum : 250 000 $, direct sur ton compte !",
@@ -207,7 +213,8 @@
     "type": "counter",
     "value": 250000,
     "at": "250"
-   }
+   },
+   "say_elevenlabs": "[shouting] Et BOUM ! [excited] 250 000 dollars, direct sur ton compte ! [laughs]"
   },
   {
    "text": "Et c'est le même code sur PS5 et sur Xbox.",
@@ -223,7 +230,8 @@
     "accent": 0,
     "y": 520,
     "at": "même"
-   }
+   },
+   "say_elevenlabs": "[happy] Et c'est le même code sur PS5 et sur Xbox."
   },
   {
    "text": "Mais attention : après un code, tu ne peux plus sauvegarder… et tes trophées sont désactivés.",
@@ -242,14 +250,16 @@
     "type": "alert",
     "text": "Sauvegarde bloquée",
     "at": "sauvegarder"
-   }
+   },
+   "say_elevenlabs": "[serious] Mais attention : après un code, tu ne peux plus sauvegarder… [sighs] et tes trophées sont désactivés."
   },
   {
    "text": "Alors fais une sauvegarde à part, avant de tricher.",
    "shots": [
     "LT-041",
     "T2-042"
-   ]
+   ],
+   "say_elevenlabs": "[warmly] Alors fais une sauvegarde à part, avant de tricher."
   },
   {
    "text": "Abonne-toi pour tous les autres codes de GTA 6 !",
@@ -261,8 +271,14 @@
     "type": "subscribe",
     "at": "abonne",
     "until": "end"
-   }
+   },
+   "say_elevenlabs": "[excited] Abonne-toi pour tous les autres codes de GTA 6 !"
   }
  ],
- "tail": 1.0
+ "tail": 1.0,
+ "voice_elevenlabs": {
+  "voice_id": "3Tp5mYhT9wrfnry9pzvV",
+  "name": "Hugo – Punchy French Creator",
+  "model": "eleven_v4 (ou eleven_v3)"
+ }
 }

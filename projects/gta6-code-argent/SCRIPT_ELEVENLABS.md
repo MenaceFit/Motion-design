@@ -1,35 +1,51 @@
-# Script voix off : « Le code 250 000 $ de GTA 6 » (~36 s)
+# Script voix off avec émotions : « Le code 250 000 $ de GTA 6 » (~36 s)
 
-À coller **tel quel** dans ElevenLabs, en **une seule génération**, puis m'envoyer le fichier.
-Les nombres sont écrits en lettres pour qu'ils soient bien prononcés. Les « … » et les virgules
-servent à placer les respirations.
+## Voix choisie
+**Hugo – Punchy French Creator** · voice_id `3Tp5mYhT9wrfnry9pzvV` (bibliothèque ElevenLabs).
+Voix masculine française native, « punchy », pensée pour les accroches et les réactions naturelles
+en format court. Choix fait sur la description de la bibliothèque (extrait non écouté) : écoute
+l'aperçu avant de générer.
+Alternatives : **Léo – Energetic & Engaging** (`jsScnYkNNda9Q1NES5nn`), plus jeune et plus hype ;
+**Liam – Sharp & Pro** (`EmZGlxI7QPvCEMOkFhB9`), plus posée.
 
+## Modèle
+**Eleven v4** (ou **Eleven v3**) : ce sont les seuls qui jouent les balises d'émotion `[...]`.
+Ces modèles n'ont pas de curseur de vitesse : le rythme vient des balises, des « … » et de la ponctuation.
+Avec Multilingual v2, les balises seraient lues à voix haute : à éviter.
+
+## Script à coller tel quel, en une seule génération
 ```
-Ce code te donne deux cent cinquante mille dollars, sur GTA 6.
-Mais personne ne te dit le piège.
-Déjà, les codes marchent seulement après l'histoire : les quatre-vingt-onze missions.
-Ensuite, sors ton téléphone avec la flèche du haut.
+[excited] Ce code te donne 250 000 dollars… sur GTA 6 !
+[mischievously] [whispers] Mais personne ne te dit le piège.
+[curious] Déjà : les codes marchent seulement après l'histoire. Les 91 missions.
+[excited] Ensuite, sors ton téléphone avec la flèche du haut.
 Maintiens L1, et appuie sur R1. Sur Xbox : LB, et RB.
-Puis tape : haut, droite, bas, gauche, haut, gauche, bas, droite.
-Et boum : deux cent cinquante mille dollars, direct sur ton compte !
-Et c'est le même code sur PS5 et sur Xbox.
-Mais attention : après un code, tu ne peux plus sauvegarder… et tes trophées sont désactivés.
-Alors fais une sauvegarde à part, avant de tricher.
-Abonne-toi pour tous les autres codes de GTA 6 !
+[dramatically] Puis tape : haut, droite, bas, gauche… haut, gauche, bas, droite.
+[shouting] Et BOUM ! [excited] 250 000 dollars, direct sur ton compte ! [laughs]
+[happy] Et c'est le même code sur PS5 et sur Xbox.
+[serious] Mais attention : après un code, tu ne peux plus sauvegarder… [sighs] et tes trophées sont désactivés.
+[warmly] Alors fais une sauvegarde à part, avant de tricher.
+[excited] Abonne-toi pour tous les autres codes de GTA 6 !
 ```
 
-## Réglages conseillés
-- **Modèle** : Eleven v3 (le plus expressif) ou Eleven Multilingual v2 ; langue français.
-- **Voix** : masculine ou féminine énergique, style « gaming / YouTube » (bibliothèque de voix ElevenLabs, filtre French).
-- **Stabilité** : environ 35 à 45 % (ou « Natural » en v3). **Similarité** : environ 75 %. **Style** : environ 20 à 30 %. **Vitesse** : 1,05 à 1,15.
-- Optionnel en v3 : ajouter `[excited]` devant la 1re et la 7e ligne, et `[whispers]` devant « Mais personne ne te dit le piège. ».
-  Ces balises ne sont pas prononcées et n'empêchent pas le calage.
-- **Export** : MP3 44,1 kHz (192 kb/s ou plus) ou WAV. Un seul fichier pour tout le script.
+## Ce que fait chaque émotion dans le montage
+| Ligne | Balise | Pourquoi |
+|---|---|---|
+| Accroche | `[excited]` | énergie dès la 1re seconde, sur le compteur qui monte |
+| Le piège | `[mischievously] [whispers]` | la musique se coupe à cet instant : un chuchotement complice crée la tension |
+| Les 91 missions | `[curious]` | ton explicatif, on relance l'attention |
+| Étapes 1 et 2 | `[excited]` (maintenu) | rythme de tuto rapide |
+| Le code | `[dramatically]` | chaque direction tombe sur l'allumage d'une touche à l'écran |
+| Et BOUM | `[shouting]` puis `[excited]` + `[laughs]` | tombe sur le drop musical, le ka-ching et l'explosion de $ |
+| PS5 = Xbox | `[happy]` | info bonus, ton léger |
+| Avertissement | `[serious]` + `[sighs]` | contraste, glitch et alerte rouge à l'écran |
+| Conseil | `[warmly]` | ton bienveillant (crédibilité) |
+| CTA | `[excited]` | relance finale sur le bouton S'abonner |
 
-## Ce que je fais ensuite
+## Ensuite
+Génère, garde la meilleure prise (fais-en 2 ou 3 si une balise sonne faux), exporte en MP3 ou WAV,
+puis envoie-moi le fichier. Je lance :
 ```bash
-python3 tools/gta_build.py projects/gta6-code-argent/plan.json --voice-file <ton_fichier.mp3>
+python3 tools/gta_build.py projects/gta6-code-argent/plan.json --voice-file <fichier>
 ```
-Whisper retranscrit ta prise, la cale sur le script, puis tout s'aligne sur ta voix : sous-titres,
-plans, transitions, combo de touches, compteur et SFX. Si tu changes une phrase en enregistrant,
-dis-le-moi : le calage tolère de petites différences, mais les sous-titres afficheront le texte du plan.
+Les balises sont ignorées au calage (testé : 96 % de caractères communs entre le script et la prise).
