@@ -1,5 +1,10 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-20 (2) — Phenom Elite gris (howto, 3 étapes)
+- Slideshow utilisateur (flèches conservées). Pastilles couleur retirées : la mesure sur photos d'éclairage différent
+  contredisait le message (le 1:1 mesurait plus foncé) → ne pas afficher d'hex quand les photos ne sont pas comparables.
+- Voix : « 28 € → 80 € … 50 € de bénéfice » ; affiché +52 € (calcul exact). 80 SFX. QC OK.
+
 ## 2026-11-20 — Phenom Elite Tokyo (howto, 4 étapes) + récap final
 - Images tirées du slideshow TikTok de l'utilisateur (zones photo seules, sans légendes ni filigrane).
 - Howto : nouveau bloc de fin « MAINTENANT TU SAIS » = récap coché des étapes (incite à enregistrer) + « ABONNE-TOI »

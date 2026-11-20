@@ -12,7 +12,7 @@ import {ProfilePic, profilePicDefaults} from './teddy/ProfilePic';
 import {TeddyEpisode3} from './teddy/Episode3';
 import {LegitCheck} from './nrd/LegitCheck';
 import {PackPromo} from './nrd/PackPromo';
-import {nrdCfg, phenomCfg, techfleeceCfg, divisionCfg, underarmourCfg, underarmourHowtoCfg, thermavestCfg, thermamintCfg, aeroswiftCfg, trailCfg, phenomtokyoCfg} from './nrd/configs';
+import {nrdCfg, phenomCfg, techfleeceCfg, divisionCfg, underarmourCfg, underarmourHowtoCfg, thermavestCfg, thermamintCfg, aeroswiftCfg, trailCfg, phenomtokyoCfg, phenomgrisCfg} from './nrd/configs';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -82,6 +82,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="LegitCheckAeroSwift" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(aeroswiftCfg.duration * 30)} defaultProps={{cfg: aeroswiftCfg}} />
     <Composition id="LegitCheckTrail" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(trailCfg.duration * 30)} defaultProps={{cfg: trailCfg}} />
     <Composition id="LegitHowtoPhenomTokyo" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(phenomtokyoCfg.duration * 30)} defaultProps={{cfg: phenomtokyoCfg}} />
+    <Composition id="LegitHowtoPhenomGris" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(phenomgrisCfg.duration * 30)} defaultProps={{cfg: phenomgrisCfg}} />
     <Composition id="PackPromo" component={PackPromo} width={1080} height={1920} fps={30} durationInFrames={966} />
   </>
 );

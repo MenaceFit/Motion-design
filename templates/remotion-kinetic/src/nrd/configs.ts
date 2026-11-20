@@ -251,3 +251,24 @@ export const phenomtokyoCfg: Cfg = {
   outro: {alors: 37.78, combien: 39.46, ecris: 39.46, moi: 41.24, p1At: 41.76, revend: 42.52, p2At: 42.94, benefAt: 43.62,
     plugAt: 45.52, dmAt: 46.2, p1: '30€', p2: '150€', benef: '+120€', img: 'full_auth.jpg'},
 };
+
+// Bas Nike Phenom Elite gris — howto, fond étoilé, vrai à droite ; images = slideshow @ak4run ; voix Kevin v4, 37,6 s
+export const phenomgrisCfg: Cfg = {
+  dir: 'phenomgris', duration: 38.3, quizEnd: 27.2, mode: 'howto', product: 'NIKE PHENOM ELITE GRIS', theme: 'night', fx: true, fx2: true, fx3: true,
+  words: [[0, 4.28], [4.6, 5.1], [5.48, 6.7], [7.18, 9.9], [10.3, 12.1], [12.42, 13.6], [13.98, 15.6], [16.02, 17.2],
+    [17.48, 19.9], [20.32, 21.6], [21.92, 24.9], [25.2, 27.1], [27.38, 28.7], [28.8, 30.4], [30.76, 35.4], [35.78, 36.1], [36.48, 37.2]],
+  intro: {q: 1.06, three: 0, counts: [0, 0, 0], celui: 0, reveal: 3.68, compte: 4.6},
+  secs: [
+    {n: 1, title: 'LA COULEUR', at: 5.48, end: 12.42, imgs: ['color_fake.jpg', 'color_auth.jpg'],
+      fakeAt: 7.18, fakeCap: 'GRIS TROP CLAIR', realAt: 10.3, realCap: 'GRIS PLUS FONCÉ', plusAt: 12.0,
+      fakeBox: [0.05, 0.25, 0.6, 0.5], realBox: [0.3, 0.2, 0.6, 0.6], stampY: [0.08, 0.08]},
+    {n: 2, title: 'LE DOS', at: 12.42, end: 20.32, imgs: ['back_fake.jpg', 'back_auth.jpg'],
+      fakeAt: 13.98, fakeMarkAt: 16.02, fakeCap: 'TISSU PRESQUE BLANC', realAt: 17.48, realCap: 'MÊME GRIS PARTOUT', plusAt: 19.85,
+      fakeBox: [0.02, 0.05, 0.96, 0.25], realBox: [0.1, 0.05, 0.8, 0.3], stampY: 0.75},
+    {n: 3, title: 'LES CORDONS', at: 20.32, end: 27.6, imgs: ['lace_fake.jpg', 'lace_auth.jpg'],
+      fakeAt: 21.92, fakeCap: 'ÉCRITURE FINE', realAt: 25.2, realCap: 'ÉCRITURE GRASSE', plusAt: 26.95,
+      fakeBox: [0.3, 0.25, 0.45, 0.35], realBox: [0.35, 0.2, 0.4, 0.4], stampY: 0.82},
+  ],
+  outro: {alors: 27.38, combien: 28.8, ecris: 28.8, moi: 30.76, p1At: 31.32, revend: 32.0, p2At: 32.62, benefAt: 33.3,
+    plugAt: 35.78, dmAt: 36.48, p1: '28€', p2: '80€', benef: '+52€', img: 'full_auth.jpg'},
+};
