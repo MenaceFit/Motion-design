@@ -13,6 +13,11 @@ watermark TikTok animé et **carte de fin TikTok de ~3–4 s** (à exclure des m
 | ref06 | (série « Hugo », J-30) | 576×1024 (9:16) | 91,8 s (~89) | 20 | 4,6 s | [Glow-up interactif](visual-styles/interactive-glow-up.md) |
 | ref07 | (série « Hugo », J-29) | 576×1024 (9:16) | 103,3 s (~99) | 21 | 4,9 s | [Glow-up interactif](visual-styles/interactive-glow-up.md) |
 | ref08 | (série « Kevin », J-30) | 576×1024 (9:16) | 80,6 s (~77) | 30 | 2,7 s | [Glow-up interactif](visual-styles/interactive-glow-up.md) |
+| ref09 | @mielpops.67 (« MP ») | 576×1024 (9:16) | 65,3 s (61,7) | 16 | 2,8 s (médiane) | [GTA Guide](visual-styles/gta-guide.md) |
+| ref10 | @gta6alerte_ (LACONNI) | 576×1024 (9:16) | 66,4 s (62,8) | 37 | 1,4 s (médiane) | [GTA Guide](visual-styles/gta-guide.md) |
+| ref11 | @adrgta | 576×1024 (9:16) | 68,6 s (65,0) | 42 | 1,3 s (médiane) | [GTA Guide](visual-styles/gta-guide.md) |
+| ref12 | @adrgta | 576×1024 (9:16) | 65,3 s (61,7) | 34 | 1,6 s (médiane) | [GTA Guide](visual-styles/gta-guide.md) |
+| ref13 | @adrgta | 576×1024 (9:16) | 69,3 s (65,7) | 40 | 1,7 s (médiane) | [GTA Guide](visual-styles/gta-guide.md) |
 
 Notes :
 - Les 4 vidéos 16:9 sont des formats horizontaux publiés sur TikTok (bandes ou recadrage côté
@@ -32,3 +37,8 @@ Notes :
    → conclusion/punchline (+ CTA chez ref03).
 6. **Musique de fond discrète sous la voix** (nappes tonales/drone visibles au spectrogramme),
    SFX brefs et discrets, voix dominante.
+
+## Créneau « GTA 6 astuces » (ref09–ref13)
+Gameplay ou trailers officiels recadrés 9:16, voix off rapide, sous-titre 1–3 mots à 77 % de la
+hauteur (~2,4 changements/s), plans de 1,3–1,8 s, carte du jeu + gros plans d'action, CTA animé.
+Fiche : [GTA Guide](visual-styles/gta-guide.md). Production : skill `gta-guide-video`.

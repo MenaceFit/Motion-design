@@ -33,10 +33,17 @@ Skill `prompt-to-video` : écrire `projects/<slug>/plan.json` puis
 `python3 tools/make_video.py projects/<slug>/plan.json --out renders/` (texte 3D 60 fps, voix,
 musique, SFX, mix, QC). Règles virales et contraintes de monétisation : `documentation/virality.md`.
 
+## Vidéos GTA 6 (astuces / codes / secrets)
+Skills `gta-footage-sourcing` (footage réel officiel + index + tags + faits vérifiés sur ≥ 2 sources)
+puis `gta-guide-video` : `projects/<slug>/plan.json` → `python3 tools/gta_build.py projects/<slug>/plan.json`.
+Footage dans `footage/` (non versionné, ~3,5 Go) : `python3 tools/gta_source.py fetch all && python3 -W ignore tools/footage_index.py build`
+(les tags `footage/index/tags.json` sont versionnés dans `references/gta-footage-tags.json`).
+Rien n'est inventé : images réelles uniquement, audio des trailers jamais utilisé.
+
 ## Démarrage rapide (conteneur cloud)
 ```bash
 apt-get update && apt-get install -y libttspico-utils espeak-ng sox libsox-fmt-all fonts-noto-color-emoji
-pip install opencv-python-headless scenedetect librosa soundfile matplotlib faster-whisper bpy==5.2.3 pedalboard pyloudnorm
+pip install opencv-python-headless scenedetect librosa soundfile matplotlib faster-whisper bpy==5.2.3 pedalboard pyloudnorm piper-tts
 cd templates/remotion-kinetic && npm install
 export CHROMIUM_PATH=/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell
 ```

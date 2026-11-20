@@ -27,6 +27,14 @@ durer est commité dans ce dépôt**.
 | Paquets système | apt (archive Ubuntu joignable) | sox, espeak-ng, pico, Noto Color Emoji |
 | Persistance | git (ce dépôt) + skills `.claude/skills/` | chargées automatiquement par Claude Code |
 
+## Mise à jour 2026-11-20 (environnement « Motion-design »)
+- Hôtes autorisés : huggingface.co (+ CDN), **www.rockstargames.com**, **media-rockstargames-com.akamaized.net**.
+- Testé : téléchargements officiels GTA VI (trailers 4K H.264 30 fps, pack de 155 captures, clips du site)
+  via `tools/gta_source.py` ; Whisper `small` (faster-whisper) pour les timings mot à mot ; voix Piper
+  fr_FR (siwis CC-BY 4.0, tom) ; détecteur de visages YuNet (OpenCV 5 DNN).
+- YouTube / TikTok : toujours non téléchargeables (hôtes vidéo variables, pas de joker) → fichiers fournis.
+- Rendu GtaGuide (Remotion + OffthreadVideo 1080×1920) : voir changelog pour le temps mesuré.
+
 ## Ce qui est bloqué (politique réseau du conteneur)
 | Hôte | Conséquence | Contournement actuel |
 |---|---|---|

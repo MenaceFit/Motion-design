@@ -25,7 +25,9 @@ def syllables(w):
 def from_whisper(audio, model, lang):
     from faster_whisper import WhisperModel
     m = WhisperModel(model, device="cpu", compute_type="int8")
-    segs, _ = m.transcribe(audio, language=lang, word_timestamps=True, vad_filter=True)
+    import librosa
+    y, _ = librosa.load(audio, sr=16000)  # décodage ici : évite l'incompatibilité faster-whisper / PyAV récents
+    segs, _ = m.transcribe(y, language=lang, word_timestamps=True, vad_filter=True)
     out = []
     for s in segs:
         for w in s.words:

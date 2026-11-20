@@ -33,3 +33,12 @@ Les sons de `tools/sfx_synth.py` sont synthétisés (originaux, libres de droits
 - ref04/05 : drone grave permanent < 300 Hz = signature « contemplative ».
 - ref01/ref02 : nappe tonale + transitoires larges bande aux coupes.
 - ref03 : densité d'onsets la plus élevée → SFX UI fréquents probables (bulles, notifs).
+
+## Créneau GTA Guide (ref09–ref13, mesures)
+- Loudness intégrée très variable (-25 à -10 LUFS) ; médiane -14,6 → on normalise à -14.
+- ~5,7 onsets/s : voix rapide dominante + musique rythmée (sub continu < 80 Hz au spectrogramme).
+- Transitoires aigus 5–10 kHz pendant le compteur d'argent (ref13) → ticks + « coin ».
+- Placement retenu dans `tools/gta_build.py` : `zzfx/swoosh` 0,14 s avant chaque transition zoom/whip,
+  `zzfx/tick` × 9 pendant le compteur + `jsfxr/pickupCoin_2` à l'arrivée, `jsfxr/click_1` à chaque
+  touche du combo (sur le mot prononcé), `uisfx/cinematic/error` + shake sur une alerte,
+  `uisfx/cinematic/press` + `complete` au clic du CTA, `zzfx/impact` léger sur les mots-clés.

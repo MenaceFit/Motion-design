@@ -1,0 +1,3078 @@
+{
+"LT-000": {
+"tags": [
+"logo"
+],
+"desc": "logo Rockstar",
+"q": 0,
+"avoid": true
+},
+"LT-001": {
+"tags": [
+"keys",
+"route",
+"panneau",
+"pickup",
+"jour"
+],
+"desc": "panneau « The Keys » au bord de la route",
+"q": 3,
+"avoid": false
+},
+"LT-002": {
+"tags": [
+"marina",
+"bateau",
+"keys",
+"vue_aérienne",
+"jour"
+],
+"desc": "marina vue du ciel",
+"q": 3,
+"avoid": false
+},
+"LT-003": {
+"tags": [
+"bateau",
+"mains",
+"gros_plan",
+"jason"
+],
+"desc": "polissage d'une coque de bateau",
+"q": 2,
+"avoid": false
+},
+"LT-004": {
+"tags": [
+"bateau",
+"marina",
+"personnage"
+],
+"desc": "homme sur un bateau à quai",
+"q": 1,
+"avoid": false
+},
+"LT-005": {
+"tags": [
+"jason",
+"téléphone",
+"portrait",
+"marina"
+],
+"desc": "Jason au téléphone",
+"q": 3,
+"avoid": false
+},
+"LT-006": {
+"tags": [
+"hydravion",
+"mer",
+"ponton",
+"jour"
+],
+"desc": "hydravion au ponton, contre-jour",
+"q": 3,
+"avoid": false
+},
+"LT-007": {
+"tags": [
+"titre"
+],
+"desc": "carton Rockstar Games presents en fondu sur la ville de nuit",
+"q": 0,
+"avoid": true
+},
+"LT-008": {
+"tags": [
+"voiture",
+"lowrider",
+"personnage",
+"jour"
+],
+"desc": "bande dans une voiture verte custom",
+"q": 3,
+"avoid": false
+},
+"LT-009": {
+"tags": [
+"iguane",
+"animaux",
+"rue",
+"drôle"
+],
+"desc": "iguane géant sur la route",
+"q": 3,
+"avoid": false
+},
+"LT-010": {
+"tags": [
+"voiture",
+"rouge",
+"flou"
+],
+"desc": "flash rouge (0,2 s)",
+"q": 0,
+"avoid": false
+},
+"LT-011": {
+"tags": [
+"logo"
+],
+"desc": "logo GTA VI sur fond",
+"q": 0,
+"avoid": true
+},
+"LT-012": {
+"tags": [
+"lucia",
+"jason",
+"voiture",
+"cabriolet",
+"jour"
+],
+"desc": "Lucia et Jason en cabriolet",
+"q": 3,
+"avoid": false
+},
+"LT-013": {
+"tags": [
+"marais",
+"arme",
+"coucher_soleil",
+"silhouette"
+],
+"desc": "silhouettes armées dans le marais",
+"q": 3,
+"avoid": false
+},
+"LT-014": {
+"tags": [
+"nuit",
+"rouge",
+"sortie",
+"portrait"
+],
+"desc": "visage sous une enseigne EXIT",
+"q": 1,
+"avoid": false
+},
+"LT-015": {
+"tags": [
+"nuit",
+"sombre"
+],
+"desc": "plan sombre (0,2 s)",
+"q": 0,
+"avoid": false
+},
+"LT-016": {
+"tags": [
+"nuit",
+"gilet",
+"personnage",
+"action"
+],
+"desc": "homme en gilet tactique",
+"q": 1,
+"avoid": false
+},
+"LT-017": {
+"tags": [
+"bateau",
+"arme",
+"coucher_soleil",
+"action"
+],
+"desc": "tireur sur un bateau",
+"q": 2,
+"avoid": false
+},
+"LT-018": {
+"tags": [
+"nuit",
+"action",
+"course",
+"sous_pont"
+],
+"desc": "course de nuit sous un pont",
+"q": 2,
+"avoid": false
+},
+"LT-019": {
+"tags": [
+"braquage",
+"coffre",
+"silhouette",
+"lucia"
+],
+"desc": "silhouette devant une porte de coffre-fort",
+"q": 3,
+"avoid": false
+},
+"LT-020": {
+"tags": [
+"intérieur",
+"coucher_soleil",
+"portrait"
+],
+"desc": "personnage à contre-jour",
+"q": 1,
+"avoid": false
+},
+"LT-021": {
+"tags": [
+"club",
+"rouge",
+"danse"
+],
+"desc": "scène rouge, bras levés",
+"q": 1,
+"avoid": false
+},
+"LT-022": {
+"tags": [
+"avion",
+"ville",
+"décollage"
+],
+"desc": "ombre d'avion au-dessus d'une voiture",
+"q": 2,
+"avoid": false
+},
+"LT-023": {
+"tags": [
+"jason",
+"lucia",
+"voiture",
+"muscle_car",
+"jour"
+],
+"desc": "Jason et Lucia devant un muscle car",
+"q": 3,
+"avoid": false
+},
+"LT-024": {
+"tags": [
+"nuit",
+"néon",
+"mains",
+"table"
+],
+"desc": "main sur une table de jeu néon",
+"q": 1,
+"avoid": false
+},
+"LT-025": {
+"tags": [
+"mains",
+"gros_plan",
+"sombre"
+],
+"desc": "gros plan de main",
+"q": 0,
+"avoid": false
+},
+"LT-026": {
+"tags": [
+"club",
+"rose",
+"danse"
+],
+"desc": "club rose",
+"q": 0,
+"avoid": false
+},
+"LT-027": {
+"tags": [
+"voiture_de_sport",
+"ocean_drive",
+"vice_city",
+"jour"
+],
+"desc": "supercar verte sur Ocean Drive",
+"q": 3,
+"avoid": false
+},
+"LT-028": {
+"tags": [
+"voiture_de_sport",
+"ocean_drive"
+],
+"desc": "supercar verte (0,2 s)",
+"q": 1,
+"avoid": false
+},
+"LT-029": {
+"tags": [
+"police",
+"voiture",
+"ocean_drive",
+"jour"
+],
+"desc": "voiture de police devant un hôtel Art déco",
+"q": 3,
+"avoid": false
+},
+"LT-030": {
+"tags": [
+"moto",
+"saut",
+"ciel",
+"cascade"
+],
+"desc": "cascade à moto en plein ciel",
+"q": 3,
+"avoid": false
+},
+"LT-031": {
+"tags": [
+"intérieur",
+"sombre",
+"pieds"
+],
+"desc": "plan sombre",
+"q": 0,
+"avoid": false
+},
+"LT-032": {
+"tags": [
+"nuit",
+"feux_artifice",
+"arme",
+"ville"
+],
+"desc": "homme armé, feux d'artifice sur la ville",
+"q": 3,
+"avoid": false
+},
+"LT-033": {
+"tags": [
+"nuit",
+"laser",
+"vert"
+],
+"desc": "laser vert (0,3 s)",
+"q": 0,
+"avoid": false
+},
+"LT-034": {
+"tags": [
+"rouge",
+"laser",
+"action"
+],
+"desc": "plan rouge laser",
+"q": 1,
+"avoid": false
+},
+"LT-035": {
+"tags": [
+"avion",
+"banderole",
+"plage",
+"vice_city"
+],
+"desc": "avion à banderole au-dessus de la plage",
+"q": 3,
+"avoid": false
+},
+"LT-036": {
+"tags": [
+"personnage",
+"tatouage",
+"nuit"
+],
+"desc": "homme tatoué à l'atelier",
+"q": 1,
+"avoid": false
+},
+"LT-037": {
+"tags": [
+"personnage",
+"canapé",
+"intérieur"
+],
+"desc": "homme sur un canapé",
+"q": 1,
+"avoid": false
+},
+"LT-038": {
+"tags": [
+"braquage",
+"masque",
+"arme"
+],
+"desc": "braqueurs en cagoule rose",
+"q": 3,
+"avoid": false
+},
+"LT-039": {
+"tags": [
+"nuit",
+"explosion",
+"vue_aérienne"
+],
+"desc": "explosion nocturne",
+"q": 2,
+"avoid": false
+},
+"LT-040": {
+"tags": [
+"nuit",
+"rooftop",
+"arme",
+"jason"
+],
+"desc": "personnages armés sur un toit de nuit",
+"q": 2,
+"avoid": false
+},
+"LT-041": {
+"tags": [
+"lucia",
+"coucher_soleil",
+"rooftop",
+"portrait"
+],
+"desc": "Lucia sur un toit au coucher du soleil",
+"q": 3,
+"avoid": false
+},
+"LT-042": {
+"tags": [
+"voiture",
+"nuit",
+"feux_arrière"
+],
+"desc": "feux arrière rouges de nuit",
+"q": 1,
+"avoid": false
+},
+"LT-043": {
+"tags": [
+"voiture",
+"nuit",
+"poursuite"
+],
+"desc": "voiture de nuit",
+"q": 1,
+"avoid": false
+},
+"LT-044": {
+"tags": [
+"arme",
+"pistolet",
+"action",
+"sombre"
+],
+"desc": "homme qui pointe un pistolet",
+"q": 2,
+"avoid": false
+},
+"LT-045": {
+"tags": [],
+"desc": "plan noir",
+"q": 0,
+"avoid": true
+},
+"LT-046": {
+"tags": [
+"jason",
+"lucia",
+"balcon",
+"coucher_soleil"
+],
+"desc": "Jason et Lucia sur un balcon au coucher du soleil",
+"q": 3,
+"avoid": false
+},
+"LT-047": {
+"tags": [
+"vitre",
+"action",
+"brisée"
+],
+"desc": "vitre qui se brise",
+"q": 2,
+"avoid": false
+},
+"LT-048": {
+"tags": [
+"nuit",
+"ville",
+"hélicoptère",
+"vue_aérienne",
+"vice_city"
+],
+"desc": "ville de nuit vue d'un hélico",
+"q": 3,
+"avoid": false
+},
+"LT-049": {
+"tags": [
+"nuit",
+"voiture",
+"phares"
+],
+"desc": "voiture de nuit",
+"q": 0,
+"avoid": false
+},
+"LT-050": {
+"tags": [
+"nuit",
+"voiture"
+],
+"desc": "voiture de nuit (0,2 s)",
+"q": 0,
+"avoid": false
+},
+"LT-051": {
+"tags": [
+"police",
+"nuit",
+"poursuite",
+"gyrophare"
+],
+"desc": "voiture de police gyrophares de nuit",
+"q": 3,
+"avoid": false
+},
+"LT-052": {
+"tags": [
+"jason",
+"sniper",
+"nuit",
+"ville"
+],
+"desc": "Jason avec un fusil à lunette sur la ville",
+"q": 3,
+"avoid": false
+},
+"LT-053": {
+"tags": [
+"lucia",
+"arme",
+"explosion",
+"action",
+"jour"
+],
+"desc": "Lucia tire, explosion derrière",
+"q": 3,
+"avoid": false
+},
+"LT-054": {
+"tags": [
+"logo",
+"titre",
+"nuit",
+"vice_city"
+],
+"desc": "carte de fin : logo GTA VI puis OUT NOW sur la ville de nuit",
+"q": 0,
+"avoid": true
+},
+"LT-055": {
+"tags": [],
+"desc": "noir",
+"q": 0,
+"avoid": true
+},
+"ON-000": {
+"tags": [
+"logo"
+],
+"desc": "logo Rockstar",
+"q": 0,
+"avoid": true
+},
+"ON-001": {
+"tags": [
+"club",
+"nuit",
+"néon",
+"flou"
+],
+"desc": "club néon flou",
+"q": 1,
+"avoid": false
+},
+"ON-002": {
+"tags": [
+"réseaux_sociaux",
+"marina",
+"foule",
+"jour"
+],
+"desc": "stand « AudaCity » sur une marina, foule",
+"q": 2,
+"avoid": false
+},
+"ON-003": {
+"tags": [
+"logo"
+],
+"desc": "logo GTA VI incrusté",
+"q": 0,
+"avoid": true
+},
+"ON-004": {
+"tags": [
+"personnage",
+"portrait",
+"bob",
+"intérieur"
+],
+"desc": "homme au bob et lunettes",
+"q": 2,
+"avoid": false
+},
+"ON-005": {
+"tags": [
+"bagarre",
+"intérieur",
+"rose",
+"action"
+],
+"desc": "bagarre dans une pièce rose",
+"q": 2,
+"avoid": false
+},
+"ON-006": {
+"tags": [
+"yacht",
+"mer",
+"vitesse",
+"jour"
+],
+"desc": "yacht à pleine vitesse",
+"q": 3,
+"avoid": false
+},
+"ON-007": {
+"tags": [
+"club",
+"dj",
+"néon",
+"nuit"
+],
+"desc": "DJ en club néon",
+"q": 2,
+"avoid": false
+},
+"ON-008": {
+"tags": [
+"club",
+"néon",
+"nuit"
+],
+"desc": "club néon",
+"q": 1,
+"avoid": false
+},
+"ON-009": {
+"tags": [
+"nuit",
+"escalier",
+"braquage",
+"personnage"
+],
+"desc": "silhouettes dans un escalier de nuit",
+"q": 2,
+"avoid": false
+},
+"ON-010": {
+"tags": [
+"nuit",
+"rouge",
+"bleu",
+"escalier"
+],
+"desc": "escalier gyrophares (0,2 s)",
+"q": 1,
+"avoid": false
+},
+"ON-011": {
+"tags": [
+"nuit",
+"escalier"
+],
+"desc": "escalier sombre",
+"q": 1,
+"avoid": false
+},
+"ON-012": {
+"tags": [
+"titre"
+],
+"desc": "texte « PLAY NOW »",
+"q": 0,
+"avoid": true
+},
+"ON-013": {
+"tags": [
+"personnage",
+"débardeur",
+"nuit",
+"drôle"
+],
+"desc": "homme en débardeur qui pointe du doigt",
+"q": 2,
+"avoid": false
+},
+"ON-014": {
+"tags": [
+"nuit",
+"néon",
+"voiture",
+"rue",
+"vice_city",
+"ocean_drive"
+],
+"desc": "Ocean Drive de nuit, voitures",
+"q": 3,
+"avoid": false
+},
+"ON-015": {
+"tags": [
+"club",
+"nuit",
+"lumières"
+],
+"desc": "lumières de club",
+"q": 0,
+"avoid": false
+},
+"ON-016": {
+"tags": [
+"club",
+"danse",
+"paillettes"
+],
+"desc": "danseuse en paillettes",
+"q": 0,
+"avoid": false
+},
+"ON-017": {
+"tags": [
+"logo"
+],
+"desc": "logo GTA VI",
+"q": 0,
+"avoid": true
+},
+"ON-018": {
+"tags": [
+"logo"
+],
+"desc": "carton OUT NOW",
+"q": 0,
+"avoid": true
+},
+"ON-019": {
+"tags": [
+"logo"
+],
+"desc": "carton OUT NOW",
+"q": 0,
+"avoid": true
+},
+"ON-020": {
+"tags": [
+"logo"
+],
+"desc": "carton OUT NOW",
+"q": 0,
+"avoid": true
+},
+"ON-021": {
+"tags": [
+"logo"
+],
+"desc": "carton OUT NOW",
+"q": 0,
+"avoid": true
+},
+"ON-022": {
+"tags": [],
+"desc": "noir",
+"q": 0,
+"avoid": true
+},
+"T1-000": {
+"tags": [],
+"desc": "carton ESRB",
+"q": 0,
+"avoid": true
+},
+"T1-001": {
+"tags": [
+"coucher_soleil",
+"autoroute",
+"ville",
+"vue_aérienne",
+"ambiance"
+],
+"desc": "autoroute de Vice City au coucher du soleil",
+"q": 3,
+"avoid": false
+},
+"T1-002": {
+"tags": [
+"prison",
+"barbelés",
+"coucher_soleil",
+"lucia"
+],
+"desc": "barbelés de prison, soleil couchant",
+"q": 2,
+"avoid": false
+},
+"T1-003": {
+"tags": [
+"prison",
+"lucia",
+"bus",
+"portrait"
+],
+"desc": "Lucia regarde par la fenêtre du bus de prison",
+"q": 2,
+"avoid": false
+},
+"T1-004": {
+"tags": [
+"prison",
+"interrogatoire",
+"personnage"
+],
+"desc": "agente de probation au bureau",
+"q": 1,
+"avoid": false
+},
+"T1-005": {
+"tags": [
+"prison",
+"lucia",
+"portrait",
+"dialogue"
+],
+"desc": "Lucia en tenue orange de détenue",
+"q": 3,
+"avoid": false
+},
+"T1-006": {
+"tags": [
+"plage",
+"ville",
+"vue_aérienne",
+"vice_city",
+"mer"
+],
+"desc": "plage bondée et skyline de Vice City (plan long) — fondu vers « Rockstar Games presents » après 60 %",
+"q": 3,
+"avoid": false,
+"range": [
+0.0,
+0.6
+]
+},
+"T1-007": {
+"tags": [],
+"desc": "carton Rockstar Games presents",
+"q": 0,
+"avoid": true
+},
+"T1-008": {
+"tags": [
+"ville",
+"buildings",
+"palmiers",
+"vice_city"
+],
+"desc": "contre-plongée sur gratte-ciels",
+"q": 2,
+"avoid": false
+},
+"T1-009": {
+"tags": [
+"marais",
+"nature",
+"coucher_soleil",
+"hydroglisseur",
+"grassrivers"
+],
+"desc": "marais doré avec hydroglisseur",
+"q": 3,
+"avoid": false
+},
+"T1-010": {
+"tags": [
+"marais",
+"nature",
+"flamants",
+"animaux"
+],
+"desc": "flamants roses dans le marais",
+"q": 3,
+"avoid": false
+},
+"T1-011": {
+"tags": [
+"plage",
+"foule",
+"vice_city",
+"soleil"
+],
+"desc": "plage bondée, gens en maillot",
+"q": 2,
+"avoid": false
+},
+"T1-012": {
+"tags": [
+"bateau",
+"mer",
+"vitesse",
+"action"
+],
+"desc": "hors-bord qui fend l'eau",
+"q": 3,
+"avoid": false
+},
+"T1-013": {
+"tags": [
+"nuit",
+"voiture",
+"route",
+"néon"
+],
+"desc": "conduite de nuit, passagère penchée dehors",
+"q": 2,
+"avoid": false
+},
+"T1-014": {
+"tags": [
+"ville",
+"rue",
+"voiture",
+"lowrider",
+"jour"
+],
+"desc": "rue animée avec voitures custom",
+"q": 3,
+"avoid": false
+},
+"T1-015": {
+"tags": [
+"club",
+"nuit"
+],
+"desc": "club de strip (à éviter : monétisation)",
+"q": 0,
+"avoid": true
+},
+"T1-016": {
+"tags": [
+"personnage",
+"portrait",
+"chaîne_or",
+"jour"
+],
+"desc": "homme à chaînes en or",
+"q": 2,
+"avoid": false
+},
+"T1-017": {
+"tags": [
+"nuit",
+"ville",
+"vue_aérienne",
+"vice_city"
+],
+"desc": "ville de nuit vue du ciel",
+"q": 3,
+"avoid": false
+},
+"T1-018": {
+"tags": [
+"nuit",
+"néon",
+"voiture_de_sport",
+"rue",
+"vice_city"
+],
+"desc": "Ocean Drive de nuit, voitures de sport",
+"q": 3,
+"avoid": false
+},
+"T1-019": {
+"tags": [
+"nuit",
+"club",
+"fête",
+"foule"
+],
+"desc": "boîte de nuit",
+"q": 1,
+"avoid": false
+},
+"T1-020": {
+"tags": [
+"vue_aérienne",
+"keys",
+"pont",
+"mer",
+"avion"
+],
+"desc": "Leonida Keys vus du ciel, pont, hydravion",
+"q": 3,
+"avoid": false
+},
+"T1-021": {
+"tags": [
+"rooftop",
+"piscine",
+"fête",
+"ville"
+],
+"desc": "fête sur un toit",
+"q": 1,
+"avoid": false
+},
+"T1-022": {
+"tags": [
+"vice",
+"logo",
+"coucher_soleil"
+],
+"desc": "lettres VICE géantes au coucher du soleil",
+"q": 2,
+"avoid": false
+},
+"T1-023": {
+"tags": [
+"réseaux_sociaux",
+"bateau",
+"fête"
+],
+"desc": "vidéo réseau social, fête sur un bateau",
+"q": 1,
+"avoid": false
+},
+"T1-024": {
+"tags": [
+"réseaux_sociaux",
+"maison",
+"piscine",
+"alligator"
+],
+"desc": "alligator près d'une piscine (vidéo réseau social)",
+"q": 2,
+"avoid": false
+},
+"T1-025": {
+"tags": [
+"réseaux_sociaux",
+"voiture"
+],
+"desc": "vidéo réseau social, voiture",
+"q": 1,
+"avoid": false
+},
+"T1-026": {
+"tags": [
+"réseaux_sociaux",
+"nuit",
+"vue_aérienne",
+"police"
+],
+"desc": "vue aérienne de nuit (réseau social)",
+"q": 1,
+"avoid": false
+},
+"T1-027": {
+"tags": [
+"réseaux_sociaux",
+"live",
+"danse"
+],
+"desc": "live vertical de danse",
+"q": 1,
+"avoid": false
+},
+"T1-028": {
+"tags": [
+"braquage",
+"magasin",
+"intérieur"
+],
+"desc": "supérette en désordre",
+"q": 1,
+"avoid": false
+},
+"T1-029": {
+"tags": [
+"braquage",
+"arme",
+"action"
+],
+"desc": "braquage caméra embarquée",
+"q": 2,
+"avoid": false
+},
+"T1-030": {
+"tags": [
+"réseaux_sociaux",
+"station_service",
+"pluie"
+],
+"desc": "station-service sous la pluie",
+"q": 1,
+"avoid": false
+},
+"T1-031": {
+"tags": [
+"réseaux_sociaux",
+"rue",
+"danse"
+],
+"desc": "homme qui danse dans la rue",
+"q": 1,
+"avoid": false
+},
+"T1-032": {
+"tags": [
+"voiture",
+"pickup",
+"saut",
+"action"
+],
+"desc": "homme sur un pickup vert",
+"q": 2,
+"avoid": false
+},
+"T1-033": {
+"tags": [
+"voiture",
+"pickup",
+"saut",
+"action"
+],
+"desc": "homme sur un pickup vert",
+"q": 1,
+"avoid": false
+},
+"T1-034": {
+"tags": [
+"voiture",
+"pickup",
+"action"
+],
+"desc": "homme sur un pickup vert",
+"q": 1,
+"avoid": false
+},
+"T1-035": {
+"tags": [
+"nudité"
+],
+"desc": "nudité (à éviter)",
+"q": 0,
+"avoid": true
+},
+"T1-036": {
+"tags": [
+"nudité"
+],
+"desc": "nudité (à éviter)",
+"q": 0,
+"avoid": true
+},
+"T1-037": {
+"tags": [
+"nudité"
+],
+"desc": "nudité (à éviter)",
+"q": 0,
+"avoid": true
+},
+"T1-038": {
+"tags": [
+"marais",
+"boue",
+"fête"
+],
+"desc": "fête dans la boue",
+"q": 1,
+"avoid": false
+},
+"T1-039": {
+"tags": [
+"réseaux_sociaux",
+"rue",
+"femme"
+],
+"desc": "femme en robe dans la rue",
+"q": 1,
+"avoid": false
+},
+"T1-040": {
+"tags": [
+"action",
+"nuit",
+"rouge",
+"flou"
+],
+"desc": "plan rouge flou, fête",
+"q": 1,
+"avoid": false
+},
+"T1-041": {
+"tags": [
+"action",
+"nuit",
+"rouge",
+"flou"
+],
+"desc": "plan rouge flou",
+"q": 0,
+"avoid": false
+},
+"T1-042": {
+"tags": [
+"voiture",
+"conduite",
+"route",
+"jason"
+],
+"desc": "conduite dans une vieille voiture",
+"q": 2,
+"avoid": false
+},
+"T1-043": {
+"tags": [
+"voiture",
+"conduite",
+"jason",
+"portrait"
+],
+"desc": "Jason au volant",
+"q": 3,
+"avoid": false
+},
+"T1-044": {
+"tags": [
+"voiture",
+"lucia",
+"portrait",
+"bandana"
+],
+"desc": "Lucia passagère avec bandana",
+"q": 3,
+"avoid": false
+},
+"T1-045": {
+"tags": [
+"news",
+"police",
+"vue_aérienne",
+"accident"
+],
+"desc": "bulletin d'info, accident vu d'hélico",
+"q": 2,
+"avoid": false
+},
+"T1-046": {
+"tags": [
+"news",
+"police",
+"tatouage"
+],
+"desc": "bulletin d'info, homme tatoué",
+"q": 1,
+"avoid": false
+},
+"T1-047": {
+"tags": [
+"moto",
+"cross",
+"bande",
+"jour",
+"action"
+],
+"desc": "bande de motos-cross",
+"q": 3,
+"avoid": false
+},
+"T1-048": {
+"tags": [
+"news",
+"police",
+"vue_aérienne",
+"moto"
+],
+"desc": "bulletin d'info, motos poursuivies",
+"q": 2,
+"avoid": false
+},
+"T1-049": {
+"tags": [
+"réseaux_sociaux",
+"personnage",
+"voiture"
+],
+"desc": "personnage devant voiture verte",
+"q": 1,
+"avoid": false
+},
+"T1-050": {
+"tags": [
+"braquage",
+"masque",
+"arme",
+"magasin",
+"lucia"
+],
+"desc": "braquage de supérette masqués",
+"q": 3,
+"avoid": false
+},
+"T1-051": {
+"tags": [
+"voiture",
+"muscle_car",
+"rouge",
+"drift"
+],
+"desc": "muscle car rouge qui dérape",
+"q": 3,
+"avoid": false
+},
+"T1-052": {
+"tags": [
+"lucia",
+"jason",
+"intérieur",
+"nuit"
+],
+"desc": "Lucia et Jason dans une chambre",
+"q": 2,
+"avoid": false
+},
+"T1-053": {
+"tags": [
+"braquage",
+"arme",
+"lucia",
+"action"
+],
+"desc": "Lucia sort du magasin arme au poing",
+"q": 3,
+"avoid": false
+},
+"T1-054": {
+"tags": [
+"logo"
+],
+"desc": "logo GTA VI",
+"q": 0,
+"avoid": true
+},
+"T1-055": {
+"tags": [
+"logo"
+],
+"desc": "logo Rockstar",
+"q": 0,
+"avoid": true
+},
+"T2-000": {
+"tags": [
+"logo"
+],
+"desc": "logo Rockstar",
+"q": 0,
+"avoid": true
+},
+"T2-001": {
+"tags": [
+"vue_aérienne",
+"keys",
+"mer",
+"maisons",
+"jour"
+],
+"desc": "Leonida Keys, eau turquoise vue du ciel",
+"q": 3,
+"avoid": false
+},
+"T2-002": {
+"tags": [
+"maison",
+"pilotis",
+"keys",
+"voiture_ancienne",
+"jour"
+],
+"desc": "maison sur pilotis et vieille voiture",
+"q": 3,
+"avoid": false
+},
+"T2-003": {
+"tags": [
+"pickup",
+"personnage",
+"jour",
+"maison"
+],
+"desc": "homme en chemise hawaïenne près d'un gros pickup",
+"q": 2,
+"avoid": false
+},
+"T2-004": {
+"tags": [
+"jason",
+"toit",
+"mer",
+"jour"
+],
+"desc": "Jason sur un toit au bord de l'eau",
+"q": 2,
+"avoid": false
+},
+"T2-005": {
+"tags": [
+"pickup",
+"personnage",
+"dialogue",
+"jour"
+],
+"desc": "homme en chemise hawaïenne qui parle",
+"q": 2,
+"avoid": false
+},
+"T2-006": {
+"tags": [
+"jason",
+"portrait",
+"jour",
+"maison"
+],
+"desc": "Jason torse nu, lunettes de soleil",
+"q": 3,
+"avoid": false
+},
+"T2-007": {
+"tags": [
+"maison",
+"pickup",
+"keys",
+"jour"
+],
+"desc": "terrain de maison avec pickup et bateau",
+"q": 2,
+"avoid": false
+},
+"T2-008": {
+"tags": [
+"jason",
+"porte",
+"maison"
+],
+"desc": "Jason entre dans une maison",
+"q": 1,
+"avoid": false
+},
+"T2-009": {
+"tags": [
+"voiture",
+"conduite",
+"personnage",
+"jour"
+],
+"desc": "conduite, homme en casquette",
+"q": 2,
+"avoid": false
+},
+"T2-010": {
+"tags": [
+"magasin",
+"intérieur",
+"dialogue"
+],
+"desc": "boutique, homme au comptoir",
+"q": 1,
+"avoid": false
+},
+"T2-011": {
+"tags": [
+"argent",
+"magasin",
+"caisse",
+"mains"
+],
+"desc": "mains sur un terminal de caisse",
+"q": 2,
+"avoid": false
+},
+"T2-012": {
+"tags": [
+"ville",
+"pont",
+"autoroute",
+"voiture",
+"jour",
+"vice_city"
+],
+"desc": "autoroute vers les gratte-ciels",
+"q": 3,
+"avoid": false
+},
+"T2-013": {
+"tags": [
+"plage",
+"musculation",
+"palmiers",
+"jour"
+],
+"desc": "salle de muscu en plein air sur la plage",
+"q": 2,
+"avoid": false
+},
+"T2-014": {
+"tags": [
+"magasin",
+"intérieur",
+"personnage"
+],
+"desc": "entrée d'une boutique",
+"q": 1,
+"avoid": false
+},
+"T2-015": {
+"tags": [
+"voiture",
+"police",
+"nuit",
+"poursuite"
+],
+"desc": "voiture de police vue depuis l'habitacle",
+"q": 2,
+"avoid": false
+},
+"T2-016": {
+"tags": [
+"prison",
+"tour",
+"barbelés",
+"jour"
+],
+"desc": "tour de garde de prison",
+"q": 3,
+"avoid": false
+},
+"T2-017": {
+"tags": [
+"prison",
+"guichet",
+"personnage"
+],
+"desc": "guichet de prison (plan long)",
+"q": 1,
+"avoid": false
+},
+"T2-018": {
+"tags": [
+"prison",
+"personnage",
+"dos"
+],
+"desc": "homme de dos devant le guichet",
+"q": 1,
+"avoid": false
+},
+"T2-019": {
+"tags": [
+"prison",
+"lucia",
+"portrait"
+],
+"desc": "Lucia sort de prison",
+"q": 3,
+"avoid": false
+},
+"T2-020": {
+"tags": [
+"prison",
+"jason",
+"lucia",
+"retrouvailles"
+],
+"desc": "Jason attend Lucia à la sortie",
+"q": 3,
+"avoid": false
+},
+"T2-021": {
+"tags": [
+"titre"
+],
+"desc": "carton Rockstar Games presents",
+"q": 0,
+"avoid": true
+},
+"T2-022": {
+"tags": [
+"titre"
+],
+"desc": "carton sur fond d'image",
+"q": 0,
+"avoid": true
+},
+"T2-023": {
+"tags": [],
+"desc": "plan noir",
+"q": 0,
+"avoid": true
+},
+"T2-024": {
+"tags": [
+"braquage",
+"arme",
+"rouge",
+"action"
+],
+"desc": "braquage en lumière rouge",
+"q": 3,
+"avoid": false
+},
+"T2-025": {
+"tags": [
+"braquage",
+"bureau",
+"otage",
+"action"
+],
+"desc": "braquage d'un bureau, homme en costume",
+"q": 3,
+"avoid": false
+},
+"T2-026": {
+"tags": [
+"braquage",
+"rouge",
+"action",
+"flou"
+],
+"desc": "braquage rouge, gros plan",
+"q": 1,
+"avoid": false
+},
+"T2-027": {
+"tags": [
+"braquage",
+"rouge",
+"action"
+],
+"desc": "braquage rouge",
+"q": 1,
+"avoid": false
+},
+"T2-028": {
+"tags": [
+"nuit",
+"bleu",
+"flou",
+"mains"
+],
+"desc": "gros plan bleu sombre",
+"q": 0,
+"avoid": false
+},
+"T2-029": {
+"tags": [
+"lucia",
+"jason",
+"bar",
+"bière",
+"jour"
+],
+"desc": "Lucia et Jason boivent une bière au bar",
+"q": 3,
+"avoid": false
+},
+"T2-030": {
+"tags": [
+"bière",
+"gros_plan",
+"bar"
+],
+"desc": "trinquer avec des bouteilles",
+"q": 2,
+"avoid": false
+},
+"T2-031": {
+"tags": [
+"marina",
+"bateau",
+"ponton",
+"jour"
+],
+"desc": "marina et pontons",
+"q": 2,
+"avoid": false
+},
+"T2-032": {
+"tags": [
+"coucher_soleil",
+"mer",
+"ponton",
+"ambiance"
+],
+"desc": "coucher de soleil sur l'eau",
+"q": 3,
+"avoid": false
+},
+"T2-033": {
+"tags": [
+"nuit",
+"hangar",
+"avion"
+],
+"desc": "hangar de nuit, petit avion",
+"q": 2,
+"avoid": false
+},
+"T2-034": {
+"tags": [
+"nuit",
+"hangar",
+"avion",
+"personnage"
+],
+"desc": "montée dans un avion de nuit",
+"q": 2,
+"avoid": false
+},
+"T2-035": {
+"tags": [
+"nuit",
+"rue",
+"personnage"
+],
+"desc": "personnes dans la rue de nuit",
+"q": 1,
+"avoid": false
+},
+"T2-036": {
+"tags": [
+"lucia",
+"jason",
+"cuisine",
+"intérieur"
+],
+"desc": "Lucia et Jason dans une cuisine",
+"q": 2,
+"avoid": false
+},
+"T2-037": {
+"tags": [
+"personnage",
+"chemise",
+"intérieur"
+],
+"desc": "homme en chemise colorée",
+"q": 1,
+"avoid": false
+},
+"T2-038": {
+"tags": [
+"bar",
+"intérieur",
+"soirée"
+],
+"desc": "bar animé",
+"q": 1,
+"avoid": false
+},
+"T2-039": {
+"tags": [
+"bar",
+"bagarre",
+"action"
+],
+"desc": "bagarre dans un bar",
+"q": 2,
+"avoid": false
+},
+"T2-040": {
+"tags": [
+"lucia",
+"robe",
+"soirée"
+],
+"desc": "Lucia en robe dorée, de dos",
+"q": 1,
+"avoid": false
+},
+"T2-041": {
+"tags": [
+"lucia",
+"soirée",
+"bar"
+],
+"desc": "Lucia en robe dorée au bar",
+"q": 2,
+"avoid": false
+},
+"T2-042": {
+"tags": [
+"jason",
+"voiture",
+"portrait",
+"coucher_soleil"
+],
+"desc": "Jason en voiture au coucher du soleil",
+"q": 3,
+"avoid": false
+},
+"T2-043": {
+"tags": [
+"personnage",
+"mains",
+"soirée"
+],
+"desc": "couple de dos main dans la main",
+"q": 1,
+"avoid": false
+},
+"T2-044": {
+"tags": [
+"club",
+"nuit",
+"foule",
+"néon"
+],
+"desc": "boîte de nuit violette",
+"q": 2,
+"avoid": false
+},
+"T2-045": {
+"tags": [
+"club",
+"nuit",
+"danse",
+"néon"
+],
+"desc": "danseuse en robe à paillettes, lumières bleues",
+"q": 1,
+"avoid": false
+},
+"T2-046": {
+"tags": [
+"club",
+"nuit",
+"personnage"
+],
+"desc": "club, foule",
+"q": 1,
+"avoid": false
+},
+"T2-047": {
+"tags": [
+"nuit",
+"personnage",
+"portrait"
+],
+"desc": "homme musclé avec serviette, de nuit",
+"q": 2,
+"avoid": false
+},
+"T2-048": {
+"tags": [
+"nuit",
+"action",
+"saut",
+"lumière"
+],
+"desc": "personnage qui saute, projecteur de nuit",
+"q": 1,
+"avoid": false
+},
+"T2-049": {
+"tags": [
+"nuit",
+"vue_aérienne",
+"ruelle"
+],
+"desc": "ruelle vue d'en haut, de nuit",
+"q": 1,
+"avoid": false
+},
+"T2-050": {
+"tags": [
+"bar",
+"dialogue",
+"personnage",
+"nuit"
+],
+"desc": "deux hommes discutent dans un bar",
+"q": 1,
+"avoid": false
+},
+"T2-051": {
+"tags": [
+"personnage",
+"intérieur",
+"nuit"
+],
+"desc": "hommes dans une pièce sombre",
+"q": 1,
+"avoid": false
+},
+"T2-052": {
+"tags": [
+"police",
+"gilet",
+"portrait"
+],
+"desc": "policier en gilet pare-balles",
+"q": 2,
+"avoid": false
+},
+"T2-053": {
+"tags": [
+"police",
+"nuit",
+"intérieur"
+],
+"desc": "policier de nuit",
+"q": 1,
+"avoid": false
+},
+"T2-054": {
+"tags": [
+"nuit",
+"sombre",
+"flou"
+],
+"desc": "plan très sombre",
+"q": 0,
+"avoid": false
+},
+"T2-055": {
+"tags": [
+"voiture",
+"femme",
+"portrait",
+"jour"
+],
+"desc": "femme en voiture avec lunettes de soleil",
+"q": 2,
+"avoid": false
+},
+"T2-056": {
+"tags": [
+"club",
+"danse",
+"paillettes"
+],
+"desc": "danse, gros plan paillettes",
+"q": 0,
+"avoid": false
+},
+"T2-057": {
+"tags": [
+"nuit",
+"station_service",
+"personnage",
+"feu"
+],
+"desc": "homme sur un parking, incendie au loin",
+"q": 1,
+"avoid": false
+},
+"T2-058": {
+"tags": [
+"action",
+"combat",
+"lucia"
+],
+"desc": "Lucia donne un coup de pied",
+"q": 2,
+"avoid": false
+},
+"T2-059": {
+"tags": [
+"jason",
+"lucia",
+"intérieur"
+],
+"desc": "Jason et Lucia à la maison",
+"q": 2,
+"avoid": false
+},
+"T2-060": {
+"tags": [
+"lucia",
+"portrait",
+"intérieur"
+],
+"desc": "Lucia surprise sur le canapé",
+"q": 2,
+"avoid": false
+},
+"T2-061": {
+"tags": [
+"explosion",
+"police",
+"feu",
+"action"
+],
+"desc": "voiture de police en flammes à travers un pare-brise",
+"q": 3,
+"avoid": false
+},
+"T2-062": {
+"tags": [
+"personnage",
+"rue",
+"jour",
+"maillot"
+],
+"desc": "hommes en maillot de sport dans la rue",
+"q": 1,
+"avoid": false
+},
+"T2-063": {
+"tags": [
+"action",
+"voiture",
+"accident"
+],
+"desc": "personnage projeté, voiture rouge",
+"q": 2,
+"avoid": false
+},
+"T2-064": {
+"tags": [
+"nuit",
+"pickup",
+"phares",
+"fumée"
+],
+"desc": "pickup dans la fumée de nuit",
+"q": 1,
+"avoid": false
+},
+"T2-065": {
+"tags": [
+"nuit",
+"bleu",
+"romance"
+],
+"desc": "baiser dans la pénombre bleue",
+"q": 1,
+"avoid": false
+},
+"T2-066": {
+"tags": [
+"réseaux_sociaux",
+"selfie",
+"nuit",
+"néon"
+],
+"desc": "selfie vidéo de nuit",
+"q": 2,
+"avoid": false
+},
+"T2-067": {
+"tags": [
+"rue",
+"vice_city",
+"voiture_de_sport",
+"jour",
+"ocean_drive"
+],
+"desc": "Ocean Drive de jour, hôtel, voitures",
+"q": 3,
+"avoid": false
+},
+"T2-068": {
+"tags": [
+"nuit",
+"néon",
+"club",
+"vice_city"
+],
+"desc": "enseignes néon de nuit",
+"q": 2,
+"avoid": false
+},
+"T2-069": {
+"tags": [
+"club"
+],
+"desc": "danseuse de club (à éviter)",
+"q": 0,
+"avoid": true
+},
+"T2-070": {
+"tags": [
+"personnage",
+"intérieur",
+"salle_de_sport"
+],
+"desc": "homme dans une salle",
+"q": 1,
+"avoid": false
+},
+"T2-071": {
+"tags": [
+"intérieur",
+"maison",
+"ouvrier"
+],
+"desc": "homme en gilet orange dans un salon",
+"q": 1,
+"avoid": false
+},
+"T2-072": {
+"tags": [
+"hélicoptère",
+"marais",
+"hydroglisseur",
+"action"
+],
+"desc": "hélicoptère qui suit un hydroglisseur",
+"q": 3,
+"avoid": false
+},
+"T2-073": {
+"tags": [
+"hydroglisseur",
+"marais",
+"vitesse"
+],
+"desc": "hydroglisseur dans le marais",
+"q": 3,
+"avoid": false
+},
+"T2-074": {
+"tags": [
+"jet_ski",
+"mer",
+"jason",
+"lucia",
+"jour"
+],
+"desc": "Jason et Lucia en jet-ski",
+"q": 3,
+"avoid": false
+},
+"T2-075": {
+"tags": [
+"moto",
+"avion",
+"jour",
+"ciel"
+],
+"desc": "motard et avion dans le ciel",
+"q": 3,
+"avoid": false
+},
+"T2-076": {
+"tags": [
+"nuit",
+"camion",
+"ville"
+],
+"desc": "camion de nuit",
+"q": 1,
+"avoid": false
+},
+"T2-077": {
+"tags": [
+"nuit",
+"ville",
+"route",
+"vice_city"
+],
+"desc": "avenue de nuit, gratte-ciels",
+"q": 2,
+"avoid": false
+},
+"T2-078": {
+"tags": [
+"intérieur",
+"personnage",
+"romance"
+],
+"desc": "couple qui s'enlace",
+"q": 1,
+"avoid": false
+},
+"T2-079": {
+"tags": [
+"bateau",
+"mer",
+"vitesse",
+"coucher_soleil"
+],
+"desc": "bateau rapide sur l'eau",
+"q": 3,
+"avoid": false
+},
+"T2-080": {
+"tags": [
+"moto",
+"arme",
+"nuit",
+"action",
+"poursuite"
+],
+"desc": "motard qui tire dans la rue",
+"q": 3,
+"avoid": false
+},
+"T2-081": {
+"tags": [
+"voiture",
+"cabriolet",
+"personnage",
+"jour"
+],
+"desc": "personnes dans un cabriolet vert",
+"q": 2,
+"avoid": false
+},
+"T2-082": {
+"tags": [
+"personnage",
+"intérieur",
+"danse"
+],
+"desc": "homme qui danse dans un garage",
+"q": 1,
+"avoid": false
+},
+"T2-083": {
+"tags": [
+"coucher_soleil",
+"ville",
+"palmiers",
+"route",
+"vice_city"
+],
+"desc": "skyline au coucher du soleil",
+"q": 3,
+"avoid": false
+},
+"T2-084": {
+"tags": [
+"logo"
+],
+"desc": "logo VI",
+"q": 0,
+"avoid": true
+},
+"T2-085": {
+"tags": [
+"logo"
+],
+"desc": "logo Rockstar",
+"q": 0,
+"avoid": true
+},
+"HB04-000": {
+"tags": [
+"boucle_verticale",
+"site"
+],
+"desc": "boucle verticale du site officiel",
+"q": 1,
+"avoid": false
+},
+"H24F-000": {
+"tags": [
+"boucle_verticale",
+"site"
+],
+"desc": "boucle verticale du site officiel",
+"q": 1,
+"avoid": false
+},
+"HB49-000": {
+"tags": [
+"boucle_verticale",
+"site"
+],
+"desc": "boucle verticale du site officiel",
+"q": 1,
+"avoid": false
+},
+"H40C-000": {
+"tags": [
+"boucle_verticale",
+"site"
+],
+"desc": "boucle verticale du site officiel",
+"q": 1,
+"avoid": false
+},
+"H267-000": {
+"tags": [
+"boucle_verticale",
+"site"
+],
+"desc": "boucle verticale du site officiel",
+"q": 1,
+"avoid": false
+},
+"HB9ED-000": {
+"tags": [
+"boucle_verticale",
+"site"
+],
+"desc": "boucle verticale du site officiel",
+"q": 1,
+"avoid": false
+},
+"HB9ED-001": {
+"tags": [
+"boucle_verticale",
+"site"
+],
+"desc": "boucle verticale du site officiel",
+"q": 1,
+"avoid": false
+},
+"HB9ED-002": {
+"tags": [
+"boucle_verticale",
+"site"
+],
+"desc": "boucle verticale du site officiel",
+"q": 1,
+"avoid": false
+},
+"HD1DB-000": {
+"tags": [
+"boucle_verticale",
+"site"
+],
+"desc": "boucle verticale du site officiel",
+"q": 1,
+"avoid": false
+},
+"HE138-000": {
+"tags": [
+"boucle_verticale",
+"site"
+],
+"desc": "boucle verticale du site officiel",
+"q": 1,
+"avoid": false
+},
+"BIV2FA-000": {
+"tags": [
+"boobie_ike",
+"personnage",
+"clip_site"
+],
+"desc": "clip officiel du site : Boobie Ike",
+"q": 2,
+"avoid": false
+},
+"BHV204-000": {
+"tags": [
+"brian_heder",
+"personnage",
+"clip_site"
+],
+"desc": "clip officiel du site : Brian Heder",
+"q": 2,
+"avoid": false
+},
+"CHV2B2-000": {
+"tags": [
+"cal_hampton",
+"personnage",
+"clip_site"
+],
+"desc": "clip officiel du site : Cal Hampton",
+"q": 2,
+"avoid": false
+},
+"DPV2D0-000": {
+"tags": [
+"drequan_priest",
+"personnage",
+"clip_site"
+],
+"desc": "clip officiel du site : DreQuan Priest",
+"q": 2,
+"avoid": false
+},
+"GOC926-000": {
+"tags": [
+"cover_art"
+],
+"desc": "animation de la jaquette",
+"q": 1,
+"avoid": false
+},
+"GOC926-001": {
+"tags": [
+"cover_art"
+],
+"desc": "animation de la jaquette",
+"q": 1,
+"avoid": false
+},
+"JDV034-000": {
+"tags": [
+"jason_duval",
+"personnage",
+"clip_site"
+],
+"desc": "clip officiel du site : Jason Duval",
+"q": 2,
+"avoid": false
+},
+"LCVE59-000": {
+"tags": [
+"lucia_caminos",
+"personnage",
+"clip_site"
+],
+"desc": "clip officiel du site : Lucia Caminos",
+"q": 2,
+"avoid": false
+},
+"RBVF5A-000": {
+"tags": [
+"raul_bautista",
+"personnage",
+"clip_site"
+],
+"desc": "clip officiel du site : Raul Bautista",
+"q": 2,
+"avoid": false
+},
+"RBVF5A-001": {
+"tags": [
+"raul_bautista",
+"personnage",
+"clip_site"
+],
+"desc": "clip officiel du site : Raul Bautista",
+"q": 2,
+"avoid": false
+},
+"RBVF5A-002": {
+"tags": [
+"raul_bautista",
+"personnage",
+"clip_site"
+],
+"desc": "clip officiel du site : Raul Bautista",
+"q": 2,
+"avoid": false
+},
+"RBVF5A-003": {
+"tags": [
+"raul_bautista",
+"personnage",
+"clip_site"
+],
+"desc": "clip officiel du site : Raul Bautista",
+"q": 2,
+"avoid": false
+},
+"RDV909-000": {
+"tags": [
+"real_dimez",
+"personnage",
+"clip_site"
+],
+"desc": "clip officiel du site : Real Dimez",
+"q": 2,
+"avoid": false
+},
+"RDV909-001": {
+"tags": [
+"real_dimez",
+"personnage",
+"clip_site"
+],
+"desc": "clip officiel du site : Real Dimez",
+"q": 2,
+"avoid": false
+},
+"S-ULTIMATEEDITION01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-ULTIMATEEDITION02": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-TIONELECTRICFANG01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-TIONELECTRICFANG02": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-TIONELECTRICFANG03": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-TIONELECTRICFANG04": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-TIONGOODTIMEGEAR01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-IONGROTTICHEETAH01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-IONGROTTICHEETAH02": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-IONGROTTICHEETAH03": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-IONGROTTICHEETAH04": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-EMORGANREVOLVERS01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-EMORGANREVOLVERS02": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-IONONEEYEDWILLIE01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-IONONEEYEDWILLIE02": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-IONONEEYEDWILLIE03": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-EEDITIONPTTSTORE01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-ONRIDEOUTCUSTOMS01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-ONRIDEOUTCUSTOMS02": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-ONRIDEOUTCUSTOMS03": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-AFEHOUSEVEHICLES01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-AFEHOUSEVEHICLES02": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-AFEHOUSEVEHICLES03": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-DITIONSARASSALON01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-DITIONSARASSALON02": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-DITIONSARASSALON03": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-ATEEDITIONSQUALO01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-ATEEDITIONSQUALO02": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-ATEEDITIONSQUALO03": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-ATEEDITIONSQUALO04": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-EEDITIONSTOCK30501": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-EEDITIONSTOCK30502": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-EEDITIONSTOCK30503": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-EEDITIONSTOCK30504": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-DITIONVAPIDBUGGY01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-DITIONVAPIDBUGGY02": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-DITIONVAPIDBUGGY03": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-DITIONVAPIDBUGGY04": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-GANADORETROBUILD01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-IONVICECITYSTYLE01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-IONVICECITYSTYLE02": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-IONVICECITYSTYLE03": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-IONVICECITYSTYLE04": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-IONVICECITYSTYLE05": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-ONWEAPONVARIANTS01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-MANCARCOLLECTION01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-MANCARCOLLECTION02": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-MANCARCOLLECTION03": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-MANCARCOLLECTION04": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-MANCARCOLLECTION05": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-MANCARCOLLECTION06": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-TAGEVICECITYPACK01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-TAGEVICECITYPACK02": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-CKEXCLUSIVELOOKS01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-CKEXCLUSIVELOOKS02": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-CKEXCLUSIVELOOKS03": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-CKEXCLUSIVELOOKS04": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-CKEXCLUSIVELOOKS05": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-PACKVAPIDSTANIER01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-PACKVAPIDSTANIER02": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-PACKVAPIDSTANIER03": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-PACKVAPIDSTANIER04": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+},
+"S-ITYWEAPONPATTERN01": {
+"tags": [
+"marketing",
+"édition"
+],
+"desc": "visuel marketing (édition / pack)",
+"q": 1,
+"avoid": false
+}
+}

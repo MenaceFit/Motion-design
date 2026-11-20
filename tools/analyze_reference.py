@@ -98,6 +98,19 @@ def palette(samples, k=8):
     return [{"hex": "#%02x%02x%02x" % tuple(int(v) for v in centers[i][::-1]), "share": round(float(counts[i]), 3)} for i in order]
 
 
+def tempo_autocorr(env, sr, hop, lo=70, hi=180):
+    """Tempo par autocorrélation de l'enveloppe d'onsets (NumPy pur) + grille de beats associée."""
+    e = env - env.mean()
+    ac = np.correlate(e, e, mode="full")[len(e) - 1:]
+    fps = sr / hop
+    lags = np.arange(int(fps * 60 / hi), int(fps * 60 / lo) + 1)
+    lag = lags[np.argmax(ac[lags])]
+    bpm = 60 * fps / lag
+    phase = int(np.argmax([env[p::lag].sum() for p in range(lag)]))
+    beats = np.arange(phase, len(env), lag) / fps
+    return bpm, beats
+
+
 def audio(path, out):
     import librosa
     wav = f"{out}/audio.wav"
@@ -108,7 +121,7 @@ def audio(path, out):
     onsets = librosa.onset.onset_detect(onset_envelope=onset_env, sr=sr, hop_length=hop, units="time", backtrack=False)
     rms = librosa.feature.rms(y=y, hop_length=hop)[0]
     t = librosa.frames_to_time(np.arange(len(rms)), sr=sr, hop_length=hop)
-    tempo, beats = librosa.beat.beat_track(onset_envelope=onset_env, sr=sr, hop_length=hop, units="time")
+    tempo, beats = tempo_autocorr(onset_env, sr, hop)  # librosa.beat_track segfault (numba) sur certains fichiers
     strength = {round(float(o), 3): float(onset_env[min(len(onset_env) - 1, librosa.time_to_frames(o, sr=sr, hop_length=hop))]) for o in onsets}
     top = sorted(strength.items(), key=lambda kv: -kv[1])[:25]
     cent = librosa.feature.spectral_centroid(y=y, sr=sr, hop_length=hop)[0]

@@ -10,6 +10,7 @@ import {TeddyEpisodeFull} from './teddy/EpisodeFull';
 import {TeddyEpisode2} from './teddy/Episode2';
 import {ProfilePic, profilePicDefaults} from './teddy/ProfilePic';
 import {TeddyEpisode3} from './teddy/Episode3';
+import {GtaGuide, gtaGuideDefaults} from './gta/GtaGuide';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -67,5 +68,8 @@ export const RemotionRoot: React.FC = () => (
       defaultProps={episodeDefaults} calculateMetadata={({props}) => ({durationInFrames: Math.ceil(props.duration * 60)})} />
     <Composition id="TeddyEp03" component={TeddyEpisode3} width={1080} height={1920} fps={60} durationInFrames={3600}
       defaultProps={episodeDefaults} calculateMetadata={({props}) => ({durationInFrames: Math.ceil(props.duration * 60)})} />
+      {/* Style « GTA Guide » (ref09–ref13) — footage officiel recadré 9:16 + overlays UI, piloté par edit.json */}
+    <Composition id="GtaGuide" component={GtaGuide} width={1080} height={1920} fps={30} durationInFrames={90}
+      defaultProps={gtaGuideDefaults} calculateMetadata={({props}) => ({durationInFrames: props.durationInFrames ?? 90})} />
   </>
 );

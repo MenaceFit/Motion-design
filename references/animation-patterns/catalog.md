@@ -22,7 +22,16 @@ Source = observé dans les références (ref0X) ou validé par rendu test.
 | A15 | **Palette shift climax** | teinte de fond froide → chaude | 15–30 f | ease-in-out | ref01 |
 | A16 | **Glitch accent** | décalage RGB ±6 px + slices horizontales | 2–3 f | step | ref01 (mots-clés) |
 
+| A17 | **Zoom-blur radial (ouverture/transition)** | tête : scale 1,28 → 1 + flou radial 0,32 → 0 ; queue : 1 → 1,22 + flou 0 → 0,30 (moyenne de 9 copies zoomées) | 6 f / 5 f | ease-out cubique | ref13 (f0–5), validé `clip_cut.py` |
+| A18 | **Whip pan sans bord** | zoom interne 1 → 1,3 + décalage ≤ marge + flou directionnel 210 px | 5–6 f | ease-out | ref11, validé `clip_cut.py` |
+| A19 | **Compteur néon $** | 0 → valeur, chiffres tabulaires, glow vert multi-couches, rebond 6 % à l'arrivée + flash 35 % | 26 f | easeOutCubic | ref13 (`$0 → $1 000 000`) |
+| A20 | **Carte UI vitrée** | fond sombre translucide + backdrop blur 16 px, bord rose néon, barres 12 segments allumées 1 par 1,6 f | entrée 10 f | spring(13, 260, 0,6) | ref13 (ÉQUIPEMENT, DIFFICULTÉ) |
+| A21 | **Combo de touches** | touche flèche en keycap, révélée à l'instant où la voix la prononce, surbrillance jaune 8 f | par mot | spring(10, 420, 0,4) | original (inspiré ref10 « 0 0 7 2 ») |
+| A22 | **CTA S'abonner** | pilule blanche → curseur main arrive (ease-out) → appui 0,9 → pilule rouge « ✓ Abonné » + onde | 22 f + 14 f | easeOutCubic | ref09, ref11 (dessin original) |
+| A23 | **Sous-titre punch GTA** | condensé italique (skew -9°), contour 10 px sombre, entrée scale 1,22 → 1 + flou 7 → 0 px | 3 f | spring(14, 520, 0,45) | ref11–ref13 |
+| A24 | **Recadrage 9:16 glissant** | fenêtre pleine hauteur de la source 16:9, centre focus[0] → focus[1] (visages YuNet / saillance) | durée du plan | linéaire | ref13 (trailers recadrés) |
 ## Règles de rythme short-form (déduites des 5 refs)
+- Créneau GTA (ref09–13) : plan médian 1,3–1,8 s, sous-titre ~0,4 s (1–3 mots), l'image bouge toujours.
 - Texte : jamais immobile plus de 0,5 s sans changement (mot ou révélation).
 - Visuel : un changement significatif toutes les 1,3–2,7 s (ref03 : 3,9 s, compensé par des boucles).
 - Une seule action principale à la fois dans les styles minimalistes.

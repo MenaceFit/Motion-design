@@ -173,3 +173,31 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
   (moteur « file » de `tts_voice.py`). Mots placés sur la zone voisée au prorata des syllabes (±120 ms).
 - Connecteur ElevenLabs : génération possible mais « free generations busy » aux heures chargées ; l'audio généré n'est
   pas téléchargeable depuis le conteneur (api.us.elevenlabs.io, elevenlabsusercontent.com bloqués) → passer par un fichier.
+
+## 2026-11-20 — Créneau « GTA 6 astuces / codes » : analyse, sourcing réel, montage automatisé
+- **5 nouvelles références** (ref09–ref13 : @mielpops.67, @gta6alerte_, @adrgta ×3) mesurées : plan
+  médian 1,3–1,8 s, ~2,4 sous-titres/s à 77 % de la hauteur, loudness médiane -14,6 LUFS, intro
+  zoom-blur 6 frames, compteur $ ease-out, cartes UI vitrées, CTA S'abonner animé.
+  → fiche `references/visual-styles/gta-guide.md`, patterns A17–A24, sons GTA.
+- `analyze_reference.py` : `librosa.beat.beat_track` segfault (numba) sur 2 fichiers → tempo par
+  autocorrélation NumPy.
+- **Réseau** : session basculée sur l'environnement « Motion-design » ; ajout de `www.rockstargames.com`
+  et `media-rockstargames-com.akamaized.net` (téléchargements officiels GTA VI).
+- `tools/gta_source.py` : catalogue + téléchargement des médias officiels (trailers 1, 2, Launch,
+  Out Now en 4K, 155 captures, clips du site) avec `footage/provenance.json` (URL, sha256, droits).
+- `tools/footage_index.py` : proxies, 245 plans détectés, cadrage 9:16 (YuNet + saillance spectrale),
+  planches numérotées (triptyque début|milieu|fin pour les plans > 3,5 s), recherche par tags.
+  308 entrées taguées à la vision → `references/gta-footage-tags.json` (versionné). Erreur corrigée :
+  `LT-054` et `T1-006` contenaient des fondus vers des cartons/logos (champ `range`, `avoid`).
+- `tools/clip_cut.py` : recadrage 9:16 depuis la 4K (sans upscale), étalonnage léger, transitions
+  **zoom-blur** et **whip** cuites (whip refait : le bord miroir était visible), Ken Burns des captures.
+- Remotion `GtaGuide` (+ `Icons.tsx`) : sous-titres condensés italiques 1 ligne, punch, flash, shake,
+  overlays counter / combo / code / card / step / alert / title / pin / flow / subscribe.
+- `tools/gta_build.py` : plan.json → voix Piper (fr_FR-siwis, CC-BY 4.0) ligne par ligne → Whisper
+  `small` (timings) → sous-titres (ponctuation FR, petits mots, mots-clés) → plans → clips → SFX
+  fonctionnels → musique → mix → rendu → finish → QC. `transcribe_words.py` : contournement
+  faster-whisper/PyAV (audio décodé avant).
+- **Démo** `projects/gta6-code-argent` : code 250 000 $ (faits recoupés sur Red Bull, North Jersey/
+  GameSpot, The Loadout). 34,6 s, rendu ~6 min (4 CPU). QC OK : 1080×1920, 30 fps, -14,0 LUFS, synchro médiane -22 ms ; écarts de synchro
+  en début de ligne = whoosh placé 0,14 s avant la transition (voulu) ; sous-titres avancés d'1 frame.
+- Skills : `gta-footage-sourcing`, `gta-guide-video`.
