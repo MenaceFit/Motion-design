@@ -1,56 +1,268 @@
 {
-  "slug": "gta6-code-argent",
-  "credit": "Images : Rockstar Games",
-  "voice": {"engine": "piper", "model": "footage/models/piper/fr_FR-siwis-medium.onnx", "length_scale": 0.86},
-  "music": {"mood": "hype", "bpm": 128, "seed": 6, "db": -17, "drop": 0.2},
-  "sources": [
-    {"claim": "Code 250 000 $ : haut, droite, bas, gauche, haut, gauche, bas, droite (seul code d'argent)",
-     "urls": ["https://www.redbull.com/us-en/gta-6-cheat-codes",
-              "https://www.northjersey.com/story/news/2026/11/18/gta-6-cheat-codes-ps5-xbox-money-weapons-vehicles-grand-theft-auto-vi-cheat-codes/92843486007/ (cite GameSpot)"]},
-    {"claim": "Saisie : flèche haut = téléphone, maintenir L1 + appuyer R1 (Xbox : LB + RB), puis la séquence à la croix",
-     "urls": ["https://www.redbull.com/us-en/gta-6-cheat-codes", "https://theloadout.com/gta-6-cheats-all-61-codes-and-how-to-unlock-them",
-              "https://www.northjersey.com/story/news/2026/11/18/gta-6-cheat-codes-ps5-xbox-money-weapons-vehicles-grand-theft-auto-vi-cheat-codes/92843486007/"]},
-    {"claim": "Codes utilisables seulement après l'histoire principale (91 missions) ; le code 250 000 $ se débloque en finissant l'histoire",
-     "urls": ["https://www.redbull.com/us-en/gta-6-cheat-codes", "https://theloadout.com/gta-6-cheats-all-61-codes-and-how-to-unlock-them",
-              "https://mashable.com/entertainment/gta-grand-theft-auto-6-cheats-how-to-unlock (cite PC Gamer, 91 missions)"]},
-    {"claim": "Après un code : sauvegarde impossible, trophées/succès désactivés ; faire une sauvegarde séparée avant",
-     "urls": ["https://www.redbull.com/us-en/gta-6-cheat-codes", "https://theloadout.com/gta-6-cheats-all-61-codes-and-how-to-unlock-them"]}
-  ],
-  "default_tags": ["vice_city", "voiture", "jason", "lucia"],
-  "lines": [
-    {"text": "Voici le code pour avoir 250 000 $ sur GTA 6.",
-     "say": "Voici le code pour avoir deux cent cinquante mille dollars, sur GTA 6.",
-     "accents": ["250 000 $"], "shots": ["LT-023", "T2-011"],
-     "overlay": {"type": "counter", "value": 250000, "at": "250"}},
-    {"text": "Mais attention, il y a un piège.", "accents": ["piège"], "shots": ["LT-019"],
-     "overlay": {"type": "alert", "text": "Piège", "at": "piège"}},
-    {"text": "Les codes marchent seulement après l'histoire : les {91 missions}.",
-     "say": "Les codes marchent seulement après l'histoire : les quatre-vingt-onze missions.",
-     "accents": ["91 missions"], "shots": ["T2-020", "T1-043"],
-     "overlay": {"type": "card", "title": "CODES DÉBLOQUÉS", "at": "histoire",
-                 "rows": [{"label": "HISTOIRE TERMINÉE", "value": 1, "color": "green", "icon": "check"}]}},
-    {"text": "Étape 1 : sors ton téléphone avec la flèche du haut.", "shots": ["LT-005", "T2-066"],
-     "overlay": {"type": "step", "n": 1, "label": "Le téléphone"}},
-    {"text": "Étape 2 : maintiens {L1} et appuie sur {R1}. Sur Xbox, {LB} et {RB}.",
-     "say": "Étape 2 : maintiens L 1, et appuie sur R 1. Sur Xbox, L B, et R B.",
-     "shots": ["T2-009", "LT-008"],
-     "overlay": [{"type": "step", "n": 2, "label": "Les gâchettes"},
-                 {"type": "title", "lines": ["L1 + R1", "LB + RB"], "accent": 0, "y": 470, "at": "maintiens"}]},
-    {"text": "Étape 3 : tape haut, droite, bas, gauche, haut, gauche, bas, droite.",
-     "shots": ["T1-006", "T2-012"], "pause": 0.25,
-     "overlay": [{"type": "step", "n": 3, "label": "Le code"},
-                 {"type": "combo", "keys": ["U", "R", "D", "L", "U", "L", "D", "R"], "label": "CODE 250 000 $", "at": "haut", "until": 4.2}]},
-    {"text": "Et voilà : 250 000 $ direct sur ton compte.",
-     "say": "Et voilà : deux cent cinquante mille dollars, direct sur ton compte.",
-     "accents": ["250 000 $"], "shots": ["LT-027", "T2-030"],
-     "overlay": {"type": "counter", "value": 250000, "at": "250"}},
-    {"text": "Dernier piège : après un code, tu ne peux plus sauvegarder.", "accents": ["sauvegarder"],
-     "shots": ["T2-061", "LT-047"], "transition": "whip",
-     "overlay": {"type": "alert", "text": "Sauvegarde bloquée", "at": "sauvegarder"}},
-    {"text": "Et tes trophées sont désactivés. Fais une sauvegarde à part avant !", "accents": ["trophées"],
-     "shots": ["LT-041", "T2-042"]},
-    {"text": "Abonne-toi pour tous les autres codes de GTA 6.", "shots": ["LT-054"],
-     "overlay": {"type": "subscribe", "at": "abonne", "until": "end"}}
-  ],
-  "tail": 0.9
+ "slug": "gta6-code-argent",
+ "fps": 60,
+ "credit": "Images : Rockstar Games",
+ "voice": {
+  "engine": "piper",
+  "model": "footage/models/piper/fr_FR-siwis-medium.onnx",
+  "length_scale": 0.86
+ },
+ "music": {
+  "mood": "hype",
+  "bpm": 128,
+  "seed": 6,
+  "db": -16,
+  "drop": 0.2
+ },
+ "grain": 0.07,
+ "sources": [
+  {
+   "claim": "Code 250 000 $ : haut, droite, bas, gauche, haut, gauche, bas, droite",
+   "urls": [
+    "https://www.redbull.com/us-en/gta-6-cheat-codes",
+    "https://www.northjersey.com/story/news/2026/11/18/gta-6-cheat-codes-ps5-xbox-money-weapons-vehicles-grand-theft-auto-vi-cheat-codes/92843486007/ (cite GameSpot)"
+   ]
+  },
+  {
+   "claim": "Saisie : flèche haut = téléphone, maintenir L1 + appuyer R1 (Xbox : LB + RB), puis la séquence à la croix",
+   "urls": [
+    "https://www.redbull.com/us-en/gta-6-cheat-codes",
+    "https://theloadout.com/gta-6-cheats-all-61-codes-and-how-to-unlock-them",
+    "https://www.northjersey.com/story/news/2026/11/18/gta-6-cheat-codes-ps5-xbox-money-weapons-vehicles-grand-theft-auto-vi-cheat-codes/92843486007/"
+   ]
+  },
+  {
+   "claim": "Même séquence sur PS5 et Xbox (seule la croix directionnelle est utilisée)",
+   "urls": [
+    "https://www.redbull.com/us-en/gta-6-cheat-codes",
+    "https://theloadout.com/gta-6-cheats-all-61-codes-and-how-to-unlock-them",
+    "https://www.northjersey.com/story/news/2026/11/18/gta-6-cheat-codes-ps5-xbox-money-weapons-vehicles-grand-theft-auto-vi-cheat-codes/92843486007/"
+   ]
+  },
+  {
+   "claim": "Codes utilisables seulement après l'histoire principale (91 missions)",
+   "urls": [
+    "https://www.redbull.com/us-en/gta-6-cheat-codes",
+    "https://theloadout.com/gta-6-cheats-all-61-codes-and-how-to-unlock-them",
+    "https://mashable.com/entertainment/gta-grand-theft-auto-6-cheats-how-to-unlock (cite PC Gamer, 91 missions)"
+   ]
+  },
+  {
+   "claim": "Après un code : sauvegarde impossible, trophées/succès désactivés ; faire une sauvegarde séparée avant",
+   "urls": [
+    "https://www.redbull.com/us-en/gta-6-cheat-codes",
+    "https://theloadout.com/gta-6-cheats-all-61-codes-and-how-to-unlock-them",
+    "https://www.northjersey.com/story/news/2026/11/18/gta-6-cheat-codes-ps5-xbox-money-weapons-vehicles-grand-theft-auto-vi-cheat-codes/92843486007/"
+   ]
+  }
+ ],
+ "default_tags": [
+  "vice_city",
+  "voiture",
+  "jason",
+  "lucia"
+ ],
+ "lines": [
+  {
+   "text": "Ce code te donne 250 000 $ sur GTA 6.",
+   "say": "Ce code te donne deux cent cinquante mille dollars, sur GTA 6.",
+   "accents": [
+    "250 000 $"
+   ],
+   "shots": [
+    "T2-074",
+    "T2-011"
+   ],
+   "overlay": {
+    "type": "counter",
+    "value": 250000,
+    "at": "250"
+   }
+  },
+  {
+   "text": "Mais personne ne te dit le piège.",
+   "accents": [
+    "piège"
+   ],
+   "shots": [
+    "LT-019"
+   ],
+   "transition": "glitch",
+   "music": "cut",
+   "overlay": {
+    "type": "alert",
+    "text": "Le piège",
+    "at": "piège"
+   }
+  },
+  {
+   "text": "Déjà, les codes marchent seulement après l'histoire : les {91 missions}.",
+   "say": "Déjà, les codes marchent seulement après l'histoire : les quatre-vingt-onze missions.",
+   "accents": [
+    "91 missions"
+   ],
+   "shots": [
+    "T2-016",
+    "T2-020"
+   ],
+   "transition": "zoom",
+   "overlay": {
+    "type": "card",
+    "title": "CODES DÉBLOQUÉS",
+    "at": "histoire",
+    "rows": [
+     {
+      "label": "HISTOIRE TERMINÉE",
+      "value": 1,
+      "color": "green",
+      "icon": "check"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Ensuite, sors ton téléphone avec la flèche du haut.",
+   "shots": [
+    "LT-005",
+    "T2-066"
+   ],
+   "overlay": {
+    "type": "step",
+    "n": 1,
+    "label": "Le téléphone"
+   }
+  },
+  {
+   "text": "Maintiens {L1} et appuie sur {R1}. Sur Xbox, {LB} et {RB}.",
+   "say": "Maintiens L1, et appuie sur R1. Sur Xbox : LB, et RB.",
+   "shots": [
+    "T2-009",
+    "LT-008"
+   ],
+   "overlay": [
+    {
+     "type": "step",
+     "n": 2,
+     "label": "Les gâchettes"
+    },
+    {
+     "type": "title",
+     "lines": [
+      "L1 + R1",
+      "LB + RB"
+     ],
+     "accent": 0,
+     "y": 470,
+     "at": "maintiens"
+    }
+   ]
+  },
+  {
+   "text": "Puis tape : haut, droite, bas, gauche, haut, gauche, bas, droite.",
+   "shots": [
+    "T1-006",
+    "T2-012",
+    "LT-009"
+   ],
+   "pause": 0.25,
+   "overlay": [
+    {
+     "type": "step",
+     "n": 3,
+     "label": "Le code"
+    },
+    {
+     "type": "combo",
+     "keys": [
+      "U",
+      "R",
+      "D",
+      "L",
+      "U",
+      "L",
+      "D",
+      "R"
+     ],
+     "label": "CODE 250 000 $",
+     "at": "haut",
+     "until": 4.4
+    }
+   ],
+   "transition": "spin"
+  },
+  {
+   "text": "Et boum : 250 000 $, direct sur ton compte !",
+   "say": "Et boum : deux cent cinquante mille dollars, direct sur ton compte !",
+   "accents": [
+    "250 000 $"
+   ],
+   "shots": [
+    "LT-027",
+    "T2-030",
+    "T1-051"
+   ],
+   "transition": "zoom",
+   "music": "drop",
+   "overlay": {
+    "type": "counter",
+    "value": 250000,
+    "at": "250"
+   }
+  },
+  {
+   "text": "Et c'est le même code sur PS5 et sur Xbox.",
+   "shots": [
+    "T2-079",
+    "LT-030"
+   ],
+   "overlay": {
+    "type": "title",
+    "lines": [
+     "PS5 = XBOX"
+    ],
+    "accent": 0,
+    "y": 520,
+    "at": "même"
+   }
+  },
+  {
+   "text": "Mais attention : après un code, tu ne peux plus sauvegarder… et tes trophées sont désactivés.",
+   "say": "Mais attention : après un code, tu ne peux plus sauvegarder… et tes trophées sont désactivés.",
+   "accents": [
+    "sauvegarder",
+    "trophées"
+   ],
+   "shots": [
+    "T2-061",
+    "LT-047",
+    "LT-039"
+   ],
+   "transition": "glitch",
+   "overlay": {
+    "type": "alert",
+    "text": "Sauvegarde bloquée",
+    "at": "sauvegarder"
+   }
+  },
+  {
+   "text": "Alors fais une sauvegarde à part, avant de tricher.",
+   "shots": [
+    "LT-041",
+    "T2-042"
+   ]
+  },
+  {
+   "text": "Abonne-toi pour tous les autres codes de GTA 6 !",
+   "shots": [
+    "LT-048",
+    "T1-017"
+   ],
+   "overlay": {
+    "type": "subscribe",
+    "at": "abonne",
+    "until": "end"
+   }
+  }
+ ],
+ "tail": 1.0
 }

@@ -35,7 +35,7 @@ TOOLS = ROOT / "tools"
 TPL = ROOT / "templates" / "remotion-kinetic"
 IDX = ROOT / "footage" / "index"
 CHROME = "/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell"
-FPS, SR = 30, 48000
+SR = 48000
 SMALL = set("le la les l' de du des d' un une à au aux et ou sur pour tu te t' ton ta tes ce ces cet cette il y a en "
             "ne n' pas que qu' qui avec dans par se s' son sa ses mon ma mes je j' on est c' ça si mais puis".split())
 LIB = TPL / "public" / "sfxlib"
@@ -217,49 +217,154 @@ def clip_spec(it, need, out, head, tail, rng=None):
             "head": head, "tail": tail, "out": str(out)}
 
 
-# ---------------------------------------------------------------- SFX
+# ---------------------------------------------------------------- voix : fichier unique (ElevenLabs, enregistrement)
+def num_to_words(text):
+    """« 250 000 $ » → « deux cent cinquante mille dollars » (pour aligner un transcript Whisper sur le texte dit)."""
+    from num2words import num2words
+    def rep(m):
+        n = int(re.sub(r"\D", "", m.group(1)))
+        return num2words(n, lang="fr") + (" dollars" if m.group(2) else "")
+    return re.sub(r"(\d[\d   .]*\d|\d)\s?(\$)?", rep, text)
+
+
+def file_voice(path, lines, work):
+    """Une seule prise pour tout le script → bornes de chaque ligne + mots, par alignement caractère à caractère
+    (difflib) entre le texte prévu (say/text) et la transcription Whisper (nombres convertis en lettres)."""
+    import difflib, librosa
+    y, _ = librosa.load(path, sr=SR, mono=True)
+    yt, (i0, i1) = librosa.effects.trim(y, top_db=40)
+    lead = 0.05
+    y = np.concatenate([np.zeros(int(lead * SR)), y[i0:i1]])
+    sf.write(work / "voice_src.wav", y, SR)
+    words = whisper_words(str(work / "voice_src.wav"))
+    # texte Whisper normalisé, avec table caractère → temps
+    wc, wt = [], []
+    for w in words:
+        n = norm(num_to_words(w["text"]))
+        for k, ch in enumerate(n):
+            wc.append(ch); wt.append(w["start"] + (w["end"] - w["start"]) * k / max(1, len(n)))
+    wtxt = "".join(wc)
+    plan_chars, owner = [], []
+    for li, ln in enumerate(lines):
+        n = norm(num_to_words(ln.get("say", ln["text"]).replace("{", "").replace("}", "")))
+        plan_chars.append(n); owner += [li] * len(n)
+    ptxt = "".join(plan_chars)
+    sm = difflib.SequenceMatcher(None, ptxt, wtxt, autojunk=False)
+    ratio = sm.ratio()
+    pmap = np.full(len(ptxt), -1.0)
+    for b in sm.get_matching_blocks():
+        for k in range(b.size):
+            pmap[b.a + k] = wt[b.b + k]
+    known = np.where(pmap >= 0)[0]
+    if len(known) < 10:
+        sys.exit("voix fichier : transcription trop éloignée du script (vérifier la langue / le texte)")
+    pmap = np.interp(np.arange(len(ptxt)), known, pmap[known])
+    spans, pos = [], 0
+    end_audio = len(y) / SR
+    for li, n in enumerate(plan_chars):
+        a, b = pos, pos + len(n) - 1; pos += len(n)
+        st, en = float(pmap[a]), float(pmap[b]) + 0.12
+        ws = [w for w in words if w["start"] >= st - 0.05 and w["start"] < en - 0.05]
+        spans.append({"start": st, "end": min(en, end_audio), "words": ws})
+    for k in range(len(spans) - 1):  # pas de chevauchement
+        spans[k]["end"] = min(spans[k]["end"], spans[k + 1]["start"])
+    print(f"   alignement script ↔ voix : {ratio * 100:.0f} % de caractères communs")
+    if ratio < 0.75:
+        print("   ⚠ le texte enregistré diffère du script : vérifier les sous-titres")
+    return y, spans
+
+
+# ---------------------------------------------------------------- transitions
+# entrée d'une ligne → (queue du plan précédent, tête du plan suivant, SFX, couleur du light leak)
+TRANS = {
+    "zoom":    ("zoom", "zoom", [("whoosh_long", 0.56, 0.55), ("hit", 0.0, 0.22)], "warm"),
+    "whip":    ("whip_l", "whip_r", [("whoosh_rl", 0.32, 0.6)], "pink"),
+    "whip2":   ("whip_r", "whip_l", [("whoosh_lr", 0.32, 0.6)], "cyan"),
+    "whip_v":  ("whip_u", "whip_d", [("whoosh_up", 0.25, 0.55)], "warm"),
+    "spin":    ("spin_l", "spin_r", [("whoosh_long", 0.56, 0.5), ("whip_lr", 0.12, 0.35)], "pink"),
+    "glitch":  ("glitch", "glitch", [("glitch", 0.10, 0.5), ("hit", 0.0, 0.25)], None),
+    "cut":     ("none", "none", [], None),
+}
+CYCLE = ["zoom", "whip", "spin", "whip_v", "whip2", "glitch"]
+
+
+def pro(name):
+    p = TPL / "public" / "sfxpro" / (name + ".wav")
+    return str(p) if p.exists() else None
+
+
 def sfx(name):
     p = LIB / (name + ".wav")
     return str(p) if p.exists() else None
 
 
+def music_automation(music_wav, events, total):
+    """Coupures de musique (« cut » : tape-stop puis silence pendant la ligne) et retour sur l'impact."""
+    y, sr = sf.read(music_wav, always_2d=True)
+    y = y.T.copy(); n = y.shape[1]
+    g = np.ones(n)
+    for e in events:
+        a, b = int(e["start"] * sr), int(e["end"] * sr)
+        if e["kind"] == "cut":
+            ts = int(0.32 * sr); s0 = max(0, a - ts)
+            seg = y[:, s0:a]
+            if seg.shape[1] > 10:  # tape-stop : lecture de plus en plus lente → la hauteur chute
+                L = seg.shape[1]; x = np.linspace(0, 1, L)
+                idx = np.cumsum(1 - 0.92 * x ** 1.3); idx = idx / idx[-1] * (L * 0.62)
+                y[:, s0:a] = np.stack([np.interp(idx, np.arange(L), c) for c in seg]) * (1 - x ** 3)
+            g[a:b] = 0.0
+            r = int(0.03 * sr); g[b:b + r] = np.linspace(0, 1, len(g[b:b + r]))
+    sf.write(music_wav, (y * g).T, sr)
+
+
+# ---------------------------------------------------------------- build
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("plan"); ap.add_argument("--preview", action="store_true"); ap.add_argument("--concurrency", type=int, default=3)
-    ap.add_argument("--no-render", action="store_true")
+    ap.add_argument("--no-render", action="store_true"); ap.add_argument("--voice-file", help="prise unique (ElevenLabs…) : remplace la voix du plan")
     a = ap.parse_args()
     plan = json.loads(Path(a.plan).read_text())
     slug = plan["slug"]
+    FPS = int(plan.get("fps", 60)); K = FPS / 30
+    fr = lambda x: int(round(x * FPS))
     work = ROOT / "renders" / slug; work.mkdir(parents=True, exist_ok=True)
-    pub = TPL / "public" / "projects" / slug; (pub / "clips").mkdir(parents=True, exist_ok=True)
+    pub = TPL / "public" / "projects" / slug
+    if (pub / "clips").exists(): shutil.rmtree(pub / "clips")
+    (pub / "clips").mkdir(parents=True, exist_ok=True)
     lines = plan["lines"]
     voice = plan.get("voice", {"engine": "piper", "model": "footage/models/piper/fr_FR-siwis-medium.onnx"})
+    if a.voice_file: voice = {"file": a.voice_file}
+    if not (TPL / "public" / "sfxpro" / "boom.wav").exists():
+        run([sys.executable, TOOLS / "sfx_pro.py"])
 
-    # 0. sources (règle : chaque fait a ≥ 2 sources)
+    # 0. sources
     src_md = ["# Sources des faits\n"]
     for s in plan.get("sources", []):
         src_md.append(f"- {s['claim']}\n" + "".join(f"  - {u}\n" for u in s["urls"]))
-        if len(s["urls"]) < 2:
-            print(f"⚠ un seul source pour : {s['claim']}")
+        if len(s["urls"]) < 2: print(f"⚠ une seule source pour : {s['claim']}")
     (work / "sources.md").write_text("".join(src_md))
 
-    # 1. voix ligne par ligne + timings
-    print("1/6 voix + timings")
-    lead = 0.05; t = lead; spans = []; chunks = []
-    for i, ln in enumerate(lines):
-        if "file" in voice:
-            sys.exit("voix fichier : découper la prise en lignes dans renders/<slug>/voice/<i>.wav (voir skill gta-guide-video)")
-        p = work / f"line{i:02d}.wav"
-        d = synth_line(ln.get("say", ln["text"]), p, voice)
-        y, _ = sf.read(p)
-        words = [dict(w, start=w["start"] + t, end=w["end"] + t) for w in whisper_words(str(p))]
-        spans.append({"start": t, "end": t + d, "words": words})
-        chunks.append(y); gap = ln.get("pause", 0.12)
-        chunks.append(np.zeros(int(gap * SR))); t += d + gap
-    tail = plan.get("tail", 0.7)
-    total = t + tail
-    v = np.concatenate([np.zeros(int(lead * SR))] + chunks + [np.zeros(int(tail * SR))])
-    sf.write(work / "voice.wav", process_voice(v), SR)
+    # 1. voix
+    print("1/6 voix + timings", "(fichier)" if "file" in voice else f"({voice.get('engine', 'piper')})")
+    tail = plan.get("tail", 0.9)
+    if "file" in voice:
+        v, spans = file_voice(str(Path(voice["file"]).expanduser()), lines, work)
+        total = len(v) / SR + tail
+        v = np.concatenate([v, np.zeros(int(tail * SR))])
+        sf.write(work / "voice.wav", process_voice(v) if voice.get("process", True) else v, SR)
+    else:
+        lead = 0.05; t = lead; spans = []; chunks = []
+        for i, ln in enumerate(lines):
+            p = work / f"line{i:02d}.wav"
+            d = synth_line(ln.get("say", ln["text"]), p, voice)
+            y, _ = sf.read(p)
+            words = [dict(w, start=w["start"] + t, end=w["end"] + t) for w in whisper_words(str(p))]
+            spans.append({"start": t, "end": t + d, "words": words})
+            chunks.append(y); gap = ln.get("pause", 0.12)
+            chunks.append(np.zeros(int(gap * SR))); t += d + gap
+        total = t + tail
+        v = np.concatenate([np.zeros(int(lead * SR))] + chunks + [np.zeros(int(tail * SR))])
+        sf.write(work / "voice.wav", process_voice(v), SR)
 
     # 2. sous-titres
     print("2/6 sous-titres")
@@ -272,24 +377,22 @@ def main():
             c["line"] = i; caps.append(c)
         sp["tokens"] = list(zip(toks, st))
 
-    # 3. montage : créneaux de plans calés sur les sous-titres (~1,5 s)
-    print("3/6 choix des plans")
+    # 3. créneaux de plans (~1,4 s, calés sur les sous-titres) + transitions
+    print("3/6 plans + transitions")
     items, tags = load_footage()
     used, slots = set(), []
-    styles = ["zoom", "whip"]; k_tr = 0
+    k_tr = 0
     for i, ln in enumerate(lines):
         lc = [c for c in caps if c["line"] == i]
         bounds = [lc[0]["start"] if i else 0.0]
-        acc = 0.0
         for c in lc[1:]:
-            if c["start"] - bounds[-1] >= ln.get("shot_len", 1.45):
+            if c["start"] - bounds[-1] >= ln.get("shot_len", plan.get("shot_len", 1.35)):
                 bounds.append(c["start"])
         end = spans[i + 1]["start"] if i + 1 < len(spans) else total
-        if end - bounds[-1] < 0.6 and len(bounds) > 1:
-            bounds.pop()
+        if end - bounds[-1] < 0.6 and len(bounds) > 1: bounds.pop()
         bounds.append(end)
         forced = list(ln.get("shots", []))
-        tr = ln.get("transition") or (styles[k_tr % 2] if i else "zoom"); k_tr += 1
+        tr = ln.get("transition") or (CYCLE[k_tr % len(CYCLE)] if i else "zoom"); k_tr += 1
         for j in range(len(bounds) - 1):
             need = bounds[j + 1] - bounds[j]
             id_ = None
@@ -302,90 +405,122 @@ def main():
             used.add(id_)
             slots.append({"id": id_, "start": bounds[j], "end": bounds[j + 1], "line": i, "enter": tr if j == 0 else "cut"})
 
-    # transitions cuites : queue du plan précédent + tête du plan suivant
+    sys.path.insert(0, str(TOOLS)); from clip_cut import source_span
     specs = []
     for k, s in enumerate(slots):
-        head = "zoom" if k == 0 else {"zoom": "zoom", "whip": "whip_r", "cut": "none"}[s["enter"]]
+        enter = "zoom" if k == 0 else s["enter"]
         nxt = slots[k + 1]["enter"] if k + 1 < len(slots) else "cut"
-        tail_ = {"zoom": "zoom", "whip": "whip_l", "cut": "none"}[nxt]
+        head, tail_ = TRANS[enter][1], TRANS[nxt][0]
         s["clip"] = f"clips/c{k:02d}.mp4"
-        specs.append(clip_spec(items[s["id"]], round(s["end"] - s["start"] + 1 / FPS, 3), pub / s["clip"], head, tail_,
-                               tags.get(s["id"], {}).get("range")))
+        it = items[s["id"]]
+        spec = clip_spec(it, round(s["end"] - s["start"] + 1 / FPS, 3), pub / s["clip"], head, tail_, tags.get(s["id"], {}).get("range"))
+        spec["fps"] = FPS
+        if it["kind"] == "shot":
+            r = tags.get(s["id"], {}).get("range", [0, 1])
+            avail = it["dur"] * (r[1] - r[0]) - 0.1
+            spec["ramp_in"] = k > 0 and enter != "cut"
+            spec["ramp_out"] = nxt != "cut"
+            for drop in ("ramp_in", "ramp_out"):  # la rampe consomme plus de source : on la retire si le plan est trop court
+                if source_span(spec) > avail: spec[drop] = False
+            span = source_span(spec)
+            base = it["start"] + r[0] * it["dur"]
+            spec["start"] = round(base + 0.05 + max(0.0, (avail - span) / 2) if avail > 2 * span else base + 0.05 + max(0.0, (avail - span) / 2) * 0.5, 3)
+        specs.append(spec)
     (work / "clips.json").write_text(json.dumps(specs, indent=1))
-    print("   plans :", " ".join(s["id"] for s in slots))
+    print("   plans :", " ".join(f"{s['id']}[{s['enter'][:4]}]" for s in slots))
     run([sys.executable, TOOLS / "clip_cut.py", "--spec", work / "clips.json", "--jobs", 3])
 
-    # 4. overlays + fx + SFX
+    # 4. overlays + fx + SFX + light leaks
     print("4/6 overlays, effets, SFX")
-    fr = lambda x: int(round(x * FPS))
-    overlays, fx, sfxs = [], [], []
-    for s in slots:
-        if s["enter"] in ("zoom", "whip") and s["start"] > 0:
-            sfxs.append({"src": sfx("zzfx/swoosh"), "at": s["start"] - 0.14, "volume": 0.5})
-    sfxs.append({"src": sfx("zzfx/swoosh"), "at": 0.0, "volume": 0.45})
+    overlays, fx, sfxs, leaks = [], [], [], []
+    add = lambda name, at, vol: sfxs.append({"src": pro(name) or sfx(name), "at": round(at, 3), "volume": vol})
+    add("boom", 0.0, 0.7); fx.append({"type": "flash", "at": 0, "dur": fr(0.25), "amount": 0.55})
+    for k, s in enumerate(slots):
+        if k == 0: continue
+        name = s["enter"]
+        if name == "cut":  # coupe sèche dans la ligne : petit « pop » d'image + souffle discret
+            fx.append({"type": "punch", "at": fr(s["start"]), "dur": fr(0.2), "amount": 0.035})
+            add("whip_lr" if k % 2 else "whip_rl", s["start"] - 0.08, 0.22)
+            continue
+        _, _, snds, hue = TRANS[name]
+        for nm, pre, vol in snds: add(nm, s["start"] - pre, vol)
+        if hue: leaks.append({"at": fr(s["start"] - 0.25), "dur": fr(0.55), "hue": hue, "side": 1 if k % 2 else -1})
+        if name in ("zoom", "spin"): fx.append({"type": "flash", "at": fr(s["start"]), "dur": fr(0.12), "amount": 0.35})
+        if name == "glitch": fx.append({"type": "shake", "at": fr(s["start"]), "dur": fr(0.2), "amount": 14})
     for c in caps:
         if c["accent"]:
-            fx.append({"type": "punch", "at": fr(c["start"]), "dur": 8, "amount": 0.07})
-            sfxs.append({"src": sfx("zzfx/impact"), "at": c["start"], "volume": 0.32})
+            fx.append({"type": "punch", "at": fr(c["start"]), "dur": fr(0.27), "amount": 0.07})
+            fx.append({"type": "shake", "at": fr(c["start"]), "dur": fr(0.15), "amount": 8})
+            add("hit", c["start"] - 0.01, 0.42)
+    steps_total = sum(1 for ln in lines for o in ([ln.get("overlay")] if isinstance(ln.get("overlay"), dict) else ln.get("overlay") or [])
+                      if o.get("type") == "step")
+    music_events = []
     for i, ln in enumerate(lines):
         ovs = ln.get("overlay") or []
         ovs = [ovs] if isinstance(ovs, dict) else ovs
         sp = spans[i]; line_end = spans[i + 1]["start"] if i + 1 < len(spans) else total
+        if ln.get("music") == "cut":
+            music_events.append({"kind": "cut", "start": sp["start"], "end": line_end})
+            add("boom", line_end - 0.02, 0.6)
+        if ln.get("music") == "drop":
+            add("riser", sp["start"] - 1.4, 0.45); add("boom", sp["start"], 0.65)
         for o in ovs:
-            o = dict(o)
-            at = sp["start"]
+            o = dict(o); at = sp["start"]
             if o.get("at"):
                 for tok, st in sp["tokens"]:
                     if o["at"].lower() in tok.lower(): at = st; break
-            o.pop("at", None)
-            until = o.pop("until", None)
+            o.pop("at", None); until = o.pop("until", None)
             end = total if until == "end" else (at + until if isinstance(until, (int, float)) else line_end)
-            if o["type"] == "combo" and "times" not in o:
+            T = o["type"]
+            if T == "step" and "of" not in o: o["of"] = steps_total
+            if T == "combo" and "times" not in o:
                 dirs = {"haut": "U", "bas": "D", "gauche": "L", "droite": "R"}
                 ts = [st for tok, st in sp["tokens"] if norm(tok) in dirs]
                 o["times"] = [max(0, fr(x - at)) for x in ts[:len(o["keys"])]]
-                for x in ts[:len(o["keys"])]:
-                    sfxs.append({"src": sfx("jsfxr/click_1"), "at": x, "volume": 0.38})
+                for q, x in enumerate(ts[:len(o["keys"])]): add(f"key_{q + 1}", x, 0.5)
             o["from"], o["to"] = fr(at), fr(end)
             overlays.append(o)
-            T = o["type"]
             if T == "counter":
-                for q in range(9): sfxs.append({"src": sfx("zzfx/tick"), "at": at + 0.07 + q * 0.085, "volume": 0.28})
-                sfxs.append({"src": sfx("jsfxr/pickupCoin_2"), "at": at + 0.88, "volume": 0.3})
-                fx.append({"type": "flash", "at": fr(at + 0.86), "dur": 7, "amount": 0.35})
+                cf = o.get("countFrames", 26) / 30
+                for q in range(int(cf / 0.07)): add("tick", at + 0.07 + q * 0.07, 0.3)
+                add("kaching", at + cf - 0.06, 0.55); add("coins", at + cf, 0.35)
+                fx.append({"type": "flash", "at": fr(at + cf), "dur": fr(0.22), "amount": 0.35})
             elif T == "alert":
-                sfxs.append({"src": sfx("uisfx/cinematic/error"), "at": at, "volume": 0.5}); fx.append({"type": "shake", "at": fr(at), "dur": 9, "amount": 16})
+                add("glitch", at - 0.05, 0.35); add("hit", at, 0.5); fx.append({"type": "shake", "at": fr(at), "dur": fr(0.3), "amount": 16})
             elif T == "step":
-                sfxs.append({"src": sfx("uisfx/cinematic/forward"), "at": at, "volume": 0.45})
+                add("whip_lr", at - 0.05, 0.4); add("pop", at + 0.12, 0.3)
             elif T == "card":
-                for r in range(len(o.get("rows", []))): sfxs.append({"src": sfx("uisfx/cinematic/progress-step"), "at": at + 0.2 + r * 0.17, "volume": 0.35})
+                add("whoosh_up", at - 0.15, 0.3)
+                for r in range(len(o.get("rows", []))): add("pop", at + 0.25 + r * 0.17, 0.3)
             elif T == "code":
-                for q in range(len(o["code"])): sfxs.append({"src": sfx("jsfxr/click_2"), "at": at + (6 + q * 7) / FPS, "volume": 0.38})
+                for q in range(len(o["code"])): add(f"key_{q % 8 + 1}", at + (6 + q * 7) / 30, 0.45)
             elif T == "pin":
-                sfxs.append({"src": sfx("zzfx/impact"), "at": at + 0.2, "volume": 0.4})
+                add("hit", at + 0.2, 0.45)
             elif T == "subscribe":
-                sfxs.append({"src": sfx("uisfx/cinematic/press"), "at": at + 22 / FPS, "volume": 0.55})
-                sfxs.append({"src": sfx("uisfx/cinematic/complete"), "at": at + 25 / FPS, "volume": 0.4})
+                add("pop", at, 0.4)
+                sfxs.append({"src": sfx("jsfxr/click_1"), "at": round(at + 22 / 30, 3), "volume": 0.5})  # clic du curseur
+                add("success", at + 24 / 30, 0.5)
             elif T in ("title", "flow"):
-                sfxs.append({"src": sfx("zzfx/pop"), "at": at, "volume": 0.35})
-    sfxs = [s for s in sfxs if s["src"] and s["at"] >= 0]
+                add("whip_rl", at - 0.06, 0.35); add("pop", at + 0.1, 0.3)
+    sfxs = [s for s in sfxs if s["src"] and s["at"] >= 0 and s["volume"] > 0]
     (work / "sfx.json").write_text(json.dumps(sfxs, indent=1))
 
-    # 5. musique + mix
+    # 5. musique + automation + mix
     print("5/6 musique + mix")
     m = plan.get("music", {})
     run([sys.executable, TOOLS / "music_gen.py", work / "music.wav", "--mood", m.get("mood", "hype"), "--bpm", m.get("bpm", 128),
          "--duration", round(total + 0.5, 2), "--drop", m.get("drop", 0.3), "--seed", m.get("seed", 3)], capture_output=True)
+    if music_events: music_automation(work / "music.wav", music_events, total)
     run([sys.executable, TOOLS / "mix_audio.py", work / "master.wav", "--voice", work / "voice.wav", "--music", work / "music.wav",
-         "--sfx", work / "sfx.json", "--duration", round(total, 2), "--music-db", m.get("db", -17)], capture_output=True)
+         "--sfx", work / "sfx.json", "--duration", round(total, 2), "--music-db", m.get("db", -16)], capture_output=True)
 
     # 6. rendu
-    edit = {"durationInFrames": fr(total), "channel": plan.get("channel"), "credit": plan.get("credit", "Images : Rockstar Games"),
-            "accent": plan.get("accent"),
+    edit = {"fps": FPS, "durationInFrames": fr(total), "channel": plan.get("channel"), "credit": plan.get("credit", "Images : Rockstar Games"),
+            "accent": plan.get("accent"), "grain": plan.get("grain", 0.07), "leaks": leaks,
             "clips": [{"src": f"projects/{slug}/{s['clip']}", "from": fr(s["start"]), "dur": fr(s["end"]) - fr(s["start"]) + 1,
                        "punch": [1.0, 1.05]} for s in slots],
             "fx": fx,
-            "captions": [{"text": c["text"], "from": max(0, fr(c["start"]) - 1), "to": max(1, fr(c["end"]) - 1),  # avance 1 f (QC : médiane -39 ms) "accent": c["accent"],
+            "captions": [{"text": c["text"], "from": max(0, fr(c["start"] - 0.033)), "to": max(1, fr(c["end"] - 0.033)), "accent": c["accent"],
                           "mono": bool(re.fullmatch(r"(?:[LR][123BT]|[LR]STICK|\d{3,6}|(?:\d ){2,7}\d)", c["text"]))} for c in caps],
             "overlays": overlays}
     edit = {k: v for k, v in edit.items() if v is not None}
@@ -398,15 +533,15 @@ def main():
     raw = work / "raw.mp4"
     run(["npx", "remotion", "render", "src/index.ts", "GtaGuide", raw, f"--props={work / 'edit.json'}", "--crf=16", "--muted",
          f"--concurrency={a.concurrency}", "--log=error"] + (["--scale=0.5"] if a.preview else []), cwd=TPL, env=env)
-    mux = work / "mux.mp4"
+    mux = work / "mux.mov"
     run(["ffmpeg", "-v", "error", "-y", "-i", raw, "-i", work / "master.wav", "-map", "0:v", "-map", "1:a", "-c:v", "copy",
-         "-c:a", "pcm_s16le", "-shortest", mux.with_suffix(".mov")])
+         "-c:a", "pcm_s16le", "-shortest", mux])
     final = work / f"{slug}.mp4"
-    run([TOOLS / "finish.sh", mux.with_suffix(".mov"), final])
+    run([TOOLS / "finish.sh", mux, final])
     q = subprocess.run([sys.executable, str(TOOLS / "qc_check.py"), str(final), "--fps", str(FPS), "--events", str(work / "events.json")]
                        + (["--target", "540x960"] if a.preview else []), capture_output=True, text=True)
     (work / "qc.txt").write_text(q.stdout)
-    print(q.stdout[-1500:])
+    print("\n".join(l for l in q.stdout.splitlines() if "transitoire" not in l))
     print("→", final)
 
 

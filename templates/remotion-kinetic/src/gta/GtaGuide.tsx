@@ -19,12 +19,13 @@ import {Icon, IconName} from './Icons';
 export type Clip = {src: string; from: number; dur: number; kind?: 'video' | 'image'; punch?: number[]; trim?: number};
 export type Fx = {type: 'flash' | 'shake' | 'punch' | 'dim'; at: number; dur?: number; amount?: number};
 export type Caption = {text: string; from: number; to: number; accent?: boolean; mono?: boolean};
+export type Leak = {at: number; dur?: number; hue?: 'warm' | 'pink' | 'cyan'; side?: number};
 export type Overlay =
   | {type: 'counter'; from: number; to: number; value: number; prefix?: string; suffix?: string; countFrames?: number; y?: number}
   | {type: 'card'; from: number; to: number; title?: string; rows: {label: string; value: number; color?: 'pink' | 'green' | 'cyan' | 'gold'; icon?: IconName}[]; y?: number}
   | {type: 'code'; from: number; to: number; code: string; label?: string; y?: number}
   | {type: 'pin'; from: number; to: number; label: string; x?: number; y?: number}
-  | {type: 'step'; from: number; to: number; n: number; label?: string}
+  | {type: 'step'; from: number; to: number; n: number; of?: number; label?: string}
   | {type: 'alert'; from: number; to: number; text: string}
   | {type: 'flow'; from: number; to: number; icons: IconName[]; y?: number}
   | {type: 'title'; from: number; to: number; lines: string[]; accent?: number; y?: number}
@@ -32,7 +33,7 @@ export type Overlay =
   | {type: 'combo'; from: number; to: number; keys: ('U' | 'D' | 'L' | 'R' | string)[]; times?: number[]; label?: string; y?: number};
 export type GtaEdit = {
   clips: Clip[]; fx?: Fx[]; captions: Caption[]; overlays?: Overlay[];
-  channel?: string; credit?: string; accent?: string; durationInFrames?: number;
+  channel?: string; credit?: string; accent?: string; durationInFrames?: number; fps?: number; leaks?: Leak[]; grain?: number;
 };
 
 const C = {
@@ -41,6 +42,15 @@ const C = {
 };
 const SANS = 'Montserrat, sans-serif';
 const COND = 'Anton, Impact, sans-serif';
+
+// ---------- base de temps ----------
+// Toutes les durées d'animation sont exprimées en « frames 30 i/s » : identiques à 30 ou 60 i/s.
+// spring() accepte des frames fractionnaires (Remotion 4) → f = frame × 30 / fps, fps = 30.
+const useT = () => {
+  const fr = useCurrentFrame(); const {fps: real} = useVideoConfig();
+  const k = 30 / real;
+  return {f: fr * k, fps: 30, k, fr, real};
+};
 
 // ---------- clips ----------
 const ClipLayer: React.FC<{clip: Clip}> = ({clip}) => {
@@ -69,17 +79,22 @@ const useFx = (fx: Fx[] = []) => {
   return {scale, dx, dy, flash, dim};
 };
 
-// ---------- sous-titres ----------
+// ---------- sous-titres (v2) ----------
+// Entrée : pop élastique (0,62 → 1, overshoot), montée 34 px, rotation -4° → 0, flou 8 → 0.
+// Mot-clé : jaune + halo + « slam » 1,45 → 1 + micro-secousse. Sortie : 2 frames (scale 0,94, fondu).
 const CaptionView: React.FC<{c: Caption; accentColor: string}> = ({c, accentColor}) => {
-  const f = useCurrentFrame();
-  const {fps} = useVideoConfig();
-  const s = spring({frame: f, fps, config: {damping: 14, stiffness: 520, mass: 0.45}});
-  const scale = interpolate(s, [0, 1], [1.22, 1]);
-  const blur = interpolate(f, [0, 3], [7, 0], {extrapolateRight: 'clamp'});
-  const op = interpolate(f, [0, 2], [0, 1], {extrapolateRight: 'clamp'});
-  const len = c.text.length;
-  // une seule ligne : Anton MAJ ≈ 0,47 em/caractère → taille ajustée à la largeur utile (900 px)
-  const size = c.mono ? Math.min(132, 900 / (len * 0.62)) : Math.min(138, 900 / (len * 0.47));
+  const {f, fps, k} = useT();
+  const len = (c.to - c.from) * k;
+  const s = spring({frame: f, fps, config: c.accent ? {damping: 9, stiffness: 420, mass: 0.5} : {damping: 12, stiffness: 480, mass: 0.42}});
+  const scale = c.accent ? interpolate(s, [0, 1], [1.45, 1]) : interpolate(s, [0, 1], [0.62, 1]);
+  const y = interpolate(s, [0, 1], [c.accent ? -10 : 34, 0]);
+  const rot = interpolate(s, [0, 1], [c.accent ? 3 : -4, 0]);
+  const blur = interpolate(f, [0, 3], [8, 0], {extrapolateRight: 'clamp'});
+  const outK = interpolate(f, [len - 2, len], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const op = Math.min(interpolate(f, [0, 1.5], [0, 1], {extrapolateRight: 'clamp'}), outK);
+  const jx = c.accent && f < 8 ? Math.sin(f * 3.1) * 7 * (1 - f / 8) : 0;
+  const len2 = c.text.length;
+  const size = c.mono ? Math.min(132, 900 / (len2 * 0.62)) : Math.min(c.accent ? 150 : 138, 900 / (len2 * 0.47));
   return (
     <AbsoluteFill style={{justifyContent: 'flex-start', alignItems: 'center'}}>
       <div style={{
@@ -87,10 +102,62 @@ const CaptionView: React.FC<{c: Caption; accentColor: string}> = ({c, accentColo
         fontFamily: c.mono ? SANS : COND, fontWeight: c.mono ? 900 : 400, fontSize: size, lineHeight: 1,
         letterSpacing: c.mono ? 26 : 1, textTransform: 'uppercase',
         color: c.accent ? accentColor : '#fff',
-        transform: `scale(${scale}) skewX(${c.mono ? 0 : -9}deg)`, filter: `blur(${blur}px)`, opacity: op,
+        transform: `translate(${jx}px, ${y}px) rotate(${rot}deg) scale(${scale * (0.94 + 0.06 * outK)}) skewX(${c.mono ? 0 : -9}deg)`,
+        filter: `blur(${blur}px)`, opacity: op,
         WebkitTextStroke: '10px rgba(8,4,12,0.92)', paintOrder: 'stroke fill',
-        textShadow: '0 8px 0 rgba(0,0,0,0.55), 0 14px 30px rgba(0,0,0,0.6)',
+        textShadow: c.accent
+          ? `0 8px 0 rgba(0,0,0,0.55), 0 0 28px ${accentColor}aa, 0 0 70px ${accentColor}66`
+          : '0 8px 0 rgba(0,0,0,0.55), 0 14px 30px rgba(0,0,0,0.6)',
       }}>{c.text}</div>
+    </AbsoluteFill>
+  );
+};
+
+// ---------- light leaks : halos additifs qui balaient l'image pendant les transitions ----------
+const LEAK = {warm: ['255,150,40', '255,60,90'], pink: ['255,61,154', '140,80,255'], cyan: ['61,232,255', '80,120,255']};
+const LightLeak: React.FC<{l: Leak}> = ({l}) => {
+  const {f, k} = useT();
+  const d = (l.dur ?? 24) * k;
+  const t = f / d;
+  if (t < 0 || t > 1) return null;
+  const a = Math.sin(t * Math.PI);
+  const [c1, c2] = LEAK[l.hue ?? 'warm'];
+  const side = l.side ?? 1;
+  const x = 50 + side * (-70 + 140 * t);
+  return (
+    <AbsoluteFill style={{mixBlendMode: 'screen', opacity: 0.85 * a, pointerEvents: 'none'}}>
+      <AbsoluteFill style={{background: `radial-gradient(ellipse 55% 70% at ${x}% ${40 + 20 * t}%, rgba(${c1},0.95), rgba(${c1},0) 70%)`}} />
+      <AbsoluteFill style={{background: `radial-gradient(ellipse 40% 50% at ${100 - x}% ${70 - 25 * t}%, rgba(${c2},0.8), rgba(${c2},0) 70%)`}} />
+      <AbsoluteFill style={{background: `linear-gradient(${100 + 40 * side}deg, rgba(255,255,255,0) ${30 + 40 * t}%, rgba(255,240,220,${0.35 * a}) ${40 + 40 * t}%, rgba(255,255,255,0) ${52 + 40 * t}%)`}} />
+    </AbsoluteFill>
+  );
+};
+
+// grain animé (bruit statique, change toutes les 2 frames 30)
+const Grain: React.FC<{amount: number}> = ({amount}) => {
+  const {f} = useT();
+  const i = Math.floor(f / 2) % 3;
+  return <AbsoluteFill style={{backgroundImage: `url(${staticFile(`grain/g${i}.png`)})`, backgroundSize: '512px 512px',
+    opacity: amount, mixBlendMode: 'overlay', pointerEvents: 'none'}} />;
+};
+
+// explosion de « $ » (fin du compteur) : 16 glyphes, vitesse radiale + gravité
+const Burst: React.FC<{at: number; color: string; y: number}> = ({at, color, y}) => {
+  const {f} = useT();
+  const t = (f - at) / 30;
+  if (t < 0 || t > 1.1) return null;
+  return (
+    <AbsoluteFill>
+      {Array.from({length: 16}).map((_, i) => {
+        const ang = (i / 16) * Math.PI * 2 + random(`a${i}`) * 0.4;
+        const v = 900 + random(`v${i}`) * 700;
+        const x = 540 + Math.cos(ang) * v * t;
+        const yy = y + Math.sin(ang) * v * t * 0.8 + 1400 * t * t;
+        const r = (random(`r${i}`) - 0.5) * 720 * t;
+        return <div key={i} style={{position: 'absolute', left: x - 30, top: yy - 40, fontFamily: SANS, fontWeight: 900,
+          fontSize: 54 + random(`s${i}`) * 40, color, opacity: Math.max(0, 1 - t * 0.95), transform: `rotate(${r}deg)`,
+          textShadow: `0 0 18px ${color}`}}>$</div>;
+      })}
     </AbsoluteFill>
   );
 };
@@ -109,7 +176,7 @@ const Glass: React.FC<{children: React.ReactNode; style?: React.CSSProperties}> 
 );
 
 const Counter: React.FC<{o: Extract<Overlay, {type: 'counter'}>}> = ({o}) => {
-  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const len = o.to - o.from;
+  const {f, fps, k} = useT(); const len = (o.to - o.from) * k;
   const cf = o.countFrames ?? 26;
   const v = interpolate(f, [2, cf], [0, o.value], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)});
   const done = f >= cf;
@@ -118,6 +185,12 @@ const Counter: React.FC<{o: Extract<Overlay, {type: 'counter'}>}> = ({o}) => {
   const e = enter(f, fps);
   return (
     <AbsoluteFill style={{alignItems: 'center'}}>
+      {/* rayons lumineux tournants derrière le montant */}
+      <div style={{position: 'absolute', top: (o.y ?? 640) - 330, left: 540 - 420, width: 840, height: 840, borderRadius: '50%',
+        background: `repeating-conic-gradient(from ${f * 2}deg, rgba(61,255,142,0.20) 0deg 7deg, rgba(61,255,142,0) 7deg 22deg)`,
+        WebkitMaskImage: 'radial-gradient(circle, black 18%, transparent 68%)', opacity: e * exitK(f, len) * (done ? 1 : 0.55),
+        transform: `scale(${0.6 + 0.4 * e})`, mixBlendMode: 'screen'}} />
+      <Burst at={cf} color={C.green} y={(o.y ?? 640) + 70} />
       <div style={{position: 'absolute', top: o.y ?? 640, fontFamily: SANS, fontWeight: 900, fontSize: 150, letterSpacing: -2,
         color: done ? '#B6FFD2' : '#7CFFB0', fontVariantNumeric: 'tabular-nums',
         transform: `scale(${e * pulse})`, opacity: exitK(f, len),
@@ -128,7 +201,7 @@ const Counter: React.FC<{o: Extract<Overlay, {type: 'counter'}>}> = ({o}) => {
 };
 
 const Card: React.FC<{o: Extract<Overlay, {type: 'card'}>}> = ({o}) => {
-  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const len = o.to - o.from;
+  const {f, fps, k} = useT(); const len = (o.to - o.from) * k;
   const e = enter(f, fps);
   const col = {pink: C.pink, green: C.green, cyan: C.cyan, gold: C.gold};
   return (
@@ -165,7 +238,7 @@ const Card: React.FC<{o: Extract<Overlay, {type: 'card'}>}> = ({o}) => {
 };
 
 const Code: React.FC<{o: Extract<Overlay, {type: 'code'}>}> = ({o}) => {
-  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const len = o.to - o.from;
+  const {f, fps, k} = useT(); const len = (o.to - o.from) * k;
   const per = 7;
   return (
     <AbsoluteFill style={{alignItems: 'center'}}>
@@ -191,7 +264,7 @@ const Code: React.FC<{o: Extract<Overlay, {type: 'code'}>}> = ({o}) => {
 };
 
 const Pin: React.FC<{o: Extract<Overlay, {type: 'pin'}>}> = ({o}) => {
-  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const len = o.to - o.from;
+  const {f, fps, k} = useT(); const len = (o.to - o.from) * k;
   const drop = spring({frame: f, fps, config: {damping: 9, stiffness: 300, mass: 0.6}});
   const x = o.x ?? 540, y = o.y ?? 860;
   const ring = (f % 24) / 24;
@@ -212,21 +285,30 @@ const Pin: React.FC<{o: Extract<Overlay, {type: 'pin'}>}> = ({o}) => {
 };
 
 const Step: React.FC<{o: Extract<Overlay, {type: 'step'}>}> = ({o}) => {
-  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const len = o.to - o.from;
+  const {f, fps, k} = useT(); const len = (o.to - o.from) * k;
   const e = enter(f, fps);
   return (
     <div style={{position: 'absolute', left: 60, top: 250, display: 'flex', alignItems: 'center', gap: 16,
       transform: `translateX(${(1 - e) * -420}px)`, opacity: exitK(f, len)}}>
       <div style={{width: 96, height: 96, borderRadius: 26, background: C.accent, color: C.ink, fontFamily: COND, fontSize: 70,
         display: 'flex', alignItems: 'center', justifyContent: 'center', transform: 'skewX(-9deg)', boxShadow: '0 8px 0 rgba(0,0,0,0.45)'}}>{o.n}</div>
-      {o.label && <div style={{fontFamily: COND, fontSize: 64, color: '#fff', textTransform: 'uppercase', transform: 'skewX(-9deg)',
-        WebkitTextStroke: '8px rgba(8,4,12,0.9)', paintOrder: 'stroke fill'}}>{o.label}</div>}
+      <div style={{display: 'flex', flexDirection: 'column', gap: 10}}>
+        {o.label && <div style={{fontFamily: COND, fontSize: 64, color: '#fff', textTransform: 'uppercase', transform: 'skewX(-9deg)',
+          WebkitTextStroke: '8px rgba(8,4,12,0.9)', paintOrder: 'stroke fill'}}>{o.label}</div>}
+        {o.of && <div style={{display: 'flex', gap: 8}}>
+          {Array.from({length: o.of}).map((_, i) => {
+            const fill = i < o.n - 1 ? 1 : i === o.n - 1 ? interpolate(f, [4, 16], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}) : 0;
+            return <div key={i} style={{width: 74, height: 12, borderRadius: 6, background: 'rgba(255,255,255,0.22)', overflow: 'hidden'}}>
+              <div style={{width: `${fill * 100}%`, height: '100%', background: C.accent, boxShadow: `0 0 12px ${C.accent}`}} /></div>;
+          })}
+        </div>}
+      </div>
     </div>
   );
 };
 
 const Alert: React.FC<{o: Extract<Overlay, {type: 'alert'}>}> = ({o}) => {
-  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const len = o.to - o.from;
+  const {f, fps, k} = useT(); const len = (o.to - o.from) * k;
   const e = enter(f, fps); const sh = f < 10 ? Math.sin(f * 2.2) * 14 * (1 - f / 10) : 0;
   return (
     <AbsoluteFill style={{alignItems: 'center'}}>
@@ -241,7 +323,7 @@ const Alert: React.FC<{o: Extract<Overlay, {type: 'alert'}>}> = ({o}) => {
 };
 
 const Flow: React.FC<{o: Extract<Overlay, {type: 'flow'}>}> = ({o}) => {
-  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const len = o.to - o.from;
+  const {f, fps, k} = useT(); const len = (o.to - o.from) * k;
   const gap = 9;
   return (
     <AbsoluteFill style={{alignItems: 'center', opacity: exitK(f, len)}}>
@@ -271,7 +353,7 @@ const Flow: React.FC<{o: Extract<Overlay, {type: 'flow'}>}> = ({o}) => {
 };
 
 const Title: React.FC<{o: Extract<Overlay, {type: 'title'}>; accentColor: string}> = ({o, accentColor}) => {
-  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const len = o.to - o.from;
+  const {f, fps, k} = useT(); const len = (o.to - o.from) * k;
   return (
     <AbsoluteFill style={{alignItems: 'center'}}>
       <div style={{position: 'absolute', top: o.y ?? 420, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, opacity: exitK(f, len)}}>
@@ -294,7 +376,7 @@ const Title: React.FC<{o: Extract<Overlay, {type: 'title'}>; accentColor: string
 };
 
 const Subscribe: React.FC<{o: Extract<Overlay, {type: 'subscribe'}>}> = ({o}) => {
-  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const len = o.to - o.from;
+  const {f, fps, k} = useT(); const len = (o.to - o.from) * k;
   const e = enter(f, fps);
   const click = 22;
   const cx = interpolate(f, [6, click - 2], [980, 640], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)});
@@ -323,7 +405,7 @@ const Subscribe: React.FC<{o: Extract<Overlay, {type: 'subscribe'}>}> = ({o}) =>
 const ARROW_ROT: Record<string, number> = {U: 0, R: 90, D: 180, L: 270};
 // Séquence de touches (croix directionnelle) révélée touche par touche, calée sur la voix (times = frames relatives)
 const Combo: React.FC<{o: Extract<Overlay, {type: 'combo'}>}> = ({o}) => {
-  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const len = o.to - o.from;
+  const {f, fps, k} = useT(); const len = (o.to - o.from) * k;
   const n = o.keys.length; const perRow = n > 5 ? Math.ceil(n / 2) : n;
   const size = perRow > 4 ? 150 : 170;
   const rows = [o.keys.slice(0, perRow), o.keys.slice(perRow)].filter((r) => r.length);
@@ -335,9 +417,9 @@ const Combo: React.FC<{o: Extract<Overlay, {type: 'combo'}>}> = ({o}) => {
           {o.label && <div style={{fontFamily: SANS, fontWeight: 900, fontSize: 38, color: C.cyan, letterSpacing: 6, textAlign: 'center', marginBottom: 18}}>{o.label}</div>}
           {rows.map((row, r) => (
             <div key={r} style={{display: 'flex', gap: 16, justifyContent: 'center', marginTop: r ? 16 : 0}}>
-              {row.map((k, j) => {
+              {row.map((key, j) => {
                 const i = r * perRow + j;
-                const t0 = o.times?.[i] ?? 6 + i * 6;
+                const t0 = o.times?.[i] != null ? o.times[i] * k : 6 + i * 6;
                 const t = f - t0; const lit = t >= 0;
                 const s = spring({frame: t, fps, config: {damping: 10, stiffness: 420, mass: 0.4}});
                 const hot = lit && t < 8;
@@ -347,11 +429,13 @@ const Combo: React.FC<{o: Extract<Overlay, {type: 'combo'}>}> = ({o}) => {
                     border: `4px solid ${lit ? C.accent : 'rgba(255,255,255,0.14)'}`, boxShadow: lit ? `0 0 ${hot ? 40 : 18}px ${C.accent}` : 'none',
                     transform: `scale(${lit ? 0.6 + 0.4 * s : 0.92})`, position: 'relative'}}>
                     <div style={{position: 'absolute', top: 8, left: 14, fontFamily: SANS, fontWeight: 800, fontSize: 26, color: hot ? C.ink : 'rgba(255,255,255,0.55)'}}>{i + 1}</div>
-                    {k in ARROW_ROT
-                      ? <svg width={size * 0.56} height={size * 0.56} viewBox="0 0 48 48" style={{transform: `rotate(${ARROW_ROT[k]}deg)`, opacity: lit ? 1 : 0.25}}>
+                    {lit && t < 12 && <div style={{position: 'absolute', inset: -8, borderRadius: 36, border: `5px solid ${C.accent}`,
+                      opacity: 1 - t / 12, transform: `scale(${1 + t * 0.045})`}} />}
+                    {key in ARROW_ROT
+                      ? <svg width={size * 0.56} height={size * 0.56} viewBox="0 0 48 48" style={{transform: `rotate(${ARROW_ROT[key]}deg)`, opacity: lit ? 1 : 0.25}}>
                           <path d="M24 6 L42 26 H31 V42 H17 V26 H6 Z" fill={hot ? C.ink : '#fff'} stroke={hot ? C.ink : '#fff'} strokeWidth={2} strokeLinejoin="round" />
                         </svg>
-                      : <div style={{fontFamily: SANS, fontWeight: 900, fontSize: size * 0.42, color: hot ? C.ink : '#fff', opacity: lit ? 1 : 0.25}}>{k}</div>}
+                      : <div style={{fontFamily: SANS, fontWeight: 900, fontSize: size * 0.42, color: hot ? C.ink : '#fff', opacity: lit ? 1 : 0.25}}>{key}</div>}
                   </div>
                 );
               })}
@@ -379,7 +463,7 @@ const OverlayView: React.FC<{o: Overlay; accent: string}> = ({o, accent}) => {
 };
 
 // ---------- composition ----------
-export const GtaGuide: React.FC<GtaEdit> = ({clips, fx, captions, overlays = [], channel, credit, accent}) => {
+export const GtaGuide: React.FC<GtaEdit> = ({clips, fx, captions, overlays = [], channel, credit, accent, leaks = [], grain = 0.07}) => {
   const {scale, dx, dy, flash, dim} = useFx(fx);
   const acc = accent ?? C.accent;
   return (
@@ -403,6 +487,10 @@ export const GtaGuide: React.FC<GtaEdit> = ({clips, fx, captions, overlays = [],
         transform: 'skewX(-9deg)', textShadow: '0 4px 10px rgba(0,0,0,0.6)', letterSpacing: 1}}>{channel}</div>}
       {credit && <div style={{position: 'absolute', top: 128, left: 70, fontFamily: SANS, fontWeight: 700, fontSize: 24, color: 'rgba(255,255,255,0.75)',
         textShadow: '0 2px 6px rgba(0,0,0,0.8)'}}>{credit}</div>}
+      {leaks.map((l, i) => (
+        <Sequence key={`l${i}`} from={Math.max(0, l.at)} durationInFrames={Math.max(1, l.dur ?? 24)}><LightLeak l={l} /></Sequence>
+      ))}
+      {grain > 0 && <Grain amount={grain} />}
       {flash > 0 && <AbsoluteFill style={{backgroundColor: `rgba(255,255,255,${flash})`}} />}
     </AbsoluteFill>
   );

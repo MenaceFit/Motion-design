@@ -201,3 +201,23 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
   GameSpot, The Loadout). 34,6 s, rendu ~6 min (4 CPU). QC OK : 1080×1920, 30 fps, -14,0 LUFS, synchro médiane -22 ms ; écarts de synchro
   en début de ligne = whoosh placé 0,14 s avant la transition (voulu) ; sous-titres avancés d'1 frame.
 - Skills : `gta-footage-sourcing`, `gta-guide-video`.
+
+## 2026-11-20 (2) — GTA Guide v2 : 60 i/s, transitions variées, sound design pro, voix ElevenLabs
+- `tools/sfx_pro.py` : 24 SFX stéréo originaux (whooshs directionnels G→D / D→G vérifiés par énergie
+  par canal, whoosh long, aspiration, whips, boom sub, hit, ka-ching, pièces, glitch, riser, notes de
+  touches do-ré-mi…, success, tick). Spectrogrammes vérifiés ; souffle grave des whooshs réduit pour
+  ne pas masquer la voix.
+- `clip_cut.py` v2 : sortie 60 i/s (remappage temporel), speed ramps ×3 avant/après transition avec
+  mélange d'images (flou de bougé), nouvelles transitions spin, whip vertical, glitch RVB. Piège
+  observé : la rampe consomme plus de source et peut déborder sur le plan suivant → `source_span()`
+  et rampe retirée si le plan est trop court.
+- `GtaGuide` v2 : base de temps indépendante du fps (`useT`, spring à frames fractionnaires), light
+  leaks additifs, grain animé, sous-titres élastiques + « slam » des mots-clés, rayons + explosion de
+  « $ » au compteur, ondes sur les touches, barre de progression des étapes, fps via calculateMetadata.
+- `gta_build.py` v2 : table des transitions (image + son + light leak), automation musicale (`cut` =
+  tape-stop + silence + boom au retour, `drop` = riser + boom), SFX en couches par overlay, et **mode
+  `--voice-file`** (prise unique ElevenLabs → Whisper → nombres en lettres via num2words → alignement
+  difflib caractère à caractère : 96 % de caractères communs, bornes à ±50 ms sur une prise test).
+- Script ElevenLabs : `projects/gta6-code-argent/SCRIPT_ELEVENLABS.md` (11 lignes, ~36 s, faits recoupés).
+- Rendu v2 (voix Piper provisoire) : 36,2 s, 1080×1920, 60 i/s, -14,0 LUFS, synchro médiane -16 ms, QC OK ;
+  ~15 min de build (2170 frames).

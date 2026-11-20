@@ -48,7 +48,8 @@ Footage et faits : skill `gta-footage-sourcing` (à faire d'abord si `footage/in
    Icônes : `src/gta/Icons.tsx` (cash, diamond, car, gun, key, pin, lock, star, phone, map, code…).
 5. **Build** :
    ```bash
-   python3 tools/gta_build.py projects/<slug>/plan.json --concurrency 3        # ~6–10 min pour 35 s
+   python3 tools/gta_build.py projects/<slug>/plan.json --concurrency 3        # 60 i/s : ~12–18 min pour 36 s
+   python3 tools/gta_build.py projects/<slug>/plan.json --voice-file voix.mp3  # prise ElevenLabs unique
    python3 tools/gta_build.py projects/<slug>/plan.json --no-render            # vérifier edit.json d'abord
    ```
    Étapes : voix Piper par ligne → Whisper (mots) → sous-titres → créneaux de plans → `clip_cut.py`
@@ -59,6 +60,35 @@ Footage et faits : skill `gta-footage-sourcing` (à faire d'abord si `footage/in
    Rockstar plein écran, cadrage des visages, pas de plan figé visible (vitesse min 0,72).
 7. Livrer `renders/<slug>/<slug>.mp4` + `sources.md` + texte de description avec crédits
    (« Images : Rockstar Games », voix Piper siwis CC-BY 4.0) et rappel monétisation.
+
+## v2 (2026-11-20) : fluidité et sound design
+- **60 i/s** (`"fps": 60` dans le plan, défaut). Les trailers sont à 30 i/s : leurs images sont doublées,
+  mais toute l'animation ajoutée (caméra, transitions, textes, overlays) tourne à 60 i/s. Base de temps
+  des composants exprimée en « frames 30 » (`useT()`), donc identique quel que soit le fps.
+- **Transitions par ligne** (`"transition"`, sinon cycle automatique zoom → whip → spin → whip_v → whip2 → glitch) :
+  | nom | image (queue → tête) | son (`public/sfxpro`) | light leak |
+  |---|---|---|---|
+  | `zoom` | zoom-blur radial | whoosh_long (pic sur la coupe) + hit | chaud |
+  | `whip` / `whip2` | filé vers la gauche / la droite | whoosh_rl / whoosh_lr (le son traverse l'image dans le même sens) | rose / cyan |
+  | `whip_v` | filé vers le haut | whoosh_up | chaud |
+  | `spin` | rotation floutée ±28° | whoosh_long + whip | rose |
+  | `glitch` | RVB + tranches | glitch + hit + secousse | — |
+  | `cut` | coupe sèche (dans une ligne) | petit whip discret + punch 3,5 % | — |
+- **Speed ramps** : accélération ×3 sur les 0,28 s avant une transition, décélération après ;
+  retirées automatiquement si le plan source est trop court (`clip_cut.source_span`).
+- **Musique** : `"music": "cut"` sur une ligne → tape-stop puis silence pendant la ligne et boom au retour
+  (idéal sur « le piège ») ; `"music": "drop"` → riser 1,4 s avant la ligne + boom.
+- **SFX** (`tools/sfx_pro.py`, stéréo, originaux) : boom + flash à 0 s ; hit + punch + secousse sur
+  chaque mot-clé ; ticks + ka-ching + pièces sur le compteur ; note montante par touche du combo
+  (do-ré-mi…) ; glitch + hit sur une alerte ; whip + pop sur une étape ; clic + « success » sur le CTA.
+- **Visuel** : light leaks additifs sur les transitions, grain animé (0,07), sous-titres élastiques
+  (mot-clé « slam » jaune avec halo), rayons + explosion de « $ » en fin de compteur, onde sur chaque
+  touche, barre de progression des étapes (n/total auto).
+- **Voix ElevenLabs / enregistrée** : une seule prise pour tout le script →
+  `python3 tools/gta_build.py <plan> --voice-file prise.mp3`. Whisper retranscrit la prise, les nombres
+  sont convertis en lettres (num2words), puis un alignement caractère à caractère (difflib) donne les
+  bornes de chaque ligne. Testé : 96 % de caractères communs, bornes à ±50 ms. Script à fournir :
+  `projects/<slug>/SCRIPT_ELEVENLABS.md` (nombres en lettres, une génération).
 
 ## Transitions (cuites par `tools/clip_cut.py`)
 - `zoom` : queue 1 → 1,22 + flou radial 0 → 0,30 (5 f) / tête 1,28 → 1 + flou 0,32 → 0 (6 f).
