@@ -15,6 +15,7 @@ import '@fontsource/montserrat/900.css';
 import '@fontsource/montserrat/900-italic.css';
 import {Icon, IconName} from './Icons';
 import {noise2D} from '@remotion/noise';
+import {MapView, MapSpec} from './MapView';
 
 // ---------- types ----------
 export type Clip = {src: string; from: number; dur: number; kind?: 'video' | 'image'; punch?: number[]; trim?: number};
@@ -32,6 +33,8 @@ export type Overlay =
   | {type: 'title'; from: number; to: number; lines: string[]; accent?: number; y?: number}
   | {type: 'subscribe'; from: number; to: number; label?: string; done?: string}
   | {type: 'hooktag'; from: number; to: number; text: string; sub?: string}
+  | MapSpec
+  | {type: 'savecta'; from: number; to: number; save?: string; comment?: string}
   | {type: 'follow'; from: number; to: number; title?: string; name?: string; initials?: string; button?: string; done?: string}
   | {type: 'combo'; from: number; to: number; keys: ('U' | 'D' | 'L' | 'R' | string)[]; times?: number[]; label?: string; y?: number};
 export type GtaEdit = {
@@ -539,6 +542,43 @@ const Follow: React.FC<{o: Extract<Overlay, {type: 'follow'}>; accentColor: stri
   );
 };
 
+// CTA « enregistre + commente » : signet jaune tapé, puis bulle de commentaire
+const SaveCta: React.FC<{o: Extract<Overlay, {type: 'savecta'}>}> = ({o}) => {
+  const {f, fps, k} = useT(); const len = (o.to - o.from) * k;
+  const b1 = spring({frame: f, fps, config: {damping: 10, stiffness: 300, mass: 0.6}});
+  const b2 = spring({frame: f - 8, fps, config: {damping: 10, stiffness: 300, mass: 0.6}});
+  const tap1 = 26, tap2 = 52;
+  const hx = f < tap1 ? interpolate(f, [8, tap1 - 2], [1000, 330], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)})
+                      : interpolate(f, [tap1 + 6, tap2 - 2], [330, 720], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.inOut(Easing.cubic)});
+  const hy = 1010;
+  const on1 = f >= tap1, on2 = f >= tap2;
+  const press = (f >= tap1 && f < tap1 + 5) || (f >= tap2 && f < tap2 + 5) ? 0.9 : 1;
+  const btn = (x: number, e: number, on: boolean, icon: React.ReactNode, label: string, col: string, tap: number) => {
+    const pop = on ? 1 + 0.12 * Math.exp(-(f - tap) / 5) * Math.cos((f - tap) * 1.2) : 1;
+    return (
+      <div style={{position: 'absolute', left: x - 130, top: 760, width: 260, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18,
+        transform: `scale(${e * pop})`}}>
+        <div style={{width: 220, height: 220, borderRadius: 110, background: on ? col : 'rgba(20,12,34,0.7)', border: `6px solid ${col}`,
+          boxShadow: on ? `0 0 60px ${col}` : '0 10px 0 rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{icon}</div>
+        <div style={{fontFamily: COND, fontSize: 62, color: on ? col : '#fff', transform: 'skewX(-9deg)', textTransform: 'uppercase',
+          WebkitTextStroke: '9px rgba(8,4,12,0.92)', paintOrder: 'stroke fill'}}>{label}</div>
+      </div>
+    );
+  };
+  return (
+    <AbsoluteFill style={{opacity: exitK(f, len, 5)}}>
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 45%, rgba(10,4,20,0.2), rgba(10,4,20,0.7))', opacity: b1}} />
+      {btn(330, b1, on1, <svg width={110} height={110} viewBox="0 0 48 48"><path d="M12 6h24v36l-12-8-12 8z" fill={on1 ? C.ink : 'none'} stroke={on1 ? C.ink : '#fff'} strokeWidth={4} strokeLinejoin="round" /></svg>,
+        o.save ?? 'Enregistre', C.accent, tap1)}
+      {btn(750, b2, on2, <svg width={110} height={110} viewBox="0 0 48 48"><path d="M8 10h32v22H22l-9 8v-8H8z" fill={on2 ? C.ink : 'none'} stroke={on2 ? C.ink : '#fff'} strokeWidth={4} strokeLinejoin="round" />
+        {on2 && <><circle cx={17} cy={21} r={2.4} fill="#fff" /><circle cx={24} cy={21} r={2.4} fill="#fff" /><circle cx={31} cy={21} r={2.4} fill="#fff" /></>}</svg>,
+        o.comment ?? 'Commente', '#ffffff', tap2)}
+      {f < tap2 + 14 && <div style={{position: 'absolute', left: hx, top: hy, transform: `scale(${press})`, filter: 'drop-shadow(0 6px 10px rgba(0,0,0,0.6))'}}>
+        <Icon name="hand" size={130} color="#fff" /></div>}
+    </AbsoluteFill>
+  );
+};
+
 const OverlayView: React.FC<{o: Overlay; accent: string}> = ({o, accent}) => {
   switch (o.type) {
     case 'counter': return <Counter o={o} />;
@@ -553,6 +593,8 @@ const OverlayView: React.FC<{o: Overlay; accent: string}> = ({o, accent}) => {
     case 'combo': return <Combo o={o} />;
     case 'hooktag': return <HookTag o={o} />;
     case 'follow': return <Follow o={o} accentColor={accent} />;
+    case 'map': return <MapView m={o} />;
+    case 'savecta': return <SaveCta o={o} />;
   }
 };
 

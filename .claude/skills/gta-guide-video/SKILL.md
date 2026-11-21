@@ -61,6 +61,30 @@ Footage et faits : skill `gta-footage-sourcing` (à faire d'abord si `footage/in
 7. Livrer `renders/<slug>/<slug>.mp4` + `sources.md` + texte de description avec crédits
    (« Images : Rockstar Games », voix Piper siwis CC-BY 4.0) et rappel monétisation.
 
+## Vidéos « où trouver X » : carte animée (overlay `map`)
+- Fond : **poster officiel « Leonida Map Poster »** (téléchargement Rockstar, 5775×7900, CMYK → sRGB auto).
+  Base demi-résolution + crops pleine résolution aux zooms (`plan.map.details = [[x, y, w, h], …]`).
+- Une ligne avec `"map": {...}` n'a pas de plans vidéo : la carte couvre l'écran pendant la ligne.
+  Champs (positions en **pixels du poster**, instants ancrés sur un mot `at` ou en secondes `t`, + `delay`) :
+  `cam` [{x, y, w (largeur visible), tilt, rot}] · `pins` [{x, y, label, sub, num, shown}] ·
+  `paths` [{from, to, dur, bend}] · `callouts` [{x, y, text, r, side}] · `title` · `cards` [{id, label}].
+- **Positions : jamais au hasard.** Méthode validée (2026-11-21) :
+  1. coordonnées du lieu dans GTADB (`rolux/gtadb.org/map/data/6/landmarks.json`, en mètres, x = est,
+     y = nord ; c'est la base utilisée par la carte GTAMI) ;
+  2. transformation affine mètres → pixels du poster, calée par moindres carrés sur ≥ 5 repères visibles
+     des deux côtés (Fleeca Field, prison du comté de Kelly, stade de Capri, Boone Speedway, prison de
+     Hamlet) : `px = 0.38037·x − 0.00214·y + 4271.4`, `py = −0.0015·x − 0.36924·y + 4235.2`
+     (résidus de 6 à 33 px) ;
+  3. contrôle croisé avec les descriptions des guides (quartier, rue, autoroute voisine).
+- Vues larges : épingles numérotées sans étiquette (sinon chevauchement) ; récap = `cards` (vignettes
+  extraites des vrais plans).
+- Sons : pop + impact à chaque épingle, whoosh long sur les trajets, whoosh_up sur les grands mouvements
+  de caméra, tick sur les repères.
+- `"hold_last": true` sur une ligne : le dernier plan imposé tient jusqu'à la fin (ex. enseigne pendant toute sa description).
+- Bandes noires (format cinéma du Trailer 2) : recadrage automatique dans `clip_cut.py` et
+  `footage_index.py still`.
+- Contenu sensible (clubs) : uniquement façades, enseignes, cartes ; plans de danseuses en `avoid`.
+
 ## v3 (2026-11-21) : accroche, CTA, plus de footage
 - **Accroche** (ligne 0) : overlay `hooktag` (étiquette jaune « CODE SECRET » qui claque dès la 1re image,
   reflet qui balaie, sous-titre « GTA 6 ») + `counter` sans `at` (démarre à 0 s) + `"flash_cuts": true`

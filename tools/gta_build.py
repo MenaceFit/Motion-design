@@ -326,6 +326,52 @@ def music_automation(music_wav, events, total):
     sf.write(music_wav, (y * g).T, sr)
 
 
+# ---------------------------------------------------------------- carte animée (overlay « map »)
+POSTER = ROOT / "footage" / "raw" / "gta6" / "Leonida_Map_Poster"
+
+
+def prepare_map_assets(pub, details, items):
+    """Fond : poster officiel de Leonida (CMYK → sRGB), base demi-résolution + crops pleine résolution aux zooms."""
+    import cv2
+    out = pub / "map"; out.mkdir(parents=True, exist_ok=True)
+    full = POSTER / "map_rgb_full.png"
+    if not full.exists():
+        run(["convert", POSTER / "Leonida_Map_Poster_Printable.jpg", "-colorspace", "sRGB", full])
+    im = None
+    if not (out / "base.jpg").exists() or details:
+        im = cv2.imread(str(full))
+    if not (out / "base.jpg").exists():
+        cv2.imwrite(str(out / "base.jpg"), cv2.resize(im, (im.shape[1] // 2, im.shape[0] // 2), interpolation=cv2.INTER_AREA),
+                    [cv2.IMWRITE_JPEG_QUALITY, 88])
+    res = []
+    for i, (x, y, w, h) in enumerate(details):
+        f = out / f"detail{i}.jpg"
+        if not f.exists():
+            cv2.imwrite(str(f), im[y:y + h, x:x + w], [cv2.IMWRITE_JPEG_QUALITY, 92])
+        res.append({"src": str(f.relative_to(TPL / "public")), "x": x, "y": y, "w": w, "h": h})
+    shape = cv2.imread(str(out / "base.jpg")).shape
+    return res, (shape[1] * 2, shape[0] * 2)
+
+
+def card_image(pub, spec, items, k):
+    """Vignette 4:5 depuis une entrée de l'index (plan vidéo → image médiane, capture fixe → image), cadrée sur le focus."""
+    import cv2
+    out = pub / "map" / f"card{k}.jpg"
+    it = items[spec["id"]]
+    if it["kind"] == "still":
+        img = cv2.imread(str(ROOT / it["src"]))
+    else:
+        t = it["start"] + it["dur"] * spec.get("frac", 0.5)
+        tmp = out.with_suffix(".png")
+        run(["ffmpeg", "-v", "error", "-y", "-ss", f"{t:.3f}", "-i", ROOT / it["src"], "-frames:v", "1", tmp])
+        img = cv2.imread(str(tmp)); tmp.unlink()
+    h, w = img.shape[:2]; cw = int(h * 0.8)
+    fx = spec.get("focus", it["focus"][0])
+    x0 = int(min(w - cw, max(0, fx * w - cw / 2)))
+    cv2.imwrite(str(out), cv2.resize(img[:, x0:x0 + cw], (480, 600), interpolation=cv2.INTER_AREA), [cv2.IMWRITE_JPEG_QUALITY, 90])
+    return str(out.relative_to(TPL / "public"))
+
+
 # ---------------------------------------------------------------- build
 def main():
     ap = argparse.ArgumentParser()
@@ -392,6 +438,9 @@ def main():
     used, slots = set(), []
     k_tr = 0
     for i, ln in enumerate(lines):
+        if ln.get("map"):  # séquence carte : l'overlay couvre l'écran, aucun plan vidéo
+            k_tr += 1
+            continue
         lc = [c for c in caps if c["line"] == i]
         bounds = [lc[0]["start"] if i else 0.0]
         sl = ln.get("shot_len", plan.get("shot_len", 1.35))
@@ -405,6 +454,8 @@ def main():
                     bounds.append(c["start"])
         end = spans[i + 1]["start"] if i + 1 < len(spans) else total
         if end - bounds[-1] < 0.6 and len(bounds) > 1: bounds.pop()
+        if ln.get("hold_last") and ln.get("shots") and len(bounds) > len(ln["shots"]):
+            bounds = bounds[:len(ln["shots"])]  # le dernier plan imposé tient jusqu'à la fin de la ligne
         bounds.append(end)
         forced = list(ln.get("shots", []))
         tr = ln.get("transition") or (CYCLE[k_tr % len(CYCLE)] if i else "zoom"); k_tr += 1
@@ -476,6 +527,59 @@ def main():
     steps_total = sum(1 for ln in lines for o in ([ln.get("overlay")] if isinstance(ln.get("overlay"), dict) else ln.get("overlay") or [])
                       if o.get("type") == "step")
     music_events = []
+    map_overlays = []
+    map_lines = [i for i, ln in enumerate(lines) if ln.get("map")]
+    if map_lines:
+        mp = plan.get("map", {})
+        details, (PW, PH) = prepare_map_assets(pub, mp.get("details", []), items)
+        def when(spec_t, i):
+            sp = spans[i]
+            if isinstance(spec_t, str):
+                for tok, st in sp["tokens"]:
+                    if spec_t.lower() in tok.lower(): return st
+                print(f"   ⚠ mot d'ancrage introuvable : {spec_t!r} (ligne {i})"); return sp["start"]
+            return sp["start"] + float(spec_t or 0)
+        for i in map_lines:
+            M = lines[i]["map"]; sp = spans[i]
+            start = max(0.0, sp["start"] - 0.08); end = spans[i + 1]["start"] + 0.06 if i + 1 < len(spans) else total
+            rel = lambda tt: max(0, fr(tt - start))
+            T = lambda o: rel(when(o.get("at", o.get("t", 0)), i)) + fr(o.get("delay", 0))  # ancrage mot + décalage
+            ov = {"type": "map", "posterW": PW, "posterH": PH, "base": str((pub / "map" / "base.jpg").relative_to(TPL / "public")),
+                  "details": details, "credit": mp.get("credit", "Carte officielle : Rockstar Games"), "from": fr(start), "to": fr(end)}
+            cam = [dict(c, t=T(c)) for c in M["cam"]]
+            for c in cam: c.pop("at", None); c.pop("delay", None)
+            ov["cam"] = sorted(cam, key=lambda c: c["t"])
+            ov["pins"] = []
+            for pn in M.get("pins", []):
+                t0 = 0 if pn.get("shown") else T(pn)
+                ov["pins"].append({k: v for k, v in pn.items() if k not in ("at", "shown", "delay")} | {"t": t0 - (60 if pn.get("shown") else 0)})
+                if not pn.get("shown"):
+                    add("hit", start + t0 / FPS, 0.3); add("pop", start + t0 / FPS + 0.12, 0.45)
+            ov["paths"] = []
+            for pa in M.get("paths", []):
+                t0 = T(pa); d = pa.get("dur", 1.0)
+                ov["paths"].append({"t": t0, "dur": fr(d), "from": pa["from"], "to": pa["to"], "bend": pa.get("bend", 0.22)})
+                add("whoosh_long", start + t0 / FPS - 0.1, 0.4)
+            ov["callouts"] = []
+            for co in M.get("callouts", []):
+                t0 = T(co)
+                ov["callouts"].append({"t": t0, "x": co["x"], "y": co["y"], "text": co["text"], "r": co.get("r", 60), "side": co.get("side", "right")})
+                add("tick", start + t0 / FPS, 0.35); add("pop", start + t0 / FPS + 0.05, 0.25)
+            if M.get("title"):
+                ti = M["title"]; t0 = T(ti)
+                ov["title"] = {"t": t0, "text": ti["text"], "sub": ti.get("sub"), "until": t0 + fr(ti["until"]) if ti.get("until") else None}
+                add("whip_rl", start + t0 / FPS - 0.05, 0.4); add("hit", start + t0 / FPS, 0.35)
+            if M.get("cards"):
+                ov["cards"] = []
+                for q, cd in enumerate(M["cards"]):
+                    t0 = T(cd) + q * fr(0.18)
+                    ov["cards"].append({"t": t0, "src": card_image(pub, cd, items, f"{i}_{q}"), "label": cd["label"]})
+                    add("pop", start + t0 / FPS, 0.4)
+            for a_, b_ in zip(ov["cam"], ov["cam"][1:]):  # souffle sur les grands mouvements de caméra
+                if abs(np.log(b_["w"] / a_["w"])) > 0.6 or np.hypot(b_["x"] - a_["x"], b_["y"] - a_["y"]) > 1200:
+                    add("whoosh_up", start + a_["t"] / FPS, 0.38)
+            add("whoosh_long", start - 0.35, 0.45); fx.append({"type": "flash", "at": fr(start), "dur": fr(0.12), "amount": 0.4})
+            map_overlays.append(ov)
     for i, ln in enumerate(lines):
         ovs = ln.get("overlay") or []
         ovs = [ovs] if isinstance(ovs, dict) else ovs
@@ -532,6 +636,7 @@ def main():
                 add("bell", at + 32 / 30, 0.55); add("success", at + 34 / 30, 0.4)
             elif T in ("title", "flow"):
                 add("whip_rl", at - 0.06, 0.35); add("pop", at + 0.1, 0.3)
+    overlays = map_overlays + overlays  # la carte sous les autres overlays
     sfxs = [s for s in sfxs if s["src"] and s["at"] >= 0 and s["volume"] > 0]
     (work / "sfx.json").write_text(json.dumps(sfxs, indent=1))
 

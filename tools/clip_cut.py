@@ -146,14 +146,30 @@ def time_map(dur, fps, base, ramp_in, ramp_out):
     return src, sp
 
 
+def letterbox(src, t):
+    """Hauteur des bandes noires (haut/bas) en px source, mesurée sur une image à l'instant t (0 si aucune)."""
+    sw, sh = probe(src)
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{t:.3f}", "-i", str(src), "-frames:v", "1", "-vf", "scale=320:-2,format=gray",
+                          "-f", "rawvideo", "-"], capture_output=True).stdout
+    if not raw:
+        return 0
+    g = np.frombuffer(raw, np.uint8); g = g.reshape(-1, 320)
+    dark = g.max(1) < 14
+    top = int(np.argmax(~dark)); bot = int(np.argmax(~dark[::-1]))
+    bar = min(top, bot) / g.shape[0]
+    return int(sh * bar) if bar > 0.03 else 0
+
+
 def read_video(src, start, dur, focus, speed, grade, fps, ramp_in, ramp_out):
     sw, sh = probe(src)
+    lb = letterbox(src, start + 0.1)  # format cinéma : on recadre à l'intérieur des bandes noires
+    sh_eff = sh - 2 * lb
     tmap, sp = time_map(dur, fps, speed, ramp_in, ramp_out)
     src_dur = float(tmap[-1] + sp[-1] / fps + 2 / SRC_FPS)
     if sw / sh > W / H + 0.01:
-        cw = int(round(sh * W / H / 2)) * 2
+        cw = int(round(sh_eff * W / H / 2)) * 2
         x0 = focus[0] * sw - cw / 2; x1 = focus[-1] * sw - cw / 2
-        crop = f"crop={cw}:{sh}:'max(0,min(iw-ow,{x0:.1f}+({x1 - x0:.1f})*t/{src_dur:.3f}))':0"
+        crop = f"crop={cw}:{sh_eff // 2 * 2}:'max(0,min(iw-ow,{x0:.1f}+({x1 - x0:.1f})*t/{src_dur:.3f}))':{lb}"
     else:
         ch = int(round(sw * H / W / 2)) * 2
         crop = f"crop={sw}:{ch}:0:(ih-oh)/2"

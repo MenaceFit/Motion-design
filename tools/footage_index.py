@@ -285,6 +285,10 @@ def still_from_shot(id_, at=0.5):
     out.parent.mkdir(parents=True, exist_ok=True)
     t = it["start"] + it["dur"] * at
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{t:.3f}", "-i", str(ROOT / it["src"]), "-frames:v", "1", str(out)], check=True)
+    img = cv2.imread(str(out)); g = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY); dark = g.max(1) < 14  # bandes noires (format cinéma)
+    top, bot = int(np.argmax(~dark)), int(np.argmax(~dark[::-1]))
+    if min(top, bot) > 0.03 * g.shape[0]:
+        cv2.imwrite(str(out), img[top:g.shape[0] - bot])
     st = index_still(out)
     st["id"] = f"F-{id_}"; st["auto_tags"] = ["image_extraite", id_.lower()]; st["from_shot"] = id_
     index["items"] = [x for x in index["items"] if x["id"] != st["id"]] + [st]

@@ -1849,10 +1849,11 @@
 "club",
 "nuit",
 "foule",
+"nine1nine",
 "néon"
 ],
-"desc": "boîte de nuit violette",
-"q": 2,
+"desc": "foule devant le club NINE1NINE (enseigne « NINE1NINE VICE CITY » à droite)",
+"q": 3,
 "avoid": false
 },
 "T2-045": {
@@ -2103,9 +2104,9 @@
 "club",
 "vice_city"
 ],
-"desc": "enseignes néon de nuit",
-"q": 2,
-"avoid": false
+"desc": "enseignes néon de nuit — barre de pole dance visible (à éviter)",
+"q": 0,
+"avoid": true
 },
 "T2-069": {
 "tags": [
@@ -5180,22 +5181,24 @@
 },
 "EL-207": {
 "tags": [
-"nuit",
 "club",
+"nuit",
+"jack_of_hearts",
 "entrée"
 ],
-"desc": "entrée de club, videur",
-"q": 1,
+"desc": "entrée du Jack of Hearts (logo sur les portes)",
+"q": 3,
 "avoid": false
 },
 "EL-208": {
 "tags": [
-"nuit",
 "club",
+"nuit",
+"jack_of_hearts",
 "entrée"
 ],
-"desc": "entrée de club",
-"q": 1,
+"desc": "deux hommes devant les portes du Jack of Hearts",
+"q": 3,
 "avoid": false
 },
 "EL-209": {
@@ -6606,5 +6609,56 @@
 "desc": "image de la pub burger « The Prairie »",
 "q": 3,
 "avoid": false
+},
+"F-T2-044": {
+"tags": [
+"club",
+"nine1nine",
+"image_extraite"
+],
+"desc": "image : foule et enseigne NINE1NINE",
+"q": 3,
+"avoid": false
+},
+"F-EL-208": {
+"tags": [
+"club",
+"jack_of_hearts",
+"image_extraite"
+],
+"desc": "image : portes du Jack of Hearts",
+"q": 3,
+"avoid": false
+},
+"S-PortGellhorn04": {
+"tags": [
+"delights",
+"club",
+"enseigne",
+"parking",
+"port gellhorn",
+"nuit"
+],
+"desc": "enseigne Delights et parking (capture officielle)",
+"q": 3,
+"avoid": false
+},
+"S-PortGellhorn07": {
+"tags": [
+"delights",
+"club"
+],
+"desc": "danseuse devant l'enseigne Delights (à éviter : monétisation)",
+"q": 0,
+"avoid": true
+},
+"S-BoobieIke04": {
+"tags": [
+"boobie_ike",
+"club"
+],
+"desc": "scène de club avec danseuses (à éviter : monétisation)",
+"q": 0,
+"avoid": true
 }
 }

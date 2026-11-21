@@ -234,3 +234,19 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
   ingest` exige désormais `--rights own|permission|official` et peut indexer aussitôt (`--index`).
 - Nouveaux overlays `hooktag` et `follow` (CTA), coupes flash dans l'accroche, caméra à l'épaule,
   13 nouveaux SFX (scratch, cymbale inversée, cloche, déclencheur, sub-drop, variantes) en rotation.
+
+## 2026-11-21 (2) — Carte animée + vidéo « Les 3 clubs de strip-tease de GTA 6 »
+- Faits recoupés sur 9 guides (PowerPyx, GTAMI, Beebom, Sportskeeda, Radio Times, Polygon, GameSpot,
+  RPS, PC Gamer) + wiki Fandom ; conflit Downtown/Crosstown pour NINE1NINE → formulation « entre Downtown
+  et Crosstown ».
+- Poster officiel « Leonida Map Poster » (Rockstar) + positions GTADB (L190, L172, L629) projetées par
+  affine calée sur 5 repères (résidus 6–33 px) ; contrôle visuel : NINE1NINE entre Downtown et Crosstown,
+  Jack of Hearts au nord de Crosstown, Delights contre l'I-404.
+- Nouveau `MapView.tsx` (caméra aérienne avec tilt, zoom en espace log, nuages selon la vitesse, épingles
+  numérotées, trajets bézier, repères, titre, vignettes) ; lignes `map` dans `gta_build.py` ; CTA `savecta`
+  (enregistre + commente).
+- Preuves visuelles officielles repérées : enseigne NINE1NINE (T2-044), portes du Jack of Hearts
+  (EL-207/208), enseigne + parking du Delights (capture Port_Gellhorn_04). Plans de danseuses exclus.
+- `clip_cut.py` / `footage_index.py still` : recadrage automatique des bandes noires.
+- Connecteur ElevenLabs : estimation OK (981 crédits) mais audio non téléchargeable depuis le conteneur
+  (hôtes ElevenLabs bloqués) → voix provisoire Piper « tom » (masculine) + script v4 prêt.
