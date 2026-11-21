@@ -276,6 +276,27 @@ def search(want, any_, min_dur, kind, limit, exclude):
         print(f"{it['id']:<22} {it['kind']:<5} {it['dur'] or 0:5.1f}s q{t.get('q', '?')} {','.join(t.get('tags', it.get('auto_tags', [])))[:60]:<60} {t.get('desc', '')[:50]}")
 
 
+def still_from_shot(id_, at=0.5):
+    """Extrait une image pleine résolution d'un plan (fraction `at` de sa durée) → nouvelle entrée « still »
+    (utile pour un plan trop court : ex. un carton de pub de 0,5 s). Provenance : même source officielle."""
+    index = load("index.json", {"sources": {}, "items": []})
+    it = next(x for x in index["items"] if x["id"] == id_)
+    out = FOOT / "raw" / "stills" / f"{id_}_{int(at * 100):02d}.png"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    t = it["start"] + it["dur"] * at
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{t:.3f}", "-i", str(ROOT / it["src"]), "-frames:v", "1", str(out)], check=True)
+    st = index_still(out)
+    st["id"] = f"F-{id_}"; st["auto_tags"] = ["image_extraite", id_.lower()]; st["from_shot"] = id_
+    index["items"] = [x for x in index["items"] if x["id"] != st["id"]] + [st]
+    index["sources"][str(out)] = 1
+    (IDX / "index.json").write_text(json.dumps(index, indent=0))
+    prov = json.loads((FOOT / "provenance.json").read_text())
+    src_prov = prov.get(it["src"], {})
+    prov[str(out.relative_to(ROOT))] = dict(src_prov, origin=f"image extraite de {it['src']} à {t:.2f} s", sha256=None)
+    (FOOT / "provenance.json").write_text(json.dumps(prov, indent=1, ensure_ascii=False))
+    print(st["id"], "→", out.relative_to(ROOT))
+
+
 def stats():
     index = load("index.json", {"items": []}); tags = load("tags.json", {})
     n = len(index["items"]); tagged = sum(1 for it in index["items"] if it["id"] in tags)
@@ -295,10 +316,12 @@ def main():
     q.add_argument("--min-dur", type=float, default=0.0); q.add_argument("--kind"); q.add_argument("--limit", type=int, default=20)
     q.add_argument("--exclude", nargs="*", default=[])
     sp.add_parser("stats")
+    fs = sp.add_parser("still"); fs.add_argument("id"); fs.add_argument("--at", type=float, default=0.5)
     a = ap.parse_args()
     if a.cmd == "build": build(a.src, a.threshold)
     elif a.cmd == "sheets": sheets(a.src_filter)
     elif a.cmd == "search": search(a.tags, a.any, a.min_dur, a.kind, a.limit, set(a.exclude))
+    elif a.cmd == "still": still_from_shot(a.id, a.at)
     else: stats()
 
 

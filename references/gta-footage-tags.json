@@ -6583,5 +6583,28 @@
 "desc": "carton de fin, logo et date",
 "q": 0,
 "avoid": true
+},
+"F-EL-064": {
+"tags": [
+"pub",
+"burger",
+"drôle",
+"calories",
+"image_extraite"
+],
+"desc": "image de la pub « Prairie Sandwich Box Meal — only 30,000 calories »",
+"q": 3,
+"avoid": false
+},
+"F-EL-063": {
+"tags": [
+"pub",
+"burger",
+"drôle",
+"image_extraite"
+],
+"desc": "image de la pub burger « The Prairie »",
+"q": 3,
+"avoid": false
 }
 }
