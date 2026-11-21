@@ -1,5 +1,11 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-21 — « 245 € → 900 € » trouvailles semi-luxe (nouvelle composition LuxeFinds)
+- Hook chiffré dès 0 s (3 cartes qui tombent, ticket de caisse qui s'imprime, compteur 900 €+), preuve « pas du 1.1 »
+  (tampons LEGIT), 1 transition d'entrée différente par article (glisse+rotation / zoom+spin / chute rebond), étiquettes
+  de prix suspendues qui se balancent, bénéfice calculé, récap +655 € + « résultats variables », CTA groupe privé.
+- Notifications du groupe = uniquement les 3 vraies trouvailles (pas de faux bons plans inventés). 121 SFX doux. QC OK.
+
 ## 2026-11-20 (2) — Phenom Elite gris (howto, 3 étapes)
 - Slideshow utilisateur (flèches conservées). Pastilles couleur retirées : la mesure sur photos d'éclairage différent
   contredisait le message (le 1:1 mesurait plus foncé) → ne pas afficher d'hex quand les photos ne sont pas comparables.
