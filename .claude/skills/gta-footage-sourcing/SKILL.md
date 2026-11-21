@@ -27,6 +27,24 @@ python3 tools/gta_source.py show                # résumé de footage/provenance
 - « An Extended Look » (14 Go) est exclu par défaut (`--max-gb`, `--include Extended`).
 - Uploads de l'utilisateur (`/root/.claude/uploads/...`) → `ingest` avec une origine explicite.
 
+## 1 bis. Chercher plus de footage (ordre de priorité)
+1. **Officiel Rockstar** (téléchargeable ici) : `gta_source.py fetch all --max-gb 20` récupère aussi
+   « An Extended Look » (14 Go, 4K). Nouvelles publications : `firecrawl_search` sur
+   `site:rockstargames.com newswire "Grand Theft Auto VI"` et `rockstargames.com/videos` (les téléchargements
+   arrivent sur `media-rockstargames-com.akamaized.net/VI/downloads/…` ; vérifier le zip à distance avant :
+   lecture du répertoire central par requêtes Range, voir changelog 2026-11-21).
+2. **Gameplay de l'utilisateur** (le meilleur : 100 % original, montre les vrais menus/carte/lieux).
+   PS5 : bouton Créer → « Démarrer un nouvel enregistrement » (ou « Enregistrer les 15 dernières minutes »),
+   export par l'appli PS ou par clé USB ; Xbox : Win+G / bouton Partage. Puis
+   `gta_source.py ingest capture.mp4 --origin "PS5 de l'utilisateur, 2026-11-21" --rights own --index`.
+3. **Footage d'un autre créateur : seulement avec son accord** (`--rights permission`, `--origin` = qui,
+   où, quand). On ne télécharge pas les vidéos d'autres créateurs via des sites de « ripping »
+   (ssstik, savefrom…) : c'est leur travail (Content ID / réclamations, contenu « non original » pénalisé
+   par TikTok et YouTube), et ces sites ne sont de toute façon pas joignables depuis le conteneur.
+4. **Les vidéos YouTube d'autres créateurs restent utiles pour la recherche** : `firecrawl_scrape` de la
+   page (titre, chapitres, description) pour trouver où se trouve un lieu, un secret, un ordre de missions,
+   puis le dire dans le script ou demander une capture à l'utilisateur.
+
 ## 2. Indexer
 ```bash
 python3 -W ignore tools/footage_index.py build     # incrémental : proxies 640 px, plans, cadrage 9:16

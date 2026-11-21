@@ -3,9 +3,10 @@
  "fps": 60,
  "credit": "Images : Rockstar Games",
  "voice": {
-  "engine": "piper",
-  "model": "footage/models/piper/fr_FR-siwis-medium.onnx",
-  "length_scale": 0.86
+  "file": "projects/gta6-code-argent/voice_elevenlabs.mp3",
+  "voice_id": "3Tp5mYhT9wrfnry9pzvV",
+  "model": "eleven_v4",
+  "source": "ElevenLabs (prise de l'utilisateur, 2026-11-21)"
  },
  "music": {
   "mood": "hype",
@@ -70,15 +71,29 @@
     "250 000 $"
    ],
    "shots": [
-    "T2-074",
-    "T2-011"
+    "LT-053",
+    "EL-126",
+    "EL-228",
+    "EL-229",
+    "EL-082",
+    "T2-074"
    ],
-   "overlay": {
-    "type": "counter",
-    "value": 250000,
-    "at": "250"
-   },
-   "say_elevenlabs": "[excited] Ce code te donne 250 000 dollars… sur GTA 6 !"
+   "overlay": [
+    {
+     "type": "hooktag",
+     "text": "Code secret",
+     "sub": "GTA 6",
+     "until": 2.6
+    },
+    {
+     "type": "counter",
+     "value": 250000,
+     "y": 700
+    }
+   ],
+   "say_elevenlabs": "[excited] Ce code te donne 250 000 dollars… sur GTA 6 !",
+   "shot_len": 0.55,
+   "flash_cuts": true
   },
   {
    "text": "Mais personne ne te dit le piège.",
@@ -86,7 +101,8 @@
     "piège"
    ],
    "shots": [
-    "LT-019"
+    "LT-019",
+    "EL-299"
    ],
    "transition": "glitch",
    "music": "cut",
@@ -104,7 +120,7 @@
     "91 missions"
    ],
    "shots": [
-    "T2-016",
+    "EL-102",
     "T2-020"
    ],
    "transition": "zoom",
@@ -126,8 +142,9 @@
   {
    "text": "Ensuite, sors ton téléphone avec la flèche du haut.",
    "shots": [
-    "LT-005",
-    "T2-066"
+    "EL-015",
+    "EL-025",
+    "LT-005"
    ],
    "overlay": {
     "type": "step",
@@ -140,8 +157,8 @@
    "text": "Maintiens {L1} et appuie sur {R1}. Sur Xbox, {LB} et {RB}.",
    "say": "Maintiens L1, et appuie sur R1. Sur Xbox : LB, et RB.",
    "shots": [
-    "T2-009",
-    "LT-008"
+    "EL-158",
+    "EL-162"
    ],
    "overlay": [
     {
@@ -165,9 +182,9 @@
   {
    "text": "Puis tape : haut, droite, bas, gauche, haut, gauche, bas, droite.",
    "shots": [
-    "T1-006",
-    "T2-012",
-    "LT-009"
+    "EL-186",
+    "EL-180",
+    "EL-253"
    ],
    "pause": 0.25,
    "overlay": [
@@ -203,9 +220,10 @@
     "250 000 $"
    ],
    "shots": [
+    "EL-215",
+    "EL-021",
     "LT-027",
-    "T2-030",
-    "T1-051"
+    "T2-030"
    ],
    "transition": "zoom",
    "music": "drop",
@@ -219,8 +237,9 @@
   {
    "text": "Et c'est le même code sur PS5 et sur Xbox.",
    "shots": [
-    "T2-079",
-    "LT-030"
+    "EL-224",
+    "EL-202",
+    "EL-211"
    ],
    "overlay": {
     "type": "title",
@@ -242,8 +261,8 @@
    ],
    "shots": [
     "T2-061",
-    "LT-047",
-    "LT-039"
+    "EL-227",
+    "LT-047"
    ],
    "transition": "glitch",
    "overlay": {
@@ -256,19 +275,21 @@
   {
    "text": "Alors fais une sauvegarde à part, avant de tricher.",
    "shots": [
-    "LT-041",
-    "T2-042"
+    "EL-008",
+    "LT-041"
    ],
    "say_elevenlabs": "[warmly] Alors fais une sauvegarde à part, avant de tricher."
   },
   {
    "text": "Abonne-toi pour tous les autres codes de GTA 6 !",
    "shots": [
+    "EL-343",
     "LT-048",
-    "T1-017"
+    "EL-250"
    ],
    "overlay": {
-    "type": "subscribe",
+    "type": "follow",
+    "title": "Plus de codes|comme ça ?",
     "at": "abonne",
     "until": "end"
    },
@@ -280,5 +301,6 @@
   "voice_id": "3Tp5mYhT9wrfnry9pzvV",
   "name": "Hugo – Punchy French Creator",
   "model": "eleven_v4 (ou eleven_v3)"
- }
+ },
+ "initials": "G6"
 }

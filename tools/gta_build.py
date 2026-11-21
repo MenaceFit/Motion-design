@@ -289,9 +289,17 @@ TRANS = {
 CYCLE = ["zoom", "whip", "spin", "whip_v", "whip2", "glitch"]
 
 
+_VAR = {}
+
+
 def pro(name):
-    p = TPL / "public" / "sfxpro" / (name + ".wav")
-    return str(p) if p.exists() else None
+    """Son de la banque sfxpro ; si des variantes _2/_3 existent, elles tournent (évite la répétition)."""
+    base = TPL / "public" / "sfxpro"
+    vs = [n for n in [name, f"{name}_2", f"{name}_3"] if (base / (n + ".wav")).exists()]
+    if not vs:
+        return None
+    k = _VAR.get(name, 0); _VAR[name] = k + 1
+    return str(base / (vs[k % len(vs)] + ".wav"))
 
 
 def sfx(name):
@@ -386,9 +394,15 @@ def main():
     for i, ln in enumerate(lines):
         lc = [c for c in caps if c["line"] == i]
         bounds = [lc[0]["start"] if i else 0.0]
-        for c in lc[1:]:
-            if c["start"] - bounds[-1] >= ln.get("shot_len", plan.get("shot_len", 1.35)):
-                bounds.append(c["start"])
+        sl = ln.get("shot_len", plan.get("shot_len", 1.35))
+        if ln.get("flash_cuts"):  # accroche : coupes régulières, indépendantes des sous-titres
+            end0 = spans[i + 1]["start"] if i + 1 < len(spans) else total
+            while bounds[-1] + sl * 1.5 < end0:
+                bounds.append(bounds[-1] + sl)
+        else:
+            for c in lc[1:]:
+                if c["start"] - bounds[-1] >= sl:
+                    bounds.append(c["start"])
         end = spans[i + 1]["start"] if i + 1 < len(spans) else total
         if end - bounds[-1] < 0.6 and len(bounds) > 1: bounds.pop()
         bounds.append(end)
@@ -409,7 +423,7 @@ def main():
     sys.path.insert(0, str(TOOLS)); from clip_cut import source_span
     specs = []
     for k, s in enumerate(slots):
-        enter = "zoom" if k == 0 else s["enter"]
+        enter = "cut" if k == 0 else s["enter"]  # 1re image nette (miniature / fil TikTok)
         nxt = slots[k + 1]["enter"] if k + 1 < len(slots) else "cut"
         head, tail_ = TRANS[enter][1], TRANS[nxt][0]
         s["clip"] = f"clips/c{k:02d}.mp4"
@@ -435,14 +449,20 @@ def main():
     print("4/6 overlays, effets, SFX")
     overlays, fx, sfxs, leaks = [], [], [], []
     add = lambda name, at, vol: sfxs.append({"src": pro(name) or sfx(name), "at": round(at, 3), "volume": vol})
-    add("boom", 0.0, 0.7); fx.append({"type": "flash", "at": 0, "dur": fr(0.25), "amount": 0.55})
+    add("boom", 0.0, 0.7)  # pas de flash à 0 s : la 1re image doit rester lisible
+    fx.append({"type": "shake", "at": 0, "dur": fr(0.3), "amount": 18})
     for k, s in enumerate(slots):
         if k == 0: continue
         name = s["enter"]
         if name == "cut":  # coupe sèche dans la ligne : petit « pop » d'image + souffle discret
             fx.append({"type": "punch", "at": fr(s["start"]), "dur": fr(0.2), "amount": 0.035})
             add("whip_lr" if k % 2 else "whip_rl", s["start"] - 0.08, 0.22)
+            if lines[s["line"]].get("flash_cuts"):  # accroche : coupes flash très rapides
+                fx.append({"type": "flash", "at": fr(s["start"]), "dur": fr(0.1), "amount": 0.6})
+                add("shutter", s["start"] - 0.01, 0.45); add("hit", s["start"], 0.3)
             continue
+        if name in ("zoom", "spin"):
+            add("rev_cymbal", s["start"] - 0.6, 0.32)
         _, _, snds, hue = TRANS[name]
         for nm, pre, vol in snds: add(nm, s["start"] - pre, vol)
         if hue: leaks.append({"at": fr(s["start"] - 0.25), "dur": fr(0.55), "hue": hue, "side": 1 if k % 2 else -1})
@@ -462,6 +482,7 @@ def main():
         sp = spans[i]; line_end = spans[i + 1]["start"] if i + 1 < len(spans) else total
         if ln.get("music") == "cut":
             music_events.append({"kind": "cut", "start": sp["start"], "end": line_end})
+            add("record_scratch", sp["start"] - 0.12, 0.55)
             add("boom", line_end - 0.02, 0.6)
         if ln.get("music") == "drop":
             add("riser", sp["start"] - 1.4, 0.45); add("boom", sp["start"], 0.65)
@@ -501,6 +522,14 @@ def main():
                 add("pop", at, 0.4)
                 sfxs.append({"src": sfx("jsfxr/click_1"), "at": round(at + 22 / 30, 3), "volume": 0.5})  # clic du curseur
                 add("success", at + 24 / 30, 0.5)
+            elif T == "hooktag":
+                add("sub_drop", at, 0.55); add("shutter", at, 0.4); add("hit", at + 0.02, 0.45)
+            elif T == "follow":
+                o.setdefault("name", plan.get("channel") or "@toncompte")
+                o.setdefault("initials", plan.get("initials", "GTA"))
+                add("whoosh_up", at - 0.2, 0.45); add("hit", at, 0.4); add("pop", at + 0.18, 0.35); add("pop", at + 0.35, 0.3)
+                sfxs.append({"src": sfx("jsfxr/click_1"), "at": round(at + 30 / 30, 3), "volume": 0.55})
+                add("bell", at + 32 / 30, 0.55); add("success", at + 34 / 30, 0.4)
             elif T in ("title", "flow"):
                 add("whip_rl", at - 0.06, 0.35); add("pop", at + 0.1, 0.3)
     sfxs = [s for s in sfxs if s["src"] and s["at"] >= 0 and s["volume"] > 0]

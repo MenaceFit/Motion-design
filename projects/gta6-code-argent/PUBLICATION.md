@@ -6,8 +6,9 @@ Codes dispo après l'histoire · sauvegarde bloquée après usage → fais une s
 #gta6 #gtavi #gta6cheats #codegta6 #astucegta6
 
 ## Crédits (à mettre en description)
-- Images : Rockstar Games (trailers et captures officiels, rockstargames.com/VI).
-- Voix : synthèse Piper, voix « siwis » (jeu de données SIWIS, CC-BY 4.0).
+- Images : Rockstar Games (trailers, « An Extended Look » et captures officiels, rockstargames.com/VI).
+- Voix : ElevenLabs (voix « Hugo », modèle v4), générée par le propriétaire du compte. Usage commercial
+  selon l'offre ElevenLabs souscrite (les offres gratuites demandent une attribution et excluent l'usage commercial).
 - Musique et effets sonores : originaux (générés), sauf effets UI uisfx (CC0).
 
 ## Sources des faits (vérifiées le 2026-11-20)

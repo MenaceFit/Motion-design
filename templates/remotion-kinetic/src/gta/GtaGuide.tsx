@@ -14,6 +14,7 @@ import '@fontsource/montserrat/800.css';
 import '@fontsource/montserrat/900.css';
 import '@fontsource/montserrat/900-italic.css';
 import {Icon, IconName} from './Icons';
+import {noise2D} from '@remotion/noise';
 
 // ---------- types ----------
 export type Clip = {src: string; from: number; dur: number; kind?: 'video' | 'image'; punch?: number[]; trim?: number};
@@ -30,6 +31,8 @@ export type Overlay =
   | {type: 'flow'; from: number; to: number; icons: IconName[]; y?: number}
   | {type: 'title'; from: number; to: number; lines: string[]; accent?: number; y?: number}
   | {type: 'subscribe'; from: number; to: number; label?: string; done?: string}
+  | {type: 'hooktag'; from: number; to: number; text: string; sub?: string}
+  | {type: 'follow'; from: number; to: number; title?: string; name?: string; initials?: string; button?: string; done?: string}
   | {type: 'combo'; from: number; to: number; keys: ('U' | 'D' | 'L' | 'R' | string)[]; times?: number[]; label?: string; y?: number};
 export type GtaEdit = {
   clips: Clip[]; fx?: Fx[]; captions: Caption[]; overlays?: Overlay[];
@@ -57,7 +60,11 @@ const ClipLayer: React.FC<{clip: Clip}> = ({clip}) => {
   const f = useCurrentFrame();
   const p = clip.punch ?? [1, 1.06];
   const scale = interpolate(f, [0, clip.dur], [p[0], p[1]], {extrapolateRight: 'clamp'});
-  const style: React.CSSProperties = {width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${scale})`};
+  // caméra « à l'épaule » : dérive lente (bruit de Perlin), ±7 px / ±0,35°, masquée par le zoom de 5 %
+  const {fps} = useVideoConfig(); const s = (f + clip.from) / fps;
+  const hx = noise2D('hx', s * 0.55, 0) * 7, hy = noise2D('hy', 0, s * 0.5) * 7, hr = noise2D('hr', s * 0.4, 1) * 0.35;
+  const style: React.CSSProperties = {width: '100%', height: '100%', objectFit: 'cover',
+    transform: `translate(${hx}px, ${hy}px) rotate(${hr}deg) scale(${scale * 1.02})`};
   return clip.kind === 'image'
     ? <Img src={staticFile(clip.src)} style={style} />
     : <OffthreadVideo src={staticFile(clip.src)} muted style={style} startFrom={clip.trim ?? 0} />;
@@ -447,6 +454,91 @@ const Combo: React.FC<{o: Extract<Overlay, {type: 'combo'}>}> = ({o}) => {
   );
 };
 
+// Accroche : étiquette jaune qui « claque » en haut d'écran dès la 1re image (pattern interrupt)
+const HookTag: React.FC<{o: Extract<Overlay, {type: 'hooktag'}>}> = ({o}) => {
+  const {f, fps, k} = useT(); const len = (o.to - o.from) * k;
+  const s = spring({frame: f, fps, config: {damping: 15, stiffness: 420, mass: 0.6}});  // amorti : claque sans rebond sous 1
+  const sc = interpolate(s, [0, 1], [2.1, 1]);
+  const shake = f < 10 ? Math.sin(f * 2.7) * 10 * (1 - f / 10) : 0;
+  const glint = interpolate(f, [8, 22], [-30, 130], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const sub = spring({frame: f - 6, fps, config: {damping: 12, stiffness: 300, mass: 0.5}});
+  return (
+    <AbsoluteFill style={{alignItems: 'center', opacity: exitK(f, len, 5)}}>
+      <div style={{position: 'absolute', top: 300, transform: `translateX(${shake}px) rotate(-5deg) scale(${sc})`, opacity: Math.min(1, f / 2)}}>
+        <div style={{position: 'relative', overflow: 'hidden', background: C.accent, padding: '10px 44px 6px', borderRadius: 16,
+          boxShadow: '0 12px 0 rgba(0,0,0,0.45), 0 0 60px rgba(255,210,63,0.55)'}}>
+          <div style={{fontFamily: COND, fontSize: 118, color: C.ink, textTransform: 'uppercase', letterSpacing: 2, transform: 'skewX(-9deg)'}}>{o.text}</div>
+          <div style={{position: 'absolute', top: -40, bottom: -40, left: `${glint}%`, width: 90, transform: 'skewX(-20deg)',
+            background: 'linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.85), rgba(255,255,255,0))'}} />
+        </div>
+      </div>
+      {o.sub && <div style={{position: 'absolute', top: 470, fontFamily: COND, fontSize: 70, color: '#fff', textTransform: 'uppercase',
+        transform: `rotate(-5deg) translateY(${(1 - sub) * 40}px) skewX(-9deg)`, opacity: sub,
+        WebkitTextStroke: '9px rgba(8,4,12,0.92)', paintOrder: 'stroke fill'}}>{o.sub}</div>}
+    </AbsoluteFill>
+  );
+};
+
+// CTA : titre + avatar à anneau tournant + bouton S'abonner tapé par une main + cloche + flèche vers le « + » TikTok
+const Follow: React.FC<{o: Extract<Overlay, {type: 'follow'}>; accentColor: string}> = ({o, accentColor}) => {
+  const {f, fps, k} = useT(); const len = (o.to - o.from) * k;
+  const t1 = spring({frame: f, fps, config: {damping: 9, stiffness: 360, mass: 0.6}});
+  const t2 = spring({frame: f - 5, fps, config: {damping: 11, stiffness: 260, mass: 0.6}});
+  const t3 = spring({frame: f - 10, fps, config: {damping: 10, stiffness: 300, mass: 0.5}});
+  const click = 30;
+  const hx = interpolate(f, [12, click - 2], [1000, 640], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)});
+  const hy = interpolate(f, [12, click - 2], [1500, 1215], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)});
+  const press = f >= click && f < click + 5 ? 0.9 : 1;
+  const done = f >= click + 2;
+  const ripple = interpolate(f, [click, click + 16], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const pulse = done ? 1 : 1 + 0.04 * Math.sin(f * 0.5);
+  const bell = done ? Math.sin((f - click) * 1.3) * 22 * Math.exp(-(f - click) / 14) : 0;
+  const arrow = 18 * Math.sin(f * 0.45);
+  return (
+    <AbsoluteFill style={{opacity: exitK(f, len, 4)}}>
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 50%, rgba(10,4,20,0.25), rgba(10,4,20,0.72))', opacity: t2}} />
+      <div style={{position: 'absolute', top: 300, left: 0, right: 0, textAlign: 'center', transform: `scale(${interpolate(t1, [0, 1], [1.8, 1])}) rotate(-3deg)`, opacity: t1}}>
+        <div style={{fontFamily: COND, fontSize: 104, lineHeight: 1.04, color: '#fff', textTransform: 'uppercase', transform: 'skewX(-9deg)',
+          WebkitTextStroke: '11px rgba(8,4,12,0.92)', paintOrder: 'stroke fill', textShadow: '0 10px 0 rgba(0,0,0,0.5)'}}>
+          {(o.title ?? 'Plus de codes|comme ça ?').split('|').map((l, i) => <div key={i} style={{color: i === 1 ? accentColor : '#fff'}}>{l}</div>)}
+        </div>
+      </div>
+      <div style={{position: 'absolute', top: 640, left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 22,
+        transform: `scale(${t2})`}}>
+        <div style={{position: 'relative', width: 250, height: 250}}>
+          <div style={{position: 'absolute', inset: 0, borderRadius: '50%', background: `conic-gradient(from ${f * 6}deg, ${C.pink}, ${accentColor}, ${C.cyan}, ${C.pink})`}} />
+          <div style={{position: 'absolute', inset: 12, borderRadius: '50%', background: 'linear-gradient(160deg, #2a1440, #0b0710)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: COND, fontSize: 110, color: '#fff'}}>{o.initials ?? 'GTA'}</div>
+          <div style={{position: 'absolute', right: -6, bottom: -6, width: 84, height: 84, borderRadius: 42, background: done ? '#fff' : '#FF2E4D',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 6px 0 rgba(0,0,0,0.35)', transform: `scale(${done ? 1 : pulse})`}}>
+            {done ? <Icon name="check" size={52} color="#FF2E4D" /> : <div style={{fontFamily: SANS, fontWeight: 900, fontSize: 66, color: '#fff', marginTop: -6}}>+</div>}
+          </div>
+        </div>
+        <div style={{fontFamily: SANS, fontWeight: 900, fontSize: 50, color: '#fff', textShadow: '0 4px 12px rgba(0,0,0,0.8)'}}>{o.name ?? '@toncompte'}</div>
+      </div>
+      <div style={{position: 'absolute', top: 1110, left: 0, right: 0, display: 'flex', justifyContent: 'center', transform: `scale(${t3 * press * pulse})`}}>
+        <div style={{position: 'relative'}}>
+          {f >= click && <div style={{position: 'absolute', inset: -12, borderRadius: 90, border: `7px solid ${done ? '#FF2E4D' : '#fff'}`,
+            opacity: 1 - ripple, transform: `scale(${1 + ripple * 0.4})`}} />}
+          <div style={{background: done ? '#fff' : '#FF2E4D', color: done ? '#FF2E4D' : '#fff', fontFamily: SANS, fontWeight: 900, fontSize: 70,
+            padding: '26px 64px', borderRadius: 90, display: 'flex', alignItems: 'center', gap: 20, textTransform: 'uppercase',
+            boxShadow: done ? '0 12px 0 rgba(0,0,0,0.35)' : '0 0 50px rgba(255,46,77,0.75), 0 12px 0 rgba(0,0,0,0.35)'}}>
+            <div style={{transform: `rotate(${bell}deg)`, transformOrigin: '50% 10%', display: 'flex'}}><Icon name="bell" size={60} color={done ? '#FF2E4D' : '#fff'} /></div>
+            {done ? (o.done ?? 'Abonné !') : (o.button ?? "Abonne-toi")}
+          </div>
+        </div>
+      </div>
+      {f < click + 16 && <div style={{position: 'absolute', left: hx, top: hy, transform: `scale(${press})`, filter: 'drop-shadow(0 6px 10px rgba(0,0,0,0.6))'}}>
+        <Icon name="hand" size={130} color="#fff" /></div>}
+      {done && <div style={{position: 'absolute', right: 150 - arrow, top: 960, display: 'flex', alignItems: 'center', gap: 10, opacity: Math.min(1, (f - click) / 6)}}>
+        <div style={{fontFamily: COND, fontSize: 64, color: accentColor, transform: 'skewX(-9deg)', WebkitTextStroke: '8px rgba(8,4,12,0.9)', paintOrder: 'stroke fill'}}>ICI</div>
+        <svg width={110} height={70} viewBox="0 0 110 70"><path d="M6 35 H86 M64 10 L96 35 L64 60" stroke={accentColor} strokeWidth={12} fill="none"
+          strokeLinecap="round" strokeLinejoin="round" style={{filter: `drop-shadow(0 0 10px ${accentColor})`}} /></svg>
+      </div>}
+    </AbsoluteFill>
+  );
+};
+
 const OverlayView: React.FC<{o: Overlay; accent: string}> = ({o, accent}) => {
   switch (o.type) {
     case 'counter': return <Counter o={o} />;
@@ -459,6 +551,8 @@ const OverlayView: React.FC<{o: Overlay; accent: string}> = ({o, accent}) => {
     case 'title': return <Title o={o} accentColor={accent} />;
     case 'subscribe': return <Subscribe o={o} />;
     case 'combo': return <Combo o={o} />;
+    case 'hooktag': return <HookTag o={o} />;
+    case 'follow': return <Follow o={o} accentColor={accent} />;
   }
 };
 

@@ -3074,5 +3074,3514 @@
 "desc": "visuel marketing (édition / pack)",
 "q": 1,
 "avoid": false
+},
+"EL-000": {
+"tags": [
+"intérieur",
+"nuit",
+"couloir",
+"raid",
+"sombre"
+],
+"desc": "plan-séquence dans un immeuble sombre (85 s)",
+"q": 1,
+"avoid": false
+},
+"EL-001": {
+"tags": [
+"nuit",
+"sombre",
+"graffiti"
+],
+"desc": "plan très court sombre",
+"q": 0,
+"avoid": false
+},
+"EL-002": {
+"tags": [
+"intérieur",
+"raid",
+"sombre",
+"couloir"
+],
+"desc": "plan-séquence intérieur sombre (79 s)",
+"q": 1,
+"avoid": false
+},
+"EL-003": {
+"tags": [
+"lucia",
+"jason",
+"intérieur",
+"sombre"
+],
+"desc": "Lucia et Jason dans une pièce sombre",
+"q": 2,
+"avoid": false
+},
+"EL-004": {
+"tags": [
+"drogue",
+"labo"
+],
+"desc": "labo clandestin (à éviter)",
+"q": 0,
+"avoid": true
+},
+"EL-005": {
+"tags": [
+"personnage",
+"chaîne_or",
+"sombre"
+],
+"desc": "homme à chaînes en or dans la pénombre",
+"q": 1,
+"avoid": false
+},
+"EL-006": {
+"tags": [
+"drogue",
+"labo"
+],
+"desc": "labo clandestin (à éviter)",
+"q": 0,
+"avoid": true
+},
+"EL-007": {
+"tags": [
+"personnage",
+"chaîne_or",
+"sombre"
+],
+"desc": "homme à dreadlocks et chaînes",
+"q": 1,
+"avoid": false
+},
+"EL-008": {
+"tags": [
+"jason",
+"portrait",
+"sombre"
+],
+"desc": "Jason, regard inquiet",
+"q": 2,
+"avoid": false
+},
+"EL-009": {
+"tags": [
+"personnage",
+"sombre",
+"intérieur"
+],
+"desc": "scène sombre avec projecteur (21 s)",
+"q": 1,
+"avoid": false
+},
+"EL-010": {
+"tags": [
+"personnage",
+"chaîne_or",
+"dialogue"
+],
+"desc": "deux hommes tatoués en débardeur",
+"q": 1,
+"avoid": false
+},
+"EL-011": {
+"tags": [
+"lucia",
+"jason",
+"intérieur",
+"lampe"
+],
+"desc": "Lucia et Jason sous une lampe",
+"q": 2,
+"avoid": false
+},
+"EL-012": {
+"tags": [
+"personnage",
+"chaîne_or",
+"dialogue"
+],
+"desc": "deux hommes tatoués",
+"q": 1,
+"avoid": false
+},
+"EL-013": {
+"tags": [
+"drogue",
+"labo"
+],
+"desc": "labo clandestin (à éviter)",
+"q": 0,
+"avoid": true
+},
+"EL-014": {
+"tags": [
+"personnage",
+"sombre"
+],
+"desc": "homme à dreadlocks dans la pénombre",
+"q": 1,
+"avoid": false
+},
+"EL-015": {
+"tags": [
+"téléphone",
+"appel",
+"gros_plan"
+],
+"desc": "téléphone qui sonne sur une table",
+"q": 3,
+"avoid": false
+},
+"EL-016": {
+"tags": [
+"personnage",
+"dialogue",
+"sombre"
+],
+"desc": "deux hommes tatoués",
+"q": 1,
+"avoid": false
+},
+"EL-017": {
+"tags": [
+"sombre",
+"gros_plan"
+],
+"desc": "jambe en jogging, sombre",
+"q": 0,
+"avoid": false
+},
+"EL-018": {
+"tags": [
+"sombre"
+],
+"desc": "dos en contre-jour",
+"q": 0,
+"avoid": false
+},
+"EL-019": {
+"tags": [
+"drogue"
+],
+"desc": "labo dans la fumée",
+"q": 0,
+"avoid": true
+},
+"EL-020": {
+"tags": [
+"drogue"
+],
+"desc": "labo dans la fumée",
+"q": 0,
+"avoid": true
+},
+"EL-021": {
+"tags": [
+"sac",
+"argent",
+"sombre"
+],
+"desc": "sac de sport rouge au sol",
+"q": 2,
+"avoid": false
+},
+"EL-022": {
+"tags": [
+"drogue"
+],
+"desc": "labo",
+"q": 0,
+"avoid": true
+},
+"EL-023": {
+"tags": [
+"porte",
+"mains",
+"gros_plan"
+],
+"desc": "main sur une porte",
+"q": 1,
+"avoid": false
+},
+"EL-024": {
+"tags": [
+"drogue"
+],
+"desc": "labo, personnes masquées",
+"q": 0,
+"avoid": true
+},
+"EL-025": {
+"tags": [
+"personnage",
+"téléphone",
+"chaîne_or"
+],
+"desc": "homme à dreadlocks sur son téléphone",
+"q": 2,
+"avoid": false
+},
+"EL-026": {
+"tags": [
+"sombre",
+"intérieur"
+],
+"desc": "plan sombre très court",
+"q": 0,
+"avoid": false
+},
+"EL-027": {
+"tags": [
+"drogue"
+],
+"desc": "labo, personnes masquées",
+"q": 0,
+"avoid": true
+},
+"EL-028": {
+"tags": [
+"police",
+"raid",
+"arme",
+"sombre"
+],
+"desc": "silhouette armée dans un couloir",
+"q": 2,
+"avoid": false
+},
+"EL-029": {
+"tags": [
+"raid",
+"lampe_torche",
+"police",
+"action"
+],
+"desc": "lampe torche dans la pénombre, raid",
+"q": 2,
+"avoid": false
+},
+"EL-030": {
+"tags": [
+"raid",
+"intérieur",
+"sombre"
+],
+"desc": "homme en sous-vêtements surpris",
+"q": 1,
+"avoid": false
+},
+"EL-031": {
+"tags": [
+"raid",
+"sombre",
+"intérieur"
+],
+"desc": "scène sombre de raid",
+"q": 1,
+"avoid": false
+},
+"EL-032": {
+"tags": [
+"téléphone",
+"appel",
+"gros_plan"
+],
+"desc": "téléphone qui sonne sur une table",
+"q": 3,
+"avoid": false
+},
+"EL-033": {
+"tags": [
+"intérieur",
+"couloir",
+"sombre"
+],
+"desc": "long plan dans un couloir (44 s)",
+"q": 1,
+"avoid": false
+},
+"EL-034": {
+"tags": [
+"police",
+"swat",
+"arme",
+"intérieur"
+],
+"desc": "policier armé en tenue tactique",
+"q": 3,
+"avoid": false
+},
+"EL-035": {
+"tags": [
+"jason",
+"lucia",
+"graffiti",
+"intérieur"
+],
+"desc": "Jason et Lucia dans un couloir graffé",
+"q": 2,
+"avoid": false
+},
+"EL-036": {
+"tags": [
+"intérieur",
+"graffiti",
+"couloir"
+],
+"desc": "couloir graffé, personnages",
+"q": 1,
+"avoid": false
+},
+"EL-037": {
+"tags": [
+"intérieur",
+"couloir"
+],
+"desc": "couloir, homme au sol",
+"q": 1,
+"avoid": false
+},
+"EL-038": {
+"tags": [
+"jason",
+"ascenseur",
+"bouton",
+"graffiti"
+],
+"desc": "Jason appuie sur le bouton d'un ascenseur",
+"q": 3,
+"avoid": false
+},
+"EL-039": {
+"tags": [
+"intérieur",
+"sombre",
+"vert"
+],
+"desc": "pièce sombre éclairée en vert",
+"q": 1,
+"avoid": false
+},
+"EL-040": {
+"tags": [
+"jason",
+"lucia",
+"ascenseur",
+"graffiti"
+],
+"desc": "Jason et Lucia dans l'ascenseur",
+"q": 2,
+"avoid": false
+},
+"EL-041": {
+"tags": [],
+"desc": "noir",
+"q": 0,
+"avoid": true
+},
+"EL-042": {
+"tags": [],
+"desc": "noir",
+"q": 0,
+"avoid": true
+},
+"EL-043": {
+"tags": [
+"intérieur",
+"bougies",
+"sombre"
+],
+"desc": "pièce éclairée à la bougie (25 s)",
+"q": 1,
+"avoid": false
+},
+"EL-044": {
+"tags": [
+"nuit",
+"voiture",
+"sombre"
+],
+"desc": "plans sombres en voiture",
+"q": 1,
+"avoid": false
+},
+"EL-045": {
+"tags": [],
+"desc": "noir",
+"q": 0,
+"avoid": true
+},
+"EL-046": {
+"tags": [
+"titre"
+],
+"desc": "carton Rockstar Games presents",
+"q": 0,
+"avoid": true
+},
+"EL-047": {
+"tags": [
+"voiture",
+"rouge",
+"rue",
+"jour"
+],
+"desc": "voitures rouges sur un parking de jour",
+"q": 2,
+"avoid": false
+},
+"EL-048": {
+"tags": [
+"logo"
+],
+"desc": "logo GTA VI",
+"q": 0,
+"avoid": true
+},
+"EL-049": {
+"tags": [
+"rue",
+"jour",
+"femme",
+"ville"
+],
+"desc": "femme qui court dans une rue de jour",
+"q": 2,
+"avoid": false
+},
+"EL-050": {
+"tags": [
+"intérieur",
+"frigo",
+"maison"
+],
+"desc": "porte de frigo couverte de magnets",
+"q": 1,
+"avoid": false
+},
+"EL-051": {
+"tags": [
+"intérieur",
+"chambre",
+"maison"
+],
+"desc": "chambre en désordre",
+"q": 1,
+"avoid": false
+},
+"EL-052": {
+"tags": [
+"jason",
+"lucia",
+"maison",
+"intérieur"
+],
+"desc": "Jason et Lucia dans une chambre rose",
+"q": 2,
+"avoid": false
+},
+"EL-053": {
+"tags": [
+"intérieur",
+"rose",
+"chambre"
+],
+"desc": "chambre rose néon (13 s)",
+"q": 1,
+"avoid": false
+},
+"EL-054": {
+"tags": [
+"intérieur",
+"rose",
+"néon"
+],
+"desc": "chambre rose néon",
+"q": 1,
+"avoid": false
+},
+"EL-055": {
+"tags": [
+"intérieur",
+"néon",
+"personnage"
+],
+"desc": "pièce aux néons rose/vert",
+"q": 1,
+"avoid": false
+},
+"EL-056": {
+"tags": [
+"intérieur",
+"salle_de_bain",
+"lucia"
+],
+"desc": "salle de bain, miroir lumineux",
+"q": 1,
+"avoid": false
+},
+"EL-057": {
+"tags": [
+"télé",
+"dessin_animé",
+"drôle"
+],
+"desc": "dessin animé à la télé",
+"q": 2,
+"avoid": false
+},
+"EL-058": {
+"tags": [
+"télé",
+"dessin_animé",
+"drôle"
+],
+"desc": "dessin animé à la télé",
+"q": 1,
+"avoid": false
+},
+"EL-059": {
+"tags": [
+"télé",
+"nature",
+"écran"
+],
+"desc": "écran de télé avec paysage",
+"q": 1,
+"avoid": false
+},
+"EL-060": {
+"tags": [
+"forêt",
+"animaux",
+"nature",
+"jour"
+],
+"desc": "animaux dans une forêt",
+"q": 3,
+"avoid": false
+},
+"EL-061": {
+"tags": [
+"cerf",
+"animaux",
+"nature",
+"jour"
+],
+"desc": "cerf en gros plan",
+"q": 3,
+"avoid": false
+},
+"EL-062": {
+"tags": [
+"pub",
+"drôle",
+"nourriture"
+],
+"desc": "pub de glace géante",
+"q": 2,
+"avoid": false
+},
+"EL-063": {
+"tags": [
+"pub",
+"burger",
+"drôle",
+"nourriture"
+],
+"desc": "pub burger « The Prairie »",
+"q": 2,
+"avoid": false
+},
+"EL-064": {
+"tags": [
+"pub",
+"burger",
+"drôle"
+],
+"desc": "pub burger, 30 000 calories",
+"q": 2,
+"avoid": false
+},
+"EL-065": {
+"tags": [
+"ville",
+"rue",
+"jour",
+"vice_city",
+"immeubles"
+],
+"desc": "rue ensoleillée de Vice City",
+"q": 3,
+"avoid": false
+},
+"EL-066": {
+"tags": [
+"lucia",
+"robe",
+"rose",
+"porte"
+],
+"desc": "Lucia en robe rose dans l'encadrement d'une porte",
+"q": 2,
+"avoid": false
+},
+"EL-067": {
+"tags": [
+"voiture",
+"rue",
+"jour",
+"conduite",
+"vice_city"
+],
+"desc": "conduite dans Vice City, chantier (55 s)",
+"q": 3,
+"avoid": false
+},
+"EL-068": {
+"tags": [
+"ville",
+"pont",
+"immeubles",
+"saut"
+],
+"desc": "personnage sur un pont, gratte-ciels",
+"q": 2,
+"avoid": false
+},
+"EL-069": {
+"tags": [
+"nuit",
+"voiture_de_sport",
+"rouge",
+"rue",
+"néon"
+],
+"desc": "supercar rouge de nuit",
+"q": 3,
+"avoid": false
+},
+"EL-070": {
+"tags": [
+"jason",
+"rue",
+"magasin",
+"jour"
+],
+"desc": "Jason devant une boutique",
+"q": 2,
+"avoid": false
+},
+"EL-071": {
+"tags": [
+"ruelle",
+"personnage",
+"jour"
+],
+"desc": "ruelle, personnage au sol",
+"q": 1,
+"avoid": false
+},
+"EL-072": {
+"tags": [
+"laverie",
+"action",
+"personnage"
+],
+"desc": "laverie, personnage qui se baisse",
+"q": 1,
+"avoid": false
+},
+"EL-073": {
+"tags": [
+"laverie",
+"personnage"
+],
+"desc": "laverie, course",
+"q": 1,
+"avoid": false
+},
+"EL-074": {
+"tags": [
+"arme",
+"jour",
+"palmiers",
+"braquage"
+],
+"desc": "homme armé sous les palmiers, contre-plongée",
+"q": 3,
+"avoid": false
+},
+"EL-075": {
+"tags": [
+"nuit",
+"feu",
+"rue",
+"action"
+],
+"desc": "rue de nuit avec voitures en feu",
+"q": 1,
+"avoid": false
+},
+"EL-076": {
+"tags": [
+"nuit",
+"feu",
+"rue",
+"action"
+],
+"desc": "rue en feu de nuit",
+"q": 1,
+"avoid": false
+},
+"EL-077": {
+"tags": [
+"nuit",
+"feu",
+"rue",
+"émeute"
+],
+"desc": "rue en feu, personnage au sac rouge",
+"q": 2,
+"avoid": false
+},
+"EL-078": {
+"tags": [
+"nuit",
+"feu",
+"rue"
+],
+"desc": "rue en feu",
+"q": 1,
+"avoid": false
+},
+"EL-079": {
+"tags": [
+"rue",
+"motel",
+"jour",
+"personnage"
+],
+"desc": "rue devant un motel, personnage marche",
+"q": 2,
+"avoid": false
+},
+"EL-080": {
+"tags": [
+"intérieur",
+"personnage",
+"jour"
+],
+"desc": "personnage dans un intérieur délabré",
+"q": 1,
+"avoid": false
+},
+"EL-081": {
+"tags": [
+"plage",
+"pauvre",
+"maisons",
+"jour"
+],
+"desc": "quartier délabré au bord de l'eau",
+"q": 2,
+"avoid": false
+},
+"EL-082": {
+"tags": [
+"fourgon_blindé",
+"braquage",
+"moto",
+"jour"
+],
+"desc": "fourgon blindé attaqué, motos",
+"q": 3,
+"avoid": false
+},
+"EL-083": {
+"tags": [
+"rooftop",
+"ville",
+"vue_aérienne",
+"jour"
+],
+"desc": "terrasse sur un toit, ville",
+"q": 2,
+"avoid": false
+},
+"EL-084": {
+"tags": [
+"rooftop",
+"fête",
+"coucher_soleil",
+"ville"
+],
+"desc": "fête sur un toit au coucher du soleil",
+"q": 3,
+"avoid": false
+},
+"EL-085": {
+"tags": [
+"rue",
+"foule",
+"jour",
+"vice_city"
+],
+"desc": "longue scène dans une rue animée (45 s)",
+"q": 2,
+"avoid": false
+},
+"EL-086": {
+"tags": [
+"arrestation",
+"personnage",
+"menottes"
+],
+"desc": "homme menotté devant un bâtiment",
+"q": 2,
+"avoid": false
+},
+"EL-087": {
+"tags": [
+"intérieur",
+"sombre",
+"personnage"
+],
+"desc": "pièce sombre, plusieurs personnes",
+"q": 1,
+"avoid": false
+},
+"EL-088": {
+"tags": [
+"intérieur",
+"personnage",
+"sombre"
+],
+"desc": "femme aux cheveux blancs dans la pénombre",
+"q": 1,
+"avoid": false
+},
+"EL-089": {
+"tags": [
+"intérieur",
+"sombre",
+"personnage"
+],
+"desc": "homme à chemise jaune, sombre",
+"q": 1,
+"avoid": false
+},
+"EL-090": {
+"tags": [],
+"desc": "noir",
+"q": 0,
+"avoid": true
+},
+"EL-091": {
+"tags": [
+"bureau",
+"écrans",
+"ordinateur",
+"police"
+],
+"desc": "salle avec écrans d'ordinateur",
+"q": 2,
+"avoid": false
+},
+"EL-092": {
+"tags": [
+"personnage",
+"portrait",
+"lumière"
+],
+"desc": "femme éclairée, homme en chemise",
+"q": 1,
+"avoid": false
+},
+"EL-093": {
+"tags": [
+"bagarre",
+"action",
+"sombre"
+],
+"desc": "bagarre au sol",
+"q": 1,
+"avoid": false
+},
+"EL-094": {
+"tags": [
+"sombre",
+"au_sol"
+],
+"desc": "personnage au sol dans la pénombre",
+"q": 0,
+"avoid": false
+},
+"EL-095": {
+"tags": [
+"rooftop",
+"bar",
+"jour"
+],
+"desc": "terrasse de bar « Efflux »",
+"q": 2,
+"avoid": false
+},
+"EL-096": {
+"tags": [
+"bar",
+"rooftop",
+"intérieur"
+],
+"desc": "bar en terrasse",
+"q": 1,
+"avoid": false
+},
+"EL-097": {
+"tags": [
+"bar",
+"terrasse",
+"foule",
+"jour"
+],
+"desc": "terrasse de bar animée",
+"q": 2,
+"avoid": false
+},
+"EL-098": {
+"tags": [
+"bar",
+"terrasse",
+"jour"
+],
+"desc": "terrasse, gens attablés",
+"q": 2,
+"avoid": false
+},
+"EL-099": {
+"tags": [
+"bar",
+"terrasse",
+"foule"
+],
+"desc": "terrasse animée",
+"q": 1,
+"avoid": false
+},
+"EL-100": {
+"tags": [
+"bar",
+"terrasse",
+"foule"
+],
+"desc": "terrasse animée",
+"q": 1,
+"avoid": false
+},
+"EL-101": {
+"tags": [
+"bar",
+"terrasse",
+"foule"
+],
+"desc": "terrasse animée",
+"q": 1,
+"avoid": false
+},
+"EL-102": {
+"tags": [
+"rooftop",
+"ville",
+"coucher_soleil",
+"dialogue"
+],
+"desc": "deux personnes sur un toit, skyline (14 s)",
+"q": 3,
+"avoid": false
+},
+"EL-103": {
+"tags": [
+"braquage",
+"magasin",
+"intérieur"
+],
+"desc": "entrée dans une boutique",
+"q": 1,
+"avoid": false
+},
+"EL-104": {
+"tags": [
+"lucia",
+"braquage",
+"bandana",
+"portrait"
+],
+"desc": "Lucia masquée d'un bandana rouge",
+"q": 3,
+"avoid": false
+},
+"EL-105": {
+"tags": [
+"voiture",
+"arme",
+"braquage",
+"coucher_soleil"
+],
+"desc": "braqueurs autour d'une voiture au soleil couchant",
+"q": 2,
+"avoid": false
+},
+"EL-106": {
+"tags": [
+"voiture",
+"braquage",
+"arme"
+],
+"desc": "braqueur penché dans une voiture",
+"q": 2,
+"avoid": false
+},
+"EL-107": {
+"tags": [
+"voiture",
+"sombre"
+],
+"desc": "voiture dans la pénombre",
+"q": 0,
+"avoid": false
+},
+"EL-108": {
+"tags": [
+"braquage",
+"magasin",
+"caissier"
+],
+"desc": "caissier derrière le comptoir",
+"q": 2,
+"avoid": false
+},
+"EL-109": {
+"tags": [
+"braquage",
+"magasin",
+"supérette"
+],
+"desc": "allée de supérette",
+"q": 2,
+"avoid": false
+},
+"EL-110": {
+"tags": [
+"braquage",
+"magasin"
+],
+"desc": "supérette",
+"q": 1,
+"avoid": false
+},
+"EL-111": {
+"tags": [
+"braquage",
+"magasin",
+"bagarre"
+],
+"desc": "bagarre dans la supérette",
+"q": 2,
+"avoid": false
+},
+"EL-112": {
+"tags": [
+"lucia",
+"braquage",
+"bandana",
+"magasin"
+],
+"desc": "Lucia et Jason masqués dans la supérette",
+"q": 3,
+"avoid": false
+},
+"EL-113": {
+"tags": [
+"lucia",
+"braquage",
+"bandana",
+"magasin"
+],
+"desc": "Lucia masquée devant une supérette",
+"q": 3,
+"avoid": false
+},
+"EL-114": {
+"tags": [
+"lucia",
+"jason",
+"braquage",
+"bandana"
+],
+"desc": "Lucia et Jason masqués, contre-plongée",
+"q": 3,
+"avoid": false
+},
+"EL-115": {
+"tags": [
+"lucia",
+"jason",
+"braquage",
+"bandana"
+],
+"desc": "Lucia et Jason masqués",
+"q": 3,
+"avoid": false
+},
+"EL-116": {
+"tags": [
+"arme",
+"fusil",
+"braquage"
+],
+"desc": "homme qui épaule un fusil",
+"q": 2,
+"avoid": false
+},
+"EL-117": {
+"tags": [
+"braquage",
+"magasin",
+"arme"
+],
+"desc": "braquage dans une supérette",
+"q": 2,
+"avoid": false
+},
+"EL-118": {
+"tags": [
+"action",
+"flou"
+],
+"desc": "plan très court",
+"q": 0,
+"avoid": false
+},
+"EL-119": {
+"tags": [
+"action",
+"flou"
+],
+"desc": "plan très court",
+"q": 0,
+"avoid": false
+},
+"EL-120": {
+"tags": [
+"braquage",
+"au_sol",
+"arme"
+],
+"desc": "braqueur au sol",
+"q": 1,
+"avoid": false
+},
+"EL-121": {
+"tags": [
+"magasin",
+"intérieur"
+],
+"desc": "supérette, personnage de dos",
+"q": 1,
+"avoid": false
+},
+"EL-122": {
+"tags": [
+"magasin",
+"course",
+"braquage"
+],
+"desc": "course dans la supérette",
+"q": 2,
+"avoid": false
+},
+"EL-123": {
+"tags": [
+"voiture",
+"lucia",
+"bandana",
+"action"
+],
+"desc": "Lucia masquée en voiture (0,2 s)",
+"q": 0,
+"avoid": false
+},
+"EL-124": {
+"tags": [
+"voiture",
+"lucia",
+"bandana"
+],
+"desc": "Lucia masquée en voiture",
+"q": 1,
+"avoid": false
+},
+"EL-125": {
+"tags": [
+"voiture",
+"lucia",
+"bandana"
+],
+"desc": "Lucia masquée en voiture",
+"q": 1,
+"avoid": false
+},
+"EL-126": {
+"tags": [
+"voiture",
+"lucia",
+"bandana",
+"arme"
+],
+"desc": "Lucia tire depuis la voiture",
+"q": 3,
+"avoid": false
+},
+"EL-127": {
+"tags": [
+"arme",
+"magasin",
+"jour",
+"fusillade"
+],
+"desc": "homme qui tire devant une boutique",
+"q": 2,
+"avoid": false
+},
+"EL-128": {
+"tags": [
+"arme",
+"rue",
+"jour",
+"fusillade"
+],
+"desc": "homme qui tire dans la rue",
+"q": 2,
+"avoid": false
+},
+"EL-129": {
+"tags": [
+"rooftop",
+"ville",
+"vice_city",
+"jour"
+],
+"desc": "deux personnes sur un toit face aux gratte-ciels",
+"q": 3,
+"avoid": false
+},
+"EL-130": {
+"tags": [
+"ville",
+"vue_aérienne",
+"hélicoptère",
+"vice_city"
+],
+"desc": "skyline de Vice City avec hélicoptères",
+"q": 3,
+"avoid": false
+},
+"EL-131": {
+"tags": [
+"route",
+"voiture",
+"ville",
+"jour"
+],
+"desc": "route de Vice City, longue conduite (40 s)",
+"q": 2,
+"avoid": false
+},
+"EL-132": {
+"tags": [
+"voiture",
+"lucia",
+"dialogue"
+],
+"desc": "Lucia passagère, dialogue",
+"q": 2,
+"avoid": false
+},
+"EL-133": {
+"tags": [
+"voiture",
+"jason",
+"lucia",
+"dialogue"
+],
+"desc": "Jason et Lucia en voiture",
+"q": 2,
+"avoid": false
+},
+"EL-134": {
+"tags": [
+"voiture",
+"lucia",
+"portrait"
+],
+"desc": "Lucia en voiture",
+"q": 2,
+"avoid": false
+},
+"EL-135": {
+"tags": [
+"voiture",
+"jason",
+"conduite"
+],
+"desc": "Jason au volant",
+"q": 2,
+"avoid": false
+},
+"EL-136": {
+"tags": [
+"voiture",
+"personnage",
+"lunettes"
+],
+"desc": "homme à lunettes en voiture",
+"q": 1,
+"avoid": false
+},
+"EL-137": {
+"tags": [
+"voiture",
+"lucia",
+"regard"
+],
+"desc": "Lucia se retourne en voiture",
+"q": 2,
+"avoid": false
+},
+"EL-138": {
+"tags": [
+"voiture",
+"personnage",
+"lunettes"
+],
+"desc": "homme à lunettes en voiture",
+"q": 1,
+"avoid": false
+},
+"EL-139": {
+"tags": [
+"voiture",
+"personnage"
+],
+"desc": "passagère en voiture",
+"q": 1,
+"avoid": false
+},
+"EL-140": {
+"tags": [
+"voiture",
+"personnage",
+"lunettes"
+],
+"desc": "homme à lunettes",
+"q": 1,
+"avoid": false
+},
+"EL-141": {
+"tags": [
+"voiture",
+"personnage"
+],
+"desc": "passagère en voiture",
+"q": 1,
+"avoid": false
+},
+"EL-142": {
+"tags": [
+"voiture",
+"conduite",
+"mains",
+"volant"
+],
+"desc": "mains sur le volant, conduite",
+"q": 2,
+"avoid": false
+},
+"EL-143": {
+"tags": [
+"sombre",
+"voiture"
+],
+"desc": "plan sombre",
+"q": 0,
+"avoid": false
+},
+"EL-144": {
+"tags": [
+"voiture",
+"personnage",
+"dialogue",
+"lunettes"
+],
+"desc": "homme à lunettes qui parle en voiture",
+"q": 1,
+"avoid": false
+},
+"EL-145": {
+"tags": [
+"voiture",
+"lucia",
+"bandana",
+"conduite"
+],
+"desc": "Lucia masquée au volant",
+"q": 2,
+"avoid": false
+},
+"EL-146": {
+"tags": [
+"voiture",
+"bandana",
+"braquage",
+"gros_plan"
+],
+"desc": "braqueur masqué en voiture",
+"q": 2,
+"avoid": false
+},
+"EL-147": {
+"tags": [
+"voiture",
+"flou"
+],
+"desc": "plan court flou",
+"q": 0,
+"avoid": false
+},
+"EL-148": {
+"tags": [
+"voiture",
+"sombre"
+],
+"desc": "plan court sombre",
+"q": 0,
+"avoid": false
+},
+"EL-149": {
+"tags": [
+"voiture",
+"lucia",
+"bandana"
+],
+"desc": "Lucia masquée en voiture, rue ensoleillée",
+"q": 2,
+"avoid": false
+},
+"EL-150": {
+"tags": [
+"voiture",
+"sombre"
+],
+"desc": "plan très court",
+"q": 0,
+"avoid": false
+},
+"EL-151": {
+"tags": [
+"voiture",
+"sombre"
+],
+"desc": "plan court sombre",
+"q": 0,
+"avoid": false
+},
+"EL-152": {
+"tags": [
+"voiture",
+"bandana",
+"arme"
+],
+"desc": "braqueur en voiture",
+"q": 1,
+"avoid": false
+},
+"EL-153": {
+"tags": [
+"voiture",
+"sombre"
+],
+"desc": "plan sombre",
+"q": 0,
+"avoid": false
+},
+"EL-154": {
+"tags": [
+"voiture",
+"arme",
+"bandana",
+"fusil"
+],
+"desc": "braqueur avec un fusil d'assaut en voiture",
+"q": 2,
+"avoid": false
+},
+"EL-155": {
+"tags": [
+"voiture",
+"arme",
+"bandana"
+],
+"desc": "braqueur armé en voiture",
+"q": 1,
+"avoid": false
+},
+"EL-156": {
+"tags": [
+"voiture",
+"arme"
+],
+"desc": "plan très court",
+"q": 0,
+"avoid": false
+},
+"EL-157": {
+"tags": [
+"voiture",
+"arme",
+"bandana"
+],
+"desc": "braqueur armé",
+"q": 1,
+"avoid": false
+},
+"EL-158": {
+"tags": [
+"gameplay",
+"hud",
+"poursuite",
+"police",
+"ville",
+"vue_3e_personne"
+],
+"desc": "gameplay : poursuite en ville avec HUD (14 s)",
+"q": 3,
+"avoid": false
+},
+"EL-159": {
+"tags": [
+"gameplay",
+"hud",
+"fusillade",
+"police",
+"rue"
+],
+"desc": "gameplay : fusillade contre la police, HUD",
+"q": 3,
+"avoid": false
+},
+"EL-160": {
+"tags": [
+"gameplay",
+"hud",
+"fusillade"
+],
+"desc": "gameplay : tir, HUD",
+"q": 2,
+"avoid": false
+},
+"EL-161": {
+"tags": [
+"gameplay",
+"hud",
+"poursuite",
+"ruelle"
+],
+"desc": "gameplay : poursuite dans une ruelle, HUD",
+"q": 3,
+"avoid": false
+},
+"EL-162": {
+"tags": [
+"gameplay",
+"hud",
+"rue",
+"course",
+"vice_city"
+],
+"desc": "gameplay : course à pied en ville, HUD (12 s)",
+"q": 3,
+"avoid": false
+},
+"EL-163": {
+"tags": [
+"voiture",
+"intérieur",
+"sombre"
+],
+"desc": "tableau de bord, sombre",
+"q": 1,
+"avoid": false
+},
+"EL-164": {
+"tags": [
+"gameplay",
+"conduite",
+"voiture",
+"ville",
+"jour"
+],
+"desc": "gameplay : conduite en ville",
+"q": 3,
+"avoid": false
+},
+"EL-165": {
+"tags": [
+"voiture",
+"lucia",
+"bandana"
+],
+"desc": "Lucia masquée sur la banquette",
+"q": 2,
+"avoid": false
+},
+"EL-166": {
+"tags": [
+"voiture",
+"personnage",
+"dialogue"
+],
+"desc": "deux personnes à l'arrière d'une voiture",
+"q": 1,
+"avoid": false
+},
+"EL-167": {
+"tags": [
+"voiture",
+"lucia",
+"bandana",
+"portrait"
+],
+"desc": "Lucia masquée, profil",
+"q": 2,
+"avoid": false
+},
+"EL-168": {
+"tags": [
+"voiture",
+"lucia",
+"sombre"
+],
+"desc": "Lucia au volant dans la pénombre",
+"q": 1,
+"avoid": false
+},
+"EL-169": {
+"tags": [
+"voiture",
+"lucia",
+"regard"
+],
+"desc": "Lucia se retourne en voiture",
+"q": 2,
+"avoid": false
+},
+"EL-170": {
+"tags": [
+"voiture",
+"intérieur",
+"tunnel"
+],
+"desc": "intérieur de voiture face à la lumière",
+"q": 1,
+"avoid": false
+},
+"EL-171": {
+"tags": [
+"voiture",
+"lucia",
+"portrait"
+],
+"desc": "Lucia au volant",
+"q": 2,
+"avoid": false
+},
+"EL-172": {
+"tags": [
+"voiture",
+"personnage",
+"lunettes"
+],
+"desc": "homme à lunettes en voiture",
+"q": 1,
+"avoid": false
+},
+"EL-173": {
+"tags": [
+"voiture",
+"lucia",
+"portrait"
+],
+"desc": "Lucia au volant",
+"q": 2,
+"avoid": false
+},
+"EL-174": {
+"tags": [
+"voiture",
+"personnage",
+"lunettes",
+"portrait"
+],
+"desc": "homme à lunettes, portrait",
+"q": 1,
+"avoid": false
+},
+"EL-175": {
+"tags": [
+"voiture",
+"conduite",
+"parking"
+],
+"desc": "conduite dans un parking",
+"q": 1,
+"avoid": false
+},
+"EL-176": {
+"tags": [
+"voiture",
+"bandana",
+"sombre"
+],
+"desc": "braqueur masqué dans l'ombre",
+"q": 1,
+"avoid": false
+},
+"EL-177": {
+"tags": [
+"téléphone",
+"vidéo",
+"flou"
+],
+"desc": "image de vidéo floue (filtre)",
+"q": 0,
+"avoid": false
+},
+"EL-178": {
+"tags": [
+"téléphone",
+"vidéo",
+"flou"
+],
+"desc": "image de vidéo floue",
+"q": 0,
+"avoid": false
+},
+"EL-179": {
+"tags": [
+"gameplay",
+"hud",
+"voiture",
+"parking"
+],
+"desc": "gameplay : sortie de parking, HUD",
+"q": 2,
+"avoid": false
+},
+"EL-180": {
+"tags": [
+"gameplay",
+"hud",
+"conduite",
+"rue",
+"police"
+],
+"desc": "gameplay : conduite en ville, HUD (18 s)",
+"q": 3,
+"avoid": false
+},
+"EL-181": {
+"tags": [
+"voiture",
+"police",
+"rue",
+"vitesse"
+],
+"desc": "voitures de police à pleine vitesse",
+"q": 3,
+"avoid": false
+},
+"EL-182": {
+"tags": [
+"voiture",
+"flou"
+],
+"desc": "plan très court",
+"q": 0,
+"avoid": false
+},
+"EL-183": {
+"tags": [
+"gameplay",
+"conduite",
+"rue",
+"vice_city"
+],
+"desc": "gameplay : conduite, rue ensoleillée",
+"q": 3,
+"avoid": false
+},
+"EL-184": {
+"tags": [
+"gameplay",
+"hud",
+"parking",
+"feu",
+"nuit"
+],
+"desc": "gameplay : parking souterrain, voiture en feu (20 s)",
+"q": 2,
+"avoid": false
+},
+"EL-185": {
+"tags": [
+"gameplay",
+"hud",
+"parking",
+"personnage"
+],
+"desc": "gameplay : parking souterrain",
+"q": 2,
+"avoid": false
+},
+"EL-186": {
+"tags": [
+"gameplay",
+"hud",
+"conduite",
+"ville",
+"jour",
+"vice_city"
+],
+"desc": "gameplay : conduite vers la plage, HUD (15 s)",
+"q": 3,
+"avoid": false
+},
+"EL-187": {
+"tags": [
+"vue_aérienne",
+"ville",
+"mer",
+"vice_city"
+],
+"desc": "vue aérienne de la côte et de la ville",
+"q": 3,
+"avoid": false
+},
+"EL-188": {
+"tags": [
+"personnage",
+"camion",
+"rue"
+],
+"desc": "personnages près d'un camion",
+"q": 1,
+"avoid": false
+},
+"EL-189": {
+"tags": [
+"rue",
+"personnage",
+"jour"
+],
+"desc": "rue, personnages",
+"q": 1,
+"avoid": false
+},
+"EL-190": {
+"tags": [
+"personnage",
+"rue",
+"jour"
+],
+"desc": "personnage dans la rue",
+"q": 1,
+"avoid": false
+},
+"EL-191": {
+"tags": [
+"lucia",
+"personnage",
+"rue",
+"jour"
+],
+"desc": "Lucia dans la rue",
+"q": 2,
+"avoid": false
+},
+"EL-192": {
+"tags": [
+"rue",
+"jour",
+"voiture"
+],
+"desc": "rue vue depuis une voiture",
+"q": 1,
+"avoid": false
+},
+"EL-193": {
+"tags": [
+"lucia",
+"personnage",
+"rue"
+],
+"desc": "Lucia contre un mur",
+"q": 1,
+"avoid": false
+},
+"EL-194": {
+"tags": [
+"rue",
+"trottinette",
+"jour",
+"graffiti"
+],
+"desc": "personnes en trottinette, mur graffé",
+"q": 2,
+"avoid": false
+},
+"EL-195": {
+"tags": [
+"rue",
+"trottinette",
+"graffiti"
+],
+"desc": "trottinette devant une fresque",
+"q": 2,
+"avoid": false
+},
+"EL-196": {
+"tags": [
+"rue",
+"graffiti",
+"fresque"
+],
+"desc": "fresque colorée",
+"q": 2,
+"avoid": false
+},
+"EL-197": {
+"tags": [
+"gameplay",
+"hud",
+"hydroglisseur",
+"marais"
+],
+"desc": "gameplay : hydroglisseur dans le marais, HUD",
+"q": 3,
+"avoid": false
+},
+"EL-198": {
+"tags": [
+"jason",
+"maison",
+"pilotis",
+"keys"
+],
+"desc": "Jason sous une maison sur pilotis",
+"q": 2,
+"avoid": false
+},
+"EL-199": {
+"tags": [
+"plongée",
+"sous_marin",
+"mer"
+],
+"desc": "plongée sous-marine",
+"q": 3,
+"avoid": false
+},
+"EL-200": {
+"tags": [
+"musculation",
+"lucia",
+"salle_de_sport"
+],
+"desc": "Lucia au développé couché",
+"q": 3,
+"avoid": false
+},
+"EL-201": {
+"tags": [
+"plongeon",
+"mer",
+"ponton",
+"jour"
+],
+"desc": "plongeon depuis un ponton",
+"q": 3,
+"avoid": false
+},
+"EL-202": {
+"tags": [
+"gameplay",
+"hud",
+"jet_ski",
+"mer",
+"coucher_soleil"
+],
+"desc": "gameplay : jet-ski au coucher du soleil, HUD",
+"q": 3,
+"avoid": false
+},
+"EL-203": {
+"tags": [
+"jumelles",
+"espionnage"
+],
+"desc": "vue à travers des jumelles",
+"q": 2,
+"avoid": false
+},
+"EL-204": {
+"tags": [
+"gameplay",
+"hud",
+"kayak",
+"ville",
+"mer"
+],
+"desc": "gameplay : kayak face à la ville, HUD",
+"q": 3,
+"avoid": false
+},
+"EL-205": {
+"tags": [
+"nuit",
+"club",
+"file_attente"
+],
+"desc": "file d'attente devant un club",
+"q": 1,
+"avoid": false
+},
+"EL-206": {
+"tags": [
+"nuit",
+"club"
+],
+"desc": "entrée de club",
+"q": 0,
+"avoid": false
+},
+"EL-207": {
+"tags": [
+"nuit",
+"club",
+"entrée"
+],
+"desc": "entrée de club, videur",
+"q": 1,
+"avoid": false
+},
+"EL-208": {
+"tags": [
+"nuit",
+"club",
+"entrée"
+],
+"desc": "entrée de club",
+"q": 1,
+"avoid": false
+},
+"EL-209": {
+"tags": [
+"nuit",
+"club"
+],
+"desc": "plan très court",
+"q": 0,
+"avoid": false
+},
+"EL-210": {
+"tags": [
+"club",
+"danse",
+"nuit"
+],
+"desc": "club, danse",
+"q": 1,
+"avoid": false
+},
+"EL-211": {
+"tags": [
+"gameplay",
+"course",
+"circuit",
+"voiture"
+],
+"desc": "gameplay : course automobile sur circuit",
+"q": 3,
+"avoid": false
+},
+"EL-212": {
+"tags": [
+"personnage",
+"rue",
+"jour"
+],
+"desc": "personnes au bord d'une route",
+"q": 1,
+"avoid": false
+},
+"EL-213": {
+"tags": [
+"vue_aérienne",
+"route",
+"voiture"
+],
+"desc": "vue du dessus d'une route",
+"q": 2,
+"avoid": false
+},
+"EL-214": {
+"tags": [
+"gameplay",
+"hud",
+"voiture",
+"rue",
+"vice_city"
+],
+"desc": "gameplay : voiture devant des boutiques, HUD (10 s)",
+"q": 2,
+"avoid": false
+},
+"EL-215": {
+"tags": [
+"bijouterie",
+"braquage",
+"intérieur"
+],
+"desc": "braquage d'une bijouterie",
+"q": 3,
+"avoid": false
+},
+"EL-216": {
+"tags": [
+"gameplay",
+"vélo",
+"rue",
+"jour",
+"vice_city"
+],
+"desc": "gameplay : vélo dans une rue de Vice City",
+"q": 2,
+"avoid": false
+},
+"EL-217": {
+"tags": [
+"voiture",
+"coffre",
+"femme",
+"jour"
+],
+"desc": "femme au coffre d'une voiture",
+"q": 1,
+"avoid": false
+},
+"EL-218": {
+"tags": [
+"personnage",
+"rue",
+"voiture",
+"jour"
+],
+"desc": "deux personnes près d'une voiture",
+"q": 1,
+"avoid": false
+},
+"EL-219": {
+"tags": [
+"personnage",
+"rue",
+"jour",
+"dialogue"
+],
+"desc": "personnes dans une rue ombragée",
+"q": 1,
+"avoid": false
+},
+"EL-220": {
+"tags": [
+"gameplay",
+"hud",
+"embouteillage",
+"ville",
+"jour"
+],
+"desc": "gameplay : rue avec HUD de mission",
+"q": 2,
+"avoid": false
+},
+"EL-221": {
+"tags": [
+"plage",
+"transats",
+"parasols",
+"jour"
+],
+"desc": "plage avec parasols jaunes",
+"q": 3,
+"avoid": false
+},
+"EL-222": {
+"tags": [
+"gameplay",
+"hud",
+"mission",
+"rue"
+],
+"desc": "gameplay : mission avec compteur « targets remaining »",
+"q": 2,
+"avoid": false
+},
+"EL-223": {
+"tags": [
+"gameplay",
+"hud",
+"mission",
+"rue"
+],
+"desc": "gameplay : mission, compteur de cibles",
+"q": 2,
+"avoid": false
+},
+"EL-224": {
+"tags": [
+"gameplay",
+"hud",
+"moto",
+"cross",
+"colline"
+],
+"desc": "gameplay : moto-cross en descente",
+"q": 3,
+"avoid": false
+},
+"EL-225": {
+"tags": [
+"gameplay",
+"hud",
+"nuit",
+"voiture",
+"rue"
+],
+"desc": "gameplay : conduite de nuit",
+"q": 2,
+"avoid": false
+},
+"EL-226": {
+"tags": [
+"gameplay",
+"nuit",
+"voiture",
+"ville"
+],
+"desc": "gameplay : conduite de nuit en ville",
+"q": 2,
+"avoid": false
+},
+"EL-227": {
+"tags": [
+"gameplay",
+"nuit",
+"voiture",
+"accident"
+],
+"desc": "gameplay : voiture qui se retourne de nuit",
+"q": 2,
+"avoid": false
+},
+"EL-228": {
+"tags": [
+"gameplay",
+"nuit",
+"explosion"
+],
+"desc": "gameplay : explosion de nuit",
+"q": 3,
+"avoid": false
+},
+"EL-229": {
+"tags": [
+"parachute",
+"ciel",
+"ville",
+"vue_aérienne"
+],
+"desc": "chute libre au-dessus de la ville",
+"q": 3,
+"avoid": false
+},
+"EL-230": {
+"tags": [
+"parachute",
+"ciel",
+"ville"
+],
+"desc": "parachute au-dessus de la ville",
+"q": 3,
+"avoid": false
+},
+"EL-231": {
+"tags": [
+"vue_aérienne",
+"ville",
+"carte"
+],
+"desc": "vue satellite de la ville",
+"q": 2,
+"avoid": false
+},
+"EL-232": {
+"tags": [
+"flou",
+"transition"
+],
+"desc": "traînée colorée floue",
+"q": 0,
+"avoid": false
+},
+"EL-233": {
+"tags": [
+"vue_aérienne",
+"plage",
+"ville"
+],
+"desc": "vue satellite de la plage",
+"q": 2,
+"avoid": false
+},
+"EL-234": {
+"tags": [
+"personnage",
+"canapé",
+"intérieur"
+],
+"desc": "deux hommes sur un canapé",
+"q": 1,
+"avoid": false
+},
+"EL-235": {
+"tags": [
+"aéroport",
+"intérieur",
+"jour"
+],
+"desc": "terminal d'aéroport",
+"q": 1,
+"avoid": false
+},
+"EL-236": {
+"tags": [
+"aéroport",
+"personnage"
+],
+"desc": "terminal, personnages",
+"q": 1,
+"avoid": false
+},
+"EL-237": {
+"tags": [
+"personnage",
+"femme",
+"aéroport"
+],
+"desc": "femme au collier de perles",
+"q": 1,
+"avoid": false
+},
+"EL-238": {
+"tags": [
+"personnage",
+"riche",
+"aéroport"
+],
+"desc": "groupe de personnes chic",
+"q": 1,
+"avoid": false
+},
+"EL-239": {
+"tags": [
+"personnage",
+"femme",
+"aéroport"
+],
+"desc": "femme dans un terminal",
+"q": 1,
+"avoid": false
+},
+"EL-240": {
+"tags": [
+"personnage",
+"femme",
+"aéroport"
+],
+"desc": "femme au collier de perles",
+"q": 1,
+"avoid": false
+},
+"EL-241": {
+"tags": [
+"riche",
+"champagne",
+"fête"
+],
+"desc": "serveur avec champagne",
+"q": 2,
+"avoid": false
+},
+"EL-242": {
+"tags": [
+"nuit",
+"personnage",
+"sombre"
+],
+"desc": "scène de nuit sombre",
+"q": 1,
+"avoid": false
+},
+"EL-243": {
+"tags": [
+"nuit",
+"personnage",
+"sombre"
+],
+"desc": "scène de nuit",
+"q": 1,
+"avoid": false
+},
+"EL-244": {
+"tags": [
+"nuit",
+"personnage",
+"chapeau"
+],
+"desc": "homme au chapeau de nuit",
+"q": 1,
+"avoid": false
+},
+"EL-245": {
+"tags": [
+"nuit",
+"personnage",
+"chapeau"
+],
+"desc": "homme au chapeau, nuit",
+"q": 1,
+"avoid": false
+},
+"EL-246": {
+"tags": [
+"nuit",
+"piste",
+"personnage"
+],
+"desc": "personnages sur une piste de nuit",
+"q": 1,
+"avoid": false
+},
+"EL-247": {
+"tags": [
+"jason",
+"nuit",
+"portrait"
+],
+"desc": "Jason de nuit",
+"q": 1,
+"avoid": false
+},
+"EL-248": {
+"tags": [
+"nuit",
+"sombre"
+],
+"desc": "plan sombre",
+"q": 0,
+"avoid": false
+},
+"EL-249": {
+"tags": [
+"gameplay",
+"nuit",
+"voiture",
+"ville"
+],
+"desc": "gameplay : voiture de nuit face à la skyline",
+"q": 2,
+"avoid": false
+},
+"EL-250": {
+"tags": [
+"nuit",
+"gratte_ciel",
+"néon",
+"vice_city"
+],
+"desc": "gratte-ciel violet de nuit",
+"q": 3,
+"avoid": false
+},
+"EL-251": {
+"tags": [
+"nuit",
+"femme",
+"voiture",
+"néon"
+],
+"desc": "femme dans une voiture de nuit",
+"q": 1,
+"avoid": false
+},
+"EL-252": {
+"tags": [
+"club",
+"piscine",
+"néon",
+"nuit"
+],
+"desc": "club avec piscine néon",
+"q": 2,
+"avoid": false
+},
+"EL-253": {
+"tags": [
+"gameplay",
+"hud",
+"course",
+"voiture",
+"nuit"
+],
+"desc": "gameplay : course de rue avec HUD",
+"q": 3,
+"avoid": false
+},
+"EL-254": {
+"tags": [
+"gameplay",
+"course",
+"voiture"
+],
+"desc": "plan très court",
+"q": 1,
+"avoid": false
+},
+"EL-255": {
+"tags": [
+"gameplay",
+"hud",
+"course",
+"voiture",
+"coucher_soleil"
+],
+"desc": "gameplay : course de rue au coucher du soleil",
+"q": 3,
+"avoid": false
+},
+"EL-256": {
+"tags": [
+"gameplay",
+"hud",
+"course",
+"voiture",
+"nuit"
+],
+"desc": "gameplay : course de rue, flèches de virage",
+"q": 3,
+"avoid": false
+},
+"EL-257": {
+"tags": [
+"gameplay",
+"hud",
+"course",
+"voiture"
+],
+"desc": "gameplay : course de rue",
+"q": 2,
+"avoid": false
+},
+"EL-258": {
+"tags": [
+"club",
+"danse",
+"nuit",
+"néon"
+],
+"desc": "club, foule qui danse",
+"q": 1,
+"avoid": false
+},
+"EL-259": {
+"tags": [
+"club",
+"nuit",
+"néon"
+],
+"desc": "club vu d'en haut",
+"q": 1,
+"avoid": false
+},
+"EL-260": {
+"tags": [
+"club",
+"nuit",
+"femme"
+],
+"desc": "femme dans un club",
+"q": 1,
+"avoid": false
+},
+"EL-261": {
+"tags": [
+"nuit",
+"gratte_ciel",
+"ville"
+],
+"desc": "gratte-ciels de nuit",
+"q": 2,
+"avoid": false
+},
+"EL-262": {
+"tags": [
+"nuit",
+"ville",
+"vue_aérienne",
+"néon"
+],
+"desc": "ville de nuit vue d'en haut",
+"q": 2,
+"avoid": false
+},
+"EL-263": {
+"tags": [
+"nuit",
+"voiture"
+],
+"desc": "plan court",
+"q": 0,
+"avoid": false
+},
+"EL-264": {
+"tags": [
+"nuit",
+"voiture",
+"personnage"
+],
+"desc": "homme qui sort d'une voiture",
+"q": 1,
+"avoid": false
+},
+"EL-265": {
+"tags": [
+"nuit",
+"néon",
+"personnage",
+"portrait"
+],
+"desc": "homme devant des néons",
+"q": 2,
+"avoid": false
+},
+"EL-266": {
+"tags": [
+"nuit",
+"voiture"
+],
+"desc": "plan court",
+"q": 0,
+"avoid": false
+},
+"EL-267": {
+"tags": [
+"nuit",
+"voiture"
+],
+"desc": "plan court",
+"q": 0,
+"avoid": false
+},
+"EL-268": {
+"tags": [
+"nuit",
+"voiture"
+],
+"desc": "plan court",
+"q": 0,
+"avoid": false
+},
+"EL-269": {
+"tags": [
+"nuit",
+"femme",
+"voiture"
+],
+"desc": "femme qui sort d'une voiture",
+"q": 1,
+"avoid": false
+},
+"EL-270": {
+"tags": [
+"nuit",
+"sombre"
+],
+"desc": "plan court",
+"q": 0,
+"avoid": false
+},
+"EL-271": {
+"tags": [
+"nuit",
+"voiture"
+],
+"desc": "plan sombre",
+"q": 0,
+"avoid": false
+},
+"EL-272": {
+"tags": [
+"nuit",
+"voiture",
+"personnage"
+],
+"desc": "homme près d'une voiture",
+"q": 1,
+"avoid": false
+},
+"EL-273": {
+"tags": [
+"nuit",
+"voiture"
+],
+"desc": "plan court",
+"q": 0,
+"avoid": false
+},
+"EL-274": {
+"tags": [
+"nuit",
+"club",
+"néon",
+"entrée"
+],
+"desc": "entrée de soirée néon (17 s)",
+"q": 2,
+"avoid": false
+},
+"EL-275": {
+"tags": [
+"soirée",
+"foule",
+"néon"
+],
+"desc": "soirée chic, foule",
+"q": 1,
+"avoid": false
+},
+"EL-276": {
+"tags": [
+"soirée",
+"foule",
+"intérieur"
+],
+"desc": "soirée chic",
+"q": 1,
+"avoid": false
+},
+"EL-277": {
+"tags": [
+"femme",
+"portrait",
+"soirée",
+"ballons"
+],
+"desc": "femme souriante devant des ballons",
+"q": 2,
+"avoid": false
+},
+"EL-278": {
+"tags": [
+"soirée",
+"foule",
+"intérieur"
+],
+"desc": "soirée",
+"q": 1,
+"avoid": false
+},
+"EL-279": {
+"tags": [
+"soirée",
+"couloir"
+],
+"desc": "couloir de soirée",
+"q": 1,
+"avoid": false
+},
+"EL-280": {
+"tags": [
+"intérieur",
+"couloir",
+"sombre"
+],
+"desc": "long plan intérieur (82 s)",
+"q": 1,
+"avoid": false
+},
+"EL-281": {
+"tags": [
+"soirée",
+"bleu",
+"néon"
+],
+"desc": "soirée éclairée en bleu",
+"q": 1,
+"avoid": false
+},
+"EL-282": {
+"tags": [
+"femme",
+"portrait",
+"soirée"
+],
+"desc": "femme souriante",
+"q": 1,
+"avoid": false
+},
+"EL-283": {
+"tags": [
+"soirée",
+"bleu",
+"personnage"
+],
+"desc": "soirée bleue",
+"q": 1,
+"avoid": false
+},
+"EL-284": {
+"tags": [
+"soirée",
+"personnage"
+],
+"desc": "soirée",
+"q": 1,
+"avoid": false
+},
+"EL-285": {
+"tags": [
+"soirée",
+"foule",
+"escalier"
+],
+"desc": "soirée, foule dans l'escalier",
+"q": 1,
+"avoid": false
+},
+"EL-286": {
+"tags": [
+"personnage",
+"riche",
+"lunettes"
+],
+"desc": "homme en costume et lunettes",
+"q": 1,
+"avoid": false
+},
+"EL-287": {
+"tags": [
+"personnage",
+"masque"
+],
+"desc": "homme masqué dans une pièce",
+"q": 1,
+"avoid": false
+},
+"EL-288": {
+"tags": [
+"personnage",
+"masque",
+"braquage",
+"intérieur"
+],
+"desc": "hommes masqués en combinaison blanche",
+"q": 2,
+"avoid": false
+},
+"EL-289": {
+"tags": [
+"soirée",
+"bleu",
+"balcon"
+],
+"desc": "balcon éclairé en bleu",
+"q": 1,
+"avoid": false
+},
+"EL-290": {
+"tags": [
+"soirée",
+"bleu",
+"personnage"
+],
+"desc": "homme âgé en smoking",
+"q": 1,
+"avoid": false
+},
+"EL-291": {
+"tags": [
+"soirée",
+"danse",
+"bleu"
+],
+"desc": "femme qui danse",
+"q": 1,
+"avoid": false
+},
+"EL-292": {
+"tags": [
+"soirée",
+"danse",
+"bleu"
+],
+"desc": "soirée dansante",
+"q": 1,
+"avoid": false
+},
+"EL-293": {
+"tags": [
+"soirée",
+"danse",
+"bleu"
+],
+"desc": "soirée dansante",
+"q": 1,
+"avoid": false
+},
+"EL-294": {
+"tags": [
+"intérieur",
+"sombre",
+"couloir"
+],
+"desc": "long plan intérieur sombre (24 s)",
+"q": 1,
+"avoid": false
+},
+"EL-295": {
+"tags": [
+"téléphone",
+"personnage",
+"sombre"
+],
+"desc": "homme sur son téléphone dans la pénombre",
+"q": 1,
+"avoid": false
+},
+"EL-296": {
+"tags": [
+"sombre",
+"mains"
+],
+"desc": "plan court sombre",
+"q": 0,
+"avoid": false
+},
+"EL-297": {
+"tags": [
+"flou",
+"rose"
+],
+"desc": "plan flou rose",
+"q": 0,
+"avoid": false
+},
+"EL-298": {
+"tags": [
+"soirée",
+"bleu",
+"personnage"
+],
+"desc": "soirée, personnages",
+"q": 1,
+"avoid": false
+},
+"EL-299": {
+"tags": [
+"arme",
+"braquage",
+"masque",
+"bleu"
+],
+"desc": "braqueur masqué armé en lumière bleue",
+"q": 3,
+"avoid": false
+},
+"EL-300": {
+"tags": [
+"femme",
+"portrait",
+"bleu",
+"nuit"
+],
+"desc": "femme en lumière bleue",
+"q": 2,
+"avoid": false
+},
+"EL-301": {
+"tags": [
+"masque",
+"braquage",
+"bleu"
+],
+"desc": "homme masqué en combinaison",
+"q": 2,
+"avoid": false
+},
+"EL-302": {
+"tags": [
+"sang"
+],
+"desc": "corps ensanglanté (à éviter)",
+"q": 0,
+"avoid": true
+},
+"EL-303": {
+"tags": [
+"ascenseur",
+"braquage",
+"masque"
+],
+"desc": "braqueurs dans un ascenseur",
+"q": 2,
+"avoid": false
+},
+"EL-304": {
+"tags": [
+"couloir",
+"bleu",
+"intérieur"
+],
+"desc": "couloir en lumière bleue (13 s)",
+"q": 1,
+"avoid": false
+},
+"EL-305": {
+"tags": [
+"personnage",
+"mur"
+],
+"desc": "personnage contre un mur",
+"q": 1,
+"avoid": false
+},
+"EL-306": {
+"tags": [
+"escalier",
+"personnage",
+"au_sol"
+],
+"desc": "personnage dans un escalier",
+"q": 1,
+"avoid": false
+},
+"EL-307": {
+"tags": [
+"escalier",
+"personnage"
+],
+"desc": "personnages dans l'escalier",
+"q": 1,
+"avoid": false
+},
+"EL-308": {
+"tags": [
+"couloir",
+"sombre"
+],
+"desc": "couloir sombre",
+"q": 1,
+"avoid": false
+},
+"EL-309": {
+"tags": [
+"bureau",
+"ordinateur",
+"personnage"
+],
+"desc": "homme devant un ordinateur",
+"q": 1,
+"avoid": false
+},
+"EL-310": {
+"tags": [
+"sombre",
+"au_sol"
+],
+"desc": "plan court",
+"q": 0,
+"avoid": false
+},
+"EL-311": {
+"tags": [
+"personnage",
+"au_sol"
+],
+"desc": "personnage au sol",
+"q": 1,
+"avoid": false
+},
+"EL-312": {
+"tags": [
+"bureau",
+"sombre"
+],
+"desc": "plan court",
+"q": 0,
+"avoid": false
+},
+"EL-313": {
+"tags": [
+"bureau",
+"personnage",
+"ordinateur"
+],
+"desc": "homme dans un bureau la nuit",
+"q": 1,
+"avoid": false
+},
+"EL-314": {
+"tags": [
+"chemise",
+"gros_plan"
+],
+"desc": "chemise fleurie en gros plan",
+"q": 0,
+"avoid": false
+},
+"EL-315": {
+"tags": [
+"bureau",
+"nuit",
+"sombre"
+],
+"desc": "bureaux de nuit",
+"q": 1,
+"avoid": false
+},
+"EL-316": {
+"tags": [
+"bureau",
+"nuit",
+"sombre"
+],
+"desc": "bureaux de nuit",
+"q": 1,
+"avoid": false
+},
+"EL-317": {
+"tags": [
+"bureau",
+"nuit"
+],
+"desc": "plan court",
+"q": 0,
+"avoid": false
+},
+"EL-318": {
+"tags": [
+"bureau",
+"nuit",
+"braquage"
+],
+"desc": "bureaux de nuit, braqueurs",
+"q": 1,
+"avoid": false
+},
+"EL-319": {
+"tags": [
+"bureau",
+"nuit"
+],
+"desc": "bureaux de nuit",
+"q": 1,
+"avoid": false
+},
+"EL-320": {
+"tags": [
+"bureau",
+"nuit",
+"braquage"
+],
+"desc": "couloir de bureaux",
+"q": 1,
+"avoid": false
+},
+"EL-321": {
+"tags": [
+"bureau",
+"nuit",
+"braquage"
+],
+"desc": "bureaux de nuit",
+"q": 1,
+"avoid": false
+},
+"EL-322": {
+"tags": [
+"bureau",
+"nuit"
+],
+"desc": "plan court",
+"q": 0,
+"avoid": false
+},
+"EL-323": {
+"tags": [
+"arme",
+"pistolet",
+"action"
+],
+"desc": "main qui tient un pistolet",
+"q": 2,
+"avoid": false
+},
+"EL-324": {
+"tags": [
+"bureau",
+"braquage",
+"silhouette"
+],
+"desc": "silhouette armée dans un bureau",
+"q": 2,
+"avoid": false
+},
+"EL-325": {
+"tags": [
+"bureau",
+"braquage",
+"lampe_torche"
+],
+"desc": "bureaux de nuit, lampes torches (11 s)",
+"q": 1,
+"avoid": false
+},
+"EL-326": {
+"tags": [
+"chantier",
+"personnage",
+"action"
+],
+"desc": "scène sur un chantier",
+"q": 1,
+"avoid": false
+},
+"EL-327": {
+"tags": [
+"chantier",
+"pieds"
+],
+"desc": "pieds nus sur un chantier",
+"q": 0,
+"avoid": false
+},
+"EL-328": {
+"tags": [
+"chantier",
+"bagarre",
+"action"
+],
+"desc": "bagarre sur un chantier",
+"q": 1,
+"avoid": false
+},
+"EL-329": {
+"tags": [
+"chantier",
+"bagarre"
+],
+"desc": "bagarre",
+"q": 1,
+"avoid": false
+},
+"EL-330": {
+"tags": [
+"chute",
+"action",
+"sombre"
+],
+"desc": "personnage qui tombe",
+"q": 1,
+"avoid": false
+},
+"EL-331": {
+"tags": [
+"nuit",
+"ville",
+"gratte_ciel",
+"vice_city"
+],
+"desc": "gratte-ciels de nuit",
+"q": 2,
+"avoid": false
+},
+"EL-332": {
+"tags": [
+"rooftop",
+"piscine",
+"luxe",
+"vue_aérienne"
+],
+"desc": "piscine de luxe sur un toit",
+"q": 3,
+"avoid": false
+},
+"EL-333": {
+"tags": [
+"bateau",
+"pêche",
+"mer",
+"jour"
+],
+"desc": "pêcheurs sur un bateau",
+"q": 3,
+"avoid": false
+},
+"EL-334": {
+"tags": [
+"bar",
+"néon",
+"femme",
+"nuit"
+],
+"desc": "femmes au bar néon",
+"q": 2,
+"avoid": false
+},
+"EL-335": {
+"tags": [
+"club",
+"danse",
+"néon"
+],
+"desc": "club, mains levées",
+"q": 1,
+"avoid": false
+},
+"EL-336": {
+"tags": [
+"bar",
+"soirée",
+"intérieur"
+],
+"desc": "bar animé",
+"q": 1,
+"avoid": false
+},
+"EL-337": {
+"tags": [
+"personnage",
+"bar",
+"arme"
+],
+"desc": "personnages attablés dehors",
+"q": 1,
+"avoid": false
+},
+"EL-338": {
+"tags": [
+"nuit",
+"lumière",
+"marais"
+],
+"desc": "lumière dans la nuit, marais",
+"q": 1,
+"avoid": false
+},
+"EL-339": {
+"tags": [
+"nuit",
+"bleu",
+"cuisine",
+"personnage"
+],
+"desc": "cuisine de nuit en lumière bleue",
+"q": 1,
+"avoid": false
+},
+"EL-340": {
+"tags": [
+"parking",
+"voitures",
+"foule",
+"jour"
+],
+"desc": "rassemblement de voitures sur un parking",
+"q": 3,
+"avoid": false
+},
+"EL-341": {
+"tags": [
+"hydravion",
+"hélice",
+"lac"
+],
+"desc": "hélice d'hydravion en gros plan",
+"q": 3,
+"avoid": false
+},
+"EL-342": {
+"tags": [
+"personnage",
+"hélicoptère",
+"cri"
+],
+"desc": "homme qui crie, porte d'hélicoptère",
+"q": 2,
+"avoid": false
+},
+"EL-343": {
+"tags": [
+"coucher_soleil",
+"ville",
+"skyline",
+"vice_city"
+],
+"desc": "skyline de Vice City au coucher du soleil",
+"q": 3,
+"avoid": false
+},
+"EL-344": {
+"tags": [
+"bateau",
+"fête",
+"mer",
+"jour"
+],
+"desc": "fête sur un bateau",
+"q": 2,
+"avoid": false
+},
+"EL-345": {
+"tags": [
+"logo",
+"titre"
+],
+"desc": "carton de fin, logo et date",
+"q": 0,
+"avoid": true
 }
 }

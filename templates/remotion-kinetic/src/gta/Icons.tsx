@@ -3,7 +3,7 @@ import React from 'react';
 
 export type IconName =
   | 'cash' | 'diamond' | 'car' | 'gun' | 'key' | 'pin' | 'lock' | 'star' | 'skull' | 'phone' | 'map'
-  | 'check' | 'warning' | 'hand' | 'shield' | 'clock' | 'fire' | 'heart' | 'wanted' | 'swap' | 'bag' | 'code' | 'boat' | 'plane';
+  | 'check' | 'warning' | 'hand' | 'shield' | 'clock' | 'fire' | 'heart' | 'wanted' | 'swap' | 'bag' | 'code' | 'boat' | 'plane' | 'bell';
 
 const P: Record<IconName, React.ReactNode> = {
   cash: <><rect x="5" y="13" width="38" height="22" rx="4" /><circle cx="24" cy="24" r="5" /><path d="M11 19v10M37 19v10" /></>,
@@ -30,6 +30,7 @@ const P: Record<IconName, React.ReactNode> = {
   code: <><rect x="8" y="6" width="32" height="36" rx="4" /><path d="M15 15h4M22 15h4M29 15h4M15 23h4M22 23h4M29 23h4M15 31h4M22 31h4M29 31h4" /></>,
   boat: <><path d="M5 31h38l-5 9H11z" /><path d="M14 31V19h14l6 12M24 19v-8" /></>,
   plane: <path d="M44 24L6 10l8 14-8 14zM14 24h30" />,
+  bell: <><path d="M12 34h24l-3-5V20a9 9 0 00-18 0v9z" /><path d="M20 38a4 4 0 008 0M24 8v3" /></>,
 };
 
 export const Icon: React.FC<{name: IconName; size?: number; color?: string; glow?: boolean}> = ({name, size = 48, color = '#fff', glow}) => (

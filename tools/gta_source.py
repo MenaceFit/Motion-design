@@ -13,7 +13,10 @@ Sous-commandes :
   catalog  [--out footage/catalog.json]       inventorie les médias officiels (pages /VI/…)
   fetch    trailers|screenshots|clips|all     télécharge dans footage/raw/gta6/ (+ dézippe)
            [--max-gb 4] [--include NOM]        (« An Extended Look » = 14 Go : exclu par défaut)
-  ingest   fichier(s) --origin "texte"        ajoute des captures de l'utilisateur (gameplay perso)
+  ingest   fichier(s) --origin "texte" --rights own|permission|official [--index]
+                                              ajoute des vidéos/images fournies (gameplay perso, footage
+                                              d'un créateur qui a donné son accord, média officiel) ;
+                                              --index : indexe aussitôt + planches à taguer
   show                                        résume footage/provenance.json
 
 Usage : python3 tools/gta_source.py fetch all
@@ -125,18 +128,29 @@ def fetch(what, max_gb, include):
     print(f"provenance : {PROV.relative_to(ROOT)} ({len(prov)} fichiers)")
 
 
-def ingest(files, origin):
+RIGHTS_NOTE = {
+    "own": "Capture de jeu réalisée par l'utilisateur (contenu original).",
+    "permission": "Footage d'un tiers utilisé avec son accord (préciser qui et où dans --origin).",
+    "official": RIGHTS,
+}
+
+
+def ingest(files, origin, rights, index=False):
     prov = load_prov()
-    dst = FOOT / "raw" / "user"
+    dst = FOOT / "raw" / ("user" if rights != "official" else "gta6")
     dst.mkdir(parents=True, exist_ok=True)
     for f in files:
         f = Path(f)
-        d = dst / f.name
+        d = dst / re.sub(r"[^A-Za-z0-9_.\-]+", "_", f.name)
         if not d.exists():
             shutil.copy2(f, d)
-        record(prov, d, origin, kind="user")
+        record(prov, d, origin, kind="user" if rights != "official" else "official")
+        prov[str(d.resolve().relative_to(ROOT))]["rights"] = f"{rights} — {RIGHTS_NOTE[rights]}"
         print("+", d.relative_to(ROOT))
     save_prov(prov)
+    if index:
+        subprocess.run([sys.executable, "-W", "ignore", str(ROOT / "tools" / "footage_index.py"), "build"], check=True)
+        subprocess.run([sys.executable, str(ROOT / "tools" / "footage_index.py"), "sheets"], check=True)
 
 
 def main():
@@ -146,6 +160,7 @@ def main():
     f = sp.add_parser("fetch"); f.add_argument("what", choices=["trailers", "screenshots", "clips", "all"])
     f.add_argument("--max-gb", type=float, default=4); f.add_argument("--include", nargs="*", default=[])
     i = sp.add_parser("ingest"); i.add_argument("files", nargs="+"); i.add_argument("--origin", required=True)
+    i.add_argument("--rights", required=True, choices=["own", "permission", "official"]); i.add_argument("--index", action="store_true")
     sp.add_parser("show")
     a = ap.parse_args()
     if a.cmd == "catalog":
@@ -154,7 +169,7 @@ def main():
     elif a.cmd == "fetch":
         fetch(a.what, a.max_gb, a.include)
     elif a.cmd == "ingest":
-        ingest(a.files, a.origin)
+        ingest(a.files, a.origin, a.rights, a.index)
     else:
         prov = load_prov(); kinds = {}
         for v in prov.values(): kinds[v["kind"]] = kinds.get(v["kind"], 0) + 1

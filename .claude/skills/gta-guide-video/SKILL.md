@@ -61,6 +61,23 @@ Footage et faits : skill `gta-footage-sourcing` (à faire d'abord si `footage/in
 7. Livrer `renders/<slug>/<slug>.mp4` + `sources.md` + texte de description avec crédits
    (« Images : Rockstar Games », voix Piper siwis CC-BY 4.0) et rappel monétisation.
 
+## v3 (2026-11-21) : accroche, CTA, plus de footage
+- **Accroche** (ligne 0) : overlay `hooktag` (étiquette jaune « CODE SECRET » qui claque dès la 1re image,
+  reflet qui balaie, sous-titre « GTA 6 ») + `counter` sans `at` (démarre à 0 s) + `"flash_cuts": true`
+  et `"shot_len": 0.55` (coupes régulières toutes les ~0,55 s avec flash blanc, déclencheur photo et
+  impact) + sub-drop, shutter et secousse à 0 s. Choisir 5–6 plans d'action différents (explosion,
+  tir, chute libre, braquage, jet-ski).
+- **CTA** : overlay `follow` (titre « Plus de codes|comme ça ? » sur 2 lignes, la 2e en jaune ; avatar à
+  anneau dégradé tournant avec « + » rouge pulsant ; bouton « Abonne-toi » à cloche tapé par une main ;
+  « Abonné ! » + cloche qui sonne ; flèche « ICI » vers le bouton + de TikTok à droite). Champs plan :
+  `channel` (pseudo affiché) et `initials` (texte de l'avatar).
+- **Sons ajoutés** : `record_scratch` sur une coupure musicale, `rev_cymbal` 0,6 s avant chaque zoom/spin,
+  `bell` au clic du CTA, `shutter` sur les flashs, `sub_drop` à l'ouverture, et variantes `_2`/`_3` des
+  whooshs et des impacts, en rotation automatique.
+- **Caméra à l'épaule** : légère dérive (bruit de Perlin, ±7 px, ±0,35°) sur tous les plans.
+- **Footage** : « An Extended Look » (26 min 48 s, 346 plans) indexé et tagué. Pour du vrai gameplay
+  (HUD, mini-carte) : `footage_index.py search --tags gameplay`.
+
 ## v2 (2026-11-20) : fluidité et sound design
 - **60 i/s** (`"fps": 60` dans le plan, défaut). Les trailers sont à 30 i/s : leurs images sont doublées,
   mais toute l'animation ajoutée (caméra, transitions, textes, overlays) tourne à 60 i/s. Base de temps

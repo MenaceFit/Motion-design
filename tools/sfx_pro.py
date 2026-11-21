@@ -16,6 +16,12 @@ Pensée pour les edits GTA / gaming (transitions rapides) ; chaque son a un rôl
   key_1 … key_8           clic + note (gamme pentatonique montante)                  → touches du combo
   success                 deux notes montantes                                       → abonnement validé
   tick                    tic sec                                                    → compteur
+  record_scratch          scratch de vinyle                                          → coupure musicale (« le piège »)
+  rev_cymbal              cymbale inversée qui s'arrête net                          → juste avant un zoom / impact
+  bell                    cloche de notification 2 notes                             → CTA abonnement (cloche)
+  shutter                 déclencheur photo                                          → flash blanc
+  sub_drop                chute grave 1,3 s                                          → ouverture / drop
+  *_2, *_3                variantes de whoosh_lr / whoosh_rl / whoosh_long / hit
 
 Usage : python3 tools/sfx_pro.py [out_dir] [--seed 7]
         (défaut : templates/remotion-kinetic/public/sfxpro, régénéré par gta_build.py si absent)
@@ -178,6 +184,46 @@ def tick(rng, d=0.05):
     return pan(np.sin(2 * np.pi * 3100 * t) * np.exp(-t * 160) + rng.standard_normal(len(t)) * np.exp(-t * 600) * 0.3, 0.0)
 
 
+def record_scratch(rng, d=0.55):
+    """Scratch de vinyle : bruit filtré dont la hauteur fait des allers-retours rapides (main sur le disque)."""
+    t = tt(d); x = t / d
+    rate = 1.0 + 0.9 * np.sin(2 * np.pi * (3 + 6 * x) * t) * np.exp(-x * 1.5)
+    fc = 600 + 2200 * np.abs(rate - 0.2)
+    noise = svf_bandpass(rng.standard_normal(len(t)), fc, q=3.0)
+    tone = np.sin(2 * np.pi * np.cumsum(180 * rate) / SR) * 0.4
+    mono = (noise * 1.4 + tone) * np.minimum(1, x * 20) * np.exp(-x * 2.2)
+    return pan(np.tanh(1.5 * mono), 0.0)
+
+
+def rev_cymbal(rng, d=0.6):
+    """Cymbale inversée : souffle aigu qui monte et s'arrête net (aspiration avant un impact)."""
+    t = tt(d); x = t / d
+    n = rng.standard_normal(len(t)); n = n - lowpass(n, 3000)
+    shimmer = sum(np.sin(2 * np.pi * f * t + rng.uniform(0, 6)) for f in (5400, 6900, 8200, 10100)) * 0.08
+    mono = (n + shimmer) * x ** 3.2
+    return np.stack([mono, np.roll(mono, int(0.004 * SR))])
+
+
+def bell_ding(rng, d=1.0):
+    t = tt(d)
+    s = bell(t, 1567.98, 4.5) + bell(t, 2349.3, 6, .5) + bell(t, 3135.9, 8, .3)
+    s2 = np.clip(t - 0.13, 0, None)
+    s = s + (bell(s2, 2093, 4.5) + bell(s2, 3135.9, 7, .4)) * (t >= 0.13)
+    return pan(s, 0.25)
+
+
+def shutter(rng, d=0.18):
+    t = tt(d)
+    clk = rng.standard_normal(len(t)) * (np.exp(-t * 300) + 0.7 * np.exp(-np.clip(t - 0.06, 0, None) * 260) * (t >= 0.06))
+    return pan(svf_bandpass(clk, np.full(len(t), 3500.0), q=0.7) * 2, 0.0)
+
+
+def sub_drop(rng, d=1.3):
+    t = tt(d)
+    f = 30 + 70 * np.exp(-t * 2.2)
+    return pan(np.tanh(2 * np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 1.6)), 0.0)
+
+
 def build(out, seed=7):
     out = Path(out); out.mkdir(parents=True, exist_ok=True)
     rng = np.random.default_rng(seed)
@@ -193,6 +239,15 @@ def build(out, seed=7):
     }
     for k in range(8):
         items[f"key_{k + 1}"] = (key(rng, k), -4, 0.08)
+    items.update({"record_scratch": (record_scratch(rng), -2, 0.06), "rev_cymbal": (rev_cymbal(rng), -4, 0.05),
+                  "bell": (bell_ding(rng), -4, 0.15), "shutter": (shutter(rng), -4, 0.03), "sub_drop": (sub_drop(rng), -1, 0.1)})
+    # variantes (évite la répétition audible d'un même son sur 10+ transitions)
+    for v in (2, 3):
+        f_hi = 4200 + 900 * (v - 1); d = 0.5 + 0.06 * v
+        items[f"whoosh_lr_{v}"] = (whoosh(rng, d, +1, 320, f_hi, 0.55 + 0.03 * v), -2, 0.10)
+        items[f"whoosh_rl_{v}"] = (whoosh(rng, d, -1, 320, f_hi, 0.55 + 0.03 * v), -2, 0.10)
+        items[f"whoosh_long_{v}"] = (whoosh(rng, 0.8 + 0.1 * v, 0, 240, 3000 + 500 * v, 0.6), -2, 0.14)
+        items[f"hit_{v}"] = (hit(rng, 0.3 + 0.04 * v), -1, 0.08)
     for name, (st, db, rv) in items.items():
         sf.write(out / f"{name}.wav", finish(st, db, rv).T, SR, subtype="PCM_24")
     print(f"{len(items)} SFX → {out}")

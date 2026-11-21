@@ -221,3 +221,16 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
 - Script ElevenLabs : `projects/gta6-code-argent/SCRIPT_ELEVENLABS.md` (11 lignes, ~36 s, faits recoupés).
 - Rendu v2 (voix Piper provisoire) : 36,2 s, 1080×1920, 60 i/s, -14,0 LUFS, synchro médiane -16 ms, QC OK ;
   ~15 min de build (2170 frames).
+
+## 2026-11-21 — v3 : voix ElevenLabs de l'utilisateur, accroche et CTA, +346 plans officiels
+- Voix : prise ElevenLabs v4 (voix Hugo, 40 s) calée par `--voice-file` : 96 % de caractères communs avec
+  le script (balises d'émotion ignorées). Copie versionnée : `projects/gta6-code-argent/voice_elevenlabs.mp3`.
+- Footage : « An Extended Look » (officiel, 14,1 Go, 26 min 48 s) téléchargé et indexé : 346 plans,
+  tous tagués à la vision (54 marqués `avoid` : noirs, cartons, labo de drogue, sang). Plus de 40 plans
+  de vrai gameplay avec HUD. Bibliothèque : 792 entrées, 654 taguées. Zip vidéo officiel vérifié à
+  distance (répertoire central lu par requêtes Range) : aucun contenu nouveau.
+- Liens YouTube fournis (BenedictPlays, GameV) : vidéos d'autres créateurs, non téléchargées (hôtes
+  vidéo YouTube refusés par le proxy, et pas d'aspiration de contenus tiers sans accord). `gta_source.py
+  ingest` exige désormais `--rights own|permission|official` et peut indexer aussitôt (`--index`).
+- Nouveaux overlays `hooktag` et `follow` (CTA), coupes flash dans l'accroche, caméra à l'épaule,
+  13 nouveaux SFX (scratch, cymbale inversée, cloche, déclencheur, sub-drop, variantes) en rotation.
