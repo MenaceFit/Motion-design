@@ -11,6 +11,7 @@ import {TeddyEpisode2} from './teddy/Episode2';
 import {ProfilePic, profilePicDefaults} from './teddy/ProfilePic';
 import {TeddyEpisode3} from './teddy/Episode3';
 import {GtaGuide, gtaGuideDefaults} from './gta/GtaGuide';
+import {ChannelAvatar} from './gta/Avatar';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -71,5 +72,6 @@ export const RemotionRoot: React.FC = () => (
       {/* Style « GTA Guide » (ref09–ref13) — footage officiel recadré 9:16 + overlays UI, piloté par edit.json */}
     <Composition id="GtaGuide" component={GtaGuide} width={1080} height={1920} fps={30} durationInFrames={90}
       defaultProps={gtaGuideDefaults} calculateMetadata={({props}) => ({durationInFrames: props.durationInFrames ?? 90, fps: props.fps ?? 30})} />
+      <Composition id="ChannelAvatar" component={ChannelAvatar} width={1080} height={1080} fps={30} durationInFrames={1} defaultProps={{variant: 'dpad' as const}} />
   </>
 );
