@@ -1,8 +1,8 @@
-// Timings (s) de la voix provisoire Chatterbox (transcription Whisper) — à remplacer si la voix Kevin arrive.
+// Timings (s) de la voix Kevin (ElevenLabs v4), transcription Whisper.
 export const SET_T = {
-  boutique: 1.12, paid: 2.64, n90: 3.46, ess: 4.56, e50: 5.6, e135: 8.86, vinted: 9.6,
-  non: 10.34, one: 11.14, auth: 12.04, how: 13.14, contact: 14.52, direct: 15.74, give: 18.66,
-  bio: 19.9, dm: 20.82, end: 24.5,
+  boutique: 1.4, paid: 2.92, n90: 4.66, ess: 6.0, e50: 7.44, e135: 9.7, vinted: 10.6,
+  non: 11.28, one: 12.0, auth: 13.1, how: 14.54, contact: 15.52, direct: 16.78, give: 19.7,
+  bio: 21.06, dm: 21.76, end: 24.78,
 };
-export const SET_WORDS: [number, number][] = [[0, 2.3], [2.6, 6.9], [7.1, 10.0], [10.3, 12.6], [13.1, 14.2], [14.2, 17.4],
-  [17.8, 20.4], [20.8, 22.5], [22.5, 24.1], [24.5, 26.0]];
+export const SET_WORDS: [number, number][] = [[0, 2.7], [2.9, 4.4], [4.66, 5.6], [6.0, 8.0], [8.4, 11.0], [11.3, 12.9], [13.1, 14.2],
+  [14.5, 15.2], [15.2, 18.7], [18.9, 21.5], [21.8, 23.1], [23.1, 24.5], [24.8, 25.7]];
