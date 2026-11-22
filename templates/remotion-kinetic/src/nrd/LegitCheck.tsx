@@ -34,7 +34,7 @@ export type Cfg = {
   dir: string; duration: number; words: [number, number][]; secs: Sec[]; quizEnd: number;
   intro: {q: number; three: number; counts: [number, number, number]; celui: number; reveal: number; compte: number};
   outro: {alors: number; combien: number; ecris: number; moi: number; p1At: number; revend: number; p2At: number;
-    benefAt: number; plugAt: number; dmAt: number; p1: string; p2: string; benef: string; img: string; rareAt?: number};
+    benefAt: number; plugAt: number; dmAt: number; p1: string; p2: string; benef: string; img: string; rareAt?: number; plugWord?: [string, string]; cta?: string; ctaSub?: string};
   theme?: 'pixel' | 'mag' | 'night'; // DA graphique (night = pixel sur fond bleu minuit étoilé)
   realLeft?: boolean; // l'authentique à gauche (par défaut à droite)
   mode?: 'quiz' | 'howto'; // howto = format « comment différencier » (pas de devinette ni de score à commenter)
@@ -518,8 +518,8 @@ const Outro: React.FC<{t: number}> = ({t}) => {
         </div>;
       })}
       {t >= K.outro.combien && <div style={{position: 'absolute', left: 0, width: W, top: 820, display: 'flex', justifyContent: 'center', transform: `scale(${pop(t, K.outro.combien, 0.35)}) rotate(-3deg)`}}>
-        <Chip label="➕ ABONNE-TOI" bg={C.red} fg="#fff" size={56} /></div>}
-      {t >= K.outro.combien + 0.4 && <Typed parts={[{t: '📌 ENREGISTRE POUR PLUS TARD', c: C.yellow}]} at={K.outro.combien + 0.4} t={t} size={34} cursor={false} style={{...box, top: 960}} />}
+        <Chip label={K.outro.cta ?? "➕ ABONNE-TOI"} bg={C.red} fg="#fff" size={56} /></div>}
+      {t >= K.outro.combien + 0.4 && <Typed parts={[{t: K.outro.ctaSub ?? '📌 ENREGISTRE POUR PLUS TARD', c: C.yellow}]} at={K.outro.combien + 0.4} t={t} size={34} cursor={false} style={{...box, top: 960}} />}
     </>;
   }
   if (t < K.outro.moi) {
@@ -579,7 +579,7 @@ const Outro: React.FC<{t: number}> = ({t}) => {
     </>;
   }
   return <>
-    <Typed parts={[{t: 'LE '}, {t: 'PLUG', c: C.yellow}, {t: ' ?'}]} at={K.outro.plugAt} t={t} size={96} cps={18} style={{...box, top: 360}} />
+    <Typed parts={[{t: (K.outro.plugWord ?? ['LE ', 'PLUG'])[0]}, {t: (K.outro.plugWord ?? ['LE ', 'PLUG'])[1], c: C.yellow}, {t: ' ?'}]} at={K.outro.plugAt} t={t} size={K.outro.plugWord ? 80 : 96} cps={18} style={{...box, top: 360}} />
     {t >= K.outro.dmAt && <>
       <Txt size={64} style={{...box, top: 560, textAlign: 'center', transform: `scale(${pop(t, K.outro.dmAt)})`}}>ÉCRIS-MOI</Txt>
       <div style={{position: 'absolute', left: W / 2 - 290, top: 680, width: 580, height: 210, transform: `scale(${pop(t, K.outro.dmAt + 0.16, 0.35)})`,

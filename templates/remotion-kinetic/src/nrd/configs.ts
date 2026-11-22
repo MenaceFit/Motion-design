@@ -272,3 +272,24 @@ export const phenomgrisCfg: Cfg = {
   outro: {alors: 27.38, combien: 28.8, ecris: 28.8, moi: 30.76, p1At: 31.32, revend: 32.0, p2At: 32.62, benefAt: 33.3,
     plugAt: 35.78, dmAt: 36.48, p1: '28€', p2: '80€', benef: '+52€', img: 'full_auth.jpg'},
 };
+
+// Veste Under Armour hybrid blanche — howto, fond étoilé, vrai à droite ; intro 1:1 = annonce fournie ; voix Kevin v4, 33,9 s (sans prix)
+export const uawhiteCfg: Cfg = {
+  dir: 'uawhite', duration: 35.0, quizEnd: 28.1, mode: 'howto', product: 'VESTE UNDER ARMOUR HYBRIDE BLANCHE', theme: 'night', fx: true, fx2: true, fx3: true,
+  words: [[0, 4.22], [4.56, 5.1], [5.44, 6.6], [7.12, 10.2], [10.62, 13.6], [13.86, 15.0], [15.44, 17.18], [17.48, 18.8],
+    [19.04, 21.5], [21.74, 24.1], [24.28, 26.1], [26.38, 28.3], [28.32, 30.1], [30.32, 32.0], [32.16, 32.6], [33.0, 33.6]],
+  intro: {q: 1.12, three: 0, counts: [0, 0, 0], celui: 0, reveal: 3.7, compte: 4.56},
+  secs: [
+    {n: 1, title: 'LA COULEUR', at: 5.44, end: 13.86, imgs: ['color_fake.jpg', 'color_auth.jpg'],
+      fakeAt: 7.12, fakeCap: 'TROP CLAIR, TRANSPARENT', realAt: 10.62, realCap: 'BLANC DENSE', plusAt: 13.4,
+      fakeBox: [0.15, 0.25, 0.7, 0.55], realBox: [0.15, 0.2, 0.7, 0.55], stampY: 0.82},
+    {n: 2, title: 'LE LOGO', at: 13.86, end: 21.74, imgs: ['logo_fake.jpg', 'logo_auth.jpg'],
+      fakeAt: 15.44, fakeMarkAt: 17.9, fakeCap: 'FONCÉ, RESSORT PAS', realAt: 19.04, realCap: 'CLAIR, RESSORT BIEN', plusAt: 21.3,
+      fakeBox: [0.12, 0.32, 0.76, 0.34], realBox: [0.15, 0.42, 0.45, 0.2], stampY: 0.82},
+    {n: 3, title: "L'ÉCRITURE", sub: 'STORM', at: 21.74, end: 28.5, imgs: ['storm_fake.jpg', 'storm_auth.jpg'],
+      fakeAt: 24.28, fakeCap: 'ÉCRITURE FONCÉE', realAt: 26.38, realCap: 'ÉCRITURE CLAIRE', plusAt: 28.0,
+      fakeBox: [0.3, 0.4, 0.5, 0.14], realBox: [0.35, 0.55, 0.4, 0.25], stampY: 0.12},
+  ],
+  outro: {alors: 28.32, combien: 30.32, ecris: 30.32, moi: 32.16, p1At: 32.16, revend: 32.16, p2At: 32.16, benefAt: 32.16,
+    plugAt: 32.16, dmAt: 33.0, p1: '', p2: '', benef: '', img: 'full_auth.jpg', plugWord: ['UNE ', 'QUESTION'], cta: '📌 ENREGISTRE', ctaSub: 'POUR TON PROCHAIN ACHAT'},
+};

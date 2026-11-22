@@ -1,5 +1,11 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-22 (2) — Veste UA hybrid blanche (howto, sans prix)
+- Fin sans prix : `outro.moi = benefAt = plugAt` saute le bloc prix ; nouveaux champs `outro.plugWord` (« UNE QUESTION ? »),
+  `outro.cta` / `ctaSub` (« 📌 ENREGISTRE — POUR TON PROCHAIN ACHAT ») pour coller à la voix. 62 SFX. QC OK.
+- Refusé : vidéo « personal shoppers » (lot Nike/UA à 30–40 € via appli de revendeur chinois, revente prix authentique)
+  sans preuve d'authenticité (codes produit) — même sans le mot « authentique ».
+
 ## 2026-11-22 — Contact ensembles (Alo / Essentials) + voix provisoire open source
 - ElevenLabs inaccessible (quota puis « free generations busy ») ; hôtes ElevenLabs bloqués depuis le conteneur
   (impossible de rapatrier un audio généré via le connecteur). Refus de cloner la voix « Kevin » (voix pro sous licence).
