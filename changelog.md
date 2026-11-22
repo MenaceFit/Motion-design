@@ -1,5 +1,14 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-22 — Contact ensembles (Alo / Essentials) + voix provisoire open source
+- ElevenLabs inaccessible (quota puis « free generations busy ») ; hôtes ElevenLabs bloqués depuis le conteneur
+  (impossible de rapatrier un audio généré via le connecteur). Refus de cloner la voix « Kevin » (voix pro sous licence).
+- Voix provisoire : Chatterbox multilingue (MIT, watermark Perth) voix par défaut, FR. Le modèle « déraille » parfois
+  (charabia en fin de phrase) → `projects/contact-sets/gen_takes.py` (3 prises/phrase) + `pick.py` (Whisper : meilleure
+  prise, coupe après le dernier mot attendu, assemblage avec pauses). torch via PyPI ok ; perth exige setuptools<81.
+- Composition `SetsPromo` (prix barré + tampon 90 €, −70 %, Vinted ~135 €, LEGIT, carte contact verrouillée → 🔓, notif DM).
+  Timings dans `setsTimings.ts` (à remplacer si voix Kevin). 55 SFX. QC OK.
+
 ## 2026-11-21 — « 245 € → 900 € » trouvailles semi-luxe (nouvelle composition LuxeFinds)
 - Hook chiffré dès 0 s (3 cartes qui tombent, ticket de caisse qui s'imprime, compteur 900 €+), preuve « pas du 1.1 »
   (tampons LEGIT), 1 transition d'entrée différente par article (glisse+rotation / zoom+spin / chute rebond), étiquettes
