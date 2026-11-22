@@ -14,6 +14,7 @@ import {LegitCheck} from './nrd/LegitCheck';
 import {PackPromo} from './nrd/PackPromo';
 import {LuxeFinds} from './nrd/LuxeFinds';
 import {SetsPromo} from './nrd/SetsPromo';
+import {GroupPromo} from './nrd/GroupPromo';
 import {nrdCfg, phenomCfg, techfleeceCfg, divisionCfg, underarmourCfg, underarmourHowtoCfg, thermavestCfg, thermamintCfg, aeroswiftCfg, trailCfg, phenomtokyoCfg, phenomgrisCfg, uawhiteCfg} from './nrd/configs';
 
 export const RemotionRoot: React.FC = () => (
@@ -86,6 +87,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="LegitHowtoPhenomTokyo" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(phenomtokyoCfg.duration * 30)} defaultProps={{cfg: phenomtokyoCfg}} />
     <Composition id="LegitHowtoPhenomGris" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(phenomgrisCfg.duration * 30)} defaultProps={{cfg: phenomgrisCfg}} />
     <Composition id="LegitHowtoUAWhite" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(uawhiteCfg.duration * 30)} defaultProps={{cfg: uawhiteCfg}} />
+    <Composition id="GroupPromo" component={GroupPromo} width={1080} height={1920} fps={30} durationInFrames={1116} />
     <Composition id="SetsPromo" component={SetsPromo} width={1080} height={1920} fps={30} durationInFrames={813} />
     <Composition id="LuxeFinds" component={LuxeFinds} width={1080} height={1920} fps={30} durationInFrames={1185} />
     <Composition id="PackPromo" component={PackPromo} width={1080} height={1920} fps={30} durationInFrames={966} />

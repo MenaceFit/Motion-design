@@ -1,5 +1,11 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-22 (3) — Promo du groupe (GroupPromo) : montage de tout le contenu existant
+- Mur de 10 legit checks (cartes qui tombent sur les noms de modèles, tampons LEGIT / 1:1 alternés), compteur « 10+ MODÈLES »,
+  implosion des cartes puis explosion lumineuse, ticket 245 € → 900 €+, Alo 300 € → 90 €, carte groupe 🔒→🔓 + checklist,
+  « résultats variables », « comment éviter le faux », CTA bio + notif DM. Exclus : sources non vérifiées. 105 SFX. QC OK.
+- Note : sur les planches de contrôle réduites, la trame de fond peut ressembler à des rayons → vérifier en pleine taille.
+
 ## 2026-11-22 (2) — Veste UA hybrid blanche (howto, sans prix)
 - Fin sans prix : `outro.moi = benefAt = plugAt` saute le bloc prix ; nouveaux champs `outro.plugWord` (« UNE QUESTION ? »),
   `outro.cta` / `ctaSub` (« 📌 ENREGISTRE — POUR TON PROCHAIN ACHAT ») pour coller à la voix. 62 SFX. QC OK.
