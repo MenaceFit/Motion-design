@@ -34,7 +34,7 @@ export type Cfg = {
   dir: string; duration: number; words: [number, number][]; secs: Sec[]; quizEnd: number;
   intro: {q: number; three: number; counts: [number, number, number]; celui: number; reveal: number; compte: number};
   outro: {alors: number; combien: number; ecris: number; moi: number; p1At: number; revend: number; p2At: number;
-    benefAt: number; plugAt: number; dmAt: number; p1: string; p2: string; benef: string; img: string; rareAt?: number; plugWord?: [string, string]; cta?: string; ctaSub?: string};
+    benefAt: number; plugAt: number; dmAt: number; p1: string; p2: string; benef: string; img: string; rareAt?: number; plugWord?: string[]; bioAt?: number; cta?: string; ctaSub?: string};
   theme?: 'pixel' | 'mag' | 'night'; // DA graphique (night = pixel sur fond bleu minuit étoilé)
   realLeft?: boolean; // l'authentique à gauche (par défaut à droite)
   mode?: 'quiz' | 'howto'; // howto = format « comment différencier » (pas de devinette ni de score à commenter)
@@ -579,7 +579,13 @@ const Outro: React.FC<{t: number}> = ({t}) => {
     </>;
   }
   return <>
-    <Typed parts={[{t: (K.outro.plugWord ?? ['LE ', 'PLUG'])[0]}, {t: (K.outro.plugWord ?? ['LE ', 'PLUG'])[1], c: C.yellow}, {t: ' ?'}]} at={K.outro.plugAt} t={t} size={K.outro.plugWord ? 80 : 96} cps={18} style={{...box, top: 360}} />
+    <Typed parts={[{t: (K.outro.plugWord ?? ['LE ', 'PLUG'])[0]}, {t: (K.outro.plugWord ?? ['LE ', 'PLUG'])[1], c: C.yellow}, {t: K.outro.plugWord?.[2] ?? ' ?'}]} at={K.outro.plugAt} t={t} size={K.outro.plugWord ? 80 : 96} cps={18} style={{...box, top: 360}} />
+    {K.outro.bioAt !== undefined && t >= K.outro.bioAt && t < K.outro.dmAt && <>
+      <Txt size={110} color={C.yellow} style={{...box, top: 520, textAlign: 'center', transform: `scale(${1 + 0.07 * Math.sin(frame / 4)})`}}>▲ ▲ ▲</Txt>
+      <div style={{position: 'absolute', left: W / 2 - 290, top: 680, width: 580, height: 210, transform: `scale(${pop(t, K.outro.bioAt, 0.35)})`,
+        background: 'linear-gradient(135deg,#5b6cff,#c13cff)', borderRadius: 40, border: `6px solid ${C.ink}`, boxShadow: `8px 8px 0 ${C.ink}, 0 0 60px rgba(150,90,255,.7)`,
+        display: 'flex', alignItems: 'center', justifyContent: 'center'}}><Txt size={100} style={{whiteSpace: 'nowrap'}}>LIEN EN BIO</Txt></div>
+    </>}
     {t >= K.outro.dmAt && <>
       <Txt size={64} style={{...box, top: 560, textAlign: 'center', transform: `scale(${pop(t, K.outro.dmAt)})`}}>ÉCRIS-MOI</Txt>
       <div style={{position: 'absolute', left: W / 2 - 290, top: 680, width: 580, height: 210, transform: `scale(${pop(t, K.outro.dmAt + 0.16, 0.35)})`,

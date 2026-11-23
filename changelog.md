@@ -1,5 +1,9 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-23 — Tech Fleece aviateur (howto 4 étapes, fin → groupe privé)
+- `outro.plugWord` accepte un 3ᵉ élément (suffixe, '' pour retirer le « ? ») ; nouveau `outro.bioAt` : bloc « ▲▲▲ LIEN EN BIO »
+  avant le DM. Script : « Made in China » formulé « sur ce modèle » (Nike produit aussi de vrais Tech Fleece en Chine). 91 SFX. QC OK.
+
 ## 2026-11-22 (3) — Promo du groupe (GroupPromo) : montage de tout le contenu existant
 - Mur de 10 legit checks (cartes qui tombent sur les noms de modèles, tampons LEGIT / 1:1 alternés), compteur « 10+ MODÈLES »,
   implosion des cartes puis explosion lumineuse, ticket 245 € → 900 €+, Alo 300 € → 90 €, carte groupe 🔒→🔓 + checklist,

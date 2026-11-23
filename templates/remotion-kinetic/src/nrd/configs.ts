@@ -293,3 +293,28 @@ export const uawhiteCfg: Cfg = {
   outro: {alors: 28.32, combien: 30.32, ecris: 30.32, moi: 32.16, p1At: 32.16, revend: 32.16, p2At: 32.16, benefAt: 32.16,
     plugAt: 32.16, dmAt: 33.0, p1: '', p2: '', benef: '', img: 'full_auth.jpg', plugWord: ['UNE ', 'QUESTION'], cta: '📌 ENREGISTRE', ctaSub: 'POUR TON PROCHAIN ACHAT'},
 };
+
+// Tech Fleece aviateur — howto 4 étapes, fond étoilé, vrai à droite ; 1:1 = annonce leboncoin ; voix Kevin v4, 45,5 s ; fin → groupe privé
+export const aviateurCfg: Cfg = {
+  dir: 'aviateur', duration: 46.5, quizEnd: 34.3, mode: 'howto', product: 'TECH FLEECE AVIATEUR', theme: 'night', fx: true, fx2: true, fx3: true,
+  words: [[0, 3.38], [3.7, 4.2], [4.7, 6.1], [6.46, 9.1], [9.56, 12.1], [12.36, 13.8], [14.18, 16.4], [16.8, 18.1], [18.28, 20.2],
+    [20.58, 21.7], [22.12, 24.1], [24.38, 26.1], [26.4, 27.7], [27.66, 30.4], [31.0, 31.4], [31.4, 34.4], [34.52, 36.0], [36.24, 38.3],
+    [38.6, 40.0], [40.0, 42.1], [42.34, 43.4], [43.6, 44.0], [44.5, 45.1]],
+  intro: {q: 1.0, three: 0, counts: [0, 0, 0], celui: 0, reveal: 2.82, compte: 3.7},
+  secs: [
+    {n: 1, title: 'LA GRANDE', sub: 'POCHE', at: 4.7, end: 12.36, imgs: ['pocket_fake.jpg', 'pocket_auth.jpg'],
+      fakeAt: 6.46, fakeCap: 'LISSE & PETITE', realAt: 9.56, realCap: 'GRANDE & STRUCTURÉE', plusAt: 12.1,
+      fakeBox: [0.45, 0.05, 0.4, 0.85], realBox: [0.45, 0.05, 0.4, 0.85], stampY: 0.12},
+    {n: 2, title: "L'ÉTIQUETTE", sub: 'ROUGE', at: 12.36, end: 20.58, imgs: ['label_fake.jpg', 'label_auth.jpg'],
+      fakeAt: 14.18, fakeMarkAt: 16.8, fakeCap: 'MADE IN CHINA', realAt: 18.28, realCap: 'MADE IN CAMBODIA', plusAt: 20.3,
+      fakeBox: [0.25, 0.2, 0.5, 0.35], realBox: [0.3, 0.3, 0.4, 0.4], stampY: 0.8},
+    {n: 3, title: 'LE LOGO', at: 20.58, end: 26.4, imgs: ['logo_fake.jpg', 'logo_auth.jpg'],
+      fakeAt: 22.12, fakeMarkAt: 23.52, fakeCap: 'PETIT & LISSE', realAt: 24.38, realCap: 'BIEN NET', plusAt: 26.1,
+      fakeBox: [0.2, 0.2, 0.6, 0.35], realBox: [0.45, 0.25, 0.5, 0.35], stampY: 0.8},
+    {n: 4, title: 'LA MATIÈRE', at: 26.4, end: 34.7, imgs: ['mat_fake.jpg', 'mat_auth.jpg'],
+      fakeAt: 27.66, fakeMarkAt: 31.0, fakeCap: 'TOUCHER SYNTHÉTIQUE', realAt: 31.4, realCap: 'ÉPAIS & DOUX', plusAt: 34.0,
+      fakeBox: [0.1, 0.15, 0.8, 0.6], realBox: [0.1, 0.15, 0.8, 0.6], stampY: 0.82},
+  ],
+  outro: {alors: 34.52, combien: 34.52, ecris: 34.52, moi: 34.52, p1At: 35.54, revend: 36.24, p2At: 37.06, benefAt: 38.6,
+    plugAt: 40.0, bioAt: 42.34, dmAt: 43.6, p1: '20€', p2: '75€', benef: '+55€', img: 'full_auth.jpg', plugWord: ['🔒 MON GROUPE ', 'PRIVÉ', '']},
+};
