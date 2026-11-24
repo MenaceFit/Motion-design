@@ -318,3 +318,25 @@ export const aviateurCfg: Cfg = {
   outro: {alors: 34.52, combien: 34.52, ecris: 34.52, moi: 34.52, p1At: 35.54, revend: 36.24, p2At: 37.06, benefAt: 38.6,
     plugAt: 40.0, bioAt: 42.34, dmAt: 43.6, p1: '20€', p2: '75€', benef: '+55€', img: 'full_auth.jpg', plugWord: ['🔒 MON GROUPE ', 'PRIVÉ', '']},
 };
+
+// Hoodie Tech Fleece — quiz, authentique À GAUCHE, fond étoilé ; annonces Vinted ; voix Kevin v4, 37,5 s ; fin → groupe privé (sans prix)
+export const techhoodieCfg: Cfg = {
+  dir: 'techhoodie', duration: 38.3, quizEnd: 28.1, theme: 'night', realLeft: true, fx: true, fx2: true, fx3: true,
+  words: [[0, 0.8], [1.18, 2.14], [2.42, 3.26], [3.48, 3.9], [4.04, 4.6], [4.92, 5.5], [5.72, 6.42], [6.74, 7.38], [7.8, 9.0],
+    [9.4, 11.5], [11.76, 14.1], [14.46, 15.8], [16.24, 18.8], [19.14, 20.8], [21.38, 22.7], [23.06, 24.3], [24.52, 25.9],
+    [26.18, 27.9], [28.24, 29.18], [29.54, 30.7], [31.0, 32.7], [33.02, 34.0], [34.2, 35.2], [35.54, 37.1]],
+  intro: {q: 1.18, three: 2.42, counts: [3.48, 4.04, 4.92], celui: 5.72, reveal: 6.18, compte: 6.74},
+  secs: [
+    {n: 1, title: 'LE LOGO', at: 7.8, end: 14.46, imgs: ['logo_fake.jpg', 'logo_auth.jpg'],
+      fakeAt: 11.76, fakeCap: 'IMPRIMÉ, TOUT LISSE', realAt: 9.4, realCap: 'NET & BIEN APPLIQUÉ', plusAt: 14.1,
+      fakeBox: [0.12, 0.3, 0.76, 0.4], realBox: [0.25, 0.3, 0.5, 0.3], stampY: 0.8},
+    {n: 2, title: "L'ÉTIQUETTE", sub: 'ROUGE', at: 14.46, end: 23.06, imgs: ['label_fake.jpg', 'label_auth.jpg'],
+      fakeAt: 19.14, fakeMarkAt: 21.38, fakeCap: 'LUISANTE', realAt: 16.24, realCap: 'PROPRE & MATE', plusAt: 22.7,
+      fakeBox: [0.1, 0.15, 0.8, 0.6], realBox: [0.15, 0.1, 0.7, 0.62], stampY: 0.82},
+    {n: 3, title: 'LES CORDONS', at: 23.06, end: 28.5, imgs: ['cord_fake.jpg', 'cord_auth.jpg'],
+      fakeAt: 26.18, fakeCap: 'BEAUCOUP TROP GROS', realAt: 24.52, realCap: 'FINS', plusAt: 27.9,
+      fakeBox: [0.1, 0.15, 0.8, 0.35], realBox: [0.2, 0.25, 0.65, 0.3], stampY: 0.8},
+  ],
+  outro: {alors: 28.24, combien: 28.72, ecris: 29.54, moi: 31.0, p1At: 31.0, revend: 31.0, p2At: 31.0, benefAt: 31.0,
+    plugAt: 31.0, bioAt: 34.2, dmAt: 35.54, p1: '', p2: '', benef: '', img: 'full_auth.jpg', plugWord: ['🔒 MON GROUPE ', 'PRIVÉ', '']},
+};
