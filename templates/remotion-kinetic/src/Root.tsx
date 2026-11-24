@@ -16,7 +16,7 @@ import {LuxeFinds} from './nrd/LuxeFinds';
 import {LuxeFinds2} from './nrd/LuxeFinds2';
 import {SetsPromo} from './nrd/SetsPromo';
 import {GroupPromo} from './nrd/GroupPromo';
-import {nrdCfg, phenomCfg, techfleeceCfg, divisionCfg, underarmourCfg, underarmourHowtoCfg, thermavestCfg, thermamintCfg, aeroswiftCfg, trailCfg, phenomtokyoCfg, phenomgrisCfg, uawhiteCfg, aviateurCfg, techhoodieCfg, nrdstormCfg} from './nrd/configs';
+import {nrdCfg, phenomCfg, techfleeceCfg, divisionCfg, underarmourCfg, underarmourHowtoCfg, thermavestCfg, thermamintCfg, aeroswiftCfg, trailCfg, phenomtokyoCfg, phenomgrisCfg, uawhiteCfg, aviateurCfg, techhoodieCfg, nrdstormCfg, uahybridpantCfg} from './nrd/configs';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -91,6 +91,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="LegitHowtoAviateur" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(aviateurCfg.duration * 30)} defaultProps={{cfg: aviateurCfg}} />
     <Composition id="LegitCheckTechHoodie" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(techhoodieCfg.duration * 30)} defaultProps={{cfg: techhoodieCfg}} />
     <Composition id="LegitCheckNrdStorm" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(nrdstormCfg.duration * 30)} defaultProps={{cfg: nrdstormCfg}} />
+    <Composition id="LegitCheckUAHybridPant" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(uahybridpantCfg.duration * 30)} defaultProps={{cfg: uahybridpantCfg}} />
     <Composition id="GroupPromo" component={GroupPromo} width={1080} height={1920} fps={30} durationInFrames={1116} />
     <Composition id="SetsPromo" component={SetsPromo} width={1080} height={1920} fps={30} durationInFrames={813} />
     <Composition id="LuxeFinds2" component={LuxeFinds2} width={1080} height={1920} fps={30} durationInFrames={1266} />

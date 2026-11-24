@@ -362,3 +362,29 @@ export const nrdstormCfg: Cfg = {
   outro: {alors: 29.18, combien: 29.94, ecris: 30.78, moi: 32.18, p1At: 32.92, revend: 33.96, p2At: 34.9, benefAt: 36.14,
     plugAt: 37.3, bioAt: 39.8, dmAt: 999, p1: '45€', p2: '200€', benef: '+155€', img: 'full_auth.jpg', plugWord: ['🔒 MON GROUPE ', 'PRIVÉ', '']},
 };
+
+// Bas Under Armour hybride — quiz 4 étapes, authentique À GAUCHE, fond étoilé ; annonces Vinted ; voix Kevin v4, 50,1 s ; 38 € → 140 €
+export const uahybridpantCfg: Cfg = {
+  dir: 'uahybridpant', duration: 50.9, quizEnd: 37.95, theme: 'night', realLeft: true, fx: true, fx2: true, fx3: true,
+  words: [[0, 0.7], [1.16, 2.1], [2.48, 3.18], [3.38, 3.8], [4.08, 4.6], [4.9, 5.5], [5.62, 6.34], [6.66, 7.28], [7.68, 9.6],
+    [10.12, 13.0], [13.44, 17.3], [17.64, 18.9], [19.16, 20.7], [20.98, 22.4], [22.88, 24.3], [24.56, 27.2], [27.24, 30.1],
+    [30.36, 32.3], [32.5, 33.66], [33.96, 35.3], [35.56, 37.9], [38.08, 38.94], [39.26, 40.7], [40.9, 42.3], [42.54, 43.48],
+    [44.08, 45.54], [45.76, 48.7], [48.86, 49.8]],
+  intro: {q: 1.16, three: 2.48, counts: [3.38, 4.08, 4.9], celui: 5.62, reveal: 6.1, compte: 6.66},
+  secs: [
+    {n: 1, title: 'LA COULEUR', sub: '& LA MATIÈRE', at: 7.68, end: 17.64, imgs: ['color_fake.jpg', 'color_auth.jpg'],
+      fakeAt: 13.44, fakeCap: 'DÉLAVÉ, TISSU PLASTIQUE', realAt: 10.12, realCap: 'GRIS FONCÉ, STRETCH', plusAt: 17.2,
+      fakeBox: [0.05, 0.1, 0.9, 0.8], realBox: [0.05, 0.1, 0.9, 0.8], stampY: 0.08},
+    {n: 2, title: 'LE LOGO', at: 17.64, end: 22.88, imgs: ['logo_fake.jpg', 'logo_auth.jpg'],
+      fakeAt: 19.16, fakeCap: 'TOUT LISSE', realAt: 20.98, realCap: 'EN RELIEF', plusAt: 22.6,
+      fakeBox: [0.15, 0.3, 0.7, 0.45], realBox: [0.0, 0.45, 0.55, 0.35], stampY: 0.08},
+    {n: 3, title: 'LES POCHES', at: 22.88, end: 30.36, imgs: ['pocket_fake.jpg', 'pocket_auth.jpg'],
+      fakeAt: 27.24, fakeCap: 'FENTE MAL FINIE', realAt: 24.56, realCap: 'COUTURE PROPRE', plusAt: 30.0,
+      fakeBox: [0.25, 0.05, 0.5, 0.8], realBox: [0.05, 0.1, 0.5, 0.8], stampY: 0.85},
+    {n: 4, title: "L'ÉTIQUETTE", sub: 'INTÉRIEURE', at: 30.36, end: 38.35, imgs: ['label_fake.jpg', 'label_auth.jpg'],
+      fakeAt: 32.5, fakeMarkAt: 33.96, fakeCap: 'LETTRES BAVEUSES', realAt: 35.56, realCap: 'LETTRES NETTES', plusAt: 37.7,
+      fakeBox: [0.25, 0.1, 0.55, 0.8], realBox: [0.0, 0.42, 1.0, 0.3], stampY: [0.85, 0.12]},
+  ],
+  outro: {alors: 38.08, combien: 38.46, ecris: 39.26, moi: 40.9, p1At: 41.64, revend: 42.54, p2At: 43.18, benefAt: 44.08,
+    plugAt: 45.76, bioAt: 48.86, dmAt: 999, p1: '38€', p2: '140€', benef: '+102€', img: 'full_auth.jpg', plugWord: ['🔒 MON GROUPE ', 'PRIVÉ', '']},
+};

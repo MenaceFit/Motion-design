@@ -1,0 +1,547 @@
+[
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/typing.wav",
+  "at": 0.02,
+  "volume": 0.28
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/typing.wav",
+  "at": 1.16,
+  "volume": 0.28
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/typing.wav",
+  "at": 2.48,
+  "volume": 0.28
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/typing.wav",
+  "at": 5.62,
+  "volume": 0.28
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/typing.wav",
+  "at": 6.66,
+  "volume": 0.28
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/typing.wav",
+  "at": 38.08,
+  "volume": 0.28
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/typing.wav",
+  "at": 38.46,
+  "volume": 0.28
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/typing.wav",
+  "at": 39.26,
+  "volume": 0.28
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/typing.wav",
+  "at": 40.9,
+  "volume": 0.28
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/typing.wav",
+  "at": 42.54,
+  "volume": 0.28
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/typing.wav",
+  "at": 45.76,
+  "volume": 0.28
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 0.15,
+  "volume": 0.6
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 0.3,
+  "volume": 0.5
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/pop.wav",
+  "at": 0.5,
+  "volume": 0.5
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/pop.wav",
+  "at": 0.56,
+  "volume": 0.45
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/blipSelect_2.wav",
+  "at": 2.48,
+  "volume": 0.2
+ },
+ {
+  "src": "/home/user/Motion-design/projects/trail-legit-check/audio/soft/count_soft.wav",
+  "at": 3.38,
+  "volume": 0.45
+ },
+ {
+  "src": "/home/user/Motion-design/projects/trail-legit-check/audio/soft/count_soft.wav",
+  "at": 4.08,
+  "volume": 0.45
+ },
+ {
+  "src": "/home/user/Motion-design/projects/trail-legit-check/audio/soft/count_last.wav",
+  "at": 4.9,
+  "volume": 0.45
+ },
+ {
+  "src": "/home/user/Motion-design/projects/trail-legit-check/audio/soft/heartbeat.wav",
+  "at": 3.4,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/projects/trail-legit-check/audio/soft/heartbeat.wav",
+  "at": 4.1,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/projects/trail-legit-check/audio/soft/heartbeat.wav",
+  "at": 4.92,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/rise.wav",
+  "at": 5.2,
+  "volume": 0.2
+ },
+ {
+  "src": "/home/user/Motion-design/projects/trail-legit-check/audio/soft/reveal_bell.wav",
+  "at": 6.1,
+  "volume": 0.55
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/impact.wav",
+  "at": 6.1,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/impact.wav",
+  "at": 6.54,
+  "volume": 0.25
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/sparkle.wav",
+  "at": 6.15,
+  "volume": 0.4
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/pop.wav",
+  "at": 6.66,
+  "volume": 0.4
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 7.63,
+  "volume": 0.55
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/click_1.wav",
+  "at": 7.68,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/typing.wav",
+  "at": 7.73,
+  "volume": 0.26
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 13.44,
+  "volume": 0.3
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/error.wav",
+  "at": 13.44,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 10.12,
+  "volume": 0.3
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/pickupCoin_1.wav",
+  "at": 10.12,
+  "volume": 0.55
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/sparkle.wav",
+  "at": 10.17,
+  "volume": 0.3
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/pickupCoin_2.wav",
+  "at": 17.2,
+  "volume": 0.45
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/impact.wav",
+  "at": 13.63,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/impact.wav",
+  "at": 10.56,
+  "volume": 0.3
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/success.wav",
+  "at": 10.56,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 7.58,
+  "volume": 0.2
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 17.59,
+  "volume": 0.55
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/click_1.wav",
+  "at": 17.64,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/typing.wav",
+  "at": 17.69,
+  "volume": 0.26
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 19.16,
+  "volume": 0.3
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/error.wav",
+  "at": 19.16,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 20.98,
+  "volume": 0.3
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/pickupCoin_1.wav",
+  "at": 20.98,
+  "volume": 0.55
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/sparkle.wav",
+  "at": 21.03,
+  "volume": 0.3
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/pickupCoin_2.wav",
+  "at": 22.6,
+  "volume": 0.45
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/impact.wav",
+  "at": 19.35,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/impact.wav",
+  "at": 21.42,
+  "volume": 0.3
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/success.wav",
+  "at": 21.42,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 17.54,
+  "volume": 0.2
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 22.83,
+  "volume": 0.55
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/click_1.wav",
+  "at": 22.88,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/typing.wav",
+  "at": 22.93,
+  "volume": 0.26
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 27.24,
+  "volume": 0.3
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/error.wav",
+  "at": 27.24,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 24.56,
+  "volume": 0.3
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/pickupCoin_1.wav",
+  "at": 24.56,
+  "volume": 0.55
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/sparkle.wav",
+  "at": 24.61,
+  "volume": 0.3
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/pickupCoin_2.wav",
+  "at": 30.0,
+  "volume": 0.45
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/impact.wav",
+  "at": 27.43,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/impact.wav",
+  "at": 25.0,
+  "volume": 0.3
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/success.wav",
+  "at": 25.0,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 22.78,
+  "volume": 0.2
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 30.31,
+  "volume": 0.55
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/click_1.wav",
+  "at": 30.36,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/typing.wav",
+  "at": 30.41,
+  "volume": 0.26
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 32.5,
+  "volume": 0.3
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/error.wav",
+  "at": 33.96,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 35.56,
+  "volume": 0.3
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/pickupCoin_1.wav",
+  "at": 35.56,
+  "volume": 0.55
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/sparkle.wav",
+  "at": 35.61,
+  "volume": 0.3
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/pickupCoin_2.wav",
+  "at": 37.7,
+  "volume": 0.45
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/impact.wav",
+  "at": 34.15,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/impact.wav",
+  "at": 36.0,
+  "volume": 0.3
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/success.wav",
+  "at": 36.0,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 30.26,
+  "volume": 0.2
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 37.9,
+  "volume": 0.45
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/impact.wav",
+  "at": 38.56,
+  "volume": 0.7
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/sparkle.wav",
+  "at": 38.61,
+  "volume": 0.5
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/pop.wav",
+  "at": 39.86,
+  "volume": 0.45
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/swoosh.wav",
+  "at": 40.85,
+  "volume": 0.5
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/pop.wav",
+  "at": 40.95,
+  "volume": 0.5
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/tick.wav",
+  "at": 41.64,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/tick.wav",
+  "at": 41.72,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/tick.wav",
+  "at": 41.8,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/tick.wav",
+  "at": 41.88,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/tick.wav",
+  "at": 41.96,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/pickupCoin_3.wav",
+  "at": 42.06,
+  "volume": 0.7
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/tick.wav",
+  "at": 43.18,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/tick.wav",
+  "at": 43.26,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/tick.wav",
+  "at": 43.34,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/tick.wav",
+  "at": 43.42,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/tick.wav",
+  "at": 43.5,
+  "volume": 0.35
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/pickupCoin_1.wav",
+  "at": 43.6,
+  "volume": 0.7
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/impact.wav",
+  "at": 43.6,
+  "volume": 0.5
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/level-up.wav",
+  "at": 44.08,
+  "volume": 0.8
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/powerUp_2.wav",
+  "at": 44.1,
+  "volume": 0.45
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/pickupCoin_2.wav",
+  "at": 44.28,
+  "volume": 0.28
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/pickupCoin_2.wav",
+  "at": 44.48,
+  "volume": 0.28
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/pickupCoin_2.wav",
+  "at": 44.68,
+  "volume": 0.28
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/pickupCoin_2.wav",
+  "at": 44.88,
+  "volume": 0.28
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/jsfxr/pickupCoin_2.wav",
+  "at": 45.08,
+  "volume": 0.28
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/zzfx/pop.wav",
+  "at": 48.86,
+  "volume": 0.5
+ },
+ {
+  "src": "/home/user/Motion-design/projects/trail-legit-check/audio/soft/reveal_bell.wav",
+  "at": 48.96,
+  "volume": 0.5
+ },
+ {
+  "src": "/home/user/Motion-design/templates/remotion-kinetic/public/sfxlib/uisfx/cinematic/unlock.wav",
+  "at": 47.2,
+  "volume": 0.35
+ }
+]
