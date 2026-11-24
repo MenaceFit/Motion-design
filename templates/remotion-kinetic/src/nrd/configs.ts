@@ -340,3 +340,25 @@ export const techhoodieCfg: Cfg = {
   outro: {alors: 28.24, combien: 28.72, ecris: 29.54, moi: 31.0, p1At: 31.0, revend: 31.0, p2At: 31.0, benefAt: 31.0,
     plugAt: 31.0, bioAt: 34.2, dmAt: 35.54, p1: '', p2: '', benef: '', img: 'full_auth.jpg', plugWord: ['🔒 MON GROUPE ', 'PRIVÉ', '']},
 };
+
+// Bas NRD Storm-FIT bleu — quiz, authentique à droite, fond étoilé ; annonces Vinted ; voix Kevin v4, 41,1 s ; 45 € → 200 € ; fin → groupe privé
+export const nrdstormCfg: Cfg = {
+  dir: 'nrdstorm', duration: 41.8, quizEnd: 29.05, theme: 'night', fx: true, fx2: true, fx3: true,
+  words: [[0, 0.78], [1.1, 2.0], [2.34, 3.06], [3.3, 3.7], [3.88, 4.4], [4.74, 5.4], [5.68, 6.48], [6.82, 7.46], [7.84, 9.0],
+    [9.56, 12.2], [12.58, 14.4], [14.86, 16.5], [16.7, 18.9], [19.16, 21.4], [21.76, 23.5], [23.98, 24.78], [25.2, 26.6],
+    [26.76, 29.2], [29.18, 30.46], [30.78, 32.0], [32.18, 33.7], [33.96, 35.36], [36.14, 37.08], [37.3, 39.6], [39.8, 41.0]],
+  intro: {q: 1.1, three: 2.34, counts: [3.3, 3.88, 4.74], celui: 5.68, reveal: 6.26, compte: 6.82},
+  secs: [
+    {n: 1, title: 'LA COULEUR', at: 7.84, end: 14.86, imgs: ['color_fake.jpg', 'color_auth.jpg'],
+      fakeAt: 9.56, fakeCap: 'DEUX PARTIES VISIBLES', realAt: 12.58, realCap: 'MÊME BLEU PARTOUT', plusAt: 14.4,
+      fakeBox: [0.05, 0.4, 0.9, 0.35], realBox: [0.05, 0.3, 0.9, 0.45], stampY: 0.08},
+    {n: 2, title: 'LES DÉTAILS', sub: 'ARAIGNÉE', at: 14.86, end: 21.76, imgs: ['spider_fake.jpg', 'spider_auth.jpg'],
+      fakeAt: 16.7, fakeCap: 'APPROXIMATIFS', realAt: 19.16, realCap: 'NETS & PRÉCIS', plusAt: 21.3,
+      fakeBox: [0.1, 0.1, 0.8, 0.75], realBox: [0.1, 0.1, 0.8, 0.75], stampY: 0.85},
+    {n: 3, title: "L'ÉCRITURE", sub: "À L'INTÉRIEUR", at: 21.76, end: 29.45, imgs: ['label_fake.jpg', 'label_auth.jpg'],
+      fakeAt: 23.98, fakeMarkAt: 25.2, fakeCap: 'MADE IN CHINA', realAt: 26.76, realCap: 'MADE IN CAMBODIA', plusAt: 28.9,
+      fakeBox: [0.15, 0.5, 0.7, 0.3], realBox: [0.15, 0.55, 0.7, 0.35], stampY: 0.12},
+  ],
+  outro: {alors: 29.18, combien: 29.94, ecris: 30.78, moi: 32.18, p1At: 32.92, revend: 33.96, p2At: 34.9, benefAt: 36.14,
+    plugAt: 37.3, bioAt: 39.8, dmAt: 999, p1: '45€', p2: '200€', benef: '+155€', img: 'full_auth.jpg', plugWord: ['🔒 MON GROUPE ', 'PRIVÉ', '']},
+};
