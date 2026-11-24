@@ -1,5 +1,10 @@
 # Changelog — bibliothèque motion design
 
+## 2026-11-24 — Trouvailles #2 « 360 € → ~900 € » (LuxeFinds2) avec preuve Certilogo
+- Burberry Ramsey 125→300, Stone Island Soft Shell-R noire 150→350, Stone Island bleu marine 85→250 (+540 €).
+- Scène preuve : étiquette Certilogo (code + QR surlignés), étiquette Soft Shell-R, carte « certilogo.com — vérifiable ».
+- Photo bleu marine : filigrane Gemini (✦) recadré ; signalé à l'utilisateur. 125 SFX. QC OK.
+
 ## 2026-11-23 — Tech Fleece aviateur (howto 4 étapes, fin → groupe privé)
 - `outro.plugWord` accepte un 3ᵉ élément (suffixe, '' pour retirer le « ? ») ; nouveau `outro.bioAt` : bloc « ▲▲▲ LIEN EN BIO »
   avant le DM. Script : « Made in China » formulé « sur ce modèle » (Nike produit aussi de vrais Tech Fleece en Chine). 91 SFX. QC OK.

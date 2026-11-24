@@ -13,6 +13,7 @@ import {TeddyEpisode3} from './teddy/Episode3';
 import {LegitCheck} from './nrd/LegitCheck';
 import {PackPromo} from './nrd/PackPromo';
 import {LuxeFinds} from './nrd/LuxeFinds';
+import {LuxeFinds2} from './nrd/LuxeFinds2';
 import {SetsPromo} from './nrd/SetsPromo';
 import {GroupPromo} from './nrd/GroupPromo';
 import {nrdCfg, phenomCfg, techfleeceCfg, divisionCfg, underarmourCfg, underarmourHowtoCfg, thermavestCfg, thermamintCfg, aeroswiftCfg, trailCfg, phenomtokyoCfg, phenomgrisCfg, uawhiteCfg, aviateurCfg} from './nrd/configs';
@@ -90,6 +91,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="LegitHowtoAviateur" component={LegitCheck} width={1080} height={1920} fps={30} durationInFrames={Math.ceil(aviateurCfg.duration * 30)} defaultProps={{cfg: aviateurCfg}} />
     <Composition id="GroupPromo" component={GroupPromo} width={1080} height={1920} fps={30} durationInFrames={1116} />
     <Composition id="SetsPromo" component={SetsPromo} width={1080} height={1920} fps={30} durationInFrames={813} />
+    <Composition id="LuxeFinds2" component={LuxeFinds2} width={1080} height={1920} fps={30} durationInFrames={1266} />
     <Composition id="LuxeFinds" component={LuxeFinds} width={1080} height={1920} fps={30} durationInFrames={1185} />
     <Composition id="PackPromo" component={PackPromo} width={1080} height={1920} fps={30} durationInFrames={966} />
   </>
