@@ -1,0 +1,20 @@
+{
+  "slug": "stickman-demo",
+  "character": "man",
+  "lineColor": "#d6a94e",
+  "lightColor": "#e2ac48",
+  "glowColor": "#ffffff",
+  "frame": true,
+  "music": {"mood": "lofi", "bpm": 78, "drop": 1.2, "seed": 4, "db": -17},
+  "scenes": [
+    {"label": "Office", "set": "office", "duration": 4.2, "motion": "walk", "prop": "folder",
+     "caption": "9h. Il sourit à *tout le monde.*"},
+    {"label": "Rain", "set": "rain", "duration": 4.6, "motion": "sad",
+     "caption": "18h. Personne ne voit la *pluie.*",
+     "beats": [{"at": 2.7, "motion": "idle", "look": "up"}]},
+    {"label": "Bedroom", "set": "bedroom", "duration": 4.0, "motion": "idle", "prop": "phone", "look": "down",
+     "caption": "23h. Il répond « *ça va* »."},
+    {"label": "Park", "set": "park", "duration": 4.4, "motion": "run",
+     "caption": "6h. Il recommence. *Plus fort.*"}
+  ]
+}

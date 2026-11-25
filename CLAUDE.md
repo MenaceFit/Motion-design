@@ -33,6 +33,10 @@ Skill `prompt-to-video` : écrire `projects/<slug>/plan.json` puis
 `python3 tools/make_video.py projects/<slug>/plan.json --out renders/` (texte 3D 60 fps, voix,
 musique, SFX, mix, QC). Règles virales et contraintes de monétisation : `documentation/virality.md`.
 
+## Style « Stickman Spotlight » (bonhomme-bâton sous projecteur)
+Skill `stickman-spotlight` : `projects/<slug>/stick.json` → `python3 tools/stickman_build.py` → rendu
+`StickStory` (60 fps) → `finish.sh` → `qc_check.py --fps 60`.
+
 ## Démarrage rapide (conteneur cloud)
 ```bash
 apt-get update && apt-get install -y libttspico-utils espeak-ng sox libsox-fmt-all fonts-noto-color-emoji

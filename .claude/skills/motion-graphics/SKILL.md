@@ -51,5 +51,7 @@ et poussée caméra au changement. Vérifier toute nouvelle icône sur la planch
 - [ ] Assets 100 % originaux
 
 ## Limites
-- Personnages volontairement simples (capsule + tête) : pas de bras/visage articulés.
+- Personnages 3D volontairement simples (capsule + tête). Pour un personnage 2D **articulé qui marche/court**
+  (IK, pieds verrouillés, accessoires), utiliser le moteur de la skill `stickman-spotlight`
+  (`src/stickman/engine.ts` + `Figure.tsx`), réutilisable hors de ce style.
 - Pas d'accès Figma/Illustrator dans ce conteneur : tout est dessiné en SVG code.

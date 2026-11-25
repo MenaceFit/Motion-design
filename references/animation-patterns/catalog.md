@@ -1,4 +1,4 @@
-# Catalogue de patterns d'animation (valeurs à 30 fps)
+# Catalogue de patterns d'animation (valeurs à 30 fps sauf A17–A21 : en secondes)
 
 Chaque pattern : propriété, valeurs, durée, easing, équivalents Remotion / After Effects.
 Source = observé dans les références (ref0X) ou validé par rendu test.
@@ -21,6 +21,11 @@ Source = observé dans les références (ref0X) ou validé par rendu test.
 | A14 | **Step walk** | translation par paliers (1 pas = 10 f), chaque pas easé | 10 f/pas | easeOutExpo par pas | ref04 (recréé dans LineStory) |
 | A15 | **Palette shift climax** | teinte de fond froide → chaude | 15–30 f | ease-in-out | ref01 |
 | A16 | **Glitch accent** | décalage RGB ±6 px + slices horizontales | 2–3 f | step | ref01 (mots-clés) |
+| A17 | **Walk cycle à pieds verrouillés** | trajectoire de pied (appui linéaire au sol, balancier en arc + kick) + IK genou ; rebond bassin ±7 px ; monde avancé du déplacement du point d'appui | cycle 1,12 s (marche), 0,7 s (course) | phase intégrée, allures interpolées en 0,4 s | ref09/ref10 (déduit) — `stickman/engine.ts` |
+| A18 | **Allumage néon** | intensité 0,22 → 1 → 0,3 → 0,95 → 0,55 → 1 | 0,34 s | smoothstep entre clés | ref09/ref10 (déduit) |
+| A19 | **Révélation point par point** | dasharray `0 gap` limité aux m premiers points, cascade entre éléments | 0,9 s (sortie 0,4 s) | linéaire par élément, décalage 60 % | ref09/ref10 (déduit) |
+| A20 | **Membres lointains grisés** | bras/jambe côté lointain gris, opacité 0,55, derrière le corps | permanent | — | ref09, ref10 |
+| A21 | **Effet secondaire en retard** | queue de cheval / parapluie / mallette : sin(2π·2(phase − 0,14)) | suit le cycle | sinus déphasé | ref10 (déduit) |
 
 ## Règles de rythme short-form (déduites des 5 refs)
 - Texte : jamais immobile plus de 0,5 s sans changement (mot ou révélation).

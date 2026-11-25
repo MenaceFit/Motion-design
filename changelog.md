@@ -173,3 +173,27 @@ mouvement moyen 0,6 (Minimal Line) à 9,5 (Golden Neuro).
   (moteur « file » de `tts_voice.py`). Mots placés sur la zone voisée au prorata des syllabes (±120 ms).
 - Connecteur ElevenLabs : génération possible mais « free generations busy » aux heures chargées ; l'audio généré n'est
   pas téléchargeable depuis le conteneur (api.us.elevenlabs.io, elevenlabsusercontent.com bloqués) → passer par un fichier.
+
+## 2026-11-25 — Nouveau style « Stickman Spotlight » (bonhomme-bâton sous projecteur)
+- Références : 2 captures TikTok (ref09 OFFICE, ref10 RAIN) → fiche
+  `references/visual-styles/stickman-spotlight.md` (palette mesurée par k-means ; mouvement et son
+  **déduits**, pas mesurés : aucune vidéo fournie).
+- Nouveau moteur `templates/remotion-kinetic/src/stickman/` :
+  - `engine.ts` (pur, partagé Remotion/Node) : rig FK, 6 allures (walk, happy, sad, sneak, run, idle)
+    par trajectoires de pied + IK, pieds verrouillés, rebond du bassin, vol en course, phase intégrée,
+    allures interpolées, couches jambes/bras, 10 actions de bras, beats intra-scène, demi-tour animé,
+    événements audio exacts ;
+  - `Figure.tsx` (contour lumineux, membres lointains gris, variante femme robe + queue de cheval,
+    accessoires : dossier, parapluie, téléphone, café, mallette) ; `Sets.tsx` (5 décors pointillés
+    révélés point par point, parallaxe, sol défilant) ; `Atmosphere.tsx` (projecteur + néon, poussières,
+    pluie arrêtée par le parapluie, étiquette, cadre, légende mot à mot) ; compositions `StickStory`,
+    `StickStory30`, `StickRigTest`.
+- Audio : `tools/stickman_build.py` ; nouveaux SFX `footstep`, `footstep_wet`, `light_on`, `rain_loop`
+  (`sfx_synth.py`) ; nouvelle ambiance `lofi` (`music_gen.py`).
+- Contrôle : `scripts/stickman_check.ts` (glisse/pénétration) ; skill `stickman-spotlight`.
+- Démo `projects/stickman-demo` : 17,3 s, 60 fps, -14,0 LUFS, synchro pas médiane 12 ms ;
+  aperçu `documentation/test-renders/stickman_story_test.mp4`.
+- Erreurs trouvées et corrigées : cycle sinusoïdal → 14 px/frame de glisse (→ IK) ; genoux trop pliés
+  (bassin relevé) ; glisse de 5,6 px/frame à l'arrêt en double appui (→ verrouillage monde par pied,
+  0,014 px/frame) ; décors trop sombres ; parapluie décentré ; mots-clés multi-mots non colorés ;
+  QC en échec à cause de la cible 30 fps par défaut (→ `--fps 60`).

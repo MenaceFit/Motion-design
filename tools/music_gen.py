@@ -6,6 +6,8 @@ Ambiances (--mood) :
   hype      808 glissé + charleys en triolets + clap + nappe (énergie, faits choc, « tu savais que »)
   inspire   arpèges pluck + nappe + kick doux (motivation, conclusion positive)
   tension   pulsation grave + ostinato + risers (mystère, révélation)
+  lofi      accords 7e feutrés + kick/rim doux + charleston swingué + craquements vinyle
+            (style « Stickman Spotlight » : nuit, pluie, introspection ; 70–88 BPM)
 
 Structure : intro filtrée → (riser) → DROP au temps --drop → corps → fin.
 Sortie : music.wav (48 kHz stéréo) + music.json (BPM, temps, mesures, drop) pour caler les coupes
@@ -25,6 +27,7 @@ PROGS = {
     "hype": [[0, 3, 7], [-4, 0, 3], [-9, -5, -2], [-2, 2, 5]],       # i – VI – III – VII
     "inspire": [[-4, 0, 3], [-9, -5, -2], [-2, 2, 5], [0, 3, 7]],    # VI – III – VII – i
     "tension": [[0, 3, 7], [1, 4, 8], [0, 3, 7], [-1, 3, 6]],        # i – bII – i – vii°
+    "lofi": [[2, 5, 9, 12], [7, 11, 14, 17], [0, 4, 7, 11], [9, 12, 16, 19]],  # ii7 – V7 – Imaj7 – vi7
 }
 
 
@@ -133,11 +136,25 @@ def render(mood, bpm, duration, drop, seed, key):
                 if s % 4 == 0: place(L["bass"], k808(mtof(ch[0] - 24), beat * 0.5), t, 0.5 if after else 0.3)
                 if after and s % 2 == 1: place(L["lead"], pluck(mtof(ch[(s // 2) % 3] + 24), beat * 0.4, rng), t, 0.18)
                 if after and s in (0, 8): place(L["drums"], kick(rng, 0.7), t, 0.6)
+            if mood == "lofi":
+                sw = beat / 4 * 0.33 if s % 2 else 0.0   # swing des doubles-croches impaires
+                if after and s in (0, 7, 10): place(L["drums"], kick(rng, 0.45), t + sw, 0.5)
+                if after and s in (4, 12): place(L["drums"], fx(noise_hit(rng, 0.12, 0.02), Pedalboard([HighpassFilter(1200), LowpassFilter(5000)])), t, 0.3)
+                if after and s % 2 == 0: place(L["drums"], fx(noise_hit(rng, 0.04, 0.006), Pedalboard([HighpassFilter(6000)])), t + sw, 0.1 if s % 4 else 0.14)
+                if s in (0, 6, 11):  # accords « piano électrique » (pluck doux, voicing serré)
+                    for k, m in enumerate(ch):
+                        place(L["lead"], pluck(mtof(m), beat * 1.4, rng), t + sw + k * 0.012, 0.17 if after else 0.1)
+                if after and s in (0, 10): place(L["bass"], np.sin(2 * np.pi * mtof(ch[0] - 24) * np.arange(int(beat * 1.2 * SR)) / SR) * env(int(beat * 1.2 * SR), 0.02, 0.3), t, 0.12)
             if mood == "dark" and after and s == 0 and b % 2 == 0:
                 place(L["drums"], kick(rng, 0.3), t, 0.35)
 
+    if mood == "lofi":  # craquements vinyle sur toute la durée
+        for _ in range(int(duration * 25)):
+            i = int(rng.uniform(0, duration - 0.01) * SR)
+            L["fx"][i:i + 40] += rng.standard_normal(40) * np.exp(-np.arange(40) / 6) * rng.uniform(0.02, 0.09)
+        L["fx"] += fx(rng.standard_normal(n) * 0.006, Pedalboard([LowpassFilter(3000)]))
     # riser avant le drop + impact
-    if drop > 1.0:
+    if drop > 1.0 and mood != "lofi":
         rl = min(drop, 2 * beat * 2)
         tt = np.arange(int(rl * SR)) / SR
         r = rng.uniform(-1, 1, len(tt)) * (tt / rl) ** 2.5
@@ -145,10 +162,14 @@ def render(mood, bpm, duration, drop, seed, key):
         place(L["fx"], kick(rng, 1.0), drop, 0.6)
 
     # traitement par piste (pedalboard)
-    pad = fx(L["pad"], Pedalboard([HighpassFilter(170), LowpassFilter(2200 if mood != "hype" else 3200), Chorus(rate_hz=0.3, depth=0.3, mix=0.4), Reverb(room_size=0.85, wet_level=0.45, dry_level=0.6)]))
+    pad = fx(L["pad"], Pedalboard([HighpassFilter(170), LowpassFilter(1500 if mood == "lofi" else 2200 if mood != "hype" else 3200), Chorus(rate_hz=0.3, depth=0.3, mix=0.4), Reverb(room_size=0.85, wet_level=0.45, dry_level=0.6)]))
     lead = fx(L["lead"], Pedalboard([Reverb(room_size=0.6, wet_level=0.3)]))
     bass = fx(L["bass"], Pedalboard([LowpassFilter(400), Distortion(drive_db=4)]))
     drums = fx(L["drums"], Pedalboard([Compressor(threshold_db=-14, ratio=3, attack_ms=5, release_ms=80)]))
+    if mood == "lofi":  # bas du spectre plus sec (le kick/la basse ne doivent pas masquer les bruitages)
+        drums = fx(drums, Pedalboard([HighpassFilter(70)])) * 0.8
+        bass = fx(bass, Pedalboard([HighpassFilter(50)]))
+        pad = fx(pad, Pedalboard([HighpassFilter(140)]))
     # intro filtrée : passe-bas qui s'ouvre jusqu'au drop
     pre = int(drop * SR)
     if pre > SR // 4:

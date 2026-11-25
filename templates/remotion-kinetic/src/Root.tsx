@@ -10,6 +10,7 @@ import {TeddyEpisodeFull} from './teddy/EpisodeFull';
 import {TeddyEpisode2} from './teddy/Episode2';
 import {ProfilePic, profilePicDefaults} from './teddy/ProfilePic';
 import {TeddyEpisode3} from './teddy/Episode3';
+import {StickStory, StickRigTest, stickDefaults, durationOfPlan} from './stickman/StickStory';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -67,5 +68,11 @@ export const RemotionRoot: React.FC = () => (
       defaultProps={episodeDefaults} calculateMetadata={({props}) => ({durationInFrames: Math.ceil(props.duration * 60)})} />
     <Composition id="TeddyEp03" component={TeddyEpisode3} width={1080} height={1920} fps={60} durationInFrames={3600}
       defaultProps={episodeDefaults} calculateMetadata={({props}) => ({durationInFrames: Math.ceil(props.duration * 60)})} />
+    {/* Style « Stickman Spotlight » : personnage-bâton lumineux sous projecteur, décors pointillés (60 fps) */}
+    <Composition id="StickStory" component={StickStory} width={1080} height={1920} fps={60} durationInFrames={durationOfPlan(stickDefaults, 60)}
+      defaultProps={stickDefaults} calculateMetadata={({props}) => ({durationInFrames: durationOfPlan(props, 60)})} />
+    <Composition id="StickStory30" component={StickStory} width={1080} height={1920} fps={30} durationInFrames={durationOfPlan(stickDefaults, 30)}
+      defaultProps={stickDefaults} calculateMetadata={({props}) => ({durationInFrames: durationOfPlan(props, 30)})} />
+    <Composition id="StickRigTest" component={StickRigTest} width={1080} height={1920} fps={30} durationInFrames={60} />
   </>
 );

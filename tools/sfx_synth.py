@@ -165,11 +165,63 @@ def typewriter(rng):
     return norm(x, -8)
 
 
+
+# --- style « Stickman Spotlight » : bruitages de pas et d'éclairage ------------------------------
+def footstep(rng):
+    """Pas sur sol dur : choc grave (talon) + frottement bref (semelle)."""
+    d = 0.16; tt = t(d); n = len(tt)
+    thud = np.sin(2 * np.pi * np.cumsum(95 + 60 * np.exp(-tt * 60)) / SR) * np.exp(-tt * 38)
+    knock = lowpass(rng.standard_normal(n), 1400) * np.exp(-tt * 90)
+    scuff = bandpass_sweep(rng.standard_normal(n), 1800, 900, q=2.0) * np.exp(-((tt - 0.03) / 0.025) ** 2) * 0.35
+    return fade(norm(thud * 0.9 + knock * 0.8 + scuff, -4))
+
+
+def footstep_wet(rng):
+    """Pas dans une flaque : choc amorti + éclaboussure (bruit aigu + gouttelettes)."""
+    d = 0.32; tt = t(d); n = len(tt)
+    base = footstep(rng)
+    base = np.pad(base, (0, max(0, n - len(base))))[:n] * 0.7
+    splash = bandpass_sweep(rng.standard_normal(n), 5200, 2200, q=1.6) * np.exp(-tt * 14) * (1 - np.exp(-tt * 300))
+    drops = np.zeros(n)
+    for _ in range(5):
+        i = int(rng.uniform(0.02, 0.2) * SR); m = int(0.02 * SR)
+        if i + m < n:
+            f = rng.uniform(1800, 3200)
+            drops[i:i + m] += np.sin(2 * np.pi * np.cumsum(np.linspace(f, f * 1.6, m)) / SR) * np.exp(-np.arange(m) / (SR * .004)) * 0.4
+    return fade(norm(base + splash * 0.55 + drops, -4))
+
+
+def light_on(rng):
+    """Allumage de projecteur : clac de relais + bourdonnement électrique bref qui s'éteint."""
+    d = 0.7; tt = t(d); n = len(tt)
+    clack = lowpass(rng.standard_normal(n), 3000) * np.exp(-tt * 160) * 1.2
+    clack += np.sin(2 * np.pi * 180 * tt) * np.exp(-tt * 70) * 0.6
+    hum = sum(np.sin(2 * np.pi * 100 * k * tt + rng.uniform(0, 6)) / k for k in (1, 2, 3, 5))
+    hum = np.tanh(hum * 1.5) * np.exp(-tt * 4.5) * (1 - np.exp(-tt * 40)) * 0.35
+    flick = np.zeros(n); i = int(0.1 * SR); m = int(0.03 * SR)
+    flick[i:i + m] = rng.standard_normal(m) * np.exp(-np.arange(m) / (SR * .004)) * 0.5
+    return fade(norm(clack + hum + lowpass(flick, 4000), -5))
+
+
+def rain_loop(rng, d=10.0):
+    """Ambiance de pluie (boucle) : souffle filtré + gouttes aléatoires. Durée paramétrable."""
+    n = int(SR * d)
+    bed = lowpass(rng.standard_normal(n), 5200) - lowpass(rng.standard_normal(n), 400) * 0.4
+    bed *= 0.25 * (1 + 0.15 * np.sin(2 * np.pi * 0.13 * np.arange(n) / SR))
+    for _ in range(int(d * 45)):
+        i = int(rng.uniform(0, d - 0.03) * SR); m = int(0.012 * SR)
+        f = rng.uniform(2500, 6000)
+        bed[i:i + m] += np.sin(2 * np.pi * f * np.arange(m) / SR) * np.exp(-np.arange(m) / (SR * .002)) * rng.uniform(0.05, 0.25)
+    k = int(0.5 * SR); bed[:k] *= np.linspace(0, 1, k); bed[-k:] *= np.linspace(1, 0, k)
+    return norm(bed, -10)
+
+
 GEN = {
     "pop": pop, "click": click, "tick": tick, "whoosh_in": lambda r: whoosh(r),
     "whoosh_out": lambda r: whoosh(r, rev=True), "swish": lambda r: whoosh(r, d=.14),
     "sub_hit": sub_hit, "riser": riser, "blip_up": lambda r: blip(r, True),
     "blip_down": lambda r: blip(r, False), "glitch": glitch, "shimmer": shimmer, "typewriter": typewriter,
+    "footstep": footstep, "footstep_wet": footstep_wet, "light_on": light_on,
 }
 
 

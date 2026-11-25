@@ -13,8 +13,11 @@ watermark TikTok animé et **carte de fin TikTok de ~3–4 s** (à exclure des m
 | ref06 | (série « Hugo », J-30) | 576×1024 (9:16) | 91,8 s (~89) | 20 | 4,6 s | [Glow-up interactif](visual-styles/interactive-glow-up.md) |
 | ref07 | (série « Hugo », J-29) | 576×1024 (9:16) | 103,3 s (~99) | 21 | 4,9 s | [Glow-up interactif](visual-styles/interactive-glow-up.md) |
 | ref08 | (série « Kevin », J-30) | 576×1024 (9:16) | 80,6 s (~77) | 30 | 2,7 s | [Glow-up interactif](visual-styles/interactive-glow-up.md) |
+| ref09 | (capture TikTok « OFFICE ») | capture 564×940 | — | — | — | [Stickman Spotlight](visual-styles/stickman-spotlight.md) |
+| ref10 | (capture TikTok « RAIN ») | capture 572×948 | — | — | — | [Stickman Spotlight](visual-styles/stickman-spotlight.md) |
 
 Notes :
+- ref09/ref10 : **captures d'écran seules** (pas de vidéo ni d'audio) → aucune mesure de rythme ou de son.
 - Les 4 vidéos 16:9 sont des formats horizontaux publiés sur TikTok (bandes ou recadrage côté
   plateforme). Pour nos productions : **1080×1920 natif**, recomposer, ne pas recadrer.
 - Résolution source faible (576p) : les mesures fines (épaisseur de trait, tailles de police) sont
